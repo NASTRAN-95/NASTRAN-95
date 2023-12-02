@@ -1,0 +1,78 @@
+**++ Symbol table for subprogram SBSPL2 in file mis/sbspl2.f90
+     produced by SPAG     8.01RF-40 at 14:47:00 on  2 Dec 2023
+   0         X             K             mis/sbspl2.f90,0000002,0000206
+   1         C     / 2/  U         36   /SDR2DE/SKP,IELTYP
+   2         C     / 4/  U        192   /SDR2X4/DUMMY,IVEC,DUM11,TLOADS
+   3         C     / 3/ MU        900   /SDR2X7/EST,STRES,FORVEC
+   4         C     /10/ MU        116   /SDR2X8/EYE,I,J,NPOINT,VEC,ZOVERI,TEMP,DELTA,CVEC,CFRVEC
+   5         C     / 6/  U         28   /SDR2X9/NCHK,ISUB,ILD,FRTMEI,TWOTOP,FNCHK
+   6         C     / 4/ MU         48   /SYSTEM/IBFSZ,NOUT,IDM,LINE
+   7         C     / 1/ ??          4   /ZZZZZZ/Z
+   8         I?    ( 1)  U I            ABS
+   9         I?    ( 2)  U I            ATAN2
+  10          I        I U E            BSC
+  11    4  10 R    ( 1)CMU E       12   CFRVEC(12)
+  12    4   9 R    ( 1)C?U E        5   CVEC(5)
+  13    4   8 R        CMU E            DELTA
+  14    2   3 R    ( 1)C   E       11   DUM11(11)
+  15    2   1 R    ( 1)C   E       35   DUMMY(35)
+  16         fI    ( 1)  U E            EJECT
+     (I4E)
+  17    3   1 R    ( 1)C U E      100   EST(100)
+  18    4   1 R        CMU E            EYE
+  19          R         M  E            F1
+  20          R         MU E            FF
+  21          L         MU E            FLAG
+  22    5   6 R        C   E            FNCHK
+  23    3   3 R    ( 1)CMU E       25   FORVEC(25)
+  24          R    ( 1)IMU E        2   FRLAST(2)
+  25    5   4 R    ( 1)C U E        2   FRTMEI(2)
+  26    4   2 I        CMU E            I
+  27    6   1 I        C   E            IBFSZ
+  28    6   3 I    ( 1)C   E        9   IDM(9)
+  29    1   2 I        C U E            IELTYP
+  30    5   3 I        C U E            ILD
+  31          I    ( 1) ?? E        7   ISHED(7)
+  32          I    ( 1) MU E        2   ISTYP(2)
+  33    5   2 I        C U E            ISUB
+  34    2   2 I        C U E            IVEC
+  35    4   3 I        CMU E            J
+  36          I         MU E            JST
+  37          I         MU E            K
+  38          I         MU E            K1
+  39    6   4 I        CMU E            LINE
+  40          I        IMU E            LLD
+  41          I        IMU E            LSUB
+  42          I          U E            N1
+  43    5   1 I        C U E            NCHK
+  44          I          U E            NELID
+  45    6   2 I        C U E            NOUT
+  46    4   4 I        CMU E            NPOINT
+  47          I         MU E            NPTS
+  48          I    ( 1)  U E        1   NSIL(1)
+  49   53   1 I        A U E            NTYPE
+  50         s           U              PAGE1
+  51          I        I U E            PLT
+  52          I        I U E            QD
+  53         S     ( 2)  U        117   SBSPL2(NTYPE,TI)
+  54         s     ( 2)  U              SD2RHD
+     (I4A,I4V)
+  55          R    ( 1) MU E        3   SDELTA(3)
+  56         s     ( 4)  U              SDRCHK
+     (R4L,R4L,I4E,I4V)
+  57          R    ( 1) ?? E        1   SI(1)
+  58    1   1 R    ( 1)C   E        8   SKP(8)
+  59         s     (10)  U              SMMATS
+     (R4L,I4E,I4E,I4E,R4L,I4E,I4E,I4E,R4A,R4A)
+  60         I?    ( 1)  U I            SQRT
+  61    3   2 R    ( 1)CMU E      100   STRES(100)
+  62    4   7 R        CMU E            TEMP
+  63   53   2 R    ( 1)A U E            TI(6)
+  64    2   4 I        C U E            TLOADS
+  65          I        I U E            TR
+  66    5   5 R        C   E            TWOTOP
+  67    4   5 R    ( 1)C?U E        5   VEC(5)
+  68    7   1 R    ( 1)C?? E        1   Z(1)
+  69    4   6 R        CMU E            ZOVERI
+  70          R         MU E            ZOVI
+**-- END OF SYMBOL TABLE

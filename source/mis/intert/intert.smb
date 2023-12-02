@@ -1,0 +1,19 @@
+**++ Symbol table for subprogram INTERT in file mis/intert.f90
+     produced by SPAG     8.01RF-40 at 14:46:44 on  2 Dec 2023
+   0         X             K             mis/intert.f90,0000002,0000020
+   1    4   5 R    ( 1)AMU E            AJJ(1)
+   2          R         MU E            FRACT
+   3          I         MU E            I
+   4         S     ( 6) MU         10   INTERT(NL,NL1,NL2,NM,AJJ,TA)
+   5          I         MU E            N
+   6          I         MU E            N1
+   7          I         MU E            N2
+   8    4   1 I        A U E            NL
+   9    4   2 I        A U E            NL1
+  10    4   3 I        A U E            NL2
+  11    4   4 I        A U E            NM
+  12          R         MU E            T
+  13          R         MU E            T1
+  14          R         MU E            T2
+  15    4   6 R    ( 1)A U E            TA(1)
+**-- END OF SYMBOL TABLE

@@ -1,0 +1,78 @@
+**++ Symbol table for subprogram FRRD1F in file mis/frrd1f.f90
+     produced by SPAG     8.01RF-40 at 14:47:15 on  2 Dec 2023
+   0         X             K             mis/frrd1f.f90,0000002,0000167
+   1         C     / 1/  U          4   /SYSTEM/SYSBUF
+   2         C     / 2/ M          20   /ZBLPKX/B,JJ
+   3         C     / 4/  U         28   /ZNTPKX/A,II,IEOL,IEOR
+   4         C     / 1/ MU          4   /ZZZZZZ/CORE
+   5    3   1 R    ( 1)C U E        4   A(4)
+   6    2   1 R    ( 1)CM  E        4   B(4)
+   7   18   2 I        A U E            BHH
+   8         s     ( 5)  U              BLDPK
+     (I4E,I4E,I4V,I4E,I4E)
+   9         s     ( 3)  U              BLDPKN
+     (I4V,I4E,I4A)
+  10          R         MU E            CDEM
+  11         s     ( 2)  U              CLOSE
+     (I4V,I4E)
+  12    4   1 R    ( 1)CMU E        1   CORE(1)
+  13          R         MU E            FACTR
+  14          I         M? E            FILE
+  15         s     ( 4)  U              FREAD
+     (I4V,R4A,I4V,I4E)
+  16   18   4 I        A?? E            FRL
+  17   18   5 I        A U E            FRQSET
+  18         S     ( 9) ?U         93   FRRD1F(MHH,BHH,KHH,FRL,FRQSET,NLOAD,NFREQ,PH,UHV)
+  19         s     ( 3)  U              GOPEN
+     (I4V,R4L,I4E)
+  20          I         MU E            I
+  21          I         MU E            IB
+  22          I         MU E            IBHH
+  23          I         MU E            IBUF1
+  24          I         MU E            IBUF2
+  25    3   3 I        C U E            IEOL
+  26    3   4 I        C   E            IEOR
+  27    3   2 I        C U E            II
+  28          I         MU E            IK
+  29          I         MU E            IKHH
+  30          I         MU E            IM
+  31          I         MU E            IMHH
+  32         s     ( 5)  U              INTPK
+     (ALT,I4V,I4E,I4E,I4E)
+  33          I         M? E            IP1
+  34          I         MU E            IPNT
+  35          I         MU E            IRET
+  36          I         MU E            J
+  37    2   2 I        CM  E            JJ
+  38   18   3 I        A U E            KHH
+  39         fI    ( 1)  U E            KORSZ
+     (R4A)
+  40          I         MU E            LHSET
+  41         s     ( 5)  U              MAKMCB
+     (I4A,I4V,I4V,I4E,I4E)
+  42          I         MU E            MATNAM
+  43          I    ( 1) MU E        7   MCB(7)
+  44         s     ( 3)  U              MESAGE
+     (I4E,I4E,I4A)
+  45   18   1 I        A U E            MHH
+  46          I    ( 1)I?? E        2   NAME(2)
+  47   18   7 I        A?U E            NFREQ
+  48   18   6 I        A U E            NLOAD
+  49         s     ( 4)  U              OPEN
+     (ALT,I4V,R4L,I4E)
+  50   18   8 I        A?? E            PH
+  51          R         MU E            RATIO
+  52          R         MU E            RDEM
+  53         s     ( 1)  U              RDTRL
+     (I4A)
+  54         s     ( 2)  U              SKPREC
+     (I4V,I4E)
+  55    1   1 I        C U E            SYSBUF
+  56   18   9 I        A?? E            UHV
+  57          R         MU E            W
+  58          R         MU E            W2
+  59         s     ( 1)  U              WRTTRL
+     (I4A)
+  60         s           U              ZBLPKI
+  61         s           U              ZNTPKI
+**-- END OF SYMBOL TABLE

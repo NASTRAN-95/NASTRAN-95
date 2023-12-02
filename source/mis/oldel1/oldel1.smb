@@ -1,0 +1,24 @@
+**++ Symbol table for subprogram OLDEL1 in file mis/oldel1.f90
+     produced by SPAG     8.01RF-40 at 14:46:49 on  2 Dec 2023
+   0         X             K             mis/oldel1.f90,0000002,0000029
+   1         E                          AXIF2D
+   2         E                          AXIF2S
+   3         E                          AXIF3D
+   4         E                          AXIF3S
+   5         E                          AXIF4D
+   6         E                          AXIF4S
+   7         E                          CONED
+   8         E                          CONES
+   9         E                          ELBOWD
+  10         E                          ELBOWS
+  11         s           U              EMGOLD
+  12         E                          FLMASD
+  13         E                          FLMASS
+  14         E                          FLUD2D
+  15         E                          FLUD2S
+  16         E                          FLUD3D
+  17         E                          FLUD3S
+  18         E                          FLUD4D
+  19         E                          FLUD4S
+  20         S                      1   OLDEL1
+**-- END OF SYMBOL TABLE

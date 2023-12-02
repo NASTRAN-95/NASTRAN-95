@@ -1,0 +1,76 @@
+**++ Symbol table for subprogram DETM4 in file mis/detm4.f90
+     produced by SPAG     8.01RF-40 at 14:46:57 on  2 Dec 2023
+   0         X             K             mis/detm4.f90,0000002,0000088
+   1         C     /24/ MU        232   /DETMX/P,DETX,PS1,DET1,N2EV,IPSAV,IPS,IDET,IPDETA,PREC,U1,U2,IC,NSMOVE,L2,IS,ND,IADD,SML1,IPDETX,IPDET1,IFAIL,K,FACT1
+   2         C     /22/  U        160   /REGEAN/IM,IK,IEV,SCR1,SCR2,SCR3,SCR4,SCR5,LCORE,RMAX,RMIN,MZ,NEV,EPSI,RMINR,NE,NIT,NEVM,SCR6,SCR7,NFOUND,LAMA
+   3         C     / 1/ MU          8   /ZZZZZZ/PSAVE
+   4         ID    ( 1)  U I            DABS
+   5          D    ( 1) MU E        1   DET(1)
+   6    1   4 D    ( 1)CMU E        4   DET1(4)
+   7         s     ( 6)  U              DETDET
+     (R8L,I4L,R8L,R4V,R8E,I4E)
+   8         S                     36   DETM4
+   9         s     ( 2)  U              DETM6
+     (R8L,I4L)
+  10    1   2 D    ( 1)C   E        4   DETX(4)
+  11         ID    ( 1)  U I            DSQRT
+  12         s     ( 2)  U              EADD
+     (R8E,I4V)
+  13          R         MU E            EPS1
+  14    2  14 R        C   E            EPSI
+  15    1  24 R        C U E            FACT1
+  16          I         MU E            I
+  17    1  18 I        C U E            IADD
+  18    1  13 I        C   E            IC
+  19    1   8 I        C U E            IDET
+  20    2   3 I    ( 1)C   E        7   IEV(7)
+  21    1  22 I        C   E            IFAIL
+  22    2   2 I    ( 1)C   E        7   IK(7)
+  23    2   1 I    ( 1)C   E        7   IM(7)
+  24          I    ( 1) ?? E        1   IPDET(1)
+  25    1  21 I    ( 1)C   E        4   IPDET1(4)
+  26    1   9 I        C U E            IPDETA
+  27    1  20 I    ( 1)C   E        4   IPDETX(4)
+  28    1   7 I        C U E            IPS
+  29    1   6 I        C U E            IPSAV
+  30    1  16 I        C   E            IS
+  31    1  23 I        C   E            K
+  32    1  15 I        C   E            L2
+  33    2  22 I        C   E            LAMA
+  34    2   9 I        C   E            LCORE
+  35    2  12 I        C   E            MZ
+  36          I         MU E            N
+  37    1   5 I        C   E            N2EV
+  38          I         MU E            N2EV2
+  39    1  17 I        C U E            ND
+  40    2  16 I        C   E            NE
+  41    2  13 I        C   E            NEV
+  42    2  18 I        C   E            NEVM
+  43          I         MU E            NFND
+  44    2  21 I        C U E            NFOUND
+  45    2  17 I        C   E            NIT
+  46          I         MU E            NN
+  47          I         MU E            NND
+  48          I         MU E            NNI
+  49          I         MU E            NNP
+  50          I         MU E            NNZ
+  51    1  14 I        CMU E            NSMOVE
+  52    1   1 D    ( 1)C U E        4   P(4)
+  53    1  10 I        C?? E            PREC
+  54          D    ( 1) MU E        1   PS(1)
+  55    1   3 D    ( 1)C U E        4   PS1(4)
+  56    3   1 D    ( 1)CMU E        1   PSAVE(1)
+  57    2  10 R        C   E            RMAX
+  58    2  11 R        C   E            RMIN
+  59    2  15 R        C   E            RMINR
+  60    2   4 I        C   E            SCR1
+  61    2   5 I        C   E            SCR2
+  62    2   6 I        C   E            SCR3
+  63    2   7 I        C   E            SCR4
+  64    2   8 I        C   E            SCR5
+  65    2  19 I        C   E            SCR6
+  66    2  20 I        C   E            SCR7
+  67    1  19 R        C?? E            SML1
+  68    1  11 I        C   E            U1
+  69    1  12 I        C   E            U2
+**-- END OF SYMBOL TABLE

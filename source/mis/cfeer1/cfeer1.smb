@@ -1,0 +1,67 @@
+**++ Symbol table for subprogram CFEER1 in file mis/cfeer1.f90
+     produced by SPAG     8.01RF-40 at 14:46:56 on  2 Dec 2023
+   0         X             K             mis/cfeer1.f90,0000002,0000165
+   1         C     /10/ MU        580   /FEERAA/IK,IM,IB,DUM,SCR1,SCR2,SCR,SCR11,DUMAA,MCBLMB
+   2         C     / 5/  U         88   /FEERXC/LAMBDA,DUMXC,NOB,DUMXC2,QPR
+   3         C     / 3/  U         48   /NAMES/DUMM,CDP,SQR
+   4         C     / 3/ MU        276   /SADDX/NOMAT,NZ,MCBS
+   5         C     / 1/  U        260   /SYSTEM/KSYSTM
+   6         C     / 4/ MU         16   /UNPAKX/TYPOUT,IROW,NLAST,INCR
+   7         C     / 1/ ?U          4   /ZZZZZZ/Z
+   8          D    ( 1) M  E        2   ALPHA(2)
+   9          D    ( 1) M  E        2   BETA(2)
+  10    3   2 R        C   E            CDP
+  11         S                    109   CFEER1
+  12         s     ( 2)  U              CLOSE
+     (I4L,I4E)
+  13    1   4 R    ( 1)C   E       15   DUM(15)
+  14    1   9 R    ( 1)C   E       91   DUMAA(91)
+  15    3   1 R    ( 1)C   E       10   DUMM(10)
+  16    2   2 R    ( 1)C   E       12   DUMXC(12)
+  17    2   4 R    ( 1)C   E        4   DUMXC2(4)
+  18          D    ( 1)  U E        1   DZ(1)
+  19         s     ( 3)  U              GOPEN
+     (I4L,R4L,I4E)
+  20          I         MU E            I
+  21    1   3 I    ( 1)C U E        7   IB(7)
+  22          I         MU E            IBUF
+  23          I    ( 1) M  E        7   IFILA(7)
+  24          I    ( 1) MU E        7   IFILB(7)
+  25          I    ( 1) MU E        7   IFILC(7)
+  26    1   1 I    ( 1)C U E        7   IK(7)
+  27    1   2 I    ( 1)C U E        7   IM(7)
+  28    6   4 I        CM  E            INCR
+  29          I          U E            IPREC
+  30    6   2 I        CM  E            IROW
+  31          I         M  E            ITYPAL
+  32          I         M  E            ITYPBT
+  33          I         MU E            ITYPE
+  34          I         MU E            J
+  35         fI    ( 1)  U E            KORSZ
+     (R4A)
+  36    5   1 I    ( 1)C U E       65   KSYSTM(65)
+  37    2   1 D    ( 1)C U E        2   LAMBDA(2)
+  38          I         MU E            LIMIT
+  39    1  10 I    ( 1)CM  E        7   MCBLMB(7)
+  40    4   3 I    ( 1)C   E       67   MCBS(67)
+  41    6   3 I        CMU E            NLAST
+  42    2   3 L        C U E            NOB
+  43    4   1 I        CM  E            NOMAT
+  44          I          U E            NOUT
+  45    4   2 I        CMU E            NZ
+  46    2   5 L        C U E            QPR
+  47         s     ( 2)  U              SADD
+     (R4A,R4A)
+  48          R    ( 1) M  E        4   SALPHA(4)
+  49          R    ( 1) M  E        4   SBETA(4)
+  50    1   7 R    ( 1)C   E        8   SCR(8)
+  51    1   5 I        C U E            SCR1
+  52    1   8 I        C   E            SCR11
+  53    1   6 I        C U E            SCR2
+  54         IR    ( 1)  U I            SNGL
+  55    3   3 I        C U E            SQR
+  56    6   1 I        CM  E            TYPOUT
+  57         s     ( 3)  U              UNPACK
+     (ALT,I4L,R4A)
+  58    7   1 R    ( 1)C?U E        1   Z(1)
+**-- END OF SYMBOL TABLE

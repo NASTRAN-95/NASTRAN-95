@@ -1,0 +1,30 @@
+**++ Symbol table for subprogram ALAMDA in file mis/alamda.f90
+     produced by SPAG     8.01RF-40 at 14:47:02 on  2 Dec 2023
+   0         X             K             mis/alamda.f90,0000002,0000032
+   1         C     /10/  U         44   /BLK1/SCRK,SPS,SNS,DSTR,AI,PI,DEL,SIGMA,BETA,RES
+   2         I?    ( 1)  U I            ABS
+   3    1   5 X        C U E            AI
+   4         S     ( 3) MU         16   ALAMDA(ARG,Y,BLAMDA)
+   5    4   1 R        A U E            ARG
+   6          R         MU E            ARG1
+   7    1   9 R        C   E            BETA
+   8    4   3 X        AM  E            BLAMDA
+   9          X         MU E            C1
+  10          R         MU E            C2
+  11         IX    ( 1)  U I            CEXP
+  12         I?    ( 1)  U I            COS
+  13         I?    ( 1)  U I            COSH
+  14    1   7 R        C U E            DEL
+  15    1   4 R        C   E            DSTR
+  16          R         MU E            GAM
+  17    1   6 R        C   E            PI
+  18    1  10 R        C   E            RES
+  19          R         MU E            S1
+  20    1   1 R        C U E            SCRK
+  21          R         MU E            SCRK1
+  22    1   8 R        C U E            SIGMA
+  23    1   3 R        C U E            SNS
+  24    1   2 R        C U E            SPS
+  25         I?    ( 1)  U I            SQRT
+  26    4   2 R        A U E            Y
+**-- END OF SYMBOL TABLE

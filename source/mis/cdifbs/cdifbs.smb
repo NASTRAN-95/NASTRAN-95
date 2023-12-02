@@ -1,0 +1,59 @@
+**++ Symbol table for subprogram CDIFBS in file mis/cdifbs.f90
+     produced by SPAG     7.61RG-40 at 01:00:00 on 21 Mar 2022
+   0         X             K             mis/cdifbs.f90,0000002,0000099
+   1         C     / 2/  U         84   /CDCMPX/IDUMM,IOF
+   2         C     / 2/           188   /CINVPX/IDUM,SCRFIL
+   3         C     /11/ ??         44   /NAMES/RD,RDREW,WRT,WRTREW,REW,NOREW,EOFNRW,RSP,RDP,CSP,CDP
+   4         C     / 3/  U         24   /ZNTPKX/DA,II,EOL
+   5         s     ( 1)  U              BCKREC
+     (I4V)
+   6    7   2 R    ( 1)A?? E            BUF(1)
+   7         S     ( 2) MU         56   CDIFBS(DZ,BUF)
+   8    3  11 R        C?? E            CDP
+   9         s     ( 2)  U              CLOSE
+     (I4V,R4V)
+  10    3  10 R        C   E            CSP
+  11    4   1 D    ( 1)C U E        2   DA(2)
+  12          D         MU E            DTEMP
+  13    7   1 D    ( 1)AMU E            DZ(1)
+  14    3   7 R        C   E            EOFNRW
+  15    4   3 I        C U E            EOL
+  16         s     ( 3)  U              GOPEN
+     (I4V,R4A,R4V)
+  17          I         MU E            I
+  18          I         ?U E            IDIAG
+  19    2   1 I    ( 1)C   E       36   IDUM(36)
+  20    1   1 I    ( 1)C   E       20   IDUMM(20)
+  21         II    ( 1)  U I            IFIX
+  22    4   2 I        C U E            II
+  23          I         MU E            IN1
+  24          I         MU E            INTCHN
+  25         s     ( 5)  U              INTPK
+     (ALT,I4V,I4E,R4V,I4E)
+  26    1   2 I        C U E            IOF
+  27          I         MU E            IOFF
+  28          I         MU E            J
+  29          I         MU E            K
+  30          I         ?? E            LOWTRI
+  31         s     ( 3)  U              MESAGE
+     (I4E,I4V,I4A)
+  32          I    ( 1)I?? E        2   NAME(2)
+  33    3   6 I        C   E            NOREW
+  34          I         ?U E            NROW
+  35          I         M  E            NROW2
+  36    3   1 R        C   E            RD
+  37    3   9 R        C   E            RDP
+  38    3   2 R        C?? E            RDREW
+  39    3   5 R        C?? E            REW
+  40    3   8 R        C   E            RSP
+  41    2   2 R    ( 1)C   E       11   SCRFIL(11)
+  42         s     ( 2)  U              SKPREC
+     (I4V,I4V)
+  43         IR    ( 1)  U I            SNGL
+  44         s     ( 2)  U              SSWTCH
+     (I4E,I4V)
+  45          I         ?? E            UPRTRI
+  46    3   3 R        C   E            WRT
+  47    3   4 R        C   E            WRTREW
+  48         s           U              ZNTPKI
+**-- END OF SYMBOL TABLE

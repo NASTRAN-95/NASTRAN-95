@@ -1,0 +1,11 @@
+**++ Symbol table for subprogram DDR1 in file mis/ddr1.f90
+     produced by SPAG     8.01RF-40 at 14:47:00 on  2 Dec 2023
+   0         X             K             mis/ddr1.f90,0000002,0000019
+   1         S                      1   DDR1
+   2          I        I?? E            PHIDH
+   3          I        I?? E            SCR1
+   4         s     ( 8)  U              SSG2B
+     (I4V,I4V,I4E,I4V,I4E,I4E,I4E,I4V)
+   5          I        I?? E            UDV
+   6          I        I?? E            UHV
+**-- END OF SYMBOL TABLE

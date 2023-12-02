@@ -1,0 +1,4 @@
+!*==/home/marcusmae/nasa/nastran/SPAGged/C_SMA2IO.f90  created by SPAG 8.01RF at 14:47 on  2 Dec 2023
+MODULE C_SMA2IO
+   INTEGER, DIMENSION(36) :: Io
+END MODULE C_SMA2IO

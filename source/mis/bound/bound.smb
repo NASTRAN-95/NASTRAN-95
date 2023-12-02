@@ -1,0 +1,186 @@
+**++ Symbol table for subprogram BOUND in file mis/bound.f90
+     produced by SPAG     7.61RG-40 at 01:00:00 on 21 Mar 2022
+   0         X             K             mis/bound.f90,0000002,0000669
+   1         C     / 1/ M           4   /BLANK/NOGRAV
+   2         C     / 9/ MU         36   /FLBPTR/ERROR,ICORE,LCORE,IBGPDT,NBGPDT,ISIL,NSIL,IGRAV,NGRAV
+   3         C     / 2/ M           8   /MATIN/MATID,INFLAG
+   4         C     / 2/  U         16   /MATOUT/DUM,RHO
+   5         C     / 2/  U          8   /SYSTEM/SYSBUF,NOUT
+   6         C     / 2/  U         48   /XMSSG/UFM,UWM
+   7         C     / 1/ ?U          4   /ZZZZZZ/Z
+   8          D         MU E            A
+   9          D         MU E            AA
+  10          D         MU E            AA2
+  11          D         MU E            AEPS
+  12   20   2 D    ( 1)AM? E            AFE(48)
+  13          D         MU E            AFLEL
+  14          D         MU E            AFLSTR
+  15          D    ( 2) MU E       12   AKJ(3,4)
+  16          D         MU E            AKJCON
+  17          D         MU E            ASTREL
+  18          D         MU E            ASTRIA
+  19          D         MU E            BB
+  20         S     ( 5) MU        373   BOUND(FBREC,AFE,NAFE,KGE,NKGE)
+  21          D    ( 2) MU E       28   C(4,7)
+  22          D         MU E            C1
+  23          D         MU E            C2
+  24          D         MU E            C3
+  25          D         MU E            CC
+  26          D         MU E            CONII
+  27          D        I U E            D1
+  28          D        I U E            D2
+  29         ID    ( 1)  U I            DABS
+  30         fD    ( 2)  U E            DADOTB
+     (R8A,R8A)
+  31         fD    ( 2)  U E            DAPOLY
+     (I4V,R8A)
+  32         s     ( 3)  U              DAXB
+     (R8A,R8A,R8A)
+  33         ID    ( 1)  U I            DBLE
+  34          D         MU E            DD
+  35          D        I U E            DHALF
+  36          D        I U E            DLB
+  37         ID    ( 2)  U I            DMIN1
+  38         s     ( 2)  U              DNORM
+     (R8A,R8V)
+  39          D         MU E            DPOLY
+  40         ID    ( 1)  U I            DSQRT
+  41          D        I U E            DUB
+  42    4   1 R    ( 1)C   E        3   DUM(3)
+  43         fD    ( 2)  U E            DVMAG
+     (R8A,R8V)
+  44          D        I?U E            DZ
+  45          D    ( 2) MU E        6   E(3,2)
+  46          D    ( 1) ?? E        2   EPS(2)
+  47          D        I U E            EPSLON
+  48          D        I U E            EPSO10
+  49    2   1 L        CM  E            ERROR
+  50          D    ( 2) MU E       21   F(3,7)
+  51          D         MU E            FACTII
+  52   20   1 I    ( 1)A?U E            FBREC(12)
+  53          D         MU E            FDET
+  54          I    ( 2)I U E        8   FEDGE(2,4)
+  55          D         MU E            FII
+  56          D    ( 2) ?U E       12   FL(3,4)
+  57          I    ( 2) M? E        8   FLEDGE(2,4)
+  58          R         MU E            G
+  59          I         MU E            GF1
+  60          I         MU E            GF2
+  61          I         MU E            GF3
+  62          I         MU E            GF4
+  63         s     ( 9)  U              GMMATD
+     (R8A,I4E,I4E,I4E,R8A,I4E,I4E,I4E,R8A)
+  64          L         MU E            GRAV
+  65          I    ( 2)I U E       12   GRID(3,4)
+  66          I         MU E            GS1
+  67          I         MU E            GS2
+  68          I         MU E            GS3
+  69          I         MU E            GS4
+  70          I         MU E            GSI
+  71          I         MU E            GSJ
+  72          D         MU E            H
+  73          I         MU E            I
+  74          I         MU E            I1
+  75          I         MU E            I2
+  76    2   4 I        C U E            IBGPDT
+  77          I         MU E            ICOL
+  78    2   2 I        C   E            ICORE
+  79    2   8 I        C U E            IGRAV
+  80          I         MU E            ILOC
+  81          D    ( 1) MU E        3   IN(3)
+  82    3   2 I        CM  E            INFLAG
+  83          I         MU E            IROW
+  84    2   6 I        C   E            ISIL
+  85          I         MU E            IT
+  86          I         MU E            ITRIA
+  87          I    ( 1) MU E        1   IZ(1)
+  88          I         MU E            J
+  89          I         MU E            JLOC
+  90          D    ( 1) ?U E        3   JN(3)
+  91          I         MU E            K
+  92          I         MU E            K1LOC
+  93   20   4 D    ( 1)AMU E            KGE(144)
+  94          D    ( 1)I?? E        3   KIDENT(3)
+  95          D    ( 1) MU E      144   KII(144)
+  96          D    ( 1) MU E        9   KIK(9)
+  97          I         MU E            KK1
+  98          I         MU E            KK2
+  99          I         MU E            KLOC
+ 100          D    ( 1) ?U E        3   KN(3)
+ 101          D    ( 1) ?? E        3   KS(3)
+ 102          D    ( 1) ?U E        3   KSB(3)
+ 103          D    ( 2) ?? E        6   KTEMP(2,3)
+ 104          D    ( 2) MU E        4   KTWO(2,2)
+ 105    2   3 I        C   E            LCORE
+ 106          D         M  E            LEPS
+ 107          I         MU E            LGRAV
+ 108          I         MU E            LOC
+ 109          I    ( 1) ?U E        4   LOCFOS(4)
+ 110         s     ( 8)  U              LOCPT
+     (I4V,R8A,I4E,R8A,I4A,R8A,R8A,I4A)
+ 111          I    ( 1) ?U E        4   LOCSOF(4)
+ 112          I    ( 1) M? E        3   LOCTOF(3)
+ 113          I         MU E            M
+ 114          D         MU E            MAG
+ 115         s     ( 1)  U              MAT
+     (I4L)
+ 116    3   1 I        CM  E            MATID
+ 117          I         MU E            N
+ 118   20   3 I        AM  E            NAFE
+ 119    2   5 I        C   E            NBGPDT
+ 120    2   9 I        C U E            NGRAV
+ 121          I         MU E            NGRIDF
+ 122          I         MU E            NGRIDS
+ 123   20   5 I        AM  E            NKGE
+ 124          D         MU E            NN
+ 125          D         MU E            NN1
+ 126    1   1 I        CM  E            NOGRAV
+ 127    5   2 I        C U E            NOUT
+ 128          I         MU E            NPOLY
+ 129          I         MU E            NROW
+ 130    2   7 I        C   E            NSIL
+ 131          D         MU E            NX
+ 132          D         MU E            NZ
+ 133          D    ( 2) MU E       14   P(2,7)
+ 134         s     (10)  U              POLYPT
+     (I4A,I4A,R8A,I4V,I4A,R8A,I4A,R8A,I4V,R8A)
+ 135          D    ( 2) MU E       12   PT(3,4)
+ 136          D    ( 1) MU E        3   R12(3)
+ 137          D    ( 1) MU E        3   R13(3)
+ 138          D    ( 1) MU E        3   R14(3)
+ 139          D    ( 1) M? E        3   R24(3)
+ 140    4   2 R        C U E            RHO
+ 141          D         MU E            RHOXG
+ 142          D    ( 1) MU E       48   S(48)
+ 143         I?    ( 1)  U I            SQRT
+ 144          D    ( 1) MU E        9   SS(9)
+ 145          D    ( 2) MU E       12   ST(3,4)
+ 146          I    ( 2)I?? E        6   STEDGE(2,3)
+ 147    5   1 R        C   E            SYSBUF
+ 148          D    ( 2) ?? E        9   T(3,3)
+ 149          D    ( 2)  U E        9   TFST(3,3)
+ 150          D    ( 2) MU E        9   TR(3,3)
+ 151         s     ( 2)  U              TRANSD
+     (I4L,R8A)
+     (R4L,   )
+ 152          D         MU E            TRIA
+ 153    6   1 C*23     C U E            UFM*23
+ 154    6   2 C*25     C U E            UWM*25
+ 155          D    ( 1) ?U E        3   VTEMP(3)
+ 156          D        I   E            X1
+ 157          D        IM  E            X2
+ 158          D         M  E            X3
+ 159          D         M  E            X4
+ 160          D    ( 1) ?? E        3   Y(3)
+ 161          D        I   E            Y1
+ 162          D        I   E            Y2
+ 163          D         M  E            Y3
+ 164          D         M  E            Y4
+ 165    7   1 R    ( 1)C?U E        1   Z(1)
+ 166          D        I   E            Z1
+ 167          D        I   E            Z2
+ 168          D        I   E            Z3
+ 169          D        I   E            Z4
+ 170          D         MU E            ZZ
+ 171          D         MU E            ZZ1
+**-- END OF SYMBOL TABLE

@@ -1,0 +1,96 @@
+**++ Symbol table for subprogram SMA1B in file mis/sma1b.f90
+     produced by SPAG     7.61RG-40 at 01:00:00 on 21 Mar 2022
+   0         X             K             mis/sma1b.f90,0000002,0000141
+   1         C     / 1/             4   /BLANK/ICOM
+   2         C     / 2/  U         72   /SEM/MASK,LNKNOS
+   3         C     /10/  U         40   /SMA1BK/ICSTM,NCSTM,IGPCT,NGPCT,IPOINT,NPOINT,I6X6K,N6X6K,I6X64,N6X64
+   4         C     /14/ MU         92   /SMA1CL/IOPT4,K4GGSW,NPVT,LEFT,FROWIC,LROWIC,NROWSC,TNROWS,JMAX,NLINKS,LINK,IDETCK,DODET,NOGO
+   5         C     / 1/           400   /SMA1ET/ECPT
+   6         C     /24/  U        144   /SMA1IO/IFCSTM,IFMPT,IFDIT,IDUM1,IFECPT,IGECPT,IFGPCT,IGGPCT,IFGEI,IGGEI,IFKGG,IGKGG,IF4GG,IG4GG,IFGPST,IGGPST,INRW,OUTRW,CLSNRW,CLSRW,NEOR,EOR,MCBKGG,MCB4GG
+   7         C     / 2/  U         88   /SYSTEM/ISYS,LINKNO
+   8         C     / 1/             4   /ZZZZZZ/Z
+   9    6  19 I        C   E            CLSNRW
+  10    6  20 I        C   E            CLSRW
+  11   88   5 D        A?U E            DAMPC
+  12    4  13 R        C   E            DODET
+  13          D    ( 1) MU E        1   DZ(1)
+  14    5   1 R    ( 1)C   E      100   ECPT(100)
+  15         s     ( 5)  U              EMG1B
+     (R8A,I4V,I4V,I4V,R8V)
+  16    6  22 I        C   E            EOR
+  17    4   5 I        C U E            FROWIC
+  18          I         MU E            I
+  19          I         MU E            I1
+  20    3   9 I        C U E            I6X64
+  21    3   7 I        C U E            I6X6K
+  22         II    ( 1)  U I            IABS
+  23          I         MU E            IBASE
+  24    1   1 I        C   E            ICOM
+  25    3   1 I        C   E            ICSTM
+  26    4  12 I        C   E            IDETCK
+  27    6   4 I        C   E            IDUM1
+  28    6  13 I        C   E            IF4GG
+  29    6   1 I        C   E            IFCSTM
+  30    6   3 I        C   E            IFDIT
+  31    6   5 I        C   E            IFECPT
+  32    6   9 I        C   E            IFGEI
+  33    6   7 I        C   E            IFGPCT
+  34    6  15 I        C   E            IFGPST
+  35   88   4 I        A?U E            IFILE
+  36    6  11 I        C U E            IFKGG
+  37    6   2 I        C   E            IFMPT
+  38    6  14 I        C   E            IG4GG
+  39    6   6 I        C   E            IGECPT
+  40    6  10 I        C   E            IGGEI
+  41    6   8 I        C   E            IGGPCT
+  42    6  16 I        C   E            IGGPST
+  43    6  12 I        C   E            IGKGG
+  44    3   3 I        C U E            IGPCT
+  45   88   3 I        A?U E            II
+  46          I         MU E            INDEX
+  47    6  17 I        C   E            INRW
+  48    4   1 I        C U E            IOPT4
+  49    3   5 I        C U E            IPOINT
+  50          I         MU E            ISAVE
+  51    7   1 I    ( 1)C   E       21   ISYS(21)
+  52          I    ( 1)  U E        1   IZ(1)
+  53   88   2 I        A?U E            J
+  54          I         MU E            J1
+  55          I         MU E            J2
+  56          I         MU E            J3
+  57          I         MU E            JJ
+  58    4   9 I        C U E            JMAX
+  59          I         MU E            K
+  60          I         MU E            K1
+  61    4   2 I        C   E            K4GGSW
+  62   88   1 D    ( 1)A?U E            KE(36)
+  63          I         MU E            L
+  64          I         MU E            L1
+  65    4   4 I        C   E            LEFT
+  66          I         MU E            LIM
+  67    4  11 I    ( 1)C   E       10   LINK(10)
+  68    7   2 I        C U E            LINKNO
+  69    2   2 I    ( 1)C U E       15   LNKNOS(15)
+  70          I         MU E            LOW
+  71    4   6 I        CMU E            LROWIC
+  72    2   1 I    ( 1)C   E        3   MASK(3)
+  73    6  24 I    ( 1)C   E        7   MCB4GG(7)
+  74    6  23 I    ( 1)C   E        7   MCBKGG(7)
+  75         s     ( 3)  U              MESAGE
+     (I4E,I4E,I4V)
+  76    3  10 I        C   E            N6X64
+  77    3   8 I        C   E            N6X6K
+  78    3   2 I        C   E            NCSTM
+  79    6  21 I        C   E            NEOR
+  80    3   4 I        C U E            NGPCT
+  81    4  10 I        C   E            NLINKS
+  82    4  14 I        C   E            NOGO
+  83    3   6 I        C   E            NPOINT
+  84    4   3 I        C U E            NPVT
+  85          I         MU E            NROW
+  86    4   7 I        C U E            NROWSC
+  87    6  18 I        C   E            OUTRW
+  88         S     ( 5) ?U         62   SMA1B(KE,J,II,IFILE,DAMPC)
+  89    4   8 I        C U E            TNROWS
+  90    8   1 R    ( 1)C   E        1   Z(1)
+**-- END OF SYMBOL TABLE

@@ -1,0 +1,93 @@
+**++ Symbol table for subprogram QDPLT in file mis/qdplt.f90
+     produced by SPAG     8.01RF-40 at 14:47:20 on  2 Dec 2023
+   0         X             K             mis/qdplt.f90,0000002,0000325
+   1         C     / 1/            20   /CONDAS/CONSTS
+   2         C     / 6/ MU         24   /MATIN/MATID,INFLAG,ELTEMP,STRESS,SINTH,COSTH
+   3         C     / 4/ ?U        196   /SSGTRI/D,KHI,KS,P
+   4         C     /40/ MU       1200   /SSGWRK/A,TEMP15,PROD15,T,TITE,V,D1,D2,SPDUM1,U1,U2,SINANG,COSANG,SSUM,R,XSUBB,XSUBC,YSUBC,E,TEMP,VV1,VV2,H,A1,NPOINT,SPDUM2,IVECT,JVECT,KVECT,SPDUM3,THETA,NSUBC,SPDUM4,SUBSCA,SUBSCB,SUBSCC,SPDUM5,XC,YC,SPDUM6
+   5         C     / 1/ MU        400   /TRIMEX/ECPT
+   6         C     / 1/ MU          4   /ZZZZZZ/Z
+   7    4   1 R    ( 1)C?? E       45   A(45)
+   8    4  24 R    ( 1)CMU E        3   A1(3)
+   9         I?    ( 1)  U I            ABS
+  10    1   1 R    ( 1)C   E        5   CONSTS(5)
+  11         I?    ( 1)  U I            COS
+  12    4  13 R        CMU E            COSANG
+  13    2   6 R        CM  E            COSTH
+  14    3   1 R    ( 1)C   E        9   D(9)
+  15    4   7 R    ( 1)CMU E        3   D1(3)
+  16    4   8 R    ( 1)CMU E        3   D2(3)
+  17          R          U E            DEGRA
+  18    4  19 R    ( 1)CMU E       18   E(18)
+  19    5   1 R    ( 1)CMU E      100   ECPT(100)
+  20    2   3 R        CM  E            ELTEMP
+  21          R         MU E            FTEMP
+  22         s     ( 3)  U              GBTRAN
+     (I4L,I4L,R4L)
+  23         s     ( 9)  U              GMMATS
+     (R4A,I4E,I4E,I4E,R4A,I4E,I4E,I4E,R4A)
+  24    4  23 R        C   E            H
+  25          I         MU E            I
+  26    2   2 I        C   E            INFLAG
+  27    4  27 R    ( 1)CMU E        3   IVECT(3)
+  28          I         MU E            J
+  29    4  28 R    ( 1)CMU E        3   JVECT(3)
+  30          I         MU E            K
+  31    3   2 R    ( 1)C?? E        5   KHI(5)
+  32          I         MU E            KM
+  33    3   3 R    ( 1)C?? E       30   KS(30)
+  34    4  29 R    ( 1)CMU E        3   KVECT(3)
+  35          I         MU E            L
+  36          I    ( 1)I U E       12   M(12)
+  37    2   1 I        C   E            MATID
+  38         s     ( 3)  U              MESAGE
+     (I4E,I4E,R4L)
+  39          I    ( 1) ?U E      100   NECPT(100)
+  40    4  25 I        CMU E            NPOINT
+  41    4  32 I        CMU E            NSUBC
+  42    3   4 R    ( 1)C?U E        5   P(5)
+  43    4   3 R    ( 1)C?U E       15   PROD15(15)
+  44         S     ( 1) ??        157   QDPLT(TI)
+  45    4  15 R    ( 2)CMU E       10   R(2,5)
+  46          R    ( 1) M  E       10   REQUIV(10)
+  47         I?    ( 1)  U I            SIN
+  48    4  12 R        CMU E            SINANG
+  49    2   5 R        CMU E            SINTH
+  50    4   9 R    ( 1)C   E       18   SPDUM1(18)
+  51    4  26 R    ( 1)C   E        5   SPDUM2(5)
+  52    4  30 R    ( 1)C   E       15   SPDUM3(15)
+  53    4  33 R    ( 1)C   E        1   SPDUM4(1)
+  54    4  37 R    ( 1)C   E        2   SPDUM5(2)
+  55    4  40 R    ( 1)C   E        5   SPDUM6(5)
+  56         I?    ( 1)  U I            SQRT
+  57         s     ( 3)  U              SSGKHI
+     (R4L,R4L,R4E)
+  58    4  14 R    ( 1)CMU E       60   SSUM(60)
+  59    2   4 R        C   E            STRESS
+  60    4  34 I        CMU E            SUBSCA
+  61    4  35 I        CMU E            SUBSCB
+  62    4  36 I        CMU E            SUBSCC
+  63    4   4 R    ( 1)CM? E        9   T(9)
+  64    4  20 R        CMU E            TEMP
+  65    4   2 R    ( 1)C?? E       15   TEMP15(15)
+  66    4  31 R        CMU E            THETA
+  67   44   1 R    ( 1)A?? E            TI(6)
+  68    4   5 R    ( 1)CM? E       18   TITE(18)
+  69         s     ( 2)  U              TRBSC
+     (I4E,R4L)
+  70    4  10 R        CMU E            U1
+  71    4  11 R        CMU E            U2
+  72    4   6 R    ( 1)CMU E       25   V(25)
+  73          R    ( 1)  U E        3   VQ1(3)
+  74          R    ( 1)  U E        3   VQ2(3)
+  75          R    ( 1)  U E        3   VQ3(3)
+  76          R    ( 1)  U E        3   VQ4(3)
+  77    4  21 R    ( 1)CMU E        2   VV1(2)
+  78    4  22 R    ( 1)CMU E        2   VV2(2)
+  79    4  38 R        CM  E            XC
+  80    4  16 R        CMU E            XSUBB
+  81    4  17 R        CM  E            XSUBC
+  82    4  39 R        CM  E            YC
+  83    4  18 R        CM  E            YSUBC
+  84    6   1 R    ( 1)CMU E        1   Z(1)
+**-- END OF SYMBOL TABLE

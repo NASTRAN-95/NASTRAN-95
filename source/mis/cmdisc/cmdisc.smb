@@ -1,0 +1,82 @@
+**++ Symbol table for subprogram CMDISC in file mis/cmdisc.f90
+     produced by SPAG     8.01RF-40 at 14:46:38 on  2 Dec 2023
+   0         X             K             mis/cmdisc.f90,0000002,0000160
+   1         C     / 9/ ?U         36   /CMB001/SCR1,SCR2,SCBDAT,SCSFIL,SCCONN,SCMCON,SCTOC,GEOM4,CASECC
+   2         C     / 9/ MU         36   /CMB002/BUF1,BUF2,BUF3,BUF4,BUF5,SCORE,LCORE,INPT,OUTT
+   3         C     / 5/  U        156   /CMB003/COMBO,CONSET,IAUTO,TOLER,NPSUB
+   4         C     / 2/ M          28   /CMB004/TDAT,NIPNEW
+   5         C     / 1/ MU          4   /ZZZZZZ/Z
+   6          I    ( 1)I?? E        2   AAA(2)
+   7    2   1 R        C   E            BUF1
+   8    2   2 I        C U E            BUF2
+   9    2   3 I        C U E            BUF3
+  10    2   4 R        C   E            BUF4
+  11    2   5 R        C   E            BUF5
+  12    1   9 R        C   E            CASECC
+  13          I    ( 1) ?U E        9   CE(9)
+  14         s     ( 2)  U              CLOSE
+     (I4V,I4E)
+  15         S                    102   CMDISC
+  16    3   1 I    ( 2)C U E       35   COMBO(7,5)
+  17    3   2 R        C   E            CONSET
+  18          I    ( 1) M? E        9   DE(9)
+  19         s     ( 1)  U              EOF
+     (I4V)
+  20         s     ( 2)  U              FWDREC
+     (ALT,I4V)
+  21    1   8 R        C   E            GEOM4
+  22          I         MU E            I
+  23         II    ( 1)  U I            IABS
+  24    3   3 I        C   E            IAUTO
+  25          I         MU E            ID
+  26          I         ?? E            IFILE
+  27          I         MU E            ILEN
+  28          I         M? E            IMSG
+  29    2   8 I        C   E            INPT
+  30          I         MU E            IP
+  31          I    ( 1) MU E        7   IPTR(7)
+  32          I         MU E            ISTRT
+  33          I         MU E            ISVCOR
+  34          I         MU E            ITOT
+  35          I         MU E            J
+  36          I         MU E            KDH
+  37          I         MU E            KK
+  38    2   7 I        CMU E            LCORE
+  39          I         MU E            LEN
+  40          I         MU E            LOC
+  41         s     ( 3)  U              MESAGE
+     (I4V,I4V,I4A)
+  42          I         MU E            NCSUB
+  43    4   2 I        CM  E            NIPNEW
+  44          I         MU E            NN
+  45          I         ?? E            NNN
+  46    3   5 I        C U E            NPSUB
+  47          I         MU E            NWD
+  48         s     ( 4)  U              OPEN
+     (ALT,I4V,I4L,I4E)
+  49         fI    ( 2)  UXE            ORF
+     (I4L,I4L)
+  50    2   9 I        C   E            OUTT
+  51         s     ( 7)  U              READ
+     (ALT,ALT,I4V,I4A,I4E,I4E,I4V)
+  52         s     ( 1)  U              REWIND
+     (I4V)
+  53    1   3 R        C   E            SCBDAT
+  54    1   5 I        C?U E            SCCONN
+  55          I         M? E            SCDISC
+  56    1   6 R        C   E            SCMCON
+  57    2   6 I        CMU E            SCORE
+  58    1   1 I        C U E            SCR1
+  59    1   2 I        C U E            SCR2
+  60    1   4 I        C?? E            SCSFIL
+  61    1   7 R        C   E            SCTOC
+  62         s     ( 2)  U              SKPFIL
+     (I4V,I4E)
+  63         s     ( 6)  U              SORT
+     (I4E,I4E,I4V,I4E,I4L,I4V)
+  64    4   1 R    ( 1)C   E        6   TDAT(6)
+  65    3   4 R        C   E            TOLER
+  66         s     ( 4)  U              WRITE
+     (I4V,I4A,I4V,I4E)
+  67    5   1 I    ( 1)CMU E        1   Z(1)
+**-- END OF SYMBOL TABLE

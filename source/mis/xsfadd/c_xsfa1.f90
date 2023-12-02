@@ -1,0 +1,7 @@
+!*==/home/marcusmae/nasa/nastran/SPAGged/C_XSFA1.f90  created by SPAG 7.61RG at 01:00 on 21 Mar 2022
+MODULE C_XSFA1
+   INTEGER, DIMENSION(20) :: Comm
+   INTEGER, DIMENSION(401) :: Mf
+   INTEGER, DIMENSION(1501) :: Sos
+   INTEGER, DIMENSION(1320) :: Xfiat
+END MODULE C_XSFA1

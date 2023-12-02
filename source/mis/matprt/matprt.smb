@@ -1,0 +1,43 @@
+**++ Symbol table for subprogram MATPRT in file mis/matprt.f90
+     produced by SPAG     7.61RG-40 at 01:00:00 on 21 Mar 2022
+   0         X             K             mis/matprt.f90,0000002,0000055
+   1         C     / 6/ MU         48   /SYSTEM/BUFSIZ,MO,SKP1,MAXLIN,SKP2,COUNT
+   2         C     / 4/ M?         16   /UNPAKX/UTYPE,UI,UJ,UINC
+   3         C     / 1/            28   /XXMPRT/MCB
+   4   16   1 R    ( 1)A?? E            A(1)
+   5    1   1 I        C U E            BUFSIZ
+   6          I        I U E            CDP
+   7         s     ( 2)  U              CLOSE
+     (I4V,I4V)
+   8   16   3 I    ( 1)AMU E            COLUMN(1)
+   9    1   6 I        CM  E            COUNT
+  10          I        I U E            CSP
+  11          I         ?? E            FILE
+  12         s     ( 3)  U              GOPEN
+     (I4V,R4A,I4V)
+  13          I         ?U E            I
+  14          I        I?? E            INPREW
+  15          I          U E            J
+  16         S     ( 3) MU         20   MATPRT(A,OPTION,COLUMN)
+  17    1   4 I        C U E            MAXLIN
+  18    3   1 I    ( 1)C   E        7   MCB(7)
+  19    1   2 I        C   E            MO
+  20   16   2 I        A?? E            OPTION
+  21         E     ( 1)                 PRTMAT(COLUMN)
+  22         s     ( 2)  U              PRTVEC
+     (ALT,ALT)
+  23          I        I U E            RDP
+  24          I        I?? E            REW
+  25          I        I U E            RSP
+  26    1   3 R    ( 1)C   E        6   SKP1(6)
+  27    1   5 R    ( 1)C   E        2   SKP2(2)
+  28          I          U E            TYPE
+  29    2   2 I        CM  E            UI
+  30    2   4 I        CM  E            UINC
+  31    2   3 I        CM  E            UJ
+  32         s     ( 3)  U              UNPACK
+     (ALT,I4V,R4L)
+  33    2   1 I        CM? E            UTYPE
+  34         s     ( 6)  U              VECPRT
+     (ALT,ALT,I4V,I4V,R4L,I4V)
+**-- END OF SYMBOL TABLE

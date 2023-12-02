@@ -1,0 +1,69 @@
+**++ Symbol table for subprogram PKQDM1 in file mis/pkqdm1.f90
+     produced by SPAG     8.01RF-40 at 14:46:45 on  2 Dec 2023
+   0         X             K             mis/pkqdm1.f90,0000002,0000238
+   1         C     / 1/            20   /CONDAS/CONSTS
+   2         C     / 6/ M          24   /MATIN/MATID,INFLAG,ELTEMP,STRESS,SINTH,COSTH
+   3         C     / 2/ M         600   /PLA42C/DUMCL,NOGO
+   4         C     /29/ MU       1300   /PLA42S/DUMMY,SUM,STEMP,D1,D2,A1,A2,A3,A4,IVEC,JVEC,KVEC,VECL,H,V,ECPTSA,ST,NCOORD,NPOINT,NSUB1,NSUB2,NSUB3,T,COSANG,SINANG,U1,U2,THETA,DUMY
+   5         C     / 2/ MU       1200   /PLA4ES/ECPT,PH1OUT
+   6    4   6 R    ( 1)CMU E        3   A1(3)
+   7    4   7 R    ( 1)CM? E        3   A2(3)
+   8    4   8 R    ( 1)CM? E        3   A3(3)
+   9    4   9 R    ( 1)CM? E        3   A4(3)
+  10    1   1 R    ( 1)C   E        5   CONSTS(5)
+  11          R    ( 1)  U E       16   COORD(16)
+  12         I?    ( 1)  U I            COS
+  13    4  24 R        CMU E            COSANG
+  14    2   6 R        CM  E            COSTH
+  15    4   4 R    ( 1)CMU E        3   D1(3)
+  16    4   5 R    ( 1)CMU E        3   D2(3)
+  17          R          U E            DEGRA
+  18    3   1 R    ( 1)C   E      149   DUMCL(149)
+  19    4   1 R    ( 1)C   E      100   DUMMY(100)
+  20    4  29 R    ( 1)C   E       85   DUMY(85)
+  21    5   1 R    ( 1)CMU E      100   ECPT(100)
+  22    4  16 R    ( 1)CMU E       36   ECPTSA(36)
+  23    2   3 R        C   E            ELTEMP
+  24         s     ( 9)  U              GMMATS
+     (R4A,I4E,I4E,I4E,R4A,I4E,I4E,I4E,R4A)
+  25    4  14 R        CMU E            H
+  26          I         MU E            I
+  27    2   2 I        C   E            INFLAG
+  28    4  10 R    ( 1)CMU E        3   IVEC(3)
+  29          I         MU E            J
+  30    4  11 R    ( 1)CMU E        3   JVEC(3)
+  31          I         MU E            K
+  32    4  12 R    ( 1)CMU E        3   KVEC(3)
+  33          I    ( 1)I U E       12   M(12)
+  34    2   1 I        C   E            MATID
+  35         s     ( 3)  U              MESAGE
+     (I4E,I4E,R4L)
+  36    4  18 I        CMU E            NCOORD
+  37          I    ( 1) M  E      100   NECPT(100)
+  38          I    ( 1)  U E        4   NGRID(4)
+  39    3   2 I        CM  E            NOGO
+  40    4  19 I        CMU E            NPOINT
+  41    4  20 I        CMU E            NSUB1
+  42    4  21 I        C   E            NSUB2
+  43    4  22 I        CMU E            NSUB3
+  44    5   2 R    ( 1)CM  E      200   PH1OUT(200)
+  45         S                    107   PKQDM1
+  46         s     ( 1)  U              PKTRM1
+     (I4E)
+  47          R    ( 1) ?? E        6   R(6)
+  48          R    ( 1) ?? E       27   S(27)
+  49         I?    ( 1)  U I            SIN
+  50    4  25 R        CMU E            SINANG
+  51    2   5 R        CM  E            SINTH
+  52         I?    ( 1)  U I            SQRT
+  53    4  17 R    ( 1)CM  E        3   ST(3)
+  54    4   3 R    ( 1)C?U E        9   STEMP(9)
+  55    2   4 R        C   E            STRESS
+  56    4   2 R    ( 1)CMU E       36   SUM(36)
+  57    4  23 R    ( 1)CMU E        9   T(9)
+  58    4  28 R        CMU E            THETA
+  59    4  26 R        CMU E            U1
+  60    4  27 R        CMU E            U2
+  61    4  15 R    ( 1)CMU E        8   V(8)
+  62    4  13 R        CMU E            VECL
+**-- END OF SYMBOL TABLE

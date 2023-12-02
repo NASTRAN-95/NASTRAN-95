@@ -1,0 +1,87 @@
+**++ Symbol table for subprogram GKAD in file mis/gkad.f90
+     produced by SPAG     8.01RF-40 at 14:46:57 on  2 Dec 2023
+   0         X             K             mis/gkad.f90,0000002,0000174
+   1         C     /16/ ??         64   /BITPOS/UM,UO,UR,USG,USB,UL,UA,UF,US,UN,UG,UE,UP,UNE,UFE,UD
+   2         C     /17/ MU         80   /BLANK/TYPE,APP,FORM,G,W3,W4,IK2PP,IM2PP,IB2PP,MULTI,SINGLE,OMIT,NOUE,NOK4GG,NOBGG,NOKMGG,MODACC
+   3    2   2 I    ( 1)C U E        2   APP(2)
+   4          I         MU E            B1DD
+   5          I        IM? E            B2DD
+   6          I        I?U E            B2PP
+   7          I        I?U E            BAA
+   8          I        IMU E            BDD
+  10          D    ( 1)IM  E        5   BLOCK(5)
+  11          I        I U E            FORC
+  12    2   3 I    ( 1)C U E        2   FORM(2)
+  13    2   4 R        CMU E            G
+  14         S                    100   GKAD
+  15         s     ( 7)  U              GKAD1A
+     (I4V,I4V,I4V,I4V,R4V,R4V,R4V)
+  16         s     (11)  U              GKAD1B
+     (I4V,I4V,I4V,I4V,I4V,I4V,I4V,R4V,R4V,R4V,I4V)
+  17         s     ( 9)  U              GKAD1C
+     (I4V,I4V,I4V,I4V,I4V,I4V,I4V,I4V,I4V)
+  18         s     ( 2)  U              GKAD1D
+     (I4V,I4V)
+  19          I        I?? E            GM
+  20          I        I?? E            GMD
+  21          I        I?? E            GO
+  22          I        I?? E            GOD
+  23    2   9 I        C U E            IB2PP
+  24          I    ( 1)IM? E       11   IBLOCK(11)
+  25    2   7 I        C U E            IK2PP
+  26    2   8 I        C U E            IM2PP
+  27          I         MU E            K1DD
+  28          I        IMU E            K2DD
+  29          I        I?U E            K2PP
+  30          I         M? E            K41DD
+  31          I        I?U E            K4AA
+  32          I        I U E            KAA
+  33          I        IMU E            KDD
+  34          I         MU E            M1DD
+  35          I        IM? E            M2DD
+  36          I        I?U E            M2PP
+  37          I        I?U E            MAA
+  38          I    ( 1)IMU E        7   MCB(7)
+  39          I        IMU E            MDD
+  40    2  17 I        C U E            MODACC
+  41          I        I U E            MODAL
+  42    2  10 I        C U E            MULTI
+  43    2  15 I        C U E            NOBGG
+  44    2  14 I        C U E            NOK4GG
+  45    2  16 I        C U E            NOKMGG
+  46    2  13 I        C U E            NOUE
+  47    2  12 I        C U E            OMIT
+  48         s     ( 1)  U              RDTRL
+     (I4L)
+  49          I        I?? E            SCR1
+  50          I        I?? E            SCR2
+  51          I        IMU E            SCR3
+  52          I        IM? E            SCR4
+  53          I        I?? E            SCR5
+  54          I        I?? E            SCR6
+  55    2  11 I        C U E            SINGLE
+  56         s     ( 5)  U              SSG2C
+     (I4V,I4V,I4V,I4E,I4A)
+  57          I        I U E            TRAN
+  58    2   1 I    ( 1)C U E        2   TYPE(2)
+  59    1   7 R        C?? E            UA
+  60    1  16 R        C?? E            UD
+  61    1  12 R        C?? E            UE
+  62    1   8 R        C   E            UF
+  63    1  15 R        C   E            UFE
+  64    1  11 R        C   E            UG
+  65    1   6 R        C   E            UL
+  66    1   1 R        C   E            UM
+  67    1  10 R        C?? E            UN
+  68    1  14 R        C?? E            UNE
+  69    1   2 R        C   E            UO
+  70    1  13 R        C   E            UP
+  71    1   3 R        C   E            UR
+  72    1   9 R        C   E            US
+  73    1   5 R        C   E            USB
+  74          I        I?? E            USETD
+  75    1   4 R        C   E            USG
+  76    2   5 R        CMU E            W3
+  77    2   6 R        CMU E            W4
+  78          R        IMU E            XNUM
+**-- END OF SYMBOL TABLE

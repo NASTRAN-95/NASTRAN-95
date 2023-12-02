@@ -1,0 +1,14 @@
+**++ Symbol table for subprogram IUNION in file mis/iunion.f90
+     produced by SPAG     8.01RF-40 at 14:46:51 on  2 Dec 2023
+   0         X             K             mis/iunion.f90,0000002,0000056
+   1          I         MU E            I
+   2    5   1 I        A U E            I1
+   3    5   2 I        A U E            I2
+   4          I         MU E            II
+   5         FI    ( 2) MU E       32   IUNION(I1,I2)
+   6          I         MU E            J
+   7          I    ( 2) MU E       12   K(6,2)
+   8          I    ( 1) MU E        6   KK(6)
+   9          I         MU E            L
+  10          I         MU E            R
+**-- END OF SYMBOL TABLE

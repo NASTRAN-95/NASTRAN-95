@@ -1,0 +1,16 @@
+**++ Symbol table for subprogram SQRTM in file mis/sqrtm.f90
+     produced by SPAG     8.01RF-40 at 14:46:55 on  2 Dec 2023
+   0         X             K             mis/sqrtm.f90,0000002,0000034
+   1   12   1 D        AMU E            A
+   2   12   3 D        A U E            B
+   3         ID    ( 1)  U I            DABS
+   4         E     ( 2)                 DETM6(DETSW,IPSW)
+   5          D    ( 1)AMU E        1   DETSW(1)
+   6         ID    ( 2)  U I            DMAX1
+   7         ID    ( 1)  U I            DSQRT
+   8   12   2 I        AMU E            IA
+   9   12   4 I        A U E            IB
+  10          I    ( 1)AMU E        1   IPSW(1)
+  11         I?    ( 2)  U I            MOD
+  12         S     ( 4) MU         19   SQRTM(A,IA,B,IB)
+**-- END OF SYMBOL TABLE

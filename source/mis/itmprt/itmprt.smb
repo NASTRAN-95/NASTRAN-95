@@ -1,0 +1,85 @@
+**++ Symbol table for subprogram ITMPRT in file mis/itmprt.f90
+     produced by SPAG     8.01RF-40 at 14:46:43 on  2 Dec 2023
+   0         X             K             mis/itmprt.f90,0000002,0000253
+   1         C     / 1/  U          4   /MACHIN/MACHX
+   2         C     / 2/ M         768   /OUTPUT/HEAD1,HEAD2
+   3         C     / 7/ MU        152   /SYSTEM/SYSBUF,OTPE,INX,NLPP,INX1,LINE,INX2
+   4         C     / 1/           128   /TWO/TWO1
+   5         C     / 2/  U         48   /XMSSG/UFM,UWM
+   6         C     / 1/ MU          4   /ZZZZZZ/CORE
+   7          R        I U E            ALPHC
+   8          R        I U E            ALPHC1
+   9          R        I U E            BGSS
+  10          R        I U E            BLANK
+  11          C*1  ( 1) ?? E     2000   CCORE(2000)*1
+  12         s     ( 7)  U              CMIWRT
+     (I4E,R4A,R4A,I4V,I4V,R4A,I4A)
+     (   ,   ,I4E,   ,   ,   ,   )
+  13          R        I U E            CONT
+  14    6   1 R    ( 1)CMU E        1   CORE(1)
+  15          R        I U E            CPAREN
+  16          R        I U E            CSTM
+  17          R        I U E            D
+  18          R        I U E            EC
+  19          R        I U E            EC1
+  20          R        I U E            EC2
+  21          R        I U E            EQSS
+  22          R         ?? E            FLAG
+  23    2   1 R    ( 1)C   E       96   HEAD1(96)
+  24    2   2 R    ( 1)CM  E       96   HEAD2(96)
+  25          I         MU E            I
+  26          I         M? E            ICODE
+  27          I         MU E            ICOMP
+  28          I    ( 1) MU E        4   ICORE(4)
+  29          I        I U E            INTGC
+  30          I         MU E            INUM
+  31    3   3 I    ( 1)C   E        6   INX(6)
+  32    3   5 I    ( 1)C   E        2   INX1(2)
+  33    3   7 I    ( 1)C   E       26   INX2(26)
+  34   40   4 I        A U E            IOPT
+  35          I         MU E            IOUT
+  36          I         MU E            IREC
+  37          I         MU E            IST
+  38   40   2 R        A?U E            ITEM
+  39          R        I U E            ITM
+  40         S     ( 4) ?U        171   ITMPRT(NAME,ITEM,NZ,IOPT)
+  41          I         MU E            IV
+  42          I         MU E            IX
+  43          I         M? E            LEFT
+  44    3   6 I        CMU E            LINE
+  45          I         MU E            LLEN
+  46          R        I U E            LOAP
+  47          R        I U E            LODS
+  48    1   1 I        C U E            MACHX
+  49   40   1 R    ( 1)A?U E            NAME(2)
+  50          I         MU E            NGRD
+  51    3   4 I        C U E            NLPP
+  52          I         ?U E            NOUT
+  53          I         MU E            NP
+  54          I         MU E            NRED
+  55          I         MU E            NS
+  56          I         MU E            NSUB
+  57         fI    ( 1)  U E            NUMTYP
+     (R4L)
+  58   40   3 I        A?U E            NZ
+  59          R        I U E            OPAREN
+  60    3   2 I        C U E            OTPE
+  61         s           U              PAGE
+  62          R        I U E            PLTS
+  63          I         ?U E            RC
+  64         s     ( 4)  U              SFETCH
+     (R4A,R4V,I4E,I4V)
+  65         s     ( 1)  U              SJUMP
+     (I4V)
+  66          R    ( 1)I U E        3   SUBS(3)
+  67         s     ( 4)  U              SUREAD
+     (R4L,I4E,I4V,I4V)
+     (   ,   ,R4V,   )
+  68    3   1 I        C   E            SYSBUF
+  69    4   1 I    ( 1)C   E       32   TWO1(32)
+  70    5   1 C*23     C   E            UFM*23
+  71          R        I U E            UNED
+  72    5   2 C*25     C U E            UWM*25
+  73         s     ( 3)  U              WRTFMT
+     (I4L,I4E,C1A)
+**-- END OF SYMBOL TABLE

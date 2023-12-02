@@ -1,0 +1,399 @@
+**++ Symbol table for subprogram KTSHLS in file mis/ktshls.f90
+     produced by SPAG     7.61RG-40 at 01:00:00 on 21 Mar 2022
+   0         X             K             mis/ktshls.f90,0000002,0000941
+   1         C     / 3/  U         12   /BLANK/NOK,NOM,NOB
+   2         C     / 5/  U         20   /EMGDIC/ELTYPE,LDICT,NLOCS,ELID,ESTID
+   3         C     / 1/  U        400   /EMGEST/EST
+   4         C     / 7/ M?         80   /EMGPRM/IXTRA,IZR,NZR,DUMY,KMBGG,IPREC,NOGO
+   5         C     / 6/ MU         24   /MATIN/MATID,MATFLG,ELTEMP,PLA34,SINTH,COSTH
+   6         C     /11/  U         72   /MATOUT/EM,RHOY,ALF,TREF,GSUBE,SIGTY,SIGCY,SIGSY,RJ11,RJ12,RJ22
+   7         C     / 2/ M          92   /SMA1CL/KDUMMY,KNOGO
+   8         C     / 5/ MU       1268   /SMA1DP/F,Q,EE,CSUBT,CSUB
+   9         C     /20/ MU       1052   /SMA2DP/TRAND,BALOTR,KSUB,KSUBT,FAC,XC,YC,ZC,IVECT,JVECT,KVECT,CC,CAB,DICT,SIL,SAVE,SMALL,INDEX,ICS,NL
+  10         C     / 1/           260   /SYSTEM/KSYSTM
+  11         C     / 1/  U         23   /XMSSG/UFM
+  12          R         ?U E            A
+  13          R         ?U E            A1
+  14          R         MU E            A1SQ
+  15          R         ?U E            A2
+  16          R         MU E            A2SQ
+  17          R         ?U E            A3
+  18          R         MU E            A3SQ
+  19         I?    ( 1)  U I            ABS
+  20         s     (12)  U              AF
+     (R4A,I4E,R4V,R4V,R4V,I4E,I4E,I4E,I4E,I4E,I4E,I4E)
+     (   ,   ,   ,   ,   ,R4V,R4V,R4V,R4V,R4V,R4V,   )
+  21    6   3 R    ( 1)C   E        3   ALF(3)
+  22          R         MU E            AMASS
+  23          R         MU E            AREA
+  24          R         ?U E            B
+  25    9   2 R    ( 1)CM? E       36   BALOTR(36)
+  26          R        I U E            BLANK
+  27          R         ?U E            C
+  28          R         MU E            C1
+  29          R         M  E            C10
+  30          R         MU E            C2
+  31          R         MU E            C3
+  32          R         M  E            C4
+  33          R         M  E            C5
+  34          R         M  E            C6
+  35          R         M  E            C7
+  36          R         M  E            C8
+  37          R         M  E            C9
+  38    9  13 R    ( 1)CMU E        3   CAB(3)
+  39    9  12 R    ( 1)C U E       10   CC(10)
+  40          R    ( 2) MU E      900   CM1(30,30)
+  41          R    ( 1) M  E      900   CMS(900)
+  42          R    ( 1) M? E     1296   CMT(1296)
+  43         I?    ( 1)  U I            COS
+  44    5   6 R        CM  E            COSTH
+  45    8   5 R    ( 2)CM? E       25   CSUB(5,5)
+  46    8   4 R    ( 2)C?? E       30   CSUBT(6,5)
+  47          R    ( 2) MU E     1296   CTM(36,36)
+  48          R         MU E            D11
+  49          R         MU E            D12
+  50          R         MU E            D13
+  51          R         MU E            D132
+  52          R         MU E            D22
+  53          R         MU E            D23
+  54          R         MU E            D232
+  55          R         MU E            D33
+  56          R         MU E            D334
+  57          R        I U E            DEGRA
+  58          R         ?? E            DETERM
+  59    9  14 I    ( 1)CM? E       15   DICT(15)
+  60          R            E            DISTA
+  61          R            E            DISTB
+  62          R            E            DISTC
+  63    4   4 R    ( 1)C   E       12   DUMY(12)
+  64    8   3 R    ( 1)CM? E       30   EE(30)
+  65    2   4 I        C   E            ELID
+  66    5   3 R        CM  E            ELTEMP
+  67    2   1 I        C   E            ELTYPE
+  68    6   1 R    ( 1)C U E        6   EM(6)
+  69         s     ( 7)  U              EMGOUT
+     (R4L,R4L,I4E,I4E,I4A,I4V,I4V)
+  70    3   1 R    ( 1)C U E      100   EST(100)
+  71    2   5 I        C U E            ESTID
+  72    8   1 R    ( 2)C?U E      196   F(14,14)
+  73    9   5 R        C   E            FAC
+  74          R         MU E            G11
+  75          R         MU E            G12
+  76          R         MU E            G13
+  77          R         MU E            G22
+  78          R         MU E            G23
+  79          R         MU E            G33
+  80         s     ( 9)  U              GMMATS
+     (R4A,I4E,I4E,I4E,R4A,I4E,I4E,I4E,R4A)
+  81    6   5 R        C U E            GSUBE
+  82          R         MU E            H4
+  83          R         MU E            H5
+  84          R         MU E            H6
+  85          I         MU E            I
+  86          I         MU E            I1
+  87          I         MU E            I2
+  88          I         MU E            I3
+  89          I         MU E            ICODE
+  90    9  19 I    ( 1)CMU E        6   ICS(6)
+  91          I         M? E            IDELE
+  92          I    ( 1) ?U E       42   IEST(42)
+  93          I         MU E            II
+  94          I         MU E            IJ
+  95          I         MU E            IJK
+  96          L         MU E            IMASS
+  97          I    ( 2) ?? E       18   IND(6,3)
+  98    9  18 I    ( 2)C?? E       60   INDEX(20,3)
+  99         s     ( 8)  U              INVERS
+     (I4E,R4A,I4E,R4L,I4E,R4V,I4V,I4A)
+ 100          I          U E            IOUTPT
+ 101          I         MU E            IPASS
+ 102    4   6 I        C?? E            IPREC
+ 103          I         MU E            ISING
+ 104          I         MU E            ISM
+ 105          I         MU E            ISMALL
+ 106    9   9 R    ( 1)C?U E        3   IVECT(3)
+ 107          I         MU E            IX
+ 108          I         MU E            IX0
+ 109          I         MU E            IX01
+ 110          I         MU E            IX011
+ 111          I         MU E            IX1
+ 112          I         MU E            IXIY0
+ 113          I         MU E            IXKY0
+ 114          I         MU E            IXKY1
+ 115          I         MU E            IXKY2
+ 116          I         MU E            IXMYR
+ 117          I         MU E            IXMYR1
+ 118          I         M  E            IXP1
+ 119          I         MU E            IXR01
+ 120          I         MU E            IXR1
+ 121    4   1 I        C   E            IXTRA
+ 122          I         MU E            IY
+ 123          I         MU E            IYKX0
+ 124          I         MU E            IYKX1
+ 125          I         MU E            IYKX2
+ 126          I         MU E            IYMXR
+ 127    4   2 I        C   E            IZR
+ 128          I         MU E            J
+ 129          I         MU E            J1
+ 130          R         M  E            J11
+ 131          R         M  E            J12
+ 132          R         M  E            J22
+ 133          I         MU E            JI
+ 134          I         MU E            JJ
+ 135    9  10 R    ( 1)C?U E        3   JVECT(3)
+ 136          I         MU E            JX
+ 137          I         MU E            JX0
+ 138          I         MU E            JX01
+ 139          I         MU E            JX011
+ 140          I         MU E            JX1
+ 141          I         MU E            JXJY0
+ 142          I         MU E            JXLY0
+ 143          I         MU E            JXLY1
+ 144          I         MU E            JXLY2
+ 145          I         MU E            JXNYS
+ 146          I         MU E            JXNYS1
+ 147          I         M  E            JXP1
+ 148          I         MU E            JXS01
+ 149          I         MU E            JXS1
+ 150          I         MU E            JY
+ 151          I         MU E            JYLX0
+ 152          I         MU E            JYLX1
+ 153          I         MU E            JYLX2
+ 154          I         MU E            JYNXS1
+ 155          I         MU E            K
+ 156          I         MU E            K1
+ 157          I         MU E            K2
+ 158    7   1 I    ( 1)C   E       22   KDUMMY(22)
+ 159    4   5 I    ( 1)C   E        3   KMBGG(3)
+ 160    7   2 I        CM  E            KNOGO
+ 161          R    ( 1) MU E     1024   KSHL(1024)
+ 162    9   3 R    ( 2)C U E       36   KSUB(6,6)
+ 163    9   4 R    ( 2)C   E       36   KSUBT(6,6)
+ 164          R    ( 1) M? E       36   KSUP(36)
+ 165          R    ( 1) ?U E       36   KSUPT(36)
+ 166   10   1 I    ( 1)C   E       65   KSYSTM(65)
+ 167         S                    712   KTSHLS
+ 168    9  11 R    ( 1)C?U E        3   KVECT(3)
+ 169          I         MU E            KX
+ 170          I         MU E            KX0
+ 171          I         MU E            KX01
+ 172          I         MU E            KX1
+ 173          I         MU E            KXKY0
+ 174          I         MU E            KXMYR
+ 175          I         MU E            KXMYR1
+ 176          I         M  E            KXP1
+ 177          I         MU E            KXR01
+ 178          I         MU E            KXR1
+ 179          I         MU E            KY
+ 180          I         MU E            L
+ 181          I         MU E            L1
+ 182    2   2 I        C   E            LDICT
+ 183          I         MU E            LX
+ 184          I         MU E            LX0
+ 185          I         MU E            LX01
+ 186          I         MU E            LX1
+ 187          I         MU E            LXLY0
+ 188          I         MU E            LXNYS
+ 189          I         MU E            LXNYS1
+ 190          I         M  E            LXP1
+ 191          I         MU E            LXS01
+ 192          I         MU E            LXS1
+ 193          I         MU E            LY
+ 194          I         MU E            M
+ 195         s     ( 1)  U              MAT
+     (I4V)
+ 196    5   2 I        CM  E            MATFLG
+ 197    5   1 I        CM  E            MATID
+ 198          I         MU E            MATID1
+ 199          I         MU E            MATID2
+ 200          I         MU E            MATID3
+ 201          R    ( 1) MU E     1024   MSHL(1024)
+ 202          I         MU E            MX
+ 203          I         MU E            MX0
+ 204          I         MU E            MX01
+ 205          I         MU E            MX011
+ 206          I         MU E            MX0X
+ 207          I         MU E            MX1
+ 208          I         MU E            MX1X
+ 209          I         MU E            MX2
+ 210          I         MU E            MX2X
+ 211          I         MU E            MX3
+ 212          I         MU E            MX3X
+ 213          I         MU E            MXIYR
+ 214          I         MU E            MXIYR1
+ 215          I         MU E            MXKYR
+ 216          I         MU E            MXKYR1
+ 217          I         MU E            MXMYR1
+ 218          I         M  E            MXP1
+ 219          I         MU E            MY
+ 220          I         MU E            MY1
+ 221          I         MU E            MY1X
+ 222          I    ( 1)I?? E        2   NAME(2)
+ 223          I         MU E            NDOF
+ 224    9  20 I    ( 1)CMU E        6   NL(6)
+ 225    2   3 I        C   E            NLOCS
+ 226    1   3 I        C   E            NOB
+ 227    4   7 L        CM  E            NOGO
+ 228    1   1 I        C   E            NOK
+ 229    1   2 I        C U E            NOM
+ 230          L         MU E            NOTS
+ 231          R         MU E            NSM
+ 232          I         M  E            NSQ
+ 233          I         MU E            NX
+ 234          I         MU E            NX0
+ 235          I         MU E            NX01
+ 236          I         MU E            NX011
+ 237          I         MU E            NX0Y
+ 238          I         MU E            NX1
+ 239          I         MU E            NX1Y
+ 240          I         MU E            NX2
+ 241          I         MU E            NX2Y
+ 242          I         MU E            NX3
+ 243          I         MU E            NX3Y
+ 244          I         MU E            NXJYS
+ 245          I         MU E            NXJYS1
+ 246          I         MU E            NXLYS
+ 247          I         MU E            NXLYS1
+ 248          I         MU E            NXNYS1
+ 249          I         M  E            NXP1
+ 250          I         MU E            NY
+ 251          I         MU E            NY1
+ 252          I         MU E            NY1Y
+ 253    4   3 I        C   E            NZR
+ 254    5   4 R        C   E            PLA34
+ 255    8   2 R    ( 2)CMU E       36   Q(6,6)
+ 256          R    ( 1) ?U E      960   QKS(960)
+ 257          R    ( 2) MU E      400   QQQ(20,20)
+ 258          R    ( 1) M? E      360   QQQINV(360)
+ 259          R         MU E            RHO
+ 260    6   2 R        C U E            RHOY
+ 261          R         MU E            RIX
+ 262          R         MU E            RIY
+ 263    6   9 R        C U E            RJ11
+ 264    6  10 R        C   E            RJ12
+ 265    6  11 R        C U E            RJ22
+ 266          R         MU E            RJX
+ 267          R         MU E            RJY
+ 268          I    ( 1)I U E        3   RK(3)
+ 269          R         MU E            RKX
+ 270          R         MU E            RKY
+ 271          R         MU E            RLX
+ 272          R         MU E            RLY
+ 273          R         MU E            RMNX
+ 274          R         MU E            RMNY
+ 275          R         MU E            RMX
+ 276          R         MU E            RMX1
+ 277          R         MU E            RMY
+ 278          R         MU E            RMY1
+ 279          R         MU E            RNX
+ 280          R         MU E            RNX1
+ 281          R         MU E            RNY
+ 282          R         MU E            RNY1
+ 283          R         MU E            S11
+ 284          R         MU E            S13
+ 285          R         MU E            S22
+ 286          R         MU E            S23
+ 287          R         MU E            S33
+ 288    9  16 I    ( 1)CMU E        6   SAVE(6)
+ 289          R         MU E            SB1
+ 290          R         MU E            SB10
+ 291          R         MU E            SB11
+ 292          R         MU E            SB12
+ 293          R         MU E            SB13
+ 294          R         MU E            SB14
+ 295          R         MU E            SB15
+ 296          R         MU E            SB16
+ 297          R         MU E            SB17
+ 298          R         MU E            SB18
+ 299          R         MU E            SB19
+ 300          R         MU E            SB2
+ 301          R         MU E            SB20
+ 302          R         MU E            SB21
+ 303          R         MU E            SB22
+ 304          R         MU E            SB23
+ 305          R         MU E            SB24
+ 306          R         MU E            SB25
+ 307          R         MU E            SB26
+ 308          R         MU E            SB27
+ 309          R         MU E            SB28
+ 310          R         MU E            SB29
+ 311          R         MU E            SB3
+ 312          R         MU E            SB30
+ 313          R         MU E            SB31
+ 314          R         MU E            SB32
+ 315          R         MU E            SB33
+ 316          R         MU E            SB34
+ 317          R         MU E            SB35
+ 318          R         MU E            SB36
+ 319          R         MU E            SB37
+ 320          R         MU E            SB38
+ 321          R         MU E            SB39
+ 322          R         MU E            SB4
+ 323          R         MU E            SB40
+ 324          R         MU E            SB41
+ 325          R         MU E            SB5
+ 326          R         MU E            SB6
+ 327          R         MU E            SB7
+ 328          R         MU E            SB8
+ 329          R         MU E            SB9
+ 330    6   7 R        C   E            SIGCY
+ 331    6   8 R        C   E            SIGSY
+ 332    6   6 R        C   E            SIGTY
+ 333    9  15 I    ( 1)C   E        6   SIL(6)
+ 334          I         MU E            SIL1
+ 335          I         MU E            SIL2
+ 336         I?    ( 1)  U I            SIN
+ 337    5   5 R        CMU E            SINTH
+ 338          I    ( 1)I U E        3   SK(3)
+ 339    9  17 I    ( 1)CMU E        6   SMALL(6)
+ 340          R         MU E            ST
+ 341          R         MU E            ST1
+ 342          R         MU E            ST11
+ 343          R         MU E            ST121
+ 344          R         MU E            ST122
+ 345          R         MU E            ST131
+ 346          R         MU E            ST132
+ 347          R         MU E            ST133
+ 348          R         MU E            ST22
+ 349          R         MU E            ST231
+ 350          R         MU E            ST232
+ 351          R         MU E            ST233
+ 352          R         MU E            ST331
+ 353          R         MU E            ST332
+ 354          R         MU E            TBEND1
+ 355          R         MU E            TBEND3
+ 356          R         MU E            TBEND5
+ 357          R         MU E            THETA1
+ 358          R         MU E            THETAM
+ 359          R         ?? E            THK1
+ 360          R         ?? E            THK2
+ 361          R         ?? E            THK3
+ 362          R         MU E            TMEM1
+ 363          R         MU E            TMEM3
+ 364          R         MU E            TMEM5
+ 365    9   1 R    ( 1)C?U E        9   TRAND(9)
+ 366         s     ( 2)  U              TRANSS
+     (I4L,R4A)
+ 367    6   4 R        C   E            TREF
+ 368         s     (11)  U              TRIF
+     (R4A,R4A,R4A,R4A,R4A,R4A,R4V,R4V,R4V,I4L,I4A)
+ 369          R         MU E            TSHR
+ 370          R         MU E            TSHR1
+ 371          R         MU E            TSHR3
+ 372          R         MU E            TSHR5
+ 373   11   1 C*23     C U E            UFM*23
+ 374          L         MU E            UNIBEN
+ 375          L         MU E            UNIMEM
+ 376          R         MU E            VOL
+ 377    9   6 R    ( 1)CMU E        6   XC(6)
+ 378          I    ( 1)I U E       10   XTHK(10)
+ 379          I    ( 1)I U E       32   XU(32)
+ 380          I    ( 1)I U E       32   XV(32)
+ 381          I    ( 1)I U E       32   XW(32)
+ 382    9   7 R    ( 1)CMU E        6   YC(6)
+ 383          I    ( 1)I U E       10   YTHK(10)
+ 384          I    ( 1)I U E       32   YU(32)
+ 385          I    ( 1)I U E       32   YV(32)
+ 386          I    ( 1)I U E       32   YW(32)
+ 387    9   8 R    ( 1)CMU E        6   ZC(6)
+**-- END OF SYMBOL TABLE

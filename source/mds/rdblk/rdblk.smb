@@ -1,0 +1,21 @@
+**++ Symbol table for subprogram RDBLK in file mds/rdblk.f90
+     produced by SPAG     8.01RF-40 at 14:46:34 on  2 Dec 2023
+   0         X             K             mds/rdblk.f90,0000002,0000024
+   1         s     ( 1)  U              DBMMGR
+     (I4E)
+   2         s           U              DSGEFL
+   3         s     ( 1)  U              DSMSG
+     (I4E)
+   4         s           U              DSRDNB
+   5   15   1 I        A U E            FILE
+   6         G?    ( 1) MU I            IBASE
+   7          ?          U I            IDSEF
+   8   15   2 I        A U E            IFIRST
+   9          ?          U I            INDBAS
+  10          ?          U I            IPRVOP
+  11          ?          U I            LCW
+  12   15   3 I        AM  E            LEFT
+  13          ?         M  I            NAME
+  14          ?          U I            NBUFF
+  15         S     ( 3) MU          9   RDBLK(FILE,IFIRST,LEFT)
+**-- END OF SYMBOL TABLE

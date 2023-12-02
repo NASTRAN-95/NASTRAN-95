@@ -1,0 +1,95 @@
+**++ Symbol table for subprogram TABPCH in file mis/tabpch.f90
+     produced by SPAG     8.01RF-40 at 14:47:10 on  2 Dec 2023
+   0         X             K             mis/tabpch.f90,0000002,0000398
+   1         C     / 1/  U         40   /BLANK/N1
+   2         C     / 1/  U          4   /MACHIN/MACH
+   3         C     / 4/  U        364   /SYSTEM/SYSBUF,OUT,KSYSTM,LPCH
+   4         C     / 3/  U         77   /XMSSG/UFM,UWM,UIM
+   5         C     / 1/ ??          4   /ZZZZZZ/Z
+   6          I        I U E            BLANK
+   7         s     ( 2)  U              CLOSE
+     (I4V,I4E)
+   8          I    ( 1)I U E        2   DTI(2)
+   9          I    ( 1)I U E        2   DTIS(2)
+  10          D    ( 1)  U E        1   DZ(1)
+  11          I    ( 1)I U E        2   ENDREC(2)
+  12          I         M? E            FILE
+  13         s     ( 2)  U              FNAME
+     (I4V,I4A)
+  14          I    ( 2) MU E       60   FORM(30,2)
+  15          I    ( 2)I U E       60   FORMS(30,2)
+  16          I         MU E            I
+  17          I    ( 1)I U E        2   IBCD(2)
+  18          I    ( 1)I U E        2   IBCDD(2)
+  19          I         MU E            IBUF
+  20          I         MU E            ICHR
+  21          I         MU E            ICRQ
+  22          I         MU E            ID
+  23          I    ( 1) M  E       20   IDATA(20)
+  24          I         MU E            IDF
+  25          I         MU E            IDT
+  26          I         MU E            IF
+  27          I    ( 1)I U E        5   IFNM(5)
+  28          I    ( 1) MU E       20   IFORM(20)
+  29          I         MU E            IFRS
+  30          I         MU E            IFT
+  31          I         MU E            ILEN
+  32          I    ( 1)I U E        2   INT(2)
+  33          I    ( 1)I U E        2   INTD(2)
+  34          I         M? E            IO
+  35          I         M? E            IP1
+  36          I        I U E            IPLUS
+  37          I         MU E            IRCNM1
+  38          I    ( 1)I U E        2   IREAL(2)
+  39          I         MU E            IRECNO
+  40          I         MU E            IS
+  41          I        I U E            ISTAR
+  42          I         MU E            IT
+  43          I    ( 1) MU E       10   IZ(10)
+  44          I         MU E            J
+  45          I         MU E            JB
+  46          I         MU E            JE
+  47          I         MU E            JV
+  48          I         MU E            K
+  49          I         MU E            KMB
+  50         fI    ( 1)  U E            KORSZ
+     (R4A)
+  51    3   3 I    ( 1)C   E       88   KSYSTM(88)
+  52          I    ( 1)I U E        4   LL(4)
+  53    3   4 I        C U E            LPCH
+  54          I         MU E            M
+  55    2   1 I        C U E            MACH
+  56          I    ( 1) MU E        7   MCB(7)
+  57         s     ( 3)  U              MESAGE
+     (I4V,I4V,I4A)
+  58    1   1 I    ( 2)C U E       10   N1(2,5)
+  59          I    ( 1)I?? E        2   NAME(2)
+  60          I         MU E            NF
+  61          I         MU E            NLIST
+  62          I         MU E            NREAD
+  63          I         MU E            NS
+  64          I        I U E            NSP
+  65         fI    ( 1)  U E            NUMTYP
+     (I4L)
+  66          I         MU E            NZ
+  67         s     ( 4)  U              OPEN
+     (ALT,I4V,I4L,I4E)
+  68    3   2 I        C U E            OUT
+  69         s           U              PAGE1
+  70         s     ( 1)  U              PAGE2
+     (I4E)
+  71          I    ( 1) MU E       30   PFORM(30)
+  72          R    ( 1)  U E       20   RDATA(20)
+  73         s     ( 1)  U              RDTRL
+     (I4A)
+  74         s     ( 7)  U              READ
+     (ALT,ALT,I4V,I4L,I4E,I4E,I4V)
+  75          I    ( 1)I U E        3   SP(3)
+  76    3   1 I        C U E            SYSBUF
+  77          I    ( 1) ?U E        2   TABNM(2)
+  78         S                    241   TABPCH
+  79    4   1 C*23     C   E            UFM*23
+  80    4   3 C*29     C U E            UIM*29
+  81    4   2 C*25     C U E            UWM*25
+  82    5   1 R    ( 1)C?? E        1   Z(1)
+**-- END OF SYMBOL TABLE

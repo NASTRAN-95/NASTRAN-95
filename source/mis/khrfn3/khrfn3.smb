@@ -1,0 +1,17 @@
+**++ Symbol table for subprogram KHRFN3 in file mis/khrfn3.f90
+     produced by SPAG     8.01RF-40 at 14:47:17 on  2 Dec 2023
+   0         X             K             mis/khrfn3.f90,0000002,0000067
+   1          I         MU E            I
+   2         II    ( 1)  U I            IABS
+   3    7   4 I        A U E            IDIR
+   4          I         MU E            IEND
+   5          I         MU E            IMOVE
+   6         fI    ( 4)  U E            KHRFN1
+     (I4V,I4E,I4L,I4E)
+   7         FI    ( 4) MU E       29   KHRFN3(WORD1,WORD2,MOVE,IDIR)
+   8    7   3 I        A U E            MOVE
+   9          I         MU E            NCPW
+  10    7   1 I    ( 1)A?U E            WORD1(1)
+  11    7   2 I    ( 1)A?U E            WORD2(1)
+  12          I         MU E            WORD3
+**-- END OF SYMBOL TABLE

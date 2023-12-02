@@ -1,0 +1,30 @@
+**++ Symbol table for subprogram DUPART in file mis/dupart.f90
+     produced by SPAG     8.01RF-40 at 14:47:11 on  2 Dec 2023
+   0         X             K             mis/dupart.f90,0000002,0000043
+   1         C     / 2/  U        192   /BITPOS/IBIT,IABIT
+   2         C     / 3/  U         24   /BLANK/MAJOR,SUB0,SUB1
+   3         S                     17   DUPART
+   4          I         MU E            I
+   5    1   2 I    ( 1)C U E       16   IABIT(16)
+   6          I    ( 1) MU E        3   IB(3)
+   7    1   1 I    ( 1)C U E       32   IBIT(32)
+   8          I         MU E            J
+   9          I        I?? E            KFF
+  10          I        I?? E            KFS
+  11          I        I?? E            KNN
+  12          I        I?? E            KSF
+  13          I        I?? E            KSS
+  14    2   1 I    ( 1)C U E        2   MAJOR(2)
+  15         s     ( 3)  U              MESAGE
+     (I4E,I4E,I4A)
+  16         s     ( 5)  U              MPART
+     (I4V,I4V,I4V,I4V,I4V)
+  17          I    ( 1)I?? E        2   NAME(2)
+  18          I         MU E            NOGO
+  19          I        I?? E            SCR1
+  20    2   2 I    ( 1)C U E        2   SUB0(2)
+  21    2   3 I    ( 1)C U E        2   SUB1(2)
+  22         s     ( 5)  U              UPART
+     (I4V,I4V,I4L,I4L,I4L)
+  23          I        I?? E            USET
+**-- END OF SYMBOL TABLE

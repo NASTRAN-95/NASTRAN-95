@@ -1,0 +1,75 @@
+**++ Symbol table for subprogram GKAM1B in file mis/gkam1b.f90
+     produced by SPAG     8.01RF-40 at 14:47:12 on  2 Dec 2023
+   0         X             K             mis/gkam1b.f90,0000002,0000074
+   1         C     /16/ ??         64   /BITPOS/UM,UO,UR,USG,USB,UL,UA,UF,US,UN,UG,UE,UP,UNE,UFE,UD
+   2         C     / 7/ M?        148   /PARMEG/IA,IA11,IA12,IA21,IA22,LCORE,IRULE
+   3         C     / 5/ MU         20   /PATX/LC,N1,N2,N3,USET
+   4         C     / 1/  U          4   /SYSTEM/SYSBUF
+   5         C     / 2/ MU         20   /ZBLPKX/A,II
+   6    5   1 R    ( 1)CM  E        4   A(4)
+   7         s     ( 5)  U              BLDPK
+     (I4E,I4E,I4V,I4E,I4E)
+   8         s     ( 3)  U              BLDPKN
+     (I4V,I4E,I4A)
+   9         s     ( 5)  U              CALCV
+     (I4V,R4V,R4V,R4V,I4L)
+  10         s     ( 2)  U              CLOSE
+     (I4V,I4E)
+  11   12   7 I    ( 1)A?? E            CORE(1)
+  12         S     (10) MU         42   GKAM1B(USETD,SCR1,SCR2,PHIDH,PHIDH1,MODES,CORE,LHSET,NOUE,SCR3)
+  13         s     ( 3)  U              GOPEN
+     (I4V,I4L,I4E)
+  14          I         MU E            I
+  15    2   1 I    ( 1)CM? E        7   IA(7)
+  16    2   2 I    ( 1)CM? E        7   IA11(7)
+  17    2   3 I    ( 1)CM  E        7   IA12(7)
+  18    2   4 I    ( 1)CM  E        7   IA21(7)
+  19    2   5 I    ( 1)CM? E        7   IA22(7)
+  20    5   2 I        CMU E            II
+  21    2   7 I        CM  E            IRULE
+  22         fI    ( 1)  U E            KORSZ
+     (I4L)
+  23    3   1 I        CMU E            LC
+  24    2   6 I        CM  E            LCORE
+  25   12   8 I        AMU E            LHSET
+  26         s     ( 5)  U              MAKMCB
+     (I4A,I4V,I4V,I4E,I4E)
+  27          I    ( 1) ?? E        7   MCB(7)
+  28         s     ( 3)  U              MERGE
+     (I4V,I4V,I4L)
+  29   12   6 I        A U E            MODES
+  30    3   2 I        C U E            N1
+  31    3   3 I        C U E            N2
+  32    3   4 I        C U E            N3
+  33   12   9 I        A?U E            NOUE
+  34          I         MU E            NZ
+  35   12   4 I        A U E            PHIDH
+  36   12   5 I        A U E            PHIDH1
+  37         s     ( 1)  U              RDTRL
+     (I4A)
+  38   12   2 I        A?? E            SCR1
+  39   12   3 I        A?U E            SCR2
+  40   12  10 I        A?? E            SCR3
+  41    4   1 I        C U E            SYSBUF
+  42    1   7 R        C?? E            UA
+  43    1  16 R        C?? E            UD
+  44    1  12 R        C?? E            UE
+  45    1   8 R        C   E            UF
+  46    1  15 R        C   E            UFE
+  47    1  11 R        C   E            UG
+  48    1   6 R        C   E            UL
+  49    1   1 R        C   E            UM
+  50    1  10 R        C   E            UN
+  51    1  14 R        C   E            UNE
+  52    1   2 R        C   E            UO
+  53    1  13 R        C   E            UP
+  54    1   3 R        C   E            UR
+  55    1   9 R        C   E            US
+  56    1   5 R        C   E            USB
+  57    3   5 I        CM  E            USET
+  58   12   1 I        A U E            USETD
+  59    1   4 R        C   E            USG
+  60         s     ( 1)  U              WRTTRL
+     (I4A)
+  61         s           U              ZBLPKI
+**-- END OF SYMBOL TABLE

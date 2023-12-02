@@ -1,0 +1,14 @@
+**++ Symbol table for subprogram DBMALB in file mds/dbmalb.f90
+     produced by SPAG     8.01RF-40 at 14:46:32 on  2 Dec 2023
+   0         X             K             mds/dbmalb.f90,0000002,0000103
+   1         S     ( 2) MU         65   DBMALB(LENREQ,INDEX)
+   2          ?         MU I            IDBFRE
+   3    1   2 I        AMU E            INDEX
+   4          I         MU E            IPREV
+   5          I         MU E            LENAVL
+   6    1   1 I        A U E            LENREQ
+   7         f?    ( 1) MU I            MEM
+     (I4E)
+   8          I         MU E            NEWIND
+   9          I         MU E            NEXT
+**-- END OF SYMBOL TABLE

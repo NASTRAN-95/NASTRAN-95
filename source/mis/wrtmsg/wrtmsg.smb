@@ -1,0 +1,62 @@
+**++ Symbol table for subprogram WRTMSG in file mis/wrtmsg.f90
+     produced by SPAG     8.01RF-40 at 14:46:59 on  2 Dec 2023
+   0         X             K             mis/wrtmsg.f90,0000002,0000139
+   1         C     / 1/  U          4   /MACHIN/MACH
+   2         C     / 1/ MU        768   /OUTPUT/TITLE
+   3         C     / 1/           164   /SYSTEM/SYSX
+   4         fI    ( 2)  UXE            ANDF
+     (I4L,I4L)
+   5          I        I U E            BLANK
+   6         s     ( 2)  U              CLOSE
+     (I4V,I4V)
+   7         fI    ( 1)  UXE            COMPLF
+     (I4E)
+   8          I         MU E            COUNT
+   9         fI    ( 1)  U E            EJECT
+     (I4E)
+  10          I         M? E            FILE
+  11   46   1 I        A U E            FILEX
+  12          I    ( 1) MU E      100   FOR(100)
+  13          I        I U E            FORMAX
+  14          C*1  ( 1) ?? E      400   FORMT(400)*1
+  15         s     ( 3)  U              FORWRT
+     (C1A,I4A,I4V)
+  16         s     ( 4)  U              FREAD
+     (I4V,I4E,I4E,I4E)
+     (   ,I4A,   ,   )
+  17          I         MU E            I
+  18          I         MU E            J
+  19          I         MU E            K1
+  20          I         MU E            K2
+  21         fI    ( 2)  UXE            LSHIFT
+     (I4E,I4E)
+  22          I    ( 1) ?U E       50   LST(50)
+  23          I        I U E            LSTMAX
+  24    1   1 I        C U E            MACH
+  25          I    ( 1) M? E        5   MASK1(5)
+  26          I    ( 1) M? E        5   MASK2(5)
+  27          I          U E            MAXLIN
+  28          I          U E            MO
+  29          I         MU E            N
+  30          I         MU E            N2CPW
+  31          I         MU E            N2CPW1
+  32          I          U E            NBPC
+  33          I         MU E            NBPC2
+  34          I            E            NBPW
+  35          I          U E            NCPW
+  36          I         ?U E            NF
+  37         fI    ( 2)  UXE            ORF
+     (I4E,I4E)
+  38          I         MU E            POS
+  39         s     ( 7)  U              READ
+     (ALT,ALT,I4V,I4V,I4E,I4E,I4V)
+  40          I         MU E            RET
+  41          I        I?? E            REW
+  42         fI    ( 2)  UXE            RSHIFT
+     (I4E,I4E)
+  43    3   1 I    ( 1)C   E       41   SYSX(41)
+  44    2   1 I    ( 2)CMU E      192   TITLE(32,6)
+  45          I    ( 2) MU E      192   TTLSAV(32,6)
+  46         S     ( 1)  U         94   WRTMSG(FILEX)
+  47          R            E            XLST
+**-- END OF SYMBOL TABLE

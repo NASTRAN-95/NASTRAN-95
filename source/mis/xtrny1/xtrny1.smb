@@ -1,0 +1,13 @@
+**++ Symbol table for subprogram XTRNY1 in file mis/xtrny1.f90
+     produced by SPAG     8.01RF-40 at 14:46:44 on  2 Dec 2023
+   0         X             K             mis/xtrny1.f90,0000002,0000021
+   1         C     / 2/  U          8   /INVPWX/AAA,NCOL
+   2    1   1 R        C   E            AAA
+   3          R         MU E            ALPHA
+   4    8   3 D        AM  E            ALPHA1
+   5          I         MU E            I
+   6    1   2 I        C U E            NCOL
+   7    8   1 R    ( 1)A U E            X(1)
+   8         S     ( 3) MU          5   XTRNY1(X,Y,ALPHA1)
+   9    8   2 R    ( 1)A U E            Y(1)
+**-- END OF SYMBOL TABLE

@@ -1,0 +1,95 @@
+**++ Symbol table for subprogram LINEL in file mis/linel.f90
+     produced by SPAG     8.01RF-40 at 14:47:15 on  2 Dec 2023
+   0         X             K             mis/linel.f90,0000002,0000497
+   1         C     / 6/ ?U         84   /BLANK/NGP,SKP1,SKP2,ELSET,SKP3,MERR
+   2         C     / 2/  U         64   /DRWDAT/SKP5,PEDGE
+   3         C     / 2/ MU         16   /PLTSCR/NNN,G
+   4         C     / 2/             8   /SYSTEM/SKP4,IOUT
+   5         C     / 2/           944   /XXPARM/SKP6,OFFSCL
+   6   47   7 I        A?? E            DEFORM
+   7          I         ?U E            ELID
+   8    1   4 I        C?? E            ELSET
+   9          I         MU E            ETYP
+  10         s     ( 4)  U              FREAD
+     (I4V,I4E,I4E,I4E)
+     (   ,I4A,   ,   )
+  11    3   2 I    ( 1)CMU E        3   G(3)
+  12   47   8 I    ( 1)A?? E            GPLST(1)
+  13          I         MU E            I
+  14          I         MU E            I1
+  15          I         MU E            I2
+  16         II    ( 1)  U I            IABS
+  17          I         MU E            II
+  18    4   2 I        C   E            IOUT
+  19          I         MU E            IRET
+  20   47   1 I    ( 1)AMU E            IZ(1)
+  21          I         MU E            J
+  22          I         MU E            K
+  23          I        I U E            K2D8
+  24          I        I U E            KAE
+  25          I        I U E            KBAR
+  26          I        I U E            KFH1
+  27          I        I U E            KFH2
+  28          I        I U E            KFTE
+  29          I        I U E            KFWD
+  30          I        I U E            KHB
+  31          I        I U E            KHX1
+  32          I        I U E            KHX2
+  33          I        I U E            KIX1
+  34          I        I U E            KIX2
+  35          I        I U E            KIX3
+  36          I        I U E            KQ4
+  37          I        I U E            KT3
+  38          I        I U E            KTET
+  39          I        I U E            KTM6
+  40          I        I U E            KTRPLT
+  41          I        I U E            KTRSHL
+  42          I        I U E            KWEG
+  43          I         MU E            L
+  44          I         MU E            L1
+  45          I    ( 1)I U E        9   LDX(9)
+  46          I         ?? E            LID
+  47         S     ( 8) MU        256   LINEL(IZ,NWDS,OPCOR,OPT,X,PEN,DEFORM,GPLST)
+  48          I         MU E            LL
+  49          I         MU E            M
+  50          I    ( 1)I?? E       16   M1(16)
+  51         II    ( 2)  U I            MAX0
+  52    1   6 I        C?? E            MERR
+  53         s     ( 3)  U              MESAGE
+     (I4E,I4V,I4A)
+  54         II    ( 2)  U I            MIN0
+  55          I         MU E            N
+  56          I    ( 1)I?? E        2   NAME(2)
+  57          I    ( 1)I U E      121   NG(121)
+  58    1   1 I        C U E            NGP
+  59          I         MU E            NGPEL
+  60          I         MU E            NGPELX
+  61          I    ( 2)I U E       26   NGTYP(2,13)
+  62          I        I?? E            NM1
+  63    3   1 I        C U E            NNN
+  64   47   2 I        AMU E            NWDS
+  65    5   2 I        C   E            OFFSCL
+  66          I         MU E            OFFSET
+  67         s     ( 8)  U              OFSPLT
+     (ALT,I4V,I4V,I4A,I4V,R4A,I4V,I4A)
+  68   47   3 I        A?U E            OPCOR
+  69   47   4 I        AMU E            OPT
+  70         s     (10)  U              PDUMI
+     (ALT,ALT,ALT,I4E,I4V,I4V,I4V,I4V,I4V,I4V)
+  71    2   2 I        C U E            PEDGE
+  72   47   6 I        A   E            PEN
+  73         s     ( 7)  U              READ
+     (ALT,ALT,I4V,I4V,I4E,I4E,I4V)
+  74    1   2 R    ( 1)C   E        9   SKP1(9)
+  75    1   3 R    ( 1)C   E        2   SKP2(2)
+  76    1   5 R    ( 1)C   E        7   SKP3(7)
+  77    4   1 R        C   E            SKP4
+  78    2   1 R    ( 1)C   E       15   SKP5(15)
+  79    5   1 R    ( 1)C   E      235   SKP6(235)
+  80         s     ( 6)  U              SORT
+     (I4E,I4E,I4E,I4E,I4A,I4E)
+  81          I         MU E            TYPE
+  82         s     ( 4)  U              WRTPRT
+     (I4V,I4A,I4A,I4V)
+  83   47   5 R    ( 2)A?? E            X(3,1)
+**-- END OF SYMBOL TABLE

@@ -1,0 +1,18 @@
+**++ Symbol table for subprogram SDCOMP in file mis/sdcomp.f90
+     produced by SPAG     7.61RG-40 at 01:00:00 on 21 Mar 2022
+   0         X             K             mis/sdcomp.f90,0000002,0000028
+   1         C     / 1/  U          4   /LOGOUT/LOUT
+   2          I         ?U E            I44
+   3          ?          U I            IERROR
+   4    1   1 I        C U E            LOUT
+   5         S     ( 3) ??         12   SDCOMP(ZI,ZR,ZD)
+   6         s     ( 4)  U              SDCOMPX
+     (ALT,R4V,R4V,R4V)
+   7         s     ( 4)  U              SMCOMP
+     (ALT,R4V,R4V,R4V)
+   8         s     ( 2)  U              SSWTCH
+     (I4E,I4V)
+   9    5   3 R        A?? E            ZD
+  10    5   1 R        A?? E            ZI
+  11    5   2 R        A?? E            ZR
+**-- END OF SYMBOL TABLE

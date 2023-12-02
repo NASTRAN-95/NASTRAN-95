@@ -1,0 +1,119 @@
+**++ Symbol table for subprogram DETM3 in file mis/detm3.f90
+     produced by SPAG     8.01RF-40 at 14:47:17 on  2 Dec 2023
+   0         X             K             mis/detm3.f90,0000002,0000244
+   1         C     /27/ MU        244   /DETMX/P,DETX,PS1,DET1,N2EV,IPSAV,IPS,IDET,IPDETA,PREC,NSTART,U2,IC,L1,L2,IS,ND,IADD,SML1,IPDETX,IPDET1,IFAIL,K,FACT1,IFFND,NFAIL,NPOLE
+   2         C     /22/ MU        160   /REGEAN/IM,IK,IEV,SCR1,SCR2,SCR3,SCR4,SCR5,LCORE,RMAX,RMIN,MZ,NEV,EPSI,RMINR,NE,NIT,NEVM,SCR6,SCR7,NFOUND,LAMA
+   3         C     / 1/             8   /ZZZZZZ/PSAVE
+   4          D         MU E            A
+   5          D         MU E            AA
+   6         s     ( 3)  U              ARRM
+     (R8A,R8A,I4A)
+   7         ID    ( 1) ?U I            DABS
+   8          D         MU E            DELTAK
+   9          D    ( 1) MU E        1   DET(1)
+  10    1   4 D    ( 1)C?U E        4   DET1(4)
+  11         s     ( 6)  U              DETDET
+     (R8V,I4V,R8V,R4V,R8L,I4L)
+  12         S                    152   DETM3
+  13         s     ( 2)  U              DETM6
+     (R8V,I4V)
+  14          D         ?U E            DETRY
+  15    1   2 D    ( 1)CMU E        4   DETX(4)
+  16          D         MU E            DIST
+  17          D         MU E            DSAVE
+  18         ID    ( 2)  U I            DSIGN
+  19         ID    ( 1)  U I            DSQRT
+  20         s     ( 2)  U              EADD
+     (R8E,I4V)
+  21    2  14 R        CMU E            EPSI
+  22    1  24 R        CMU E            FACT1
+  23          D         ?U E            GK
+  24          D         MU E            GK1
+  25          D         MU E            H1
+  26          D         MU E            H2
+  27          D         MU E            H3
+  28          D         MU E            HK
+  29          D         MU E            HK1
+  30          D         MU E            HKP1
+  31          I         MU E            I
+  32    1  18 I        CMU E            IADD
+  33    1  13 I        CMU E            IC
+  34    1   8 I        C U E            IDET
+  35    2   3 I    ( 1)C   E        7   IEV(7)
+  36    1  22 I        CMU E            IFAIL
+  37    1  25 I        CMU E            IFFND
+  38          I         ?U E            IGK
+  39          I         MU E            IGOTO
+  40    2   2 I    ( 1)C   E        7   IK(7)
+  41          I         MU E            ILMK
+  42    2   1 I    ( 1)C   E        7   IM(7)
+  43          I    ( 1) MU E        1   IPDET(1)
+  44    1  21 I    ( 1)C?U E        4   IPDET1(4)
+  45    1   9 I        C U E            IPDETA
+  46    1  20 I    ( 1)CMU E        4   IPDETX(4)
+  47    1   7 I        C U E            IPS
+  48    1   6 I        C   E            IPSAV
+  49          I         MU E            IPTRY
+  50          I         ?? E            IROOT
+  51          I         ?? E            IROOT1
+  52    1  16 I        CMU E            IS
+  53          I         ?U E            IT1
+  54          I         ?U E            IT2
+  55    1  23 I        CMU E            K
+  56    1  14 I        C   E            L1
+  57    1  15 I        C   E            L2
+  58    2  22 I        C   E            LAMA
+  59          D         MU E            LAMDAK
+  60          D         MU E            LAMDK1
+  61    2   9 I        C   E            LCORE
+  62    2  12 I        C   E            MZ
+  63          I         MU E            N
+  64    1   5 I        C U E            N2EV
+  65          I         MU E            N2EV2
+  66    1  17 I        C U E            ND
+  67    2  16 I        C U E            NE
+  68    2  13 I        C   E            NEV
+  69    2  18 I        C   E            NEVM
+  70    1  26 I        CMU E            NFAIL
+  71    2  21 I        C   E            NFOUND
+  72    2  17 I        C U E            NIT
+  73          I         MU E            NND
+  74          I         MU E            NNI
+  75          I         MU E            NNP
+  76    1  27 I        CMU E            NPOLE
+  77          I         MU E            NPOLE1
+  78    1  11 I        CMU E            NSTART
+  79    1   1 D    ( 1)CMU E        4   P(4)
+  80    1  10 I        C?? E            PREC
+  81          D    ( 1)  U E        1   PS(1)
+  82    1   3 D    ( 1)C?U E        4   PS1(4)
+  83    3   1 D    ( 1)C   E        1   PSAVE(1)
+  84          D         MU E            PTRY
+  85    2  10 R        C U E            RMAX
+  86    2  11 R        C   E            RMIN
+  87    2  15 R        C U E            RMINR
+  88          D         ?U E            ROOT
+  89          D         ?U E            ROOT1
+  90    2   4 I        C   E            SCR1
+  91    2   5 I        C   E            SCR2
+  92    2   6 I        C   E            SCR3
+  93    2   7 I        C   E            SCR4
+  94    2   8 I        C   E            SCR5
+  95    2  19 I        C   E            SCR6
+  96    2  20 I        C   E            SCR7
+  97    1  19 R        C?? E            SML1
+  98         I?    ( 1)  U I            SQRT
+  99         s     ( 4)  U              SQRTM
+     (R8V,I4V,R8V,I4V)
+ 100          D         MU E            SRP
+ 101         s     ( 7)  U              SUMM
+     (R8V,I4V,R8E,I4A,R8E,I4E,I4E)
+     (   ,   ,   ,I4E,   ,   ,   )
+ 102          D         ?U E            T1
+ 103          D         ?U E            T2
+ 104          D         M? E            TEMP2
+ 105         s     ( 1)  U              TMTOGO
+     (I4V)
+ 106    1  12 I        C   E            U2
+ 107          D         MU E            XLAMSV
+**-- END OF SYMBOL TABLE

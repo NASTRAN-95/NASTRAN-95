@@ -1,0 +1,16 @@
+**++ Symbol table for subprogram STRQD1 in file mis/strqd1.f90
+     produced by SPAG     8.01RF-40 at 14:47:17 on  2 Dec 2023
+   0         X             K             mis/strqd1.f90,0000002,0000256
+   1         C     / 2/ MU       1104   /SDR2X5/ECPT,PH1OUT
+   2    1   1 R    ( 1)CMU E      100   ECPT(100)
+   3          I         MU E            I
+   4   11   1 I        A U E            NTYPE
+   5    1   2 R    ( 1)CMU E      176   PH1OUT(176)
+   6          R    ( 1) MU E       32   SAVE(32)
+   7         s           U              SQDME1
+   8         s           U              SQDPL1
+   9         s     ( 1)  U              STRME1
+     (I4E)
+  10         s           U              STRPL1
+  11         S     ( 1)  U        113   STRQD1(NTYPE)
+**-- END OF SYMBOL TABLE

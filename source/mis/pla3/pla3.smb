@@ -1,0 +1,7 @@
+**++ Symbol table for subprogram PLA3 in file mis/pla3.f90
+     produced by SPAG     8.01RF-40 at 14:46:58 on  2 Dec 2023
+   0         X             K             mis/pla3.f90,0000002,0000029
+   1         S                      2   PLA3
+   2         s           U              PLA31
+   3         s           U              PLA32
+**-- END OF SYMBOL TABLE

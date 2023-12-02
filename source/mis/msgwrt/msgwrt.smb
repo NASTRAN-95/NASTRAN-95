@@ -1,0 +1,42 @@
+**++ Symbol table for subprogram MSGWRT in file mis/msgwrt.f90
+     produced by SPAG     8.01RF-40 at 14:47:05 on  2 Dec 2023
+   0         X             K             mis/msgwrt.f90,0000002,0000515
+   1         C     / 1/  U          4   /MACHIN/MACH
+   2         C     / 3/ MU         24   /MSGX/N,M,MSG
+   3         C     / 2/  U          8   /SYSTEM/SYSBUF,OUTTAP
+   4         C     / 5/  U        129   /XMSSG/UFM,UWM,UIM,SFM,SWM
+   5         s     ( 2)  U              ERRTRC
+     (C*E,I4E)
+   6         s     ( 2)  U              FNAME
+     (I4L,I4A)
+   7          I         MU E            I
+   8         II    ( 1)  U I            IABS
+   9          I    ( 1)I U E        2   IPAG(2)
+  10          I         MU E            J
+  11          I         MU E            L
+  12          I         MU E            LPLUS
+  13    2   2 I        C U E            M
+  14    1   1 I        C U E            MACH
+  15    2   3 I    ( 2)C?U E        4   MSG(4,1)
+  16         s     ( 1)  U              MSGUNI
+     (I4V)
+  17         S                    320   MSGWRT
+  18    2   1 I        CMU E            N
+  19          I    ( 1) ?U E        2   NAME(2)
+  20          I    ( 1)I U E        2   NEG(2)
+  21          I        I U E            NMSGS
+  22    3   2 I        C U E            OUTTAP
+  23         s     ( 1)  U              PAGE2
+     (I4E)
+  24          I    ( 1) MU E        2   PNG(2)
+  25          I    ( 1)I U E        2   POS(2)
+  26    4   4 C*25     C U E            SFM*25
+  27    4   5 C*27     C U E            SWM*27
+  28    3   1 R        C   E            SYSBUF
+  29    4   1 C*23     C U E            UFM*23
+  30    4   3 C*29     C U E            UIM*29
+  31         s     ( 1)  U              USRMSG
+     (I4E)
+  32    4   2 C*25     C U E            UWM*25
+  33          R    ( 2)  U E        4   XMSG(4,1)
+**-- END OF SYMBOL TABLE

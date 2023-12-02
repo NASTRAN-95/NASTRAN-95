@@ -1,0 +1,46 @@
+**++ Symbol table for subprogram CFBSOR in file mis/cfbsor.f90
+     produced by SPAG     8.01RF-40 at 14:46:59 on  2 Dec 2023
+   0         X             K             mis/cfbsor.f90,0000002,0000058
+   1         C     / 7/ MU        124   /FBSX/MFL,MFLT,MFB,MFX,MX,MPREC,MSIGN
+   2         C     / 7/ MU        124   /GFBSX/JFL,JFU,JFB,JFX,JX,JPREC,JSIGN
+   3         C     / 2/  U        220   /SYSTEM/IDUM,IPREC
+   4         C     / 1/ ??          4   /ZZZZZZ/IZ
+   5    6   3 I        A U E            BX
+   6         S     ( 5)  U         37   CFBSOR(LL,UL,BX,XX,IOPT)
+   7         s     ( 2)  U              FBS
+     (I4A,I4A)
+   8         s     ( 2)  U              GFBS
+     (I4A,I4A)
+   9          I         MU E            I
+  10         II    ( 1)  U I            IABS
+  11    3   1 I    ( 1)C   E       54   IDUM(54)
+  12    6   5 I        A U E            IOPT
+  13    3   2 I        C U E            IPREC
+  14    4   1 I    ( 1)C?? E        1   IZ(1)
+  15    2   3 I    ( 1)CMU E        7   JFB(7)
+  16    2   1 I    ( 1)CMU E        7   JFL(7)
+  17    2   2 I    ( 1)CM? E        7   JFU(7)
+  18    2   4 I    ( 1)CM? E        7   JFX(7)
+  19    2   6 I        CM  E            JPREC
+  20    2   7 I        CM  E            JSIGN
+  21    2   5 I        CM  E            JX
+  22         fI    ( 1)  U E            KORSZ
+     (I4A)
+  23    6   1 I        A U E            LL
+  24         II    ( 2)  U I            MAX0
+  25          I    ( 1) MU E        7   MCB(7)
+  26    1   3 I    ( 1)CMU E        7   MFB(7)
+  27    1   1 I    ( 1)CMU E        7   MFL(7)
+  28    1   2 I    ( 1)C   E        7   MFLT(7)
+  29    1   4 I    ( 1)CM? E        7   MFX(7)
+  30    1   6 I        CM  E            MPREC
+  31    1   7 I        CM  E            MSIGN
+  32    1   5 I        CM  E            MX
+  33          I         MU E            NZ
+  34         s     ( 1)  U              RDTRL
+     (I4A)
+  35    6   2 I        A U E            UL
+  36         s     ( 1)  U              WRTTRL
+     (I4A)
+  37    6   4 I        A U E            XX
+**-- END OF SYMBOL TABLE

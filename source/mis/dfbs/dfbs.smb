@@ -1,0 +1,71 @@
+**++ Symbol table for subprogram DFBS in file mis/dfbs.f90
+     produced by SPAG     7.61RG-40 at 01:00:00 on 21 Mar 2022
+   0         X             K             mis/dfbs.f90,0000002,0000146
+   1         C     / 4/ MU         16   /BLANK/ISYM,KSIGN,IPREC,ITYPE
+   2         C     / 8/ MU        128   /FBSX/IL,IU,IB,IX,INX,IP1,IS1,ISCR
+   3         C     / 7/ MU        124   /GFBSX/JL,JU,JB,JX,JNX,JP1,JS1
+   4         C     / 1/           260   /SYSTEM/KSYSTM
+   5         C     / 5/  U        129   /XMSSG/UFM,UWM,UIM,SFM,SWM
+   6         C     / 1/ ??      80000   /ZZZZZZ/Z
+   7          I        I U E            B
+   8         S                     91   DFBS
+   9          I    ( 1)I U E        3   DOSI(3)
+  10         s     ( 2)  U              ERRTRC
+     (C*E,I4E)
+  11         s     ( 2)  U              FBS
+     (R4A,R4A)
+  12         s     ( 2)  U              FNAME
+     (I4L,I4L)
+  13         s     ( 2)  U              GFBS
+     (R4A,R4A)
+  14    2   3 I    ( 1)CMU E        7   IB(7)
+  15    2   1 I    ( 1)CMU E        7   IL(7)
+  16    2   5 I        CM  E            INX
+  17    2   6 I        CM  E            IP1
+  18    1   3 I        CMU E            IPREC
+  19          I         MU E            IPREC1
+  20    2   7 I        CM  E            IS1
+  21    2   8 I        CM  E            ISCR
+  22    1   1 I        CMU E            ISYM
+  23    1   4 I        CMU E            ITYPE
+  24    2   2 I    ( 1)C U E        7   IU(7)
+  25    2   4 I    ( 1)CMU E        7   IX(7)
+  26    3   3 I    ( 1)CMU E        7   JB(7)
+  27          I         MU E            JJ
+  28    3   1 I    ( 1)CMU E        7   JL(7)
+  29    3   5 I        CM  E            JNX
+  30    3   6 I        CM  E            JP1
+  31    3   7 I        CM  E            JS1
+  32    3   2 I    ( 1)CMU E        7   JU(7)
+  33    3   4 I    ( 1)CMU E        7   JX(7)
+  34         fI    ( 1)  U E            KORSZ
+     (R4A)
+  35          I          U E            KPREC
+  36    1   2 I        C U E            KSIGN
+  37    4   1 I    ( 1)C   E       65   KSYSTM(65)
+  38          I        I?U E            L
+  39          I         MU E            LTYPE
+  40         II    ( 3)  U I            MAX0
+  41         s     ( 3)  U              MESAGE
+     (I4E,I4E,I4V)
+     (   ,   ,I4A)
+  42          I         MU E            N
+  43          I         MU E            NOGO
+  44          I          U E            OUTPT
+  45         s     ( 1)  U              RDTRL
+     (I4A)
+  46          I    ( 1)I U E        3   REFUS(3)
+  47          I    ( 1)I?U E        2   SBNM(2)
+  48          I        I U E            SCR
+  49    5   4 C*25     C   E            SFM*25
+  50    5   5 C*27     C U E            SWM*27
+  51          I        I U E            U
+  52    5   1 C*23     C   E            UFM*23
+  53    5   3 C*29     C   E            UIM*29
+  54    5   2 C*25     C   E            UWM*25
+  55         s     ( 1)  U              WRTTRL
+     (I4A)
+  56          I        I U E            X
+  57    6   1 R    ( 1)C?? E    20000   Z(20000)
+  58          R    ( 1) ?? E        1   ZZ(1)
+**-- END OF SYMBOL TABLE

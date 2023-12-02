@@ -1,0 +1,53 @@
+**++ Symbol table for subprogram AMGT1D in file mis/amgt1d.f90
+     produced by SPAG     8.01RF-40 at 14:47:21 on  2 Dec 2023
+   0         X             K             mis/amgt1d.f90,0000002,0000066
+   1         C     / 6/            52   /AMGMN/MCB,NROW,DUM,REFC,SIGMA,RFREQ
+   2         C     /26/  U        104   /TAMG1L/IREF,MINMAC,MAXMAC,NLINES,NSTNS,REFSTG,REFCRD,REFMAC,REFDEN,REFVEL,REFSWP,SLN,NSTNSX,STAG,CHORD,DCBDZB,BSPACE,MACH,DEN,VEL,SWEEP,AMACH,REDF,BLSPC,AMACHR,TSONIC
+   3    6   1 X    ( 2)A?? E            AJJ(Nstns2,1)
+   4    2  22 R        C   E            AMACH
+   5    2  25 R        C   E            AMACHR
+   6         S     ( 5) ?U         41   AMGT1D(AJJ,TSONX,TAMACH,TREDF,NSTNS2)
+   7    2  24 R        C   E            BLSPC
+   8    2  17 R        C   E            BSPACE
+   9    2  15 R        C   E            CHORD
+  10    2  16 R        C   E            DCBDZB
+  11    2  19 R        C   E            DEN
+  12    1   3 R    ( 1)C   E        2   DUM(2)
+  13          I         MU E            I
+  14         s     ( 6)  U              INTERT
+     (I4E,I4V,I4V,I4V,X8A,R4A)
+  15    2   1 I        C   E            IREF
+  16    2  18 I        C   E            MACH
+  17    2   3 I        C   E            MAXMAC
+  18    1   1 I    ( 1)C   E        7   MCB(7)
+  19    2   2 I        C   E            MINMAC
+  20          I         MU E            NLINE
+  21          I         MU E            NLINE1
+  22          I         MU E            NLINE2
+  23    2   4 I        C U E            NLINES
+  24          I         MU E            NNLINE
+  25    1   2 I        C   E            NROW
+  26          I         MU E            NS
+  27    2   5 I        C   E            NSTNS
+  28    6   5 I        A U E         Z  NSTNS2
+  29    2  13 I        C   E            NSTNSX
+  30          I         M? E            NUMM
+  31    2  23 R        C   E            REDF
+  32    1   4 R        C   E            REFC
+  33    2   7 R        C   E            REFCRD
+  34    2   9 R        C   E            REFDEN
+  35    2   8 R        C   E            REFMAC
+  36    2   6 R        C   E            REFSTG
+  37    2  11 R        C   E            REFSWP
+  38    2  10 R        C   E            REFVEL
+  39    1   6 R        C   E            RFREQ
+  40    1   5 R        C   E            SIGMA
+  41    2  12 I        C   E            SLN
+  42    2  14 R        C   E            STAG
+  43    2  21 R        C   E            SWEEP
+  44    6   3 R    ( 1)A?U E            TAMACH(1)
+  45    6   4 R    ( 1)A   E            TREDF(1)
+  46    2  26 R        C   E            TSONIC
+  47    6   2 I    ( 1)A U E            TSONX(1)
+  48    2  20 R        C   E            VEL
+**-- END OF SYMBOL TABLE

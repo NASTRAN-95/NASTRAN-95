@@ -1,0 +1,148 @@
+**++ Symbol table for subprogram SCAN in file mis/scan.f90
+     produced by SPAG     8.01RF-40 at 14:46:45 on  2 Dec 2023
+   0         X             K             mis/scan.f90,0000002,0000681
+   1         C     / 8/ MU         36   /BLANK/IELT,ICOMP,NTOP,AMAX,AMIN,IBEG,IEND,ICOMPX
+   2         C     / 4/  U         16   /GPTA1/NELEM,LAST,INCR,E
+   3         C     / 7/ ??         28   /NAMES/RD,RDREW,WRT,WRTREW,REW,NOREW,EOFNRW
+   4         C     / 4/  U        344   /SYSTEM/IBUF,NOUT,SKP,INTRA
+   5         C     / 5/  U        129   /XMSSG/UFM,UWM,UIM,SFM,SWM
+   6         C     /22/ MU         88   /XSCANX/INFILE,OUFILE,LCORE,LBEG,LEND,IOPEN,JOPEN,IEL,IOPT,ISET,ISORT,ITRL3,SUBC,OSUBC,OEL,DEBUG,LLOOP,QUAD4,TRIA3,STRESS,FORCE,LAYERD
+   7         C     / 1/             4   /ZZZZZZ/CORE
+   8    1   4 R        C U E            AMAX
+   9    1   5 R        C U E            AMIN
+  10         s     ( 6)  U              BISLOC
+     (ALT,I4V,I4L,I4E,I4V,I4V)
+  11          I        I?U E            CASECC
+  12         s     ( 2)  U              CLOSE
+     (I4V,R4V)
+  13    7   1 R    ( 1)C   E        1   CORE(1)
+  14    6  16 L        CMU E            DEBUG
+  15    2   4 I    ( 1)C U E        1   E(1)
+  16    3   7 R        C   E            EOFNRW
+  17          I        I?? E            EOR
+  18          I         M? E            FILE
+  19         s     ( 2)  U              FNAME
+     (I4V,I4A)
+  20    6  21 L        CM  E            FORCE
+  21         s     ( 2)  U              FWDREC
+     (ALT,I4V)
+  22          I         MU E            I
+  23          I         MU E            IB
+  24    1   6 I        CMU E            IBEG
+  25    4   1 I        C U E            IBUF
+  26          I         MU E            IBUF1
+  27          I         MU E            IBUF2
+  28          I         MU E            IBUF3
+  29    1   2 I        CMU E            ICOMP
+  30    1   8 I        C   E            ICOMPX
+  31          I         MU E            IDUPL
+  32          I         MU E            IE
+  33    6   8 I        CMU E            IEL
+  34    1   1 I    ( 1)CMU E        2   IELT(2)
+  35    1   7 I        C U E            IEND
+  36          I         MU E            II
+  37          I         M  E            IMAX
+  38          I         MU E            IMIN
+  39          I         MU E            INC
+  40    2   3 I        C U E            INCR
+  41    6   1 I        CMU E            INFILE
+  42    4   4 I        C U E            INTRA
+  43          I         MU E            IOEF
+  44          I         MU E            IOES
+  45          I        I U E            IOL1
+  46          I        I U E            IOL2
+  47    6   6 L        CMU E            IOPEN
+  48    6   9 I        CMU E            IOPT
+  49          I        I U E            IRF
+  50    6  10 I        CMU E            ISET
+  51    6  11 I        CMU E            ISORT
+  52    6  12 I        CMU E            ITRL3
+  53          I         MU E            J
+  54          I    ( 1) MU E        2   JELT(2)
+  55          I         MU E            JMP
+  56    6   7 L        CMU E            JOPEN
+  57         fI    ( 4)  U E            KHRFN1
+     (I4L,I4E,I4L,I4E)
+  58         fI    ( 3)  U E            KHRFN2
+     (I4L,I4E,I4E)
+  59         fI    ( 4)  U E            KHRFN3
+     (I4L,I4L,I4E,I4E)
+  60          I         MU E            KK
+  61          L         MU E            KOPEN
+  62         fI    ( 1)  U E            KORSZ
+     (I4A)
+  63          I         MU E            L
+  64          I         MU E            L1
+  65    2   2 I        C U E            LAST
+  66    6  22 L        C   E            LAYERD
+  67    6   4 I        CMU E            LBEG
+  68    6   3 I        CMU E            LCORE
+  69          I         MU E            LE
+  70          I         MU E            LENCC
+  71    6   5 I        CMU E            LEND
+  72          I         MU E            LL
+  73          I         MU E            LL2
+  74          I        I U E            LLC
+  75          I         MU E            LLL1
+  76    6  17 I        CMU E            LLOOP
+  77          L         MU E            LOPEN
+  78          I         MU E            LS
+  79          I         MU E            LSEM
+  80          I         MU E            LX
+  81         s     ( 3)  U              MESAGE
+     (I4E,I4E,I4A)
+  82         I?    ( 2)  U I            MOD
+  83          I    ( 1)I?? E        2   NAM(2)
+  84          I         MU E            NCASE
+  85    2   1 I        C   E            NELEM
+  86          I         MU E            NN
+  87    3   6 I        C   E            NOREW
+  88    4   2 I        C U E            NOUT
+  89          I         MU E            NSCAN
+  90    1   3 I        CMU E            NTOP
+  91          I         MU E            NXX
+  92          I         MU E            NZ
+  93          I    ( 1)I U E        2   OEFI(2)
+  94    6  15 I        CM  E            OEL
+  95          I    ( 1)I U E        2   OESFI(2)
+  96          I    ( 1)I U E        2   OESI(2)
+  97         s     ( 2)  U              ONLINS
+     (ALT,I4V)
+  98         s     ( 4)  U              OPEN
+     (ALT,I4V,I4L,R4V)
+  99    6  14 I        CM  E            OSUBC
+ 100    6   2 I        CM? E            OUFILE
+ 101    6  18 I        CMU E            QUAD4
+ 102    3   1 R        C   E            RD
+ 103    3   2 R        C?? E            RDREW
+ 104         s     ( 1)  U              RDTRL
+     (I4L)
+ 105         s     ( 7)  U              READ
+     (ALT,ALT,I4V,I4L,I4E,I4E,I4V)
+ 106    3   5 R        C?? E            REW
+ 107         s     ( 1)  U              REWIND
+     (I4V)
+ 108         S                    346   SCAN
+ 109          I        I?U E            SCR1
+ 110    5   4 C*25     C U E            SFM*25
+ 111    4   3 R    ( 1)C   E       83   SKP(83)
+ 112          I         MU E            SORF
+ 113         s     ( 6)  U              SORT
+     (I4E,I4E,I4E,I4E,I4L,I4V)
+ 114    6  20 L        CM  E            STRESS
+ 115         s     ( 1)  U              STRSCN
+     (I4E)
+ 116    6  13 I        CMU E            SUBC
+ 117    5   5 C*27     C U E            SWM*27
+ 118    6  19 I        CMU E            TRIA3
+ 119    5   1 C*23     C   E            UFM*23
+ 120    5   3 C*29     C   E            UIM*29
+ 121    5   2 C*25     C U E            UWM*25
+ 122         s     ( 4)  U              WRITE
+     (I4V,I4A,I4E,I4E)
+ 123    3   3 R        C   E            WRT
+ 124    3   4 R        C?? E            WRTREW
+ 125         s     ( 1)  U              WRTTRL
+     (I4L)
+ 126          I    ( 1) MU E      166   Z(166)
+**-- END OF SYMBOL TABLE

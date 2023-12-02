@@ -1,0 +1,22 @@
+**++ Symbol table for subprogram STUBE1 in file mis/stube1.f90
+     produced by SPAG     8.01RF-40 at 14:47:08 on  2 Dec 2023
+   0         X             K             mis/stube1.f90,0000002,0000072
+   1         C     / 5/  U         20   /CONDAS/PI,TWOPI,RADEG,DEGRA,S4PISQ
+   2         C     / 2/ MU        400   /SDR2X5/ECPT,DUM
+   3         C     / 4/ MU         16   /SDR2X6/TEMP,A,FJ,C
+   4    3   2 R        CMU E            A
+   5    3   4 R        CMU E            C
+   6    1   4 R        C   E            DEGRA
+   7    2   2 R    ( 1)C   E       84   DUM(84)
+   8    2   1 R    ( 1)CMU E       16   ECPT(16)
+   9    3   3 R        CMU E            FJ
+  10          I         MU E            I
+  11          I         MU E            M
+  12    1   1 R        C U E            PI
+  13    1   3 R        C   E            RADEG
+  14    1   5 R        C   E            S4PISQ
+  15         s           U              SROD1
+  16         S                     13   STUBE1
+  17    3   1 R        CMU E            TEMP
+  18    1   2 R        C   E            TWOPI
+**-- END OF SYMBOL TABLE

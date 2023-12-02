@@ -1,0 +1,17 @@
+**++ Symbol table for subprogram DBMNAM in file mds/dbmnam.f90
+     produced by SPAG     7.61RG-40 at 01:00:00 on 21 Mar 2022
+   0         X             K             mds/dbmnam.f90,0000002,0000037
+   1         C     / 1/  U        400   /XFIAT/FIAT
+   2         C     / 1/  U        400   /XFIST/FIST
+   3          I        I U E            BLANK
+   4         S     ( 3) MU         18   DBMNAM(IGNAME,NAME,IFILEX)
+   5    1   1 I    ( 1)C U E      100   FIAT(100)
+   6    2   1 I    ( 1)C U E      100   FIST(100)
+   7          I         MU E            I
+   8    4   3 I        A U E            IFILEX
+   9    4   1 I        A U E            IGNAME
+  10          I         MU E            INDEX
+  11          I         MU E            LIM
+  12    4   2 I    ( 1)AM  E            NAME(2)
+  13          I        I U E            POOL
+**-- END OF SYMBOL TABLE

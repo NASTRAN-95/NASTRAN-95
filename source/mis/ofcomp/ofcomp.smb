@@ -1,0 +1,99 @@
+**++ Symbol table for subprogram OFCOMP in file mis/ofcomp.f90
+     produced by SPAG     7.61RG-40 at 01:00:00 on 21 Mar 2022
+   0         X             K             mis/ofcomp.f90,0000002,0000529
+   1         C     / 1/ MU          4   /BLANK/ICARD
+   2         C     / 1/           384   /OUTPUT/HEAD
+   3         C     / 1/           400   /SYSTEM/KSYSTM
+   4         C     / 1/             4   /ZZZZZZ/CORE
+   5         fI    ( 2)  UXE            ANDF
+     (I4V,I4E)
+   6          I        I U E            ASTR
+   7          I        I U E            BLNK
+   8          I    ( 1) MU E       86   BUF(86)
+   9          R    ( 1)  U E       86   BUFR(86)
+  10          I        I U E            CEIG
+  11          L         MU E            CMPXDT
+  12    4   1 R    ( 1)C   E        1   CORE(1)
+  13          I         MU E            DEVICE
+  14          I         MU E            ELEMID
+  15   70   3 I        A U E            ELTYP
+  16          R         MU E            FAILMX
+  17          I         MU E            FAILTH
+  18   70   1 I        A?? E            FILE
+  19          I         ?? E            FLAG
+  20          L         MU E            FORCE
+  21   70   7 I        A U E            FORM
+  22          I        I U E            FREQ
+  23    2   1 I    ( 1)C   E       96   HEAD(96)
+  24   70   5 L        AMU E            HEADNG
+  25          L         MU E            HEAT
+  26          I    ( 1)I U E        2   HILL(2)
+  27          I    ( 1)I U E        2   HOFFMN(2)
+  28   70   4 I        A U E            IAPP
+  29          I    ( 1) M  E        3   IBUF(3)
+  30    1   1 I        CMU E            ICARD
+  31          I         MU E            ICHECK
+  32          I    ( 1) MU E       50   ID(50)
+  33          I         MU E            IDD
+  34          I         M? E            IDEVCE
+  35          I         MU E            IELTYP
+  36          I    ( 1) ?? E        2   IFAIL(2)
+  37          I         M  E            IFLG
+  38          I         MU E            II
+  39          I         MU E            IPLY
+  40          I    ( 1) MU E       86   IST(86)
+  41          I          U E            ISUBS
+  42          I    ( 1)  U E       32   ISUBTL(32)
+  43          I         MU E            ITEMP
+  44          I          U E            ITHERM
+  45          I    ( 1)  U E       32   ITITLE(32)
+  46          I         MU E            J
+  47          I         MU E            JJ
+  48          I         MU E            JOUT
+  49          I         MU E            K
+  50    3   1 I    ( 1)C   E      100   KSYSTM(100)
+  51          I            E            L1
+  52          I            E            L2
+  53          I            E            L3
+  54          I            E            L4
+  55          I            E            L5
+  56          I    ( 1)  U E       32   LABEL(32)
+  57          I         MU E            LEFT
+  58          I         MU E            LENGTH
+  59          I         MU E            LINE
+  60          L         MU E            MAGPHA
+  61          I         MU E            MAXFLG
+  62          I          U E            MAXLNS
+  63          I         MU E            NLAYER
+  64          I         MU E            NLINES
+  65          I          U E            NOUT
+  66          I         MU E            NUMWDS
+  67          I         MU E            NWDS
+  68          I         MU E            NWORD
+  69          I    ( 1)    E       58   OF(58)
+  70         S     ( 7) MU        266   OFCOMP(FILE,TYPE,ELTYP,IAPP,HEADNG,PNCHED,FORM)
+  71         s           U              PAGE1
+  72   70   6 L        AMU E            PNCHED
+  73          I          U E            PUNCH
+  74          C*5      I U E            Q4*5
+  75          L         MU E            QUAD4
+  76          R    ( 1)  U E        3   RBUF(3)
+  77         s     ( 7)  U              READ
+     (ALT,ALT,I4V,I4A,I4E,I4E,I4V)
+  78          R    ( 1)  U E       50   RID(50)
+  79          R    ( 1)  U E       86   RST(86)
+  80          L         MU E            SORT1
+  81          L         MU E            SORT2
+  82          I        I U E            STATIC
+  83          I    ( 1)I U E        2   STRAIN(2)
+  84          I    ( 1)I U E        2   STRESF(2)
+  85          L         MU E            STRESS
+  86          L         M  E            STRN
+  87          I    ( 1)I U E        3   SUBST(3)
+  88          C*5      I U E            T3*5
+  89          C*5      IMU E            T3Q4*5
+  90          R         MU E            TIME
+  91          L         MU E            TRIA3
+  92          I    ( 1)I U E        2   TSAIWU(2)
+  93   70   2 I        A U E            TYPE
+**-- END OF SYMBOL TABLE

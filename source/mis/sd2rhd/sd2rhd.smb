@@ -1,0 +1,22 @@
+**++ Symbol table for subprogram SD2RHD in file mis/sd2rhd.f90
+     produced by SPAG     8.01RF-40 at 14:46:40 on  2 Dec 2023
+   0         X             K             mis/sd2rhd.f90,0000002,0000063
+   1         C     / 2/  U        204   /SDR2X4/DUMMY,BRANCH
+   2         C     / 2/  U          8   /SYSTEM/ISYSB,NOUT
+   3    1   2 I        C U E            BRANCH
+   4    1   1 R    ( 1)C   E       50   DUMMY(50)
+   5          I         MU E            I
+   6   17   2 I        A U E            ISETUP
+   7   17   1 I    ( 1)AMU E            ISTYP(7)
+   8          I         M  E            ISTYP6
+   9          I         M  E            ISTYP7
+  10    2   1 I        C   E            ISYSB
+  11          I    ( 1)I U E        8   LDMD(8)
+  12          I         MU E            N1
+  13    2   2 I        C U E            NOUT
+  14         s     ( 1)  U              PAGE2
+     (I4E)
+  15          R          U E            RSTYP6
+  16          R          U E            RSTYP7
+  17         S     ( 2) MU         28   SD2RHD(ISTYP,ISETUP)
+**-- END OF SYMBOL TABLE

@@ -1,0 +1,89 @@
+**++ Symbol table for subprogram RCOVMS in file mis/rcovms.f90
+     produced by SPAG     8.01RF-40 at 14:47:06 on  2 Dec 2023
+   0         X             K             mis/rcovms.f90,0000002,0000093
+   1         C     /12/ ?U         88   /BLANK/DRY,LOOP,STEP,FSS,RFNO,NEIGV,LUI,UINMS,NOSORT,UTHRES,PTHRES,QTHRES
+   2         C     / 7/ ??         28   /NAMES/RD,RDREW,WRT,WRTREW,REW,NOREW,EOFNRW
+   3         C     /12/ MU         56   /RCOVCM/MRECVR,UA,PA,QA,IOPT,RSS,ENERGY,UIMPRO,RANGE,IREQ,LREQ,LBASIC
+   4         C     / 9/  U         36   /RCOVCR/ICORE,LCORE,BUF1,BUF2,BUF3,BUF4,SOF1,SOF2,SOF3
+   5         C     / 1/ M?          4   /ZZZZZZ/Z
+   6    4   3 I        C U E            BUF1
+   7    4   4 R        C   E            BUF2
+   8    4   5 R        C   E            BUF3
+   9    4   6 R        C   E            BUF4
+  10         s     ( 2)  U              CLOSE
+     (I4V,I4V)
+  11    1   1 I        C   E            DRY
+  12    3   7 R        C   E            ENERGY
+  13    2   7 R        C   E            EOFNRW
+  14          I        I?? E            EOG
+  15          I        I?? E            EOI
+  16          I         M? E            FILE
+  17         s     ( 4)  U              FREAD
+     (I4V,I4V,I4E,I4E)
+  18    1   4 I    ( 1)C?? E        2   FSS(2)
+  19         s     ( 2)  U              FWDREC
+     (ALT,I4V)
+  20          I         M? E            I
+  21          I        I U E            I7
+  22    4   1 I        C   E            ICORE
+  23    3   5 I        CM  E            IOPT
+  24    3  10 I        C   E            IREQ
+  25          I         ?U E            ITYPE
+  26          I        I?U E            LAMA
+  27          I        I?? E            LAMS
+  28    3  12 I        C   E            LBASIC
+  29    4   2 I        C   E            LCORE
+  30    1   2 I        C   E            LOOP
+  31    3  11 I        C   E            LREQ
+  32    1   7 I        C   E            LUI
+  33         s     ( 3)  U              MESAGE
+     (I4V,I4V,I4A)
+  34    3   1 L        C U E            MRECVR
+  35          I         MU E            N
+  36          I    ( 1)I?? E        2   NAME(2)
+  37    1   6 I        C?U E            NEIGV
+  38    2   6 I        C   E            NOREW
+  39    1   9 I        C   E            NOSORT
+  40          I         M? E            NW
+  41          I         ?? E            NWDS
+  42         s     ( 4)  U              OPEN
+     (ALT,I4V,I4L,I4V)
+  43    3   3 R        C   E            PA
+  44    1  11 R        C   E            PTHRES
+  45    3   4 R        C   E            QA
+  46    1  12 R        C   E            QTHRES
+  47    3   9 R    ( 1)C   E        2   RANGE(2)
+  48          I         MU E            RC
+  49         S                     49   RCOVMS
+  50    2   1 I        C   E            RD
+  51    2   2 I        C?? E            RDREW
+  52         s     ( 7)  U              READ
+     (ALT,ALT,I4V,I4L,I4V,I4E,I4V)
+  53    2   5 I        C?? E            REW
+  54    1   5 I        C?? E            RFNO
+  55    3   6 R    ( 1)C   E        2   RSS(2)
+  56         s     ( 4)  U              SFETCH
+     (I4A,I4V,I4V,I4V)
+  57         s     ( 3)  U              SMSG
+     (I4E,I4V,I4A)
+  58    4   7 R        C   E            SOF1
+  59    4   8 R        C   E            SOF2
+  60    4   9 I        C U E            SOF3
+  61         s           U              SOFCLS
+  62          I        I?? E            SOLN
+  63          I        I?? E            SRD
+  64    1   3 I        C   E            STEP
+  65         s     ( 4)  U              SUREAD
+     (I4L,I4E,I4V,I4V)
+  66         s     ( 3)  U              SUWRT
+     (I4A,I4E,I4E)
+     (I4E,   ,   )
+  67          I        I?? E            SWRT
+  68    3   2 R        C   E            UA
+  69    3   8 R        C   E            UIMPRO
+  70    1   8 R    ( 2)C   E       10   UINMS(2,5)
+  71    1  10 R        C   E            UTHRES
+  72    2   3 I        C   E            WRT
+  73    2   4 I        C   E            WRTREW
+  74    5   1 I    ( 1)CM? E        1   Z(1)
+**-- END OF SYMBOL TABLE

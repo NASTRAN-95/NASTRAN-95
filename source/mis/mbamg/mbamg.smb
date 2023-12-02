@@ -1,0 +1,150 @@
+**++ Symbol table for subprogram MBAMG in file mis/mbamg.f90
+     produced by SPAG     8.01RF-40 at 14:46:58 on  2 Dec 2023
+   0         X             K             mis/mbamg.f90,0000002,0000205
+   1         C     /10/ MU         88   /AMGMN/MCB,NROW,ND,NE,REFC,FMACH,RFK,TSKJ,ISK,NSK
+   2         C     / 5/ MU        216   /MBOXA/X,Y,TANG,ANG,COTANG
+   3         C     /30/ MU        120   /MBOXC/NJJ,CRANK1,CRANK2,CNTRL1,CNTRL2,NBOX,NPTS0,NPTS1,NPTS2,ASYM,GC,CR,MACH,BETA,EK,EKBAR,EKM,BOXL,BOXW,BOXA,NCB,NSB,NSBD,NTOTE,KC,KC1,KC2,KCT,KC1T,KC2T
+   4         C     / 5/ MU         20   /PACKX/ITI,IT0,II,NN,INCR
+   5         C     / 2/  U          8   /SYSTEM/SYSBUF,NOUT
+   6         C     / 1/  U         23   /XMSSG/UFM
+   7         C     / 1/ ?U          4   /ZZZZZZ/Z
+   8   57   2 I        A?? E            AJJL
+   9         IR    ( 3)  U I            AMAX1
+  10    2   4 R    ( 1)C   E       10   ANG(10)
+  11    3  10 L        CM  E            ASYM
+  12    3  14 R        CMU E            BETA
+  13    3  20 R        C   E            BOXA
+  14    3  18 R        CMU E            BOXL
+  15    3  19 R        CMU E            BOXW
+  16          I         MU E            BUF1
+  17         s     ( 4)  U              BUG
+     (I4V,I4E,R4A,I4E)
+     (   ,   ,I4V,   )
+  18         s     ( 2)  U              CLOSE
+     (I4V,I4E)
+  19          R         MU E            CMAX
+  20    3   4 L        C U E            CNTRL1
+  21    3   5 L        C U E            CNTRL2
+  22    2   5 R    ( 1)C   E       10   COTANG(10)
+  23    3  12 R        C?U E            CR
+  24    3   2 L        C   E            CRANK1
+  25    3   3 L        C   E            CRANK2
+  26         s     ( 3)  U              DMPFIL
+     (I4V,R4L,I4E)
+  27    3  15 R        CMU E            EK
+  28    3  16 R        CMU E            EKBAR
+  29    3  17 R        CM  E            EKM
+  30         IR    ( 1)  U I            FLOAT
+  31    1   6 R        C U E            FMACH
+  32         s     ( 4)  U              FREAD
+     (I4V,I4E,I4E,I4E)
+     (   ,R4A,   ,   )
+  33    3  11 R        C   E            GC
+  34         s     ( 3)  U              GOPEN
+     (I4V,R4L,I4E)
+  35          I         MU E            I
+  36          I         MU E            ICORE
+  37          I         MU E            ICORR
+  38          I         M? E            ICRQ
+  39    4   3 I        CMU E            II
+  40    4   5 I        C   E            INCR
+  41   57   1 I        A?? E            INPUT
+  42          I         ?U E            IREG
+  43          I         ?U E            IS
+  44    1   9 I        CMU E            ISK
+  45    4   2 I        CM  E            IT0
+  46    4   1 I        CM  E            ITI
+  47          I    ( 1) ?? E        1   IZ(1)
+  48    3  25 I        C   E            KC
+  49    3  26 I        C   E            KC1
+  50    3  29 I        C?U E            KC1T
+  51    3  27 I        C   E            KC2
+  52    3  30 I        C?U E            KC2T
+  53    3  28 I        C?U E            KCT
+  54         fI    ( 1)  U E            KORSZ
+     (I4A)
+  55          I         MU E            L
+  56    3  13 R        CMU E            MACH
+  57         S     ( 3) ??        128   MBAMG(INPUT,AJJL,SKJ)
+  58         s     ( 2)  U              MBCAP
+     (I4V,R4L)
+  59         s     (29)  U              MBDPDH
+     (I4V,R4L,R4L,R4L,R4L,R4L,R4L,R4L,R4L,R4L,R4L,R4L,R4L,R4L,R4L,R4L,R4L,R4L
+     ,R4L,R4L,R4L,R4L,R4L,R4L,I4V,I4V,I4V,R4L,R4L)
+  60         s           U              MBGEOD
+  61         s     (11)  U              MBMODE
+     (I4V,I4V,I4V,I4V,R4A,I4V,I4V,R4L,R4L,I4V,R4V)
+  62         s     ( 8)  U              MBPLOT
+     (R4L,R4L,R4L,R4L,R4L,R4L,R4L,R4L)
+  63         s     (21)  U              MBREG
+     (I4V,R4L,R4L,R4L,R4L,R4L,R4L,R4L,R4L,R4L,R4L,R4L,R4L,R4L,R4L,R4L,R4L,R4L
+     ,R4L,R4L,R4L)
+  64    1   1 I    ( 1)C   E        7   MCB(7)
+  65         s     ( 3)  U              MESAGE
+     (I4E,I4E,I4A)
+  66         II    ( 2)  U I            MIN0
+  67         I?    ( 2)  U I            MOD
+  68          I         MU E            NA
+  69          I    ( 1)I?? E        2   NAME(2)
+  70    3   6 I        CMU E            NBOX
+  71          I         MU E            NC1
+  72          I         MU E            NC21
+  73          I         MU E            NC2N
+  74          I         MU E            NCAP
+  75          I         MU E            NCAPH
+  76    3  21 I        CMU E            NCB
+  77          I         MU E            NCN
+  78    1   3 I        C U E            ND
+  79          I         MU E            ND1
+  80          I         MU E            NDN
+  81          I         MU E            NDSS
+  82    1   4 I        C   E            NE
+  83          I        I?? E            NHCAPF
+  84          I        I?? E            NHCONT
+  85          I        I?? E            NHCORE
+  86          I         ?? E            NHXECT
+  87    3   1 I        C?U E            NJJ
+  88          I         MU E            NKTE
+  89          I         MU E            NKTE1
+  90          I         MU E            NKTE2
+  91    4   4 I        CMU E            NN
+  92    5   2 I        C U E            NOUT
+  93          I         MU E            NPAREA
+  94          I         MU E            NPHIT
+  95    3   7 I        C?? E            NPTS0
+  96    3   8 I        C?? E            NPTS1
+  97    3   9 I        C?? E            NPTS2
+  98          I         MU E            NQ
+  99          I         MU E            NQ1
+ 100          I         MU E            NQ2
+ 101    1   2 I        CMU E            NROW
+ 102    3  22 I        CMU E            NSB
+ 103    3  23 I        C?U E            NSBD
+ 104    1  10 I        CMU E            NSK
+ 105    3  24 I        C   E            NTOTE
+ 106          I         MU E            NW1
+ 107          I         MU E            NWN
+ 108          I         MU E            NXK
+ 109          I         MU E            NXK1
+ 110          I         MU E            NXK2
+ 111          I         MU E            NXWTE
+ 112          I         MU E            NYK
+ 113          I         MU E            NYK1
+ 114          I         MU E            NYK2
+ 115          I         MU E            NYWTE
+ 116         s     ( 3)  U              PACK
+     (R4V,I4V,R4A)
+ 117    1   5 R        C U E            REFC
+ 118    1   7 R        C U E            RFK
+ 119          R         M? E            RM
+ 120          I        I?? E            SCR2
+ 121   57   3 I        A?? E            SKJ
+ 122         I?    ( 1)  U I            SQRT
+ 123    5   1 I        C U E            SYSBUF
+ 124    2   3 R    ( 1)C   E       10   TANG(10)
+ 125    1   8 R    ( 1)C?? E        7   TSKJ(7)
+ 126    6   1 C*23     C U E            UFM*23
+ 127    2   1 R    ( 1)CMU E       12   X(12)
+ 128    2   2 R    ( 1)CMU E       12   Y(12)
+ 129    7   1 R    ( 1)C?U E        1   Z(1)
+**-- END OF SYMBOL TABLE

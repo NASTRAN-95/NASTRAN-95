@@ -1,0 +1,93 @@
+**++ Symbol table for subprogram AMGT1S in file mis/amgt1s.f90
+     produced by SPAG     8.01RF-40 at 14:46:49 on  2 Dec 2023
+   0         X             K             mis/amgt1s.f90,0000002,0000086
+   1         C     / 1/  U          4   /AMGBUG/DEBUG
+   2         C     / 6/            52   /AMGMN/MCB,NROW,DUM,REFC,SIGMA,RFREQ
+   3         C     / 5/  U         20   /CONDAS/PI,TWOPI,RADEG,DEGRA,S4PISO
+   4         C     / 2/  U          8   /SYSTEM/SYSBUF,IOUT
+   5         C     /27/ ?U        108   /TAMG1L/IREF,MINMAC,MAXMAC,NLINES,NSTNS,REFSTG,REFCRD,REFMAC,REFDEN,REFVEL,REFSWP,SLN,NSTNSX,STAGER,CHORD,DCBDZB,BSPACE,MACH,DEN,VEL,SWEEP,AMACH,REDF,BLSPC,AMACHR,TSONIC,XSIGN
+   6         C     / 1/  U         23   /XMSSG/UFM
+   7          R         MU E            AL1
+   8          R         MU E            AL1SQ
+   9          R         MU E            AL2SQ
+  10    5  22 R        C   E            AMACH
+  11    5  25 R        C   E            AMACHR
+  12         S     ( 4) MU         45   AMGT1S(INPUT,FMAT,XYZB,INDEX)
+  13          R         MU E            AN
+  14          R         MU E            ARG
+  15    5  24 R        C   E            BLSPC
+  16    5  17 R        C   E            BSPACE
+  17         s     ( 4)  U              BUG1
+     (C*E,I4E,I4V,I4E)
+     (   ,   ,R4A,   )
+  18          R         MU E            CH2
+  19    5  15 R        C U E            CHORD
+  20    5  16 R        C   E            DCBDZB
+  21    1   1 L        C U E            DEBUG
+  22    3   4 R        C   E            DEGRA
+  23    5  19 R        C   E            DEN
+  24          R         ?? E            DETERM
+  25    2   3 R    ( 1)C   E        2   DUM(2)
+  26          R         ?? E            DUM1
+  27   12   2 R    ( 2)AM? E            FMAT(Nstns,Nstns)
+  28         s     ( 4)  U              FREAD
+     (I4V,I4V,I4E,I4E)
+     (   ,R4A,   ,   )
+  29          I         MU E            I
+  30   12   4 I    ( 1)A?? E            INDEX(1)
+  31   12   1 I        A?? E            INPUT
+  32         s     ( 8)  U              INVERS
+     (I4V,R4A,I4V,R4V,I4E,R4V,I4V,I4A)
+  33    4   2 I        C U E            IOUT
+  34    5   1 I        C   E            IREF
+  35          I         MU E            ISING
+  36          I         MU E            J
+  37    5  18 R        C   E            MACH
+  38    5   3 R        C   E            MAXMAC
+  39    2   1 I    ( 1)C   E        7   MCB(7)
+  40         s     ( 3)  U              MESAGE
+     (I4E,I4E,I4E)
+  41    5   2 R        C   E            MINMAC
+  42    5   4 I        C   E            NLINES
+  43    2   2 I        C   E            NROW
+  44    5   5 I        C?U E            NSTNS
+  45          I         M? E            NSTNS3
+  46    5  13 I        C   E            NSTNSX
+  47    3   1 R        C U E            PI
+  48          R         MU E            PIC
+  49    3   3 R        C   E            RADEG
+  50    5  23 R        C   E            REDF
+  51    2   4 R        C   E            REFC
+  52    5   7 R        C   E            REFCRD
+  53    5   9 R        C   E            REFDEN
+  54    5   8 R        C   E            REFMAC
+  55    5   6 R        C   E            REFSTG
+  56    5  11 R        C   E            REFSWP
+  57    5  10 R        C   E            REFVEL
+  58    2   6 R        C   E            RFREQ
+  59    3   5 R        C   E            S4PISO
+  60    2   5 R        C   E            SIGMA
+  61         I?    ( 1)  U I            SIN
+  62    5  12 I        C?U E            SLN
+  63         I?    ( 1)  U I            SQRT
+  64    5  14 R        C   E            STAGER
+  65    5  21 R        C   E            SWEEP
+  66    4   1 R        C   E            SYSBUF
+  67          R    ( 2) MU E        9   TBL(3,3)
+  68    5  26 L        C   E            TSONIC
+  69    3   2 R        C   E            TWOPI
+  70    6   1 C*23     C U E            UFM*23
+  71    5  20 R        C   E            VEL
+  72          R         MU E            X
+  73          R         MU E            XA
+  74          R         MU E            XB
+  75          R         MU E            XBA
+  76    5  27 R        C   E            XSIGN
+  77   12   3 R    ( 2)A?U E            XYZB(3,Nstns)
+  78          R         MU E            YA
+  79          R         MU E            YB
+  80          R         MU E            YBA
+  81          R         MU E            ZA
+  82          R         MU E            ZB
+  83          R         MU E            ZBA
+**-- END OF SYMBOL TABLE

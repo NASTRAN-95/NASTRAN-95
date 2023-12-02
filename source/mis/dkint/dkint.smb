@@ -1,0 +1,30 @@
+**++ Symbol table for subprogram DKINT in file mis/dkint.f90
+     produced by SPAG     8.01RF-40 at 14:46:57 on  2 Dec 2023
+   0         X             K             mis/dkint.f90,0000002,0000062
+   1   10   3 D        A U E            A
+   2          D         MU E            AW
+   3   10   4 D        A U E            B
+   4          D         MU E            BINT
+   5          D         MU E            C1
+   6          D         MU E            C1P
+   7          D         MU E            C2
+   8          D         MU E            C2P
+   9          D         MU E            DKEF
+  10         FD    ( 8) MU E       37   DKINT(I,J,A,B,IV,IW,R,Z)
+  11          D         MU E            DKJ
+  12         ID    ( 1)  U I            DLOG
+  13   10   1 I        A U E            I
+  14          I         MU E            IC
+  15          I         MU E            ID
+  16          I         MU E            IN
+  17          I         MU E            IS1
+  18          I         MU E            IT
+  19   10   5 I        A U E            IV
+  20   10   6 I        A U E            IW
+  21          I         MU E            IW1
+  22   10   2 I        A U E            J
+  23          I         MU E            K
+  24   10   7 D    ( 1)A U E            R(1)
+  25          D         MU E            SP1
+  26   10   8 D    ( 1)A   E            Z(1)
+**-- END OF SYMBOL TABLE

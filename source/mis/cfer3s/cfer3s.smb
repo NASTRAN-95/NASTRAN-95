@@ -1,0 +1,120 @@
+**++ Symbol table for subprogram CFER3S in file mis/cfer3s.f90
+     produced by SPAG     8.01RF-40 at 14:46:45 on  2 Dec 2023
+   0         X             K             mis/cfer3s.f90,0000002,0000346
+   1         C     / 7/ ?U        552   /FEERAA/IKMB,ILAM,IPHI,DUDXX,ISCR,DUMAA,MCBVEC
+   2         C     /21/ MU        116   /FEERXC/LAMBDA,SYMMET,MREDUC,NORD,IDIAG,EPSDUM,NORTHO,NORD2,NORD4,NORDP1,NSWP,NOB,IT,TEN2MT,TENMHT,NSTART,QPR,REGDUM,NZERO,XCDUM,NUMRAN
+   3         C     /12/ ?U         48   /NAMES/RD,RDREW,WRT,WRTREW,REW,NOREW,EOFNRW,RSP,RDP,CSP,CDP,SQR
+   4         C     / 5/ MU         20   /PACKX/ITP1,ITP2,IIP,NNP,INCRP
+   5         C     / 1/           260   /SYSTEM/KSYSTM
+   6         C     / 4/ MU         16   /UNPAKX/IPRC,II,NN,INCR
+   7         C     / 2/  U         48   /XMSSG/UFM,UWM
+   8          R    ( 1) ?U E        2   A(2)
+   9          L         MU E            AGAIN
+  10    3  11 R        C   E            CDP
+  11         s     (12)  U              CF1ORT
+     (L4V,I4E,R4V,I4V,I4V,R4L,R4L,R4L,R4L,R4L,R4L,R4L)
+  12         s     ( 5)  U              CFE1AO
+     (L4E,R4L,R4L,R4L,R4L)
+  13         S     (12) MU        181   CFER3S(V1,V1L,V2,V2L,V3,V3L,V4,V4L,V5,V5L,ZB,ZC)
+  14         s     ( 5)  U              CFNOR1
+     (R4L,R4L,I4V,I4E,R4L)
+  15         s     ( 2)  U              CLOSE
+     (I4L,I4V)
+  16    3  10 I        C U E            CSP
+  17          R    ( 1) MU E        4   D(4)
+  18          R    ( 1) MU E        2   DSAVE(2)
+  19    1   4 R        C   E            DUDXX
+  20    1   6 R    ( 1)C   E       84   DUMAA(84)
+  21    3   7 R        C   E            EOFNRW
+  22    2   6 R    ( 1)C   E        2   EPSDUM(2)
+  23         IR    ( 1)  U I            FLOAT
+  24         s     ( 3)  U              GOPEN
+     (I4L,R4L,R4V)
+  25          I         MU E            I
+  26    2   5 I        C U E            IDIAG
+  27    6   2 I        CM  E            II
+  28    4   3 I        CM  E            IIP
+  29          I         MU E            IJ
+  30    1   1 I    ( 2)C   E       21   IKMB(7,3)
+  31    1   2 I    ( 1)C   E        7   ILAM(7)
+  32    6   4 I        CMU E            INCR
+  33    4   5 I        CM  E            INCRP
+  34    1   3 I    ( 1)C?? E        7   IPHI(7)
+  35    6   1 I        CMU E            IPRC
+  36    1   5 I    ( 1)C?? E       11   ISCR(11)
+  37    2  13 I        C   E            IT
+  38    4   1 I        CMU E            ITP1
+  39    4   2 I        CM  E            ITP2
+  40          I         MU E            J
+  41          I         MU E            J2
+  42          I         MU E            JJ
+  43    5   1 I    ( 1)C   E       65   KSYSTM(65)
+  44    2   1 R    ( 1)C U E        4   LAMBDA(4)
+  45          I         MU E            LANCOS
+  46    1   7 I    ( 1)C?U E        7   MCBVEC(7)
+  47         s     ( 3)  U              MESAGE
+     (I4V,I4L,I4A)
+  48         I?    ( 2)  U I            MOD
+  49    2   3 I        CMU E            MREDUC
+  50          I         MU E            N3
+  51          I    ( 1)I?? E        2   NAME(2)
+  52    6   3 I        C   E            NN
+  53    4   4 I        CM  E            NNP
+  54    2  12 L        C   E            NOB
+  55    2   4 I        C U E            NORD
+  56    2   8 I        C?U E            NORD2
+  57    2   9 I        C U E            NORD4
+  58          I         MU E            NORD8
+  59    2  10 I        C   E            NORDP1
+  60    3   6 I        C?? E            NOREW
+  61    2   7 I        CMU E            NORTHO
+  62          I          U E            NOUT
+  63    2  16 I        CMU E            NSTART
+  64    2  11 I    ( 1)C   E        2   NSWP(2)
+  65    2  21 I        CMU E            NUMRAN
+  66    2  19 I        CMU E            NZERO
+  67         s     ( 4)  U              OPEN
+     (ALT,I4L,R4L,I4E)
+  68         s     ( 3)  U              PACK
+     (R4L,I4L,I4L)
+  69    2  17 L        C U E            QPR
+  70    3   1 R        C   E            RD
+  71    3   9 R        C   E            RDP
+  72    3   2 R        C   E            RDREW
+  73         s     ( 7)  U              READ
+     (ALT,ALT,I4L,R4L,I4E,I4E,I4V)
+  74    2  18 R    ( 1)C   E        2   REGDUM(2)
+  75    3   5 R        C   E            REW
+  76    3   8 R        C   E            RSP
+  77          R    ( 1) ?? E        8   S(8)
+  78          L         MU E            SKIP
+  79    3  12 R        C   E            SQR
+  80         I?    ( 1)  U I            SQRT
+  81          R         MU E            SS
+  82          L         ?U E            SUCESS
+  83    2   2 L        C   E            SYMMET
+  84          R    ( 1) M  E        2   TEMP1(2)
+  85          D          U E            TEMP2
+  86    2  14 R        C?? E            TEN2MT
+  87    2  15 R        C U E            TENMHT
+  88    7   1 C*23     C   E            UFM*23
+  89    7   2 C*25     C U E            UWM*25
+  90   13   1 R    ( 1)AMU E            V1(1)
+  91   13   2 R    ( 1)AMU E            V1L(1)
+  92   13   3 R    ( 1)AMU E            V2(1)
+  93   13   4 R    ( 1)AMU E            V2L(1)
+  94   13   5 R    ( 1)A?U E            V3(1)
+  95   13   6 R    ( 1)A?U E            V3L(1)
+  96   13   7 R    ( 1)AMU E            V4(1)
+  97   13   8 R    ( 1)AMU E            V4L(1)
+  98   13   9 R    ( 1)A?? E            V5(1)
+  99   13  10 R    ( 1)A?? E            V5L(1)
+ 100         s     ( 4)  U              WRITE
+     (I4L,R4L,I4E,I4E)
+ 101    3   3 R        C?? E            WRT
+ 102    3   4 R        C?? E            WRTREW
+ 103    2  20 R    ( 1)C   E        3   XCDUM(3)
+ 104   13  11 R    ( 1)A?? E            ZB(1)
+ 105   13  12 R    ( 1)A?? E            ZC(1)
+ 106          R        I U E            ZERO
+**-- END OF SYMBOL TABLE

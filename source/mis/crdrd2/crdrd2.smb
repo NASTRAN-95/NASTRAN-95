@@ -1,0 +1,53 @@
+**++ Symbol table for subprogram CRDRD2 in file mis/crdrd2.f90
+     produced by SPAG     8.01RF-40 at 14:47:21 on  2 Dec 2023
+   0         X             K             mis/crdrd2.f90,0000002,0000111
+   1         C     / 5/ ??         20   /GP4FIL/GEOMP,BGPDT,CSTM,RGT,SCR1
+   2         C     /10/ MU        116   /GP4PRM/BUF,BUF1,BUF2,BUF3,BUF4,KNKL1,MASK16,NOGO,GPOINT,KN
+   3         C     / 1/ MU          4   /ZZZZZZ/Z
+   4    1   2 I        C   E            BGPDT
+   5    2   1 I    ( 1)CM? E       20   BUF(20)
+   6    2   2 R        C   E            BUF1
+   7    2   3 R        C   E            BUF2
+   8    2   4 R        C   E            BUF3
+   9    2   5 R        C   E            BUF4
+  10          D         MU E            CDEP
+  11          R         M? E            COEFF
+  12         S     ( 3) MU         58   CRDRD2(MU,INDCOM,N23)
+  13    1   3 I        C   E            CSTM
+  14         ID    ( 1)  U I            DABS
+  15          D    ( 1) MU E        3   DDRCOS(3)
+  16          D    ( 1) ?? E        9   DEPTFM(9)
+  17         ID    ( 1)  U I            DSQRT
+  18          D    ( 1)    E        1   DZ(1)
+  19    1   1 I        C   E            GEOMP
+  20         s     ( 9)  U              GMMATD
+     (R8A,I4E,I4E,I4E,R8A,I4E,I4E,I4E,R8A)
+  21    2   9 I        C   E            GPOINT
+  22          I         MU E            I
+  23          I         MU E            IDEP
+  24          D    ( 1) MU E        3   IDRCOS(3)
+  25   12   2 I        A U E            INDCOM
+  26          D    ( 1) ?? E        9   INDTFM(9)
+  27    2  10 I        C   E            KN
+  28    2   6 I        C U E            KNKL1
+  29          I        I U E            MASK15
+  30    2   7 I        C   E            MASK16
+  31          I    ( 1) MU E        2   MCODE(2)
+  32   12   1 I        AMU E            MU
+  33   12   3 I        AM  E            N23
+  34    2   8 I        C   E            NOGO
+  35    1   4 I        C?? E            RGT
+  36          D         MU E            RLNGTH
+  37          D    ( 1) MU E        3   RODCOS(3)
+  38          R    ( 1)  U E        1   RZ(1)
+  39    1   5 I        C   E            SCR1
+  40         s     ( 2)  U              TRANSD
+     (I4A,R8A)
+  41         s     ( 4)  U              WRITE
+     (I4V,I4A,I4E,I4E)
+     (   ,R4V,   ,   )
+  42          D         MU E            XD
+  43          D         MU E            YD
+  44    3   1 I    ( 1)CMU E        1   Z(1)
+  45          D         MU E            ZD
+**-- END OF SYMBOL TABLE

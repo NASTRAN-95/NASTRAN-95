@@ -1,0 +1,128 @@
+**++ Symbol table for subprogram SPANL1 in file mis/spanl1.f90
+     produced by SPAG     8.01RF-40 at 14:47:22 on  2 Dec 2023
+   0         X             K             mis/spanl1.f90,0000002,0000349
+   1         C     / 6/ M          24   /MATIN/MATIDC,MATFLG,ELTEMP,STRESS,SINTH,COSTH
+   2         C     /10/  U         40   /MATOUT/E,G,NU,RHO,ALPHA,TSUBO,GSUBE,SIGT,SIGC,SIGS
+   3         C     /20/ MU        900   /SDR2X5/IELID,ISILNO,MATID,T,FMU,ICSID1,GP1,ICSID2,GP2,ICSID3,GP3,ICSID4,GP4,TEMPEL,XXXXXX,JELID,JSILNO,S,OUT,YYYYYY
+   4         C     /63/ MU        424   /SDR2X6/VLEFT,TI,SPCON,VD1,VD2,VKN,VK,V12,V41,VP12,VI,VJ,AVEC,SMALLU,SMALLV,P,X1,X2,X3,X4,Y1,Y2,Y3,Y4,VKL,PA,V12DK,CEP1,CEP2,EP,TEMP,YP,XP,SA,XQ,B,XL,A,A2,A3,A4,A5,B2,B3,B4,B5,C,C2,C3,C4,C5,D,D2,D3,D4,D5,TERM1,TERM2,TERM3,TERM4,TERM5,XL13,XL24
+   5    4  38 R        CMU E            A
+   6    4  39 R        CMU E            A2
+   7    4  40 R        CMU E            A3
+   8    4  41 R        CMU E            A4
+   9    4  42 R        CMU E            A5
+  10         I?    ( 1)  U I            ABS
+  11         IR    ( 1)  U I            ALOG
+  12    2   5 R        C   E            ALPHA
+  13    4  13 R    ( 1)CMU E        4   AVEC(4)
+  14    4  36 R        CMU E            B
+  15    4  43 R        CMU E            B2
+  16    4  44 R        CMU E            B3
+  17    4  45 R        CMU E            B4
+  18    4  46 R        CMU E            B5
+  19    4  47 R        CMU E            C
+  20    4  48 R        CMU E            C2
+  21    4  49 R        CMU E            C3
+  22    4  50 R        CMU E            C4
+  23    4  51 R        CMU E            C5
+  24    4  28 R        C   E            CEP1
+  25    4  29 R        C   E            CEP2
+  26    1   6 R        C   E            COSTH
+  27    4  52 R        CMU E            D
+  28    4  53 R        CMU E            D2
+  29    4  54 R        CMU E            D3
+  30    4  55 R        CMU E            D4
+  31    4  56 R        CMU E            D5
+  32    2   1 R        C   E            E
+  34    1   3 R        CM  E            ELTEMP
+  35    4  30 R        CMU E            EP
+  36          R         MU E            F
+  37    3   5 R        C   E            FMU
+  38    2   2 R        C U E            G
+  39         s     ( 9)  U              GMMATS
+     (R4L,I4E,I4E,I4E,R4A,I4E,I4E,I4E,R4L)
+  40    3   7 R    ( 1)C U E        3   GP1(3)
+  41    3   9 R    ( 1)C U E        3   GP2(3)
+  42    3  11 R    ( 1)C U E        3   GP3(3)
+  43    3  13 R    ( 1)C U E        3   GP4(3)
+  44    2   7 R        C   E            GSUBE
+  45          I         MU E            I
+  46   75   1 I        A U E            IARG
+  47    3   6 I        C   E            ICSID1
+  48    3   8 I        C   E            ICSID2
+  49    3  10 I        C   E            ICSID3
+  50    3  12 I        C   E            ICSID4
+  51          I    ( 1) MU E      100   IECPT(100)
+  52    3   1 I        C U E            IELID
+  53    3   2 I    ( 1)C U E        4   ISILNO(4)
+  54          I         MU E            IVLBEG
+  55    3  16 I        CM  E            JELID
+  56    3  17 I    ( 1)CM  E        4   JSILNO(4)
+  57         s     ( 1)  U              MAT
+     (I4L)
+  58    1   2 I        CM  E            MATFLG
+  59    3   3 I        C U E            MATID
+  60    1   1 I        CM  E            MATIDC
+  61         s     ( 3)  U              MESAGE
+     (I4E,I4E,I4L)
+  62    2   3 R        C U E            NU
+  63    3  19 R    ( 1)CM  E       15   OUT(15)
+  64    4  16 R    ( 1)CMU E        4   P(4)
+  65    4  26 R        CMU E            PA
+  66    2   4 R        C   E            RHO
+  67    3  18 R    ( 2)CM  E       12   S(3,4)
+  68    4  34 R        CMU E            SA
+  69    2   9 R        C   E            SIGC
+  70    2  10 R        C U E            SIGS
+  71    2   8 R        C   E            SIGT
+  72    1   5 R        C   E            SINTH
+  73    4  14 R    ( 1)CMU E        4   SMALLU(4)
+  74    4  15 R    ( 1)CMU E        4   SMALLV(4)
+  75         S     ( 1)  U        214   SPANL1(IARG)
+  76    4   3 R        CMU E            SPCON
+  77         I?    ( 1)  U I            SQRT
+  78    1   4 R        C   E            STRESS
+  79    3   4 R        C U E            T
+  80    4  31 R        CMU E            TEMP
+  81    3  14 R        C U E            TEMPEL
+  82          R         MU E            TERM
+  83    4  57 R        CMU E            TERM1
+  84    4  58 R        CMU E            TERM2
+  85    4  59 R        CMU E            TERM3
+  86    4  60 R        CMU E            TERM4
+  87    4  61 R        CMU E            TERM5
+  88    4   2 R    ( 1)C?? E        9   TI(9)
+  89         s     ( 2)  U              TRANSS
+     (I4L,R4A)
+  90    2   6 R        C   E            TSUBO
+  91    4   8 R    ( 1)CMU E        3   V12(3)
+  92    4  27 R        CMU E            V12DK
+  93    4   9 R    ( 1)CMU E        3   V41(3)
+  94    4   4 R    ( 1)CMU E        3   VD1(3)
+  95    4   5 R    ( 1)CMU E        3   VD2(3)
+  96    4  11 R    ( 1)CMU E        3   VI(3)
+  97    4  12 R    ( 1)CMU E        3   VJ(3)
+  98          R         MU E            VJL
+  99    4   7 R    ( 1)CMU E        3   VK(3)
+ 100    4  25 R        CMU E            VKL
+ 101    4   6 R    ( 1)CMU E        3   VKN(3)
+ 102    4   1 R    ( 1)CMU E        6   VLEFT(6)
+ 103    4  10 R    ( 1)CMU E        3   VP12(3)
+ 104          R         MU E            VP12L
+ 105    4  17 R        CMU E            X1
+ 106    4  18 R        CMU E            X2
+ 107    4  19 R        CMU E            X3
+ 108    4  20 R        CMU E            X4
+ 109    4  37 R        CMU E            XL
+ 110    4  62 R        CMU E            XL13
+ 111    4  63 R        CMU E            XL24
+ 112    4  33 R        CMU E            XP
+ 113    4  35 R        CMU E            XQ
+ 114    3  15 R    ( 1)C   E       75   XXXXXX(75)
+ 115    4  21 R        CMU E            Y1
+ 116    4  22 R        CMU E            Y2
+ 117    4  23 R        CMU E            Y3
+ 118    4  24 R        CMU E            Y4
+ 119    4  32 R        CMU E            YP
+ 120    3  20 R    ( 1)C   E       93   YYYYYY(93)
+ 121          R         MU E            Z
+**-- END OF SYMBOL TABLE

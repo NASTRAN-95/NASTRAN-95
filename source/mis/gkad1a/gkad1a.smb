@@ -1,0 +1,54 @@
+**++ Symbol table for subprogram GKAD1A in file mis/gkad1a.f90
+     produced by SPAG     8.01RF-40 at 14:47:10 on  2 Dec 2023
+   0         X             K             mis/gkad1a.f90,0000002,0000117
+   1         C     / 7/ MU        148   /PARMEG/IA,IA11,IA12,IB11,IB12,NZ,IRULE
+   2         C     / 5/ MU         20   /PATX/LC,N,NO,N4,USET1
+   3         C     / 2/  U        220   /SYSTEM/IDUM,IPREC
+   4         C     / 1/ M?          4   /ZZZZZZ/CORE
+   5          I        AMU E            B1DD
+   6          I        A U E            BAA
+   7         s     ( 5)  U              CALCV
+     (I4V,R4V,R4V,R4V,I4L)
+   8    4   1 I    ( 1)CM? E        1   CORE(1)
+   9         S     ( 7) ?U         77   GKAD1A(USETD,GO,GOD,SCR1,UE,UA,UD)
+  10         E     (11)                 GKAD1B(USETD,MAA,BAA,K4AA,M1DD,B1DD,K41DD,UA,UE,UD,SCR1)
+  11    9   2 I        A U E            GO
+  12    9   3 I        A U E            GOD
+  13          I         MU E            I
+  14    1   1 I    ( 1)CMU E        7   IA(7)
+  15    1   2 I    ( 1)CMU E        7   IA11(7)
+  16    1   3 I    ( 1)CM  E        7   IA12(7)
+  17    1   4 I    ( 1)CM  E        7   IB11(7)
+  18    1   5 I    ( 1)CM  E        7   IB12(7)
+  19    3   1 I    ( 1)C   E       54   IDUM(54)
+  20          I         MU E            IENT
+  21          I         MU E            IOUT
+  22    3   2 I        C U E            IPREC
+  23          I    ( 1) M? E        7   IPV1(7)
+  24    1   7 I        CM  E            IRULE
+  25          I         MU E            K1DD
+  26          I        AMU E            K41DD
+  27          I        A U E            K4AA
+  28          I          U E            KAA
+  29         fI    ( 1)  U E            KORSZ
+     (I4A)
+  30    2   1 I        CMU E            LC
+  31          I        AMU E            M1DD
+  32          I        A U E            MAA
+  33         s     ( 3)  U              MERGE
+     (I4L,I4L,I4L)
+  34    2   2 I        C U E            N
+  35    2   4 I        C U E            N4
+  36    2   3 I        C U E            NO
+  37    1   6 I        CM  E            NZ
+  38         s     ( 1)  U              RDTRL
+     (I4A)
+  39    9   4 I        A?U E            SCR1
+  40    9   6 R        A?? E            UA
+  41    9   7 R        A?? E            UD
+  42    9   5 R        A?? E            UE
+  43    2   5 I        CM  E            USET1
+  44    9   1 I        A U E            USETD
+  45         s     ( 1)  U              WRTTRL
+     (I4A)
+**-- END OF SYMBOL TABLE

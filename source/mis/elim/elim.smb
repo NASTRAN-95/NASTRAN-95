@@ -1,0 +1,40 @@
+**++ Symbol table for subprogram ELIM in file mis/elim.f90
+     produced by SPAG     8.01RF-40 at 14:46:47 on  2 Dec 2023
+   0         X             K             mis/elim.f90,0000002,0000090
+   1         C     /10/ MU        136   /MPYADX/FILEA,FILEB,FILEC,FILED,NZ,T,SIGNAB,SIGNC,PREC,SCRTCH
+   2         C     / 2/  U        220   /SYSTEM/IDUM,IPREC
+   3         C     / 1/ ??          4   /ZZZZZZ/Z
+   4         S     ( 8)  U         42   ELIM(IN1,IN2,IN3,IN4,OUT1,SCR1,SCR2,SCR3)
+   5    1   1 I    ( 1)CM? E        7   FILEA(7)
+   6    1   2 I    ( 1)CMU E        7   FILEB(7)
+   7    1   3 I    ( 1)CMU E        7   FILEC(7)
+   8    1   4 I    ( 1)CMU E        7   FILED(7)
+   9          I         MU E            I
+  10    2   1 I    ( 1)C   E       54   IDUM(54)
+  11    4   1 I        A U E            IN1
+  12    4   2 I        A U E            IN2
+  13    4   3 I        A U E            IN3
+  14    4   4 I        A U E            IN4
+  15    2   2 I        C U E            IPREC
+  16         fI    ( 1)  U E            KORSZ
+     (R4A)
+  17         s     ( 3)  U              MPYAD
+     (R4A,R4A,R4A)
+  18    1   5 I        CM  E            NZ
+  19    4   5 I        A U E            OUT1
+  20          I        I U E            PLUS
+  21    1   9 I        CM  E            PREC
+  22          I         MU E            RDP
+  23         s     ( 1)  U              RDTRL
+     (I4A)
+  24    4   6 I        A U E            SCR1
+  25    4   7 I        A U E            SCR2
+  26    4   8 I        A U E            SCR3
+  27    1  10 I        CM  E            SCRTCH
+  28    1   7 I        CM  E            SIGNAB
+  29    1   8 I        CM  E            SIGNC
+  30    1   6 I        CM  E            T
+  31         s     ( 1)  U              WRTTRL
+     (I4A)
+  32    3   1 R    ( 1)C?? E        1   Z(1)
+**-- END OF SYMBOL TABLE

@@ -1,0 +1,91 @@
+**++ Symbol table for subprogram DETM1 in file mis/detm1.f90
+     produced by SPAG     7.61RG-40 at 01:00:00 on 21 Mar 2022
+   0         X             K             mis/detm1.f90,0000002,0000173
+   1         C     /28/ MU        248   /DETMX/P,DETX,PS1,DET1,N2EV,IPSAV,IPS,IDET,IPDETA,PREC,NSTART,U2,IC,L1,L2,IS,ND,IADD,SML1,IPDETX,IPDET1,IFAIL,K,FACT1,IFFND,NFAIL,NPOLE,ISNG
+   2         C     /22/ MU        160   /REGEAN/IM,IK,IEV,SCR1,SCR2,SCR3,SCR4,SCR5,LCORE,RMAX,RMIN,MZ,NEV,EPSI,RMINR,NE,NIT,NEVM,SCR6,SCR7,NFOUND,LAMA
+   3         C     / 1/ ??          8   /ZZZZZZ/PSAVE
+   4          D    ( 1) ?U E        1   DET(1)
+   5    1   4 D    ( 1)CM  E        4   DET1(4)
+   6         s     ( 6)  U              DETDET
+     (R8L,I4L,R8L,R4V,R8E,I4E)
+   7         S                     91   DETM1
+   8         E                          DETM2
+   9    1   2 D    ( 1)C   E        4   DETX(4)
+  10         ID    ( 1)  U I            DLOG10
+  11         s     ( 2)  U              EADD
+     (R8E,I4V)
+  12    2  14 R        C U E            EPSI
+  13          D         MU E            F1
+  14          D         MU E            F2
+  15          D         MU E            FACT
+  16    1  24 R        CM  E            FACT1
+  17          I         MU E            I
+  18    1  18 I        CMU E            IADD
+  19    1  13 I        CM  E            IC
+  20    1   8 I        CMU E            IDET
+  21    2   3 I    ( 1)C   E        7   IEV(7)
+  22    1  22 I        C   E            IFAIL
+  23    1  25 I        C   E            IFFND
+  24    2   2 I    ( 1)C   E        7   IK(7)
+  25    2   1 I    ( 1)C   E        7   IM(7)
+  26          I    ( 1) ?U E        1   IPDET(1)
+  27    1  21 I    ( 1)CM  E        4   IPDET1(4)
+  28    1   9 I        CMU E            IPDETA
+  29    1  20 I    ( 1)C   E        4   IPDETX(4)
+  30    1   7 I        CMU E            IPS
+  31    1   6 I        CMU E            IPSAV
+  32    1  16 I        CMU E            IS
+  33    1  28 I        CMU E            ISNG
+  34          I         MU E            IX
+  35    1  23 I        C   E            K
+  36         fI    ( 1)  U E            KORSZ
+     (R8A)
+  37    1  14 I        C   E            L1
+  38    1  15 I        C   E            L2
+  39    2  22 I        C   E            LAMA
+  40          I         MU E            LC
+  41    2   9 I        CM  E            LCORE
+  42         s     ( 3)  U              MESAGE
+     (I4E,I4E,I4A)
+  43    2  12 I        C   E            MZ
+  44          I         MU E            N
+  45    1   5 I        CMU E            N2EV
+  46          I    ( 1)I?? E        2   NAME(2)
+  47    1  17 I        CMU E            ND
+  48    2  16 I        C   E            NE
+  49    2  13 I        C U E            NEV
+  50    2  18 I        C U E            NEVM
+  51    1  26 I        C   E            NFAIL
+  52    2  21 I        C   E            NFOUND
+  53    2  17 I        C   E            NIT
+  54          I         MU E            NN
+  55          I         MU E            NND
+  56          I         MU E            NNI
+  57          I         MU E            NNP
+  58    1  27 I        C   E            NPOLE
+  59          I         MU E            NS
+  60    1  11 I        C U E            NSTART
+  61    1   1 D    ( 1)C   E        4   P(4)
+  62    1  10 I        C?? E            PREC
+  63          D    ( 1) MU E        1   PS(1)
+  64    1   3 D    ( 1)CM  E        4   PS1(4)
+  65    3   1 D    ( 1)C?? E        1   PSAVE(1)
+  66          D         MU E            RATIO
+  67    2  10 R        CMU E            RMAX
+  68    2  11 R        C U E            RMIN
+  69    2  15 R        C   E            RMINR
+  70    2   4 I        C   E            SCR1
+  71    2   5 I        C   E            SCR2
+  72    2   6 I        C   E            SCR3
+  73    2   7 I        C   E            SCR4
+  74    2   8 I        C   E            SCR5
+  75    2  19 I        C   E            SCR6
+  76    2  20 I        C   E            SCR7
+  77    1  19 R        C?? E            SML1
+  78         I?    ( 1)  U I            SQRT
+  79          R         MU E            SRRMAX
+  80          R         MU E            SRRMIN
+  81    1  12 I        C   E            U2
+  82          D         MU E            X
+  83          D         MU E            Y
+**-- END OF SYMBOL TABLE

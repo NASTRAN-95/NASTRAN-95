@@ -1,0 +1,47 @@
+**++ Symbol table for subprogram OPT2B in file mis/opt2b.f90
+     produced by SPAG     8.01RF-40 at 14:47:08 on  2 Dec 2023
+   0         X             K             mis/opt2b.f90,0000002,0000097
+   1         C     / 9/  U         80   /BLANK/SKP1,COUNT,SKP2,NWDSP,SKP3,NPRW,NKLW,NTOTL,CONV
+   2         C     / 2/  U          8   /SYSTEM/SYSBUF,OUTTAP
+   3         C     / 2/  U         48   /XMSSG/UFM,UWM
+   4         C     / 1/             4   /ZZZZZZ/CORE
+   5         I?    ( 1)  U I            ABS
+   6          R         MU E            ALPH
+   7          R         MU E            CH
+   8    1   9 R        C   E            CONV
+   9    4   1 R    ( 1)C   E        1   CORE(1)
+  10    1   2 I        C   E            COUNT
+  11          R         MU E            DELP
+  12          R            E            EPS
+  13          R          U E            GAMA
+  14          I         MU E            I
+  15          I         MU E            ICP
+  16   28   1 I    ( 1)A U E            IPR(1)
+  17          I          U E            IPRNT
+  18          I         MU E            IRR
+  19          I    ( 1)  U E        1   IY(1)
+  20          I         MU E            KPL
+  21          I            E            MAX
+  22    1   7 I        C   E            NKLW
+  23          I         MU E            NMES
+  24          I         MU E            NP
+  25    1   6 I        C U E            NPRW
+  26    1   8 I        C U E            NTOTL
+  27    1   4 I        C U E            NWDSP
+  28         S     ( 4) MU         51   OPT2B(IPR,PR,PL,RR)
+  29    2   2 I        C U E            OUTTAP
+  30         s     ( 1)  U              PAGE2
+     (I4E)
+  31   28   3 R    ( 1)A U E            PL(1)
+  32          R         MU E            PNEW
+  33   28   2 R    ( 1)AMU E            PR(1)
+  34   28   4 R    ( 1)A U E            RR(1)
+  35    1   1 R    ( 1)C   E        2   SKP1(2)
+  36    1   3 R    ( 1)C   E        6   SKP2(6)
+  37    1   5 R    ( 1)C   E        6   SKP3(6)
+  38    2   1 I        C   E            SYSBUF
+  39    3   1 C*23     C   E            UFM*23
+  40    3   2 C*25     C U E            UWM*25
+  41          R    ( 1) MU E        1   Y(1)
+  42          R    ( 1)    E        8   Z(8)
+**-- END OF SYMBOL TABLE

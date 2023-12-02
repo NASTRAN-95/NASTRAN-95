@@ -1,0 +1,32 @@
+**++ Symbol table for subprogram BLDPKI in file mds/bldpki.f90
+     produced by SPAG     8.01RF-40 at 14:46:33 on  2 Dec 2023
+   0         X             K             mds/bldpki.f90,0000002,0000056
+   1    2   1 I    ( 1)A?U E            A(4)
+   2         S     ( 4) MU         45   BLDPKI(A,I,FILE,BLOCK)
+   3    2   4 I    ( 1)AMU E            BLOCK(15)
+   4         s     ( 1)  U              DSMSG
+     (I4E)
+   5         s     ( 1)  U              DSMSG1
+     (I4A)
+   6         s     ( 4)  U              DSUPKC
+     (I4V,I4L,I4A,?*E)
+   7         s     ( 1)  U              ENDPUT
+     (I4A)
+   8    2   3 I        A U E            FILE
+   9    2   2 I        A U E            I
+  10         f?    ( 1) MU I            IBASE
+     (I4E)
+  11          I         MU E            ICROW
+  12          I         MU E            INCCNT
+  13          I         MU E            INDEX
+  14          I         MU E            ITYPIN
+  15          I         MU E            K
+  16          I         MU E            KK
+  17          ?         M  I            NAME
+  18          I         MU E            NEXROW
+  19          ?         MU I            NWORDS
+  20         f?    ( 1)  U I            NWRDEL
+     (I4V)
+  21         s     ( 1)  U              PUTSTR
+     (I4A)
+**-- END OF SYMBOL TABLE

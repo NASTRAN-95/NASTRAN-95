@@ -1,0 +1,92 @@
+**++ Symbol table for subprogram OPTPX in file mis/optpx.f90
+     produced by SPAG     8.01RF-40 at 14:46:51 on  2 Dec 2023
+   0         X             K             mis/optpx.f90,0000002,0000272
+   1         C     /14/ MU        168   /BLANK/SKP1,COUNT,SKP2,YCOR,B1P1,NPOW,SKP3,NKLW,MPT,EPT,SKP5,SCRTH1,NELTYP,ENTRY
+   2         C     / 4/  U         16   /GPTA1/NTYPES,LAST,INCR,NE
+   3         C     / 4/ ??         16   /NAMES/NRD,NOEOR,NWRT,NWEOR
+   4         C     / 2/ ?U         44   /OPTPW1/KCOR,K
+   5         C     / 2/  U          8   /SYSTEM/SYSBUF,OUTTAP
+   6         C     / 1/  U         23   /XMSSG/UFM
+   7         C     / 1/             4   /ZZZZZZ/CORE
+   8          I        I U E            ALL
+   9          I         MU E            ANY
+  10    1   5 I        C   E            B1P1
+  11         s     ( 1)  U              BCKREC
+     (I4V)
+  12          I        I U E            BLANK
+  13    7   1 R    ( 1)C   E        1   CORE(1)
+  14    1   2 I        CM  E            COUNT
+  15   64   1 I    ( 1)A U E            DTYP(1)
+  16         fI    ( 1)  U E            EJECT
+     (I4E)
+  17    1  14 I    ( 1)C U E       21   ENTRY(21)
+  18         s     ( 1)  U              EOF
+     (I4V)
+  19    1  10 I        C   E            EPT
+  20          I    ( 1)IMU E       21   ETP(21)
+  21          I         MU E            I
+  22          I         MU E            I1
+  23          I         MU E            I2
+  24          I         MU E            I3
+  25          I         MU E            I4
+  26          I         MU E            IALL
+  27          I         MU E            IDE
+  28          I         MU E            IDX
+  29          I         MU E            IMHERE
+  30    2   3 I        C U E            INCR
+  31          I         MU E            IRET
+  32          I    ( 1) MU E        1   IY(1)
+  33          I         MU E            J
+  34          I         MU E            J1
+  35          I         MU E            J2
+  36    4   2 I    ( 1)C?U E       10   K(10)
+  37    4   1 I        C   E            KCOR
+  38          I         MU E            L
+  39    2   2 I        C   E            LAST
+  40          I         MU E            LOC1
+  41          I         MU E            LOC2
+  42          I         MU E            M
+  43         II    ( 2)  U I            MAX0
+  44          I         MU E            MAXW
+  45         s     ( 3)  U              MESAGE
+     (I4V,I4V,I4A)
+  46    1   9 I        C?? E            MPT
+  47          I         MU E            N
+  48          I    ( 1)I?? E        2   NAME(2)
+  49          I         MU E            NDE
+  50    2   4 I    ( 1)C U E        1   NE(1)
+  51    1  13 I        C   E            NELTYP
+  52          I         MU E            NEN
+  53    1   8 I        CM  E            NKLW
+  54          I         MU E            NOCOR
+  55    3   2 I        C?? E            NOEOR
+  56          I         MU E            NOGO
+  57    1   6 I        C   E            NPOW
+  58    3   1 I        C   E            NRD
+  59    2   1 I        C U E            NTYPES
+  60          I         MU E            NWDS
+  61    3   4 I        C?? E            NWEOR
+  62    3   3 I        C   E            NWRT
+  63          I         MU E            NX
+  64         S     ( 1)  U        179   OPTPX(DTYP)
+  65         s     ( 5)  U              OPTPX1
+     (ALT,I4A,I4V,I4V,I4V)
+  66    5   2 I        C U E            OUTTAP
+  67         s     ( 1)  U              PAGE2
+     (I4E)
+  68         s     ( 7)  U              READ
+     (ALT,ALT,I4V,I4A,I4E,I4E,I4V)
+  69    1  12 I        C?? E            SCRTH1
+  70    1   1 R    ( 1)C   E        2   SKP1(2)
+  71    1   3 R    ( 1)C   E        2   SKP2(2)
+  72    1   7 R    ( 1)C   E        4   SKP3(4)
+  73    1  11 R    ( 1)C   E        4   SKP5(4)
+  74         s     ( 6)  U              SORT
+     (I4E,I4E,I4E,I4E,I4L,I4V)
+  75          I    ( 1) MU E       21   STOR(21)
+  76    5   1 I        C   E            SYSBUF
+  77    6   1 C*23     C U E            UFM*23
+  78         s     ( 4)  U              WRITE
+     (I4V,I4L,I4E,I4V)
+  80    1   4 I        C U E            YCOR
+**-- END OF SYMBOL TABLE

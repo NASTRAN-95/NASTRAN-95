@@ -1,0 +1,67 @@
+**++ Symbol table for subprogram STQME2 in file mis/stqme2.f90
+     produced by SPAG     8.01RF-40 at 14:46:59 on  2 Dec 2023
+   0         X             K             mis/stqme2.f90,0000002,0000133
+   1         C     / 5/  U        156   /SDR2X4/DUMMY,IVEC,IVECN,LDTEMP,DEFORM
+   2         C     / 3/ MU        900   /SDR2X7/EST,STRES,FORVEC
+   3         C     / 9/ MU         72   /SDR2X8/STRESS,VEC,TEM,TEMP,NPOINT,DELTA,NSIZE,CVEC,CSTR
+   4         C     / 6/  U         28   /SDR2X9/NCHK,ISUB,ILD,FRTMEI,TWOTOP,FNCHK
+   5         C     / 4/ MU         48   /SYSTEM/IBFSZ,NOUT,IDM,LINE
+   6         C     / 1/ ??          4   /ZZZZZZ/Z
+   7         I?    ( 1)  U I            ABS
+   8         I?    ( 2)  U I            ATAN2
+   9    3   9 R    ( 1)CMU E        4   CSTR(4)
+  10    3   8 R    ( 1)C?U E        3   CVEC(3)
+  11    1   5 R        C   E            DEFORM
+  12    3   6 R        CMU E            DELTA
+  13    1   1 R    ( 1)C   E       35   DUMMY(35)
+  14         fI    ( 1)  U E            EJECT
+     (I4E)
+  15    2   1 R    ( 1)C   E      100   EST(100)
+  16    4   6 R        C   E            FNCHK
+  17    2   3 R    ( 1)C   E       25   FORVEC(25)
+  18          R    ( 1)IMU E        2   FRLAST(2)
+  19    4   4 R    ( 1)C U E        2   FRTMEI(2)
+  20          R          U E            FTEMP
+  21          I         MU E            I
+  22    5   1 I        C   E            IBFSZ
+  23    5   3 I    ( 1)C   E        9   IDM(9)
+  24    4   3 I        C U E            ILD
+  25          I    ( 1) ?? E        7   ISHD(7)
+  26          I    ( 1) MU E        2   ISTYP(2)
+  27    4   2 I        C U E            ISUB
+  28    1   2 I        C U E            IVEC
+  29    1   3 I        C   E            IVECN
+  30          I         MU E            J
+  31          I         MU E            K
+  32    1   4 I        C U E            LDTEMP
+  33    5   4 I        CMU E            LINE
+  34          I        IMU E            LLD
+  35          I        IMU E            LSUB
+  36    4   1 I        C U E            NCHK
+  37    5   2 I        C U E            NOUT
+  38    3   5 I        CMU E            NPOINT
+  39          I    ( 1)  U E        4   NSIL(4)
+  40    3   7 I        CMU E            NSIZE
+  41   50   1 I        A U E            NTYPE
+  42         s           U              PAGE1
+  43          R    ( 1)  U E       45   PH1OUT(45)
+  44         s     ( 2)  U              SD2RHD
+     (I4A,I4V)
+  45         s     ( 4)  U              SDRCHK
+     (R4L,R4L,I4E,I4V)
+  46          R    ( 1) ?? E       36   SI(36)
+  47         s     (10)  U              SMMATS
+     (R4L,I4E,I4E,I4E,R4L,I4E,I4E,I4E,R4A,R4A)
+  48         I?    ( 1)  U I            SQRT
+  49          R    ( 1)  U E        3   ST(3)
+  50         S     ( 1)  U         59   STQME2(NTYPE)
+  51    2   2 R    ( 1)CMU E      100   STRES(100)
+  52    3   1 R    ( 1)CMU E        3   STRESS(3)
+  53    3   3 R        CMU E            TEM
+  54    3   4 R        CMU E            TEMP
+  55          R          U E            TSUB0
+  56    4   5 R        C   E            TWOTOP
+  57          I    ( 1)I U E        3   TYP(3)
+  58    3   2 R    ( 1)C?U E        3   VEC(3)
+  59    6   1 R    ( 1)C?? E        1   Z(1)
+**-- END OF SYMBOL TABLE

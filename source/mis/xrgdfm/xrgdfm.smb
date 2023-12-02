@@ -1,0 +1,114 @@
+**++ Symbol table for subprogram XRGDFM in file mis/xrgdfm.f90
+     produced by SPAG     8.01RF-40 at 14:47:05 on  2 Dec 2023
+   0         X             K             mis/xrgdfm.f90,0000002,0000417
+   1         C     / 2/ ?U          8   /ALTRXX/ALTFIL,NEWALT
+   2         C     / 1/ M          32   /PHAS11/IPAS11
+   3         C     / 1/ M          56   /PHAS25/IPAS25
+   4         C     / 1/ M          56   /PHAS28/IPAS28
+   5         C     / 1/ M           8   /PHAS31/IPAS31
+   6         C     / 1/ M          24   /PHAS37/IPAS37
+   7         C     / 1/           400   /SYSTEM/KSYSTM
+   8         C     / 1/ ??        124   /TWO/TWO
+   9         C     / 4/ MU         40   /XMDMSK/N1,N2,N3,MEDMSK
+  10         C     / 1/  U         23   /XMSSG/UFM
+  11         C     /20/ MU        488   /XRGDXX/IRESTR,NSUBST,IPHASE,ICOL,NUMBER,ITYPE,ISTATE,IERROR,NUM,IND,NUMENT,RECORD,ICHAR,LIMIT,ICOUNT,IDMAP,ISCRX,NAME,MEMBER,IGNORE
+  12    1   1 I        C?? E            ALTFIL
+  13          I        I U E            ASTERS
+  14          I        I U E            BLANK
+  15          I        I U E            CARD
+  16         s     ( 2)  U              CLOSE
+     (I4V,I4E)
+  17          I        I U E            COMENT
+  18          I        I U E            DOLACR
+  19          I        I U E            DOLAFL
+  20          I        I U E            FILE
+  21          I    ( 1)I U E        4   FILTYP(4)
+  22   95   3 I        A U E            IAPP
+  23          I         MU E            IBIT
+  24   11  13 I    ( 1)C   E       80   ICHAR(80)
+  25   11   4 I        C   E            ICOL
+  26   11  15 I        C   E            ICOUNT
+  27          I    ( 1)  U E        3   IDATE(3)
+  28   11  16 I        CMU E            IDMAP
+  29   11   8 I        C U E            IERROR
+  30          I         MU E            IFILL
+  31   11  20 I        CMU E            IGNORE
+  32   11  10 I        C   E            IND
+  33          I         MU E            INDEX
+  34   95   5 I    ( 1)AM? E            IOPEN(100)
+  35          I    ( 1) ?? E      200   IOUTBF(200)
+  36    2   1 I    ( 1)CM  E        8   IPAS11(8)
+  37    3   1 I    ( 1)CM  E       14   IPAS25(14)
+  38    4   1 I    ( 1)CM  E       14   IPAS28(14)
+  39    5   1 I    ( 1)CM  E        2   IPAS31(2)
+  40    6   1 I    ( 1)CM  E        6   IPAS37(6)
+  41   11   3 I        CM  E            IPHASE
+  42   11   1 I        C U E            IRESTR
+  43   95   7 I        A?U E            ISCR
+  44   11  17 I        CM  E            ISCRX
+  45   95   6 I        A U E            ISIZE
+  46          I         MU E            ISOL
+  47   11   7 I        C   E            ISTATE
+  48          I            E            ISUBAL
+  49          I         M  E            ITHRML
+  50   11   6 I        CMU E            ITYPE
+  51   95   4 I    ( 1)A U E            IUFILE(2)
+  52          I         MU E            IWORD
+  53          I         MU E            K
+  54          I         MU E            KB
+  55    7   1 I    ( 1)C   E      100   KSYSTM(100)
+  56   11  14 I    ( 1)CM  E        2   LIMIT(2)
+  57          I         ?U E            LU
+  58          I        I U E            MAXSOL
+  59    9   4 I    ( 1)CM? E        7   MEDMSK(7)
+  60   11  19 I    ( 1)CMU E        2   MEMBER(2)
+  61         s     ( 3)  U              MESAGE
+     (I4E,I4E,I4A)
+  62    9   1 I        C U E            N1
+  63    9   2 I        C U E            N2
+  64    9   3 I        C U E            N3
+  65   11  18 I    ( 1)C   E        2   NAME(2)
+  66          I        I   E            NAS
+  67    1   2 I        C U E            NEWALT
+  68   95   1 I    ( 1)A?U E            NEWSOL(12)
+  69          I         MU E            NEXT
+  70          I            E            NLPP
+  71   95   8 I        AM  E            NOGO
+  72   11   2 I        C U E            NSUBST
+  73   11   9 I    ( 1)C   E        2   NUM(2)
+  74   11   5 I        C   E            NUMBER
+  75   11  11 I        CMU E            NUMENT
+  76          I    ( 1)I U E       50   NUMSOL(50)
+  77          I         MU E            OLDIND
+  78          I         MU E            OLDNUM
+  79   95   2 I    ( 1)AMU E            OLDSOL(12)
+  80          I          U E            OPTAPE
+  81         fI    ( 2)  UXE            ORF
+     (I4L,I4L)
+  82          I    ( 1)I U E        3   PHASE(3)
+  83   11  12 I    ( 1)CMU E       20   RECORD(20)
+  84         s     ( 1)  U              RFCLSE
+     (I4V)
+  85          I        I U E            RFMT
+  86         s     ( 2)  U              RFOPEN
+     (I4A,I4V)
+  87          I    ( 1)I U E       20   SOLNUM(20)
+  88          I    ( 1)I?? E        2   SUB(2)
+  89          I        I U E            SUBSET
+  90    8   1 I    ( 1)C?? E       31   TWO(31)
+  91   10   1 C*23     C U E            UFM*23
+  92         s     ( 4)  U              WRITE
+     (I4V,I4E,I4E,I4E)
+     (   ,I4A,   ,   )
+  93         s     ( 3)  U              XRCARD
+     (I4A,I4E,I4A)
+  94         s     ( 1)  U              XRGDCF
+     (I4L)
+  95         S     ( 8) MU        187   XRGDFM(NEWSOL,OLDSOL,IAPP,IUFILE,IOPEN,ISIZE,ISCR,NOGO)
+  96         s     ( 1)  U              XRGDTB
+     (I4V)
+  97         s     ( 1)  U              XRGSST
+     (I4A)
+  98         s     ( 2)  U              XRGSUB
+     (I4L,I4L)
+**-- END OF SYMBOL TABLE

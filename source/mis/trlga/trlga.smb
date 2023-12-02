@@ -1,0 +1,169 @@
+**++ Symbol table for subprogram TRLGA in file mis/trlga.f90
+     produced by SPAG     8.01RF-40 at 14:46:48 on  2 Dec 2023
+   0         X             K             mis/trlga.f90,0000002,0000524
+   1         C     / 2/  U         48   /BITPOS/ISK,IUE
+   2         C     / 1/ MU          4   /BLANK/NG
+   3         C     /16/ M          72   /LOADX/LC,SLT1,BGPDT1,OLD,CSTM1,SIL1,ISIL,EST1,MPT,GPTT,EDT,N,LODC,MASS,NOBLD,IDIT
+   4         C     / 2/ M           8   /QVECT/ITRAN,IQVECT
+   5         C     / 1/           260   /SYSTEM/KSYSTM
+   6         C     / 1/  U        128   /TWO/TWO1
+   7         C     / 2/ M          20   /ZBLPKX/ZA,IIB
+   8         C     / 4/ MU         28   /ZNTPKX/ZB,III,IEOL,IEOR
+   9         C     / 1/ MU          4   /ZZZZZZ/Z
+  10         fI    ( 2)  UXE            ANDF
+     (I4L,I4V)
+  11  126   8 I        A?? E            AP
+  12  126   5 I        A U E            BGPDT
+  13    3   3 I        CM  E            BGPDT1
+  14         s     ( 5)  U              BLDPK
+     (I4E,I4E,I4V,I4E,I4E)
+  15         s     ( 3)  U              BLDPKN
+     (I4V,I4E,I4A)
+  16  126   1 I        A?? E            CASECC
+  17         s     ( 2)  U              CLOSE
+     (I4V,I4E)
+     (I4A,   )
+  18  126   7 I        A U E            CSTM
+  19    3   5 I        CM  E            CSTM1
+  20  126   3 I        A?U E            DLT
+  21    3  11 R        C   E            EDT
+  22  126  14 I        A?U E            EST
+  23    3   8 I        CM  E            EST1
+  24         s     ( 7)  U              EXTERN
+     (I4V,I4V,I4A,I4L,I4A,I4V,I4V)
+  25          I         M? E            FILE
+  26         s     ( 4)  U              FREAD
+     (I4V,I4A,I4E,I4E)
+     (   ,I4V,   ,   )
+     (   ,R4A,   ,   )
+  27         s     ( 2)  U              FWDREC
+     (ALT,I4V)
+  28         s     ( 3)  U              GOPEN
+     (I4V,I4L,I4E)
+     (I4A,   ,   )
+  29    3  10 R        C   E            GPTT
+  30         s     ( 4)  U              GRAVL1
+     (I4V,I4A,I4V,I4V)
+  31         s     ( 3)  U              GRAVL2
+     (I4V,I4V,I4A)
+  32          I    ( 1) ?? E       30   GVECT(30)
+  33          I         MU E            I
+  34         II    ( 1)  U I            IABS
+  35          I         MU E            IBUF1
+  36          I         MU E            IBUF2
+  37          I         MU E            IBUF3
+  38          I         MU E            IBUF4
+  39          I         MU E            ICLST
+  40    3  16 I        C   E            IDIT
+  41          I         MU E            IDLOAD
+  42          I         M? E            IDLTR
+  43    8   3 I        C U E            IEOL
+  44    8   4 I        C   E            IEOR
+  45          I         MU E            IFLAG
+  46          I         M? E            IHARM
+  47    7   2 I        CM  E            IIB
+  48    8   2 I        C U E            III
+  49          I         MU E            ILLST
+  50          I         MU E            ILOOP
+  51         s     ( 5)  U              INTPK
+     (ALT,I4A,I4E,I4E,I4E)
+  52          I         M? E            IP1
+  53          I         M? E            IQR
+  54    4   2 I        CM  E            IQVECT
+  55          I         ?U E            IQVID
+  56          I         MU E            IQVRN
+  57          I         MU E            IRETN
+  58  126  11 I        A?U E            ISCR1
+  59  126  12 I        A?? E            ISCR2
+  60  126  13 I        A?U E            ISCR3
+  61  126  17 I        A?? E            ISCR4
+  62          I         MU E            ISEL
+  63    3   7 I        C   E            ISIL
+  64          I         MU E            ISILD
+  65    1   1 I    ( 1)C   E       11   ISK(11)
+  66          I         MU E            ISLLST
+  67          I         MU E            ITAUO
+  68          I         MU E            ITERM
+  69    4   1 I        CM  E            ITRAN
+  70          I        I U E            ITRAN1
+  71  126  10 I        AM  E            ITRL
+  72    1   2 I        C U E            IUE
+  73          I    ( 1) MU E       38   IZ(38)
+  74          I    ( 1) ?U E        4   IZB(4)
+  75          I         MU E            J
+  76          I         MU E            K
+  77         fI    ( 1)  U E            KORSZ
+     (I4A)
+  78    5   1 I    ( 1)C   E       65   KSYSTM(65)
+  79          I         MU E            L
+  80    3   1 I        CM  E            LC
+  81          I         MU E            LL
+  82    3  13 I        C   E            LODC
+  83          I         MU E            LUSETD
+  84          I         MU E            M
+  85         s     ( 5)  U              MAKMCB
+     (I4A,I4V,I4V,I4E,I4E)
+  86    3  14 I        CM  E            MASS
+  87          I    ( 1) MU E        7   MCB(7)
+  88         s     ( 3)  U              MESAGE
+     (I4E,I4E,I4A)
+     (   ,   ,I4V)
+  89  126  16 I        A?U E            MGG
+  90          I    ( 1)I?? E        2   MINUS(2)
+  91    3   9 I        CM  E            MPT
+  92  126  18 I        A U E            MPT1
+  93          I         M? E            MSKUE
+  94    3  12 I    ( 1)C   E        3   N(3)
+  95          I         MU E            N1
+  96          I    ( 1)I?? E        2   NAME(2)
+  97          I    ( 1)I?? E        2   NAMT(2)
+  98          I         ?? E            NAVE
+  99          I         MU E            NDLOAD
+ 100  126  15 I        A?U E            NEWSLT
+ 101          I         MU E            NEX
+ 102    2   1 I        CMU E            NG
+ 103          I         MU E            NGRAV
+ 104    3  15 I        C   E            NOBLD
+ 105          I         MU E            NOSLT
+ 106          I         MU E            NSIMPL
+ 107          I         MU E            NSUBL
+ 108          I         MU E            NX
+ 109          I         MU E            NZ
+ 110          I         M? E            NZ1
+ 111    3   4 R        C   E            OLD
+ 112         s     ( 4)  U              OPEN
+     (ALT,I4V,I4L,I4E)
+ 113          I    ( 1) ?U E        7   PG(7)
+ 114         s     ( 1)  U              RDTRL
+     (I4A)
+ 115         s     ( 7)  U              READ
+     (ALT,ALT,I4V,I4A,I4E,I4E,I4V)
+     (   ,   ,   ,I4V,   ,   ,   )
+ 116          R         MU E            SCALE
+ 117  126   6 I        A U E            SIL
+ 118    3   6 I        CM  E            SIL1
+ 119         s     ( 2)  U              SKPREC
+     (I4V,I4V)
+     (I4A,   )
+ 120  126   4 I        A?U E            SLT
+ 121    3   2 I        CM  E            SLT1
+ 122         s     ( 8)  U              SSG2B
+     (I4V,I4V,I4E,I4V,I4E,I4E,I4E,I4V)
+ 123         s     ( 3)  U              SSGSLT
+     (I4V,I4V,I4V)
+ 124          I          U E            SYSBUF
+ 125  126   9 I        A?U E            TMLDTB
+ 126         S     (18) MU        358   TRLGA(CASECC,USETD,DLT,SLT,BGPDT,SIL,CSTM,AP,TMLDTB,ITRL,ISCR1,ISCR2,ISCR3,EST,NEWSLT,MGG,ISCR4,MPT1)
+ 127    6   1 I    ( 1)C U E       32   TWO1(32)
+ 128  126   2 I        A?U E            USETD
+ 129         s     ( 4)  U              WRITE
+     (I4V,I4A,I4E,I4E)
+     (   ,I4E,   ,   )
+ 130         s     ( 1)  U              WRTTRL
+     (I4A)
+ 131    9   1 R    ( 1)CMU E        1   Z(1)
+ 132    7   1 R    ( 1)CM  E        4   ZA(4)
+ 133    8   1 R    ( 1)CMU E        4   ZB(4)
+ 134         s           U              ZBLPKI
+ 135         s           U              ZNTPKI
+**-- END OF SYMBOL TABLE

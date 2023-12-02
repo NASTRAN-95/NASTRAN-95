@@ -1,0 +1,67 @@
+**++ Symbol table for subprogram XFADJ1 in file mis/xfadj1.f90
+     produced by SPAG     8.01RF-40 at 14:47:07 on  2 Dec 2023
+   0         X             K             mis/xfadj1.f90,0000002,0000183
+   1         C     / 1/  U          4   /MACHIN/MACH
+   2         C     /22/ ?U        192   /XSRTCM/BIMSK1,BIMSK2,BIMSK3,BIMSK4,BIMSK5,BIMSK6,BKMSK1,BKMSK2,SHIFTS,ICON1,ICON2,STAR,PLUS,DOLLAR,STARL,SLASH,SFTM,MASK,BLANK,MKA,IS,MBIT4
+   3         fI    ( 2)  UXE            ANDF
+     (I4L,I4E)
+   4   55   1 I    ( 1)AMU E            BF(1)
+   5    2   1 I    ( 1)C   E        6   BIMSK1(6)
+   6    2   2 I    ( 1)C   E        5   BIMSK2(5)
+   7    2   3 I    ( 1)C   E        4   BIMSK3(4)
+   8    2   4 I    ( 1)C   E        4   BIMSK4(4)
+   9    2   5 I    ( 1)C   E        2   BIMSK5(2)
+  10    2   6 I        C   E            BIMSK6
+  11          I    ( 1) ?? E        6   BK(6)
+  12    2   7 I    ( 1)C   E        8   BKMSK1(8)
+  13    2   8 I        C?? E            BKMSK2
+  14          I          U E            BKX
+  15    2  19 I        C   E            BLANK
+  16          I         MU E            BLK
+  17          I         ?U E            BLKS
+  18          L         MU E            DEC
+  19    2  14 I        C   E            DOLLAR
+  20          I         MU E            I1
+  21          I         MU E            I2
+  22          I         MU E            I3
+  23          I         MU E            I4
+  24    2  10 I        C U E            ICON1
+  25    2  11 I        C U E            ICON2
+  26          I         MU E            IHLD
+  27          I         MU E            II
+  28    2  21 I        C   E            IS
+  29         fI    ( 3)  U E            ISFT
+     (I4L,I4L,I4V)
+  30          I         MU E            J
+  31         fI    ( 4)  U E            KHRFN1
+     (I4V,I4E,I4V,I4E)
+  32         fI    ( 4)  U E            KHRFN3
+     (I4V,I4L,I4E,I4E)
+  33         fI    ( 1)  U E            KHRFN4
+     (I4E)
+  34         fI    ( 2)  UXE            LSHIFT
+     (I4L,I4L)
+  35    1   1 I        C U E            MACH
+  36    2  18 I        C   E            MASK
+  37    2  22 I        C   E            MBIT4
+  38          I    ( 1) ?? E        6   MK(6)
+  39    2  20 I        C   E            MKA
+  40          I         MU E            N
+  41          I         MU E            N1
+  42          I         MU E            N2
+  43          I         MU E            N3
+  44         fI    ( 2)  UXE            ORF
+     (I4E,I4E)
+  45    2  13 I        C   E            PLUS
+  46         fI    ( 2)  UXE            RSHIFT
+     (I4E,I4E)
+  47   55   3 I        A U E            SD
+  48          I    ( 1) ?? E        3   SFT(3)
+  49    2  17 I        C   E            SFTM
+  50   55   2fI    ( 2)A UXE            SHIFT
+  51    2   9 I    ( 1)C   E        4   SHIFTS(4)
+  52    2  16 I        C   E            SLASH
+  53    2  12 I        C   E            STAR
+  54    2  15 I        C   E            STARL
+  55         S     ( 3) MU        111   XFADJ1(BF,SHIFT,SD)
+**-- END OF SYMBOL TABLE

@@ -1,0 +1,27 @@
+**++ Symbol table for subprogram INVERT in file mis/invert.f90
+     produced by SPAG     8.01RF-40 at 14:47:17 on  2 Dec 2023
+   0         X             K             mis/invert.f90,0000002,0000041
+   1         C     / 5/ MU         68   /INVTRX/FA,FB,SCRFIL,NX,PREC
+   2         C     / 1/ ??          4   /ZZZZZZ/Z
+   3    1   1 I    ( 1)CMU E        7   FA(7)
+   4    1   2 I    ( 1)CM? E        7   FB(7)
+   5    7   1 I        A U E            IA
+   6    7   2 I        A U E            IB
+   7         S     ( 3)  U         14   INVERT(IA,IB,SCR1)
+   8         s     ( 3)  U              INVTR
+     (ALT,R4A,R4A)
+   9         fI    ( 1)  U E            KORSZ
+     (R4A)
+  10         s     ( 3)  U              MESAGE
+     (I4E,I4A,I4A)
+  11          I    ( 1)I?? E        2   NAME(2)
+  12    1   4 I        CM  E            NX
+  13    1   5 I        CM  E            PREC
+  14         s     ( 1)  U              RDTRL
+     (I4A)
+  15    7   3 I        A U E            SCR1
+  16    1   3 I        CM  E            SCRFIL
+  17         s     ( 1)  U              WRTTRL
+     (I4A)
+  18    2   1 R    ( 1)C?? E        1   Z(1)
+**-- END OF SYMBOL TABLE

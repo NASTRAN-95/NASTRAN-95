@@ -1,0 +1,37 @@
+**++ Symbol table for subprogram STEP2 in file mis/step2.f90
+     produced by SPAG     8.01RF-40 at 14:46:42 on  2 Dec 2023
+   0         X             K             mis/step2.f90,0000002,0000044
+   1         C     / 2/ M?         56   /INFBSX/IFIL,IFILU
+   2         C     / 4/  U         48   /NAMES/DUMM,RDP,DUMN,SQR
+   3         C     / 9/ MU        116   /TRDXX/DUM,ISCR1,ISCR2,ISCR3,ISCR4,ISCR5,ISCR6,IOPEN,ISYM
+   4    3   1 I    ( 1)C U E       21   DUM(21)
+   5    2   1 R    ( 1)C   E        8   DUMM(8)
+   6    2   3 R    ( 1)C   E        2   DUMN(2)
+   7         s     ( 2)  U              FBSINT
+     (R8L,R8L)
+   8          I    ( 1) M? E        7   FILE(7)
+   9   26   5 I    ( 1)A?? E            IBUF(1)
+  10    1   1 I    ( 1)CM? E        7   IFIL(7)
+  11    1   2 I    ( 1)CM? E        7   IFILU(7)
+  12         s     ( 3)  U              INVFBS
+     (R8L,R8L,I4A)
+  13    3   8 I        CM  E            IOPEN
+  14    3   2 I        C U E            ISCR1
+  15    3   3 I        C U E            ISCR2
+  16    3   4 I        C U E            ISCR3
+  17    3   5 I        C U E            ISCR4
+  18    3   6 I        C   E            ISCR5
+  19    3   7 I        C   E            ISCR6
+  20    3   9 I        C U E            ISYM
+  21         s     ( 4)  U              MATVC2
+     (R8L,R8L,I4A,I4A)
+  22   26   4 D    ( 1)A?? E            P(1)
+  23    2   2 I        C U E            RDP
+  24         s     ( 1)  U              RDTRL
+     (I4A)
+  25    2   4 I        C U E            SQR
+  26         S     ( 5) ??         17   STEP2(U2,U1,U0,P,IBUF)
+  27   26   3 D    ( 1)A?? E            U0(1)
+  28   26   2 D    ( 1)A?? E            U1(1)
+  29   26   1 D    ( 1)A?? E            U2(1)
+**-- END OF SYMBOL TABLE

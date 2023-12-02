@@ -1,0 +1,17 @@
+**++ Symbol table for subprogram LINE10 in file mis/line10.f90
+     produced by SPAG     8.01RF-40 at 14:47:05 on  2 Dec 2023
+   0         X             K             mis/line10.f90,0000002,0000045
+   1          I    ( 1) MU E        6   A(6)
+   2         II    ( 1)  U I            IFIX
+   3          I        I U E            LINE
+   4         S     ( 6)  U         18   LINE10(X1,Y1,X2,Y2,PENDEN,OPT)
+   5    4   6 I        A U E            OPT
+   6          I        IMU E            OPTX
+   7    4   5 I        A U E            PENDEN
+   8         s     ( 2)  U              WPLT10
+     (I4A,I4E)
+   9    4   1 R        A U E            X1
+  10    4   3 R        A U E            X2
+  11    4   2 R        A U E            Y1
+  12    4   4 R        A U E            Y2
+**-- END OF SYMBOL TABLE

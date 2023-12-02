@@ -1,0 +1,16 @@
+**++ Symbol table for subprogram ANGTRS in file mis/angtrs.f90
+     produced by SPAG     8.01RF-40 at 14:47:20 on  2 Dec 2023
+   0         X             K             mis/angtrs.f90,0000002,0000055
+   1         E     ( 3)                 ANGTRD(THETAD,K,TRAND)
+   2         S     ( 3) MU         25   ANGTRS(THETA,K,TRANS)
+   3         I?    ( 1)  U I            COS
+   4         ID    ( 1)  U I            DCOS
+   5         ID    ( 1)  U I            DSIN
+   6          I         MU E            I
+   7    2   2 I        A U E            K
+   8         I?    ( 1)  U I            SIN
+   9    2   1 R        A U E            THETA
+  10          D        A U E            THETAD
+  11          D    ( 1)AMU E        9   TRAND(9)
+  12    2   3 R    ( 1)AMU E            TRANS(9)
+**-- END OF SYMBOL TABLE

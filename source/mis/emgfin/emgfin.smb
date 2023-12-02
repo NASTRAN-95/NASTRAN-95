@@ -1,0 +1,106 @@
+**++ Symbol table for subprogram EMGFIN in file mis/emgfin.f90
+     produced by SPAG     8.01RF-40 at 14:47:14 on  2 Dec 2023
+   0         X             K             mis/emgfin.f90,0000002,0000250
+   1         C     / 6/ MU         72   /BLANK/NOKMB,NOK4GG,CMASS,DUMMY,VOLUME,SURFAC
+   2         C     / 7/ ?U         44   /EMGFIL/EST,CSTM,MPT,DIT,GEOM2,MATRIX,DICTN
+   3         C     /12/ MU        100   /EMGPRM/ICORE,JCORE,NCORE,DUM12,FLAGS,PRECIS,ERROR,HEAT,ICMBAR,LCSTM,LMAT,LHMAT
+   4         C     / 2/  U         20   /HMATDD/SKP,LINEAR
+   5         C     / 1/  U          4   /MACHIN/MACH
+   6         C     / 6/ ??         24   /NAMES/RD,RDREW,WRT,WRTREW,CLSREW,CLS
+   7         C     / 1/ ??        384   /OUTPUT/HEAD
+   8         C     / 8/ MU         68   /SYSTEM/IBUF,NOUT,SKIP6,NLPP,SKIP2,LINE,SK1P2,DATE
+   9         C     / 1/             4   /ZZZZZZ/COREX
+  10         s     ( 2)  U              CLOSE
+     (I4V,I4V)
+  11    6   6 I        C   E            CLS
+  12    6   5 I        C?? E            CLSREW
+  13    1   3 R        C   E            CMASS
+  14    9   1 R    ( 1)C   E        1   COREX(1)
+  16    2   2 R        C   E            CSTM
+  17          R        I U E            D2
+  18          R        I U E            D3
+  19    8   8 I    ( 1)C?U E        3   DATE(3)
+  20    2   7 I    ( 1)C?U E        3   DICTN(3)
+  21    2   4 R        C   E            DIT
+  22    3   4 R    ( 1)C   E       12   DUM12(12)
+  23    1   4 R    ( 1)C   E       11   DUMMY(11)
+  24         S                    150   EMGFIN
+  25    3   7 L        C U E            ERROR
+  26    2   1 I        C?? E            EST
+  27    3   5 I    ( 1)CMU E        3   FLAGS(3)
+  28         s     ( 2)  U              FNAME
+     (I4E,R4L)
+  29    2   5 R        C   E            GEOM2
+  30    7   1 R    ( 1)C?? E       96   HEAD(96)
+  31    3   8 L        C U E            HEAT
+  32          I         MU E            I
+  33    8   1 I        C U E            IBUF
+  34          I         MU E            IBUF1
+  35          I         MU E            IBUF2
+  36    3   9 I        C   E            ICMBAR
+  37    3   1 I        C U E            ICORE
+  38          I         MU E            INP
+  39          R    ( 1)I U E       10   INPI(10)
+  40          I    ( 1) MU E        6   IX(6)
+  41          I         MU E            J
+  42    3   2 I        C   E            JCORE
+  43          I         MU E            L
+  44    3  10 I        C   E            LCSTM
+  45    3  12 I        C   E            LHMAT
+  46    8   6 I        CMU E            LINE
+  47    4   2 L        C U E            LINEAR
+  48    3  11 I        C   E            LMAT
+  49          I         MU E            LN
+  50    5   1 I        C U E            MACH
+  51    2   6 I    ( 1)C?U E        3   MATRIX(3)
+  52          I    ( 1) MU E        7   MCB(7)
+  53         s     ( 3)  U              MESAGE
+     (I4E,I4V,I4A)
+  54    2   3 I        C   E            MPT
+  55          I         MU E            N4
+  56          I         MU E            N7
+  57    3   3 I        C   E            NCORE
+  58          I         MU E            NGPT
+  59    8   4 I        C U E            NLPP
+  60    1   2 I        C   E            NOK4GG
+  61          I         M  E            NOKDGG
+  62    1   1 I    ( 1)CM  E        3   NOKMB(3)
+  63    8   2 I        C U E            NOUT
+  64          I         MU E            NREC
+  65         s     ( 4)  U              OPEN
+     (ALT,I4V,R4L,I4V)
+  66         s           U              PAGE1
+  67    3   6 I        C U E            PRECIS
+  68    6   1 R        C   E            RD
+  69    6   2 I        C?? E            RDREW
+  70         s     ( 1)  U              RDTRL
+     (I4A)
+  71         s     ( 7)  U              READ
+     (ALT,ALT,I4V,R4A,I4E,I4E,I4V)
+  72          R    ( 1) ?U E      200   RX(200)
+  73          I        I U E            SCR3
+  74          I        I?? E            SCR4
+  75         s     ( 3)  U              SFAREA
+     (I4V,R4A,I4L)
+  76          I    ( 1) MU E       32   SIL(32)
+  77    8   7 R    ( 1)C   E        2   SK1P2(2)
+  78    8   5 R    ( 1)C   E        2   SKIP2(2)
+  79    8   3 R    ( 1)C   E        6   SKIP6(6)
+  80    4   1 R    ( 1)C   E        4   SKP(4)
+  81          I    ( 1)I?? E        2   SUB(2)
+  82    1   6 R        CMU E            SURFAC
+  83          R         MU E            TMAS2
+  84          R         MU E            TMAS3
+  85          R         MU E            TVOL2
+  86          R         MU E            TVOL3
+  87          I        IMU E            VAFILE
+  88    1   5 R        CMU E            VOLUME
+  89         s     ( 4)  U              WRITE
+     (I4V,R4L,I4E,I4E)
+     (   ,I4L,   ,   )
+  90    6   3 R        C   E            WRT
+  91    6   4 I        C?? E            WRTREW
+  92         s     ( 1)  U              WRTTRL
+     (I4A)
+  93          R    ( 1) ?U E        2   Z(2)
+**-- END OF SYMBOL TABLE

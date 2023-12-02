@@ -1,0 +1,26 @@
+**++ Symbol table for subprogram DUMERG in file mis/dumerg.f90
+     produced by SPAG     8.01RF-40 at 14:46:57 on  2 Dec 2023
+   0         X             K             mis/dumerg.f90,0000002,0000041
+   1         C     / 2/  U        192   /BITPOS/IBIT,IABIT
+   2         C     / 3/  U         24   /BLANK/MAJOR,SUB0,SUB1
+   3         S                     16   DUMERG
+   4          I         MU E            I
+   5    1   2 I    ( 1)C U E       16   IABIT(16)
+   6          I    ( 1) MU E        3   IB(3)
+   7    1   1 I    ( 1)C U E       32   IBIT(32)
+   8          I         MU E            J
+   9    2   1 I    ( 1)C U E        2   MAJOR(2)
+  10         s     ( 3)  U              MESAGE
+     (I4E,I4E,I4A)
+  11          I    ( 1)I?? E        2   NAME(2)
+  12          I         MU E            NOGO
+  13          I        I?? E            PHIA
+  14          I        I?? E            PHIF
+  15          I        I?? E            PHIO
+  16          I        I?? E            SCR1
+  17         s     (10)  U              SDR1B
+     (I4V,I4V,I4V,I4V,I4L,I4L,I4L,I4V,I4E,I4E)
+  18    2   2 I    ( 1)C U E        2   SUB0(2)
+  19    2   3 I    ( 1)C U E        2   SUB1(2)
+  20          I        I?? E            USET
+**-- END OF SYMBOL TABLE

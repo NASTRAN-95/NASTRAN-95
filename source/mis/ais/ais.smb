@@ -1,0 +1,52 @@
+**++ Symbol table for subprogram AIS in file mis/ais.f90
+     produced by SPAG     8.01RF-40 at 14:47:14 on  2 Dec 2023
+   0         X             K             mis/ais.f90,0000002,0000150
+   1          D         MU E            A
+   2         FR    ( 5) MU E       78   AIS(NP,I,L,RR,ZZ)
+   3          D         MU E            AJ
+   4          D         MU E            AR
+   5          D         MU E            BETA
+   6         ID    ( 1)  U I            DABS
+   7          D         MU E            DFACT
+   8          D         MU E            DKL
+   9          D         MU E            DL1
+  10         ID    ( 1)  U I            DLOG
+  11          D         MU E            DR
+  12          D         MU E            DZ
+  13          D         MU E            DZJ
+  14          D        I U E            EPS
+  15          D         MU E            FACT
+  16          R         MU E            FACTL
+  17         IR    ( 1)  U I            FLOAT
+  18          D         MU E            GKL
+  19    2   2 I        A U E            I
+  20          I         MU E            J
+  21          I         MU E            JFACT
+  22          I         MU E            K
+  23    2   3 I        A U E            L
+  24          I         MU E            L1
+  25          I         MU E            L2
+  26          I         MU E            LFACT
+  27          I         MU E            LK
+  28          I         MU E            LMJF
+  29          I         MU E            M
+  30         s     ( 3)  U              MESAGE
+     (I4E,I4V,I4A)
+  31          I    ( 1)I?? E        2   NAM(2)
+  32    2   1 I        A U E            NP
+  33          D        I U E            ONE
+  34          D         MU E            PR
+  35          D    ( 1) MU E        4   R(4)
+  36          D         MU E            RA
+  37          D         MU E            RAK
+  38          D         MU E            RB
+  39          D         MU E            RBK
+  40    2   4 R    ( 1)A U E            RR(4)
+  41          D        I U E            THREE
+  42          D        I U E            TWO
+  43          D    ( 1) MU E        4   Z(4)
+  44          D         MU E            ZA
+  45          D         MU E            ZB
+  46          D        I U E            ZERO
+  47    2   5 R    ( 1)A U E            ZZ(4)
+**-- END OF SYMBOL TABLE

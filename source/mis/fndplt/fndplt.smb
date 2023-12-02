@@ -1,0 +1,15 @@
+**++ Symbol table for subprogram FNDPLT in file mis/fndplt.f90
+     produced by SPAG     8.01RF-40 at 14:46:37 on  2 Dec 2023
+   0         X             K             mis/fndplt.f90,0000002,0000041
+   1         S     ( 3) MU         16   FNDPLT(PLOTER,MODEL,PMODEL)
+   2          I         MU E            I
+   3          I         M  E            I2
+   4         II    ( 1)  U I            IABS
+   5    1   2 I        AM  E            MODEL
+   6          I         MU E            N
+   7          I         MU E            N1
+   8    1   1 I        AM  E            PLOTER
+   9          I    ( 2)I U E       12   PLTMDL(2,6)
+  10          I    ( 2)I U E       12   PLTTER(2,6)
+  11    1   3 I    ( 1)AMU E            PMODEL(2)
+**-- END OF SYMBOL TABLE

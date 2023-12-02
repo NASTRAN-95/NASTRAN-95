@@ -1,0 +1,63 @@
+**++ Symbol table for subprogram KFLUD2 in file mis/kflud2.f90
+     produced by SPAG     8.01RF-40 at 14:47:21 on  2 Dec 2023
+   0         X             K             mis/kflud2.f90,0000002,0000142
+   1         C     / 1/            40   /CONDAD/CONSTD
+   2         C     / 1/  U          4   /EMGDIC/ELTYPE
+   3         C     / 3/  U         12   /SMA1CL/IOPT4,K4GGSW,NPVT
+   4         C     /19/ MU        200   /SMA1DP/Z1P,Z2P,RK,RI,KFACT,F0,A,B,I2N0,I2N1,I2N2,I2NP2,DZ,HPQ,PIRHO,TWOPR,KH,K1,K2
+   5         C     / 1/  U        400   /SMA1ET/ECPT
+   6         C     / 2/  U         44   /SMA1IO/DUM1,IFKGG
+   7         C     / 3/ MU         12   /SYSTEM/SYSBUF,OUT,NOGO
+   8         C     / 1/  U         23   /XMSSG/UFM
+   9    4   7 D        CMU E            A
+  10    4   8 D        CMU E            B
+  11    1   1 D    ( 1)C   E        5   CONSTD(5)
+  12         ID    ( 1)  U I            DABS
+  13         ID    ( 1)  U I            DBLE
+  14          D          U E            DPI
+  15          R         MU E            DUM
+  16    6   1 R    ( 1)C   E       10   DUM1(10)
+  17    4  13 D        CMU E            DZ
+  18    5   1 R    ( 1)C U E      100   ECPT(100)
+  19    2   1 I        C U E            ELTYPE
+  20    4   6 D        C   E            F0
+  21    4  14 D    ( 1)CMU E        4   HPQ(4)
+  22          I         MU E            I
+  23    4   9 D        CMU E            I2N0
+  24    4  10 D        CMU E            I2N1
+  25    4  11 D        CMU E            I2N2
+  26    4  12 D        CMU E            I2NP2
+  27          I         M? E            IFILE
+  28    6   2 I        C U E            IFKGG
+  29    3   1 I        C   E            IOPT4
+  30          I         M? E            J
+  31          I         MU E            K
+  32    4  18 D        CM? E            K1
+  33    4  19 D        CM? E            K2
+  34    3   2 I        C   E            K4GGSW
+  35    4   5 D        C   E            KFACT
+  36         S                     84   KFLUD2
+  37    4  17 D    ( 1)CMU E        4   KH(4)
+  38          I         MU E            LP
+  39          I         MU E            N
+  40          I    ( 1) MU E      100   NECPT(100)
+  41    7   3 L        CM  E            NOGO
+  42    3   3 I        C U E            NPVT
+  43    7   2 I        C U E            OUT
+  44    4  15 D        CMU E            PIRHO
+  45          D         MU E            R1
+  46          D         MU E            R2
+  47    4   4 D        C   E            RI
+  48    4   3 D        CMU E            RK
+  49         s     ( 5)  U              SMA1B
+     (R8V,I4V,I4V,I4V,R8E)
+  50    7   1 R        C   E            SYSBUF
+  51    4  16 D        CMU E            TWOPR
+  52    8   1 C*23     C U E            UFM*23
+  53          D         MU E            Z1
+  54    4   1 D        CMU E            Z1P
+  55          D         MU E            Z1P1
+  56          D         MU E            Z2
+  57    4   2 D        CMU E            Z2P
+  58          D         MU E            Z2P1
+**-- END OF SYMBOL TABLE

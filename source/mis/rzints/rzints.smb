@@ -1,0 +1,26 @@
+**++ Symbol table for subprogram RZINTS in file mis/rzints.f90
+     produced by SPAG     8.01RF-40 at 14:46:46 on  2 Dec 2023
+   0         X             K             mis/rzints.f90,0000002,0000037
+   1         I?    ( 1)  U I            ABS
+   2          R         MU E            DETJ
+   3          R         MU E            DRDETA
+   4          R         MU E            DRDXI
+   5          R         MU E            DZDETA
+   6          R         MU E            DZDXI
+   7          R    ( 1) MU E        3   H(3)
+   8          I         MU E            III
+   9   18   1 I        A U E            IP
+  10   18   2 I        A U E            IQ
+  11          I         MU E            JJJ
+  12   18   5 I        A U E            NGRIDS
+  13          I         MU E            NPT
+  14          R    ( 1) MU E        3   PT(3)
+  15   18   3 R    ( 1)A U E            R(4)
+  16          R         MU E            RR
+  17          R         MU E            RRP
+  18         FR    ( 5) MU E       26   RZINTS(IP,IQ,R,Z,NGRIDS)
+  19          R         MU E            XINT
+  20   18   4 R    ( 1)A U E            Z(4)
+  21          R         MU E            ZZ
+  22          R         MU E            ZZQ
+**-- END OF SYMBOL TABLE

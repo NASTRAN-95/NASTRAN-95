@@ -1,0 +1,9 @@
+**++ Symbol table for subprogram IAPD in file mis/iapd.f90
+     produced by SPAG     8.01RF-40 at 14:46:57 on  2 Dec 2023
+   0         X             K             mis/iapd.f90,0000002,0000028
+   1    2   1 I        A U E            I
+   2         FI    ( 4) MU E       22   IAPD(I,J,NC,NCRD)
+   3    2   2 I        A U E            J
+   4    2   3 I        A U E            NC
+   5    2   4 I        A U E            NCRD
+**-- END OF SYMBOL TABLE

@@ -1,0 +1,93 @@
+**++ Symbol table for subprogram STRAX2 in file mis/strax2.f90
+     produced by SPAG     8.01RF-40 at 14:46:40 on  2 Dec 2023
+   0         X             K             mis/strax2.f90,0000002,0000413
+   1         C     / 1/            20   /CONDAS/CONSTS
+   2         C     / 2/  U        136   /SDR2DE/DUM5,IPART
+   3         C     / 9/  U        208   /SDR2X4/DUM1,ICSTM,NCSTM,IVEC,IVECN,TEMPLD,ELDEFM,DUM4,KTYPE
+   4         C     /10/ MU       3464   /SDR2X7/IDEL,IGP,TZ,SEL,TS,AK,PHI,DUM2,BLOCK,CLOCK
+   5         C     /12/ MU        632   /SDR2X8/DISP,EFORC,ESTRES,HARM,N,SINPHI,CONPHI,NPHI,NANGLE,ELEMID,UNU,NELHAR
+   6         C     / 2/  U        312   /SYSTEM/KSYSTM,KSYS78
+   7         C     / 1/  U          4   /ZZZZZZ/ZZ
+   8    4   6 R    ( 1)C?? E       81   AK(81)
+   9          R    ( 1) ?? E        9   AKPH2(9)
+  10          R    ( 1) ?? E       27   AKUPH(27)
+  11    4   9 R    ( 2)CMU E      308   BLOCK(22,14)
+  12    4  10 R    ( 2)CMU E      308   CLOCK(22,14)
+  13    5   7 R        CMU E            CONPHI
+  14    1   1 R    ( 1)C   E        5   CONSTS(5)
+  15         I?    ( 1)  U I            COS
+  16          R    ( 1) ?U E        3   D3(3)
+  17          R    ( 1) ?U E        6   D6(6)
+  18          R    ( 1) ?U E        9   D9(9)
+  19          R          U E            DEGRAD
+  20    5   1 R    ( 1)CM? E        9   DISP(9)
+  21          R    ( 1) M? E        3   DISPP(3)
+  22          R         MU E            DT
+  23    3   1 R    ( 1)C   E       33   DUM1(33)
+  24    4   8 R    ( 1)C   E       90   DUM2(90)
+  25          R    ( 1)    E      225   DUM3(225)
+  26    3   8 R    ( 1)C   E       12   DUM4(12)
+  27    2   1 R    ( 1)C   E       33   DUM5(33)
+  28          R    ( 1) MU E        3   ECHRG(3)
+  29          R    ( 1) MU E        3   EFLUX(3)
+  30    5   2 R    ( 1)CMU E        9   EFORC(9)
+  31    3   7 R        C   E            ELDEFM
+  32    5  10 I        CMU E            ELEMID
+  33    5   3 R    ( 1)CMU E        9   ESTRES(9)
+  34          R    ( 1) M  E       25   FORCE(25)
+  35         s     ( 9)  U              GMMATS
+     (R4L,I4V,I4V,I4E,R4L,I4V,I4E,I4E,R4L)
+  36    5   4 R        CMU E            HARM
+  37          I         MU E            I
+  38          I    ( 2) MU E      308   IBLOCK(22,14)
+  39          I    ( 2) MU E      308   ICLOCK(22,14)
+  40    3   2 I        C   E            ICSTM
+  41    4   1 I        C U E            IDEL
+  42          I    ( 1) M  E       25   IFORCE(25)
+  43    4   2 I    ( 1)C U E        3   IGP(3)
+  44          I         MU E            ILOC
+  45          I         MU E            ILOCP
+  46          I        IMU E            IOSORC
+  47    2   2 I        C U E            IPART
+  48          I    ( 1) M  E      100   ISTRES(100)
+  49    3   4 I        C U E            IVEC
+  50    3   5 I        C   E            IVECN
+  51          I         MU E            IWA
+  52          I         MU E            J
+  53          I         MU E            K
+  54          I         MU E            K3
+  55          I         MU E            KK
+  56    6   2 I        C U E            KSYS78
+  57    6   1 I    ( 1)C   E       77   KSYSTM(77)
+  58    3   9 I        C U E            KTYPE
+  59          I          U E            LDTEMP
+  60          L         MU E            LSYS78
+  61    5   5 I        CMU E            N
+  62    5   9 I        C   E            NANGLE
+  63          I         MU E            NCOMP
+  64    3   3 I        C   E            NCSTM
+  65          I         MU E            NDOF
+  66    5  12 I        CMU E            NELHAR
+  67    5   8 R        CMU E            NPHI
+  68          I         MU E            NS
+  69          I         MU E            NSP
+  70          I         MU E            NUMPT
+  71    4   7 R    ( 1)C U E       14   PHI(14)
+  72    4   4 R    ( 1)C?? E       54   SEL(54)
+  73          R    ( 1) ?? E       18   SELP1(18)
+  74          R    ( 1) ?? E       27   SELP2(27)
+  75          R    ( 1) ?? E        9   SELP3(9)
+  76         I?    ( 1)  U I            SIN
+  77    5   6 R        CMU E            SINPHI
+  78   79   1 I        A U E            SORC
+  79         S     ( 2)  U        289   STRAX2(SORC,TI)
+  80          R    ( 1) M  E      100   STRES(100)
+  81    3   6 R        C   E            TEMPLD
+  82   79   2 R    ( 1)A U E            TI(3)
+  83    4   5 R    ( 1)C U E        6   TS(6)
+  84    4   3 R        C U E            TZ
+  85    5  11 R    ( 1)C   E      123   UNU(123)
+  86          L         MU E            ZERO
+  87          L        IMU E            ZERON
+  88    7   1 R    ( 1)C U E        1   ZZ(1)
+**-- END OF SYMBOL TABLE

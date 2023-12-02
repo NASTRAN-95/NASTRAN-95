@@ -1,0 +1,43 @@
+**++ Symbol table for subprogram WAVEY in file mis/wavey.f90
+     produced by SPAG     8.01RF-40 at 14:47:14 on  2 Dec 2023
+   0         X             K             mis/wavey.f90,0000002,0000128
+   1         C     / 4/ MU         36   /BANDS/NN,MM,DUM6S,MINDEG
+   2          R         MU E            ANN
+   3   38   9 R        AM  E            AVERW
+   4   38  12 R        AM  E            BRMS
+   5          D         MU E            BSUMSQ
+   6         s     ( 4)  U              BUNPAK
+     (I4A,I4V,I4V,I4A)
+   7    1   3 R    ( 1)C   E        6   DUM6S(6)
+   8         IR    ( 1)  U I            FLOAT
+   9          I         MU E            I
+  10          I         MU E            IB
+  11          I         MU E            IB1
+  12   38   5 I    ( 1)A U E            IC(1)
+  13   38   1 I    ( 1)A?? E            IG(1)
+  14   38   2 I    ( 1)A U E            ILD(1)
+  15          I         MU E            IWAVE
+  16          I         MU E            J
+  17   38  13 I    ( 1)A?U E            JG(1)
+  18          I         MU E            K
+  19   38   6 I    ( 1)AMU E            KACT(1)
+  20          I         MU E            KT
+  21          I         MU E            L
+  22          I         MU E            M
+  23         II    ( 2)  U I            MAX0
+  24   38   7 I        AMU E            MAXB
+  25   38   8 I        AMU E            MAXW
+  26         II    ( 2)  U I            MIN0
+  27    1   4 I        CMU E            MINDEG
+  28    1   2 I        C?U E            MM
+  29   38   4 I        A U E            NC
+  30   38   3 I    ( 1)AMU E            NEW(1)
+  31    1   1 I        C U E            NN
+  32   38  11 R        AM  E            RMS
+  33         IR    ( 1)  U I            SNGL
+  34         I?    ( 1)  U I            SQRT
+  35          D         MU E            SUMSQ
+  36   38  10 I        AMU E            SUMW
+  37          R         MU E            WAVE
+  38         S     (13) MU         57   WAVEY(IG,ILD,NEW,NC,IC,KACT,MAXB,MAXW,AVERW,SUMW,RMS,BRMS,JG)
+**-- END OF SYMBOL TABLE

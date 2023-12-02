@@ -1,0 +1,35 @@
+**++ Symbol table for subprogram GPTLBL in file mis/gptlbl.f90
+     produced by SPAG     8.01RF-40 at 14:46:51 on  2 Dec 2023
+   0         X             K             mis/gptlbl.f90,0000002,0000043
+   1         C     / 4/ ?U         64   /BLANK/NGP,SKP1,SKP2,EXGPID
+   2         C     / 3/  U         96   /PLTDAT/SKPPLT,SKPA,CNTX
+   3   13   5 I        A U E            BUF
+   4         s     ( 2)  U              CLOSE
+     (I4V,I4V)
+   5    2   3 R        C U E            CNTX
+   6   13   4 I        A U E            DEFORM
+   7    1   4 I        C?? E            EXGPID
+   8         s     ( 4)  U              FREAD
+     (I4V,I4V,I4E,I4E)
+   9         s     ( 3)  U              GOPEN
+     (I4V,I4L,I4V)
+  10          I         MU E            GP
+  11   13   1 I    ( 1)A?U E            GPLST(1)
+  12          I         ?? E            GPT
+  13         S     ( 5) ?U         19   GPTLBL(GPLST,X,U,DEFORM,BUF)
+  14          I         MU E            GPX
+  15          I        I?? E            INPREW
+  16    1   1 I        C U E            NGP
+  17          I        I?? E            REW
+  18    1   2 R    ( 1)C   E        9   SKP1(9)
+  19    1   3 R    ( 1)C   E        5   SKP2(5)
+  20    2   2 R    ( 1)C   E        3   SKPA(3)
+  21    2   1 R    ( 1)C   E       20   SKPPLT(20)
+  22         s     ( 6)  U              TYPINT
+     (I4E,I4E,I4E,I4E,I4E,I4E)
+     (R4E,R4V,   ,   ,   ,   )
+  23   13   3 R    ( 2)A U E            U(2,1)
+  24   13   2 R    ( 2)A U E            X(3,1)
+  25          R         MU E            XX
+  26          R         M? E            YY
+**-- END OF SYMBOL TABLE

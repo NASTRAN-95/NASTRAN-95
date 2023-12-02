@@ -1,0 +1,73 @@
+**++ Symbol table for subprogram OPTP1C in file mis/optp1c.f90
+     produced by SPAG     8.01RF-40 at 14:47:08 on  2 Dec 2023
+   0         X             K             mis/optp1c.f90,0000002,0000139
+   1         C     /14/ MU        168   /BLANK/SKP1,COUNT,SKP2,YCOR,B1P1,NPOW,SKP3,NPRW,NWDSP,SKP4,SKP5,EPT,SKP6,ENTRY
+   2         C     / 4/ ?U         16   /GPTA1/NTYPES,LAST,INCR,NE
+   3         C     / 4/ ??         16   /NAMES/NRD,NOEOR,NWRT,NWEOR
+   4         C     / 2/ ?U          8   /OPTPW1/PRCOR,PRC
+   5         C     / 2/  U          8   /SYSTEM/SYSBUF,OUTTAP
+   6         C     / 4/  U        102   /XMSSG/UFM,UWM,UIM,SFM
+   7         C     / 1/ ??          4   /ZZZZZZ/X
+   8    1   5 I        C U E            B1P1
+   9          I    ( 1) M? E        2   CARD(2)
+  10    1   2 I        CM  E            COUNT
+  11          I    ( 1)I U E       21   DTYP(21)
+  12   44   2 I    ( 2)A U E            ELOP(2,2)
+  13   44   1 I    ( 1)A U E            ELT(1)
+  14    1  14 I    ( 1)C U E       21   ENTRY(21)
+  15    1  12 I        C?? E            EPT
+  16         s     ( 4)  U              FREAD
+     (I4V,I4E,I4E,I4V)
+  17          I         ?? E            I
+  18          I         MU E            ICPR
+  19          I         MU E            ICPT
+  20          I         MU E            IDP
+  21          I         MU E            IDPE
+  22          I         MU E            IDPS
+  23          I         MU E            IDX
+  24          I         MU E            IETYP
+  25    2   3 I        C U E            INCR
+  26          I         MU E            J1
+  27          I         MU E            J2
+  28          I         MU E            JETYP
+  29    2   2 I        C   E            LAST
+  30         s     ( 4)  U              LOCATE
+     (ALT,R4L,I4A,I4V)
+  31          I          U E            M1
+  32         s     ( 3)  U              MESAGE
+     (I4E,I4V,I4A)
+  33          I    ( 1)I?U E        2   NAME(2)
+  34    2   4 I    ( 1)C?U E        1   NE(1)
+  35    3   2 I        C?? E            NOEOR
+  36    1   6 I        C U E            NPOW
+  37          I         MU E            NPR
+  38    1   8 I        C   E            NPRW
+  39    3   1 I        C   E            NRD
+  40    2   1 I        C U E            NTYPES
+  41    1   9 I        C U E            NWDSP
+  42    3   4 I        C?? E            NWEOR
+  43    3   3 I        C   E            NWRT
+  44         S     ( 3) MU         62   OPTP1C(ELT,ELOP,PR)
+  45    5   2 I        C U E            OUTTAP
+  46         s     ( 1)  U              PAGE2
+     (I4E)
+  47   44   3 I    ( 1)AMU E            PR(1)
+  48    4   2 I    ( 1)C?U E        1   PRC(1)
+  49    4   1 I        C U E            PRCOR
+  50         s     ( 7)  U              READ
+     (ALT,ALT,I4V,I4A,I4L,I4V,I4V)
+  51          R        I   E            RM1
+  52    6   4 C*25     C U E            SFM*25
+  53    1   1 R    ( 1)C   E        2   SKP1(2)
+  54    1   3 R    ( 1)C   E        2   SKP2(2)
+  55    1   7 R    ( 1)C   E        2   SKP3(2)
+  56    1  10 R        C   E            SKP4
+  57    1  11 R        C   E            SKP5
+  58    1  13 R    ( 1)C   E        6   SKP6(6)
+  59    5   1 I        C   E            SYSBUF
+  60    6   1 C*23     C U E            UFM*23
+  61    6   3 C*29     C   E            UIM*29
+  62    6   2 C*25     C   E            UWM*25
+  63    7   1 R    ( 1)C?? E        1   X(1)
+  64    1   4 I        C   E            YCOR
+**-- END OF SYMBOL TABLE

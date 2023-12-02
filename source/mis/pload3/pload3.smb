@@ -1,0 +1,62 @@
+**++ Symbol table for subprogram PLOAD3 in file mis/pload3.f90
+     produced by SPAG     8.01RF-40 at 14:46:40 on  2 Dec 2023
+   0         X             K             mis/pload3.f90,0000002,0000115
+   1         C     / 4/ ??         16   /LOADX/LCORE,SLT,BGPDT,OLD
+   2         C     / 1/ MU          4   /ZZZZZZ/CORE
+   3          D        I U E            ABSISA
+   4         s     ( 4)  U              BASGLB
+     (R4L,R4L,R4L,I4L)
+   5          R    ( 1) ?U E        4   BGPD(4)
+   6    1   3 R        C   E            BGPDT
+   7          R    ( 2) M? E       96   BXYZ(3,32)
+   8          I    ( 1) MU E       32   CID(32)
+   9          I         MU E            COL
+  10    2   1 R    ( 1)CMU E        1   CORE(1)
+  11         ID    ( 1)  U I            DBLE
+  12          D         ?U E            DETJ
+  13          D    ( 2) ?? E       96   DSHP(3,32)
+  14          D    ( 2) MU E       96   F(3,32)
+  15          I         MU E            FACE
+  16         IR    ( 1)  U I            FLOAT
+  17         s     ( 2)  U              FNDPNT
+     (R4A,I4L)
+  18         s     ( 1)  U              FNDSIL
+     (I4L)
+  19          I    ( 1) ?U E       32   GP(32)
+  20          I         MU E            I
+  21         II    ( 1)  U I            IABS
+  22          I    ( 1)  U E        4   IBGPD(4)
+  23         s     (10)  U              IHEXSD
+     (I4V,R8A,R8A,R8A,R8V,I4E,R8L,R8L,R8L,R4A)
+  24         II    ( 2)  U I            ISIGN
+  25          I         MU E            J
+  26          D    ( 2) ?U E        9   JINV(3,3)
+  27          I         MU E            K
+  28          I         MU E            L
+  29    1   1 I        C   E            LCORE
+  30          I         MU E            M
+  31         s     ( 3)  U              MESAGE
+     (I4E,I4E,I4E)
+  32          I    ( 1) M  E        3   N(3)
+  33          I         MU E            NGP
+  34          I          U E            NI
+  35          I          U E            NJ
+  36          I          U E            NK
+  37    1   4 R        C?? E            OLD
+  38          R    ( 1) ?U E        6   P(6)
+  39         s     ( 4)  U              PERMUT
+     (I4A,I4A,I4V,R4V)
+  40          D         MU E            PFACT
+  41         S                     70   PLOAD3
+  42         s     ( 7)  U              READ
+     (ALT,ALT,R4V,R4A,I4E,I4E,I4V)
+     (   ,   ,   ,I4A,   ,   ,   )
+  43          R    ( 2) MU E       96   RF(3,32)
+  44          D    ( 2) M? E        6   S(3,2)
+  45          I    ( 1) ?U E       32   SEQ(32)
+  46          R         MU E            SGN
+  47          I    ( 1)I U E        6   SGNCOL(6)
+  48          D    ( 1) ?U E       32   SHP(32)
+  49    1   2 R        C?? E            SLT
+  50          I         M? E            TYPE
+**-- END OF SYMBOL TABLE

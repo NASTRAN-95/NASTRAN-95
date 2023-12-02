@@ -1,0 +1,69 @@
+**++ Symbol table for subprogram GKAD1C in file mis/gkad1c.f90
+     produced by SPAG     8.01RF-40 at 14:46:46 on  2 Dec 2023
+   0         X             K             mis/gkad1c.f90,0000002,0000086
+   1         C     /16/ ??         64   /BITPOS/UM,UO,UR,USG,USB,UL,UA,UF,US,UN,UG,UE,UP,UNE,UFE,UD
+   2         C     /13/  U         64   /BLANK/TYPE,APP,MODAL,G,W3,W4,IK2PP,IM2PP,IB2PP,MULTI,SINGLE,OMIT,NOUE
+   3    2   2 R    ( 1)C   E        2   APP(2)
+   4          I         MU E            CHECK
+   5    2   4 R        C   E            G
+   6         S     ( 9)  U         40   GKAD1C(XMD,XOD,XCR1,XCR2,XCR3,XCR4,XCR5,XCR6,XSETD)
+   7         E     ( 2)                 GKAD1D(K2PP,K2DD)
+   8          I         M? E            GMD
+   9          I         M? E            GOD
+  10    2   9 I        C   E            IB2PP
+  11    2   7 I        C   E            IK2PP
+  12    2   8 I        C   E            IM2PP
+  13          I        A?U E            K2DD
+  14          I         M? E            K2FF
+  15          I         MU E            K2NN
+  16          I        A?U E            K2PP
+  17         s     ( 3)  U              MESAGE
+     (I4E,I4E,I4A)
+  18    2   3 I    ( 1)C   E        2   MODAL(2)
+  19         s     ( 5)  U              MPART
+     (I4V,I4V,I4E,I4E,I4E)
+  20    2  10 I        C U E            MULTI
+  21          I    ( 1)I?? E        2   NAME(2)
+  22    2  13 I        C   E            NOUE
+  23    2  12 I        C U E            OMIT
+  24          I         M? E            SCR1
+  25          I         M? E            SCR2
+  26          I         M? E            SCR3
+  27          I         MU E            SCR4
+  28          I         M? E            SCR5
+  29          I         M? E            SCR6
+  30    2  11 I        C U E            SINGLE
+  31         s     ( 8)  U              SSG2B
+     (I4V,I4V,I4V,I4V,I4E,I4E,I4E,I4V)
+  32    2   1 R    ( 1)C   E        2   TYPE(2)
+  33    1   7 R        C   E            UA
+  34    1  16 R        C?? E            UD
+  35    1  12 R        C   E            UE
+  36    1   8 R        C   E            UF
+  37    1  15 R        C?? E            UFE
+  38    1  11 R        C   E            UG
+  39    1   6 R        C   E            UL
+  40    1   1 R        C?? E            UM
+  41    1  10 R        C   E            UN
+  42    1  14 R        C?? E            UNE
+  43    1   2 R        C?? E            UO
+  44    1  13 R        C?? E            UP
+  45         s     ( 5)  U              UPART
+     (I4V,I4V,R4V,R4V,R4V)
+  46    1   3 R        C   E            UR
+  47    1   9 R        C?? E            US
+  48    1   5 R        C   E            USB
+  49          I         M? E            USETD
+  50    1   4 R        C   E            USG
+  51    2   5 R        C   E            W3
+  52    2   6 R        C   E            W4
+  53    6   3 I        A U E            XCR1
+  54    6   4 I        A U E            XCR2
+  55    6   5 I        A U E            XCR3
+  56    6   6 I        A U E            XCR4
+  57    6   7 I        A U E            XCR5
+  58    6   8 I        A U E            XCR6
+  59    6   1 I        A U E            XMD
+  60    6   2 I        A U E            XOD
+  61    6   9 I        A U E            XSETD
+**-- END OF SYMBOL TABLE

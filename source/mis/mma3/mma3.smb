@@ -1,0 +1,153 @@
+**++ Symbol table for subprogram MMA3 in file mis/mma3.f90
+     produced by SPAG     7.61RG-40 at 01:00:00 on 21 Mar 2022
+   0         X             K             mis/mma3.f90,0000003,0000201
+   1         C     /11/ MU        140   /MPYADX/FILEA,FILEB,FILEC,FILED,NZ,T,SIGNAB,SIGNC,PREC1,SCRTCH,TIME
+   2         C     / 6/ ??         24   /NAMES/RD,RDREW,WRT,WRTREW,CLSREW,CLS
+   3         C     / 5/ M          20   /PACKX/TYPEI,TYPEP,IPROW1,IPROWN,INCRP
+   4         C     / 1/           608   /SYSTEM/KSYSTM
+   5         C     / 3/  U         40   /TYPE/IPRC,NWORDS,IRC
+   6         C     / 4/ M          16   /UNPAKX/TYPEU,IUROW1,IUROWN,INCRU
+   7         s     ( 2)  U              CLOSE
+     (?*V,I4V)
+     (I4A,   )
+   8    2   6 I        C   E            CLS
+   9    2   5 I        C?? E            CLSREW
+  10         s     ( 3)  U              CONMSG
+     (I4A,I4E,I4E)
+  11         s     ( 4)  U              DSSPOS
+     (?*V,?*E,?*E,?*E)
+  12    1   1 I    ( 1)C?U E        7   FILEA(7)
+  13    1   2 I    ( 1)C?? E        7   FILEB(7)
+  14    1   3 I    ( 1)C U E        7   FILEC(7)
+  15    1   4 I    ( 1)CMU E        7   FILED(7)
+  16         s     ( 2)  U              FILSWI
+     (?*V,?*V)
+  17         s     ( 3)  U              GOPEN
+     (I4A,R4L,I4V)
+     (?*V,   ,   )
+  18          ?         MU I            IAX
+  19          ?         MU I            IAX2
+  20          ?         M  I            IBROW
+  21          I         MU E            IBUF1
+  22          I         MU E            IBUF2
+  23          I         MU E            IBUF3
+  24          I         MU E            IBUF4
+  25          ?         MU I            IDX
+  26          ?         M  I            IDX2
+  27          ?         M  I            IDX4
+  28          ?         MU I            IFILE
+  29    3   5 I        CM  E            INCRP
+  30    6   4 I        CM  E            INCRU
+  31          ?         MU I            IPASS
+  32    5   1 I    ( 1)C   E        2   IPRC(2)
+  33    3   3 I        CM  E            IPROW1
+  34    3   4 I        CM  E            IPROWN
+  35    5   3 I    ( 1)C   E        4   IRC(4)
+  36          ?         MU I            IRCOL1
+  37          ?         MU I            IRCOLN
+  38          ?         M? I            IRFILE
+  39         f?    ( 1)  U I            IRPOS
+     (I4E)
+  40          I         MU E            ITEST
+  41    6   2 I        C   E            IUROW1
+  42    6   3 I        C   E            IUROWN
+  43          I        I U E            JBEGN
+  44          I        I U E            JEND
+  45          I        I U E            KONE
+  46          I            E            KSYS58
+  47    4   1 I    ( 1)C   E      152   KSYSTM(152)
+  48          I        I U E            KTWO
+  49          I        I U E            KZERO
+  50          ?         MU I            LASMEM
+  51          ?          U I            METHOD
+  52         S     ( 5) ??        122   MMA3(ZI,ZR,ZD,ZC,ZDC)
+  53         s     ( 2)  U              MMA301
+     (I4A,R4A)
+  54         s     ( 2)  U              MMA302
+     (I4A,R8A)
+  55         s     ( 2)  U              MMA303
+     (I4A,X8A)
+  56         s     ( 3)  U              MMA304
+     (I4A,R8A,YGA)
+  57         s     ( 2)  U              MMA311
+     (I4A,R4A)
+  58         s     ( 2)  U              MMA312
+     (I4A,R8A)
+  59         s     ( 2)  U              MMA313
+     (I4A,X8A)
+  60         s     ( 3)  U              MMA314
+     (I4A,R8A,YGA)
+  61         s     ( 2)  U              MMA321
+     (I4A,R4A)
+  62         s     ( 2)  U              MMA322
+     (I4A,R8A)
+  63         s     ( 2)  U              MMA323
+     (I4A,X8A)
+  64         s     ( 2)  U              MMA324
+     (I4A,R8A)
+  65         s     ( 3)  U              MMARM1
+     (I4L,R4L,I4E)
+  66         s     ( 3)  U              MMARM2
+     (I4L,R8L,I4E)
+  67         s     ( 3)  U              MMARM3
+     (I4L,X8L,I4E)
+  68         s     ( 3)  U              MMARM4
+     (I4L,R8L,I4E)
+  69         I?    ( 2)  U I            MOD
+  70          I    ( 1)IM? E        3   MODULE(3)
+  71          I          U E            NAC
+  72          I            E            NADENS
+  73          I            E            NAFORM
+  74          I            E            NANZWD
+  75          I            E            NAR
+  76          I            E            NATYPE
+  77          I            E            NBC
+  78          I            E            NBDENS
+  79          I            E            NBFORM
+  80          I            E            NBNZWD
+  81          I          U E            NBR
+  82          I          U E            NBTYPE
+  83          I            E            NCC
+  84          I            E            NCDENS
+  85          I            E            NCFORM
+  86          I            E            NCNZWD
+  87          ?         M  I            NCOLPP
+  88          I            E            NCR
+  89          I            E            NCTYPE
+  90          I            E            NDC
+  91          I            E            NDDENS
+  92          I            E            NDFORM
+  93          I            E            NDNZWD
+  94          I          U E            NDR
+  95          I          U E            NDTYPE
+  96          I            E            NOUT
+  97          ?         M  I            NWDB
+  98          ?         MU I            NWDD
+  99    5   2 I    ( 1)C U E        4   NWORDS(4)
+ 100    1   5 I        C U E            NZ
+ 101          ?         MU I            OFILE
+ 102    1   9 R        C   E            PREC1
+ 103    2   1 I        C   E            RD
+ 104    2   2 I        C?? E            RDREW
+ 105         s     ( 1)  U              REWIND
+     (I4A)
+ 106    1  10 I        C U E            SCRTCH
+ 107          ?         M  I            SIGN
+ 108    1   7 I        C U E            SIGNAB
+ 109    1   8 I        C U E            SIGNC
+ 110         s     ( 2)  U              SKPREC
+     (I4A,I4E)
+ 111          I          U E            SYSBUF
+ 112    1   6 R        C   E            T
+ 113    1  11 R        C   E            TIME
+ 114    3   1 I        CM  E            TYPEI
+ 115    3   2 I        CM  E            TYPEP
+ 116    6   1 I        C   E            TYPEU
+ 117    2   3 I        C   E            WRT
+ 118    2   4 I        C?? E            WRTREW
+ 119   52   4 X    ( 1)A?? E            ZC(2)
+ 120   52   3 D    ( 1)A?? E            ZD(2)
+ 121   52   5 Y    ( 1)A?? E            ZDC(2)
+ 122   52   1 I    ( 1)A?? E            ZI(2)
+ 123   52   2 R    ( 1)A?? E            ZR(2)
+**-- END OF SYMBOL TABLE

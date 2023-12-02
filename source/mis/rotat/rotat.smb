@@ -1,0 +1,85 @@
+**++ Symbol table for subprogram ROTAT in file mis/rotat.f90
+     produced by SPAG     8.01RF-40 at 14:46:37 on  2 Dec 2023
+   0         X             K             mis/rotat.f90,0000002,0000167
+   1         C     / 5/ ??        108   /BLANK/SKIP,OES1,SCR1,SCR2,NEWOES
+   2         C     / 5/  U        860   /XXPARM/SKPPAR,ICASE,FLAG,DATA,SKPARM
+   3          R    ( 2) MU E        9   A(3,3)
+   4         I?    ( 1)  U I            ABS
+   5         I?    ( 1)  U I            ATAN
+   6   54   2 I        A U E            B1
+   7          I        I U E            BAR
+   8         s     ( 1)  U              BCKREC
+     (I4V)
+     (R4V)
+   9         s     ( 2)  U              CLOSE
+     (I4V,I4E)
+  10          R    ( 1) MU E        3   CROSS(3)
+  11    2   4 R        C U E            DATA
+  12   54   1 I        A?? E            ECT2
+  13          R          U E            EIGEN
+  14          I         MU E            ELID
+  15          I        I?U E            ESYM
+  16          R         MU E            FIGEN
+  17    2   3 R        C U E            FLAG
+  18         s     ( 4)  U              FREAD
+     (I4V,I4E,I4E,I4E)
+     (R4V,R4A,   ,   )
+     (   ,I4A,   ,   )
+  19         s     ( 2)  U              FWDREC
+     (ALT,R4V)
+  20   54   3 I    ( 1)A?U E            GPLST(1)
+  21          I    ( 1) ?U E       12   GPTS(12)
+  22          I         MU E            I
+  23         II    ( 1)  U I            IABS
+  24    2   2 I        C U E            ICASE
+  25          I         MU E            IEL
+  26          I         ?U E            IELMT
+  27          I         MU E            IG1
+  28          I         MU E            IG2
+  29          I         MU E            IG3
+  30          I         MU E            IRDECT
+  31          I         MU E            IREC
+  32          I         MU E            ISHEAR
+  33          I          U E            ISUB
+  34          I    ( 1)I U E       13   ISYM(13)
+  35          I         MU E            IT
+  36          I          U E            ITYPE
+  37          I         MU E            J
+  38          I         MU E            K
+  39          I         ?? E            M
+  40          R    ( 1) MU E        2   MAGTUD(2)
+  41          I         MU E            MORE
+  42          I         ?? E            N
+  43    1   5 I        C?? E            NEWOES
+  44          I         ?U E            NGPPE
+  45          I         MU E            NORM
+  46          R    ( 1) MU E        3   NORMAL(3)
+  47          I         MU E            NWDS
+  48    1   2 R        C?? E            OES1
+  49          I         MU E            OFFSET
+  50         s     ( 4)  U              OPEN
+     (ALT,I4V,I4L,I4E)
+  51         s     ( 7)  U              READ
+     (ALT,ALT,R4V,R4A,I4E,I4E,I4V)
+     (   ,   ,I4V,I4V,   ,   ,   )
+  52          R    ( 1) ?? E      146   REC1(146)
+  53          R    ( 1) MU E       17   REC2(17)
+  54         S     ( 4) ?U        129   ROTAT(ECT2,B1,GPLST,X)
+  55    1   3 R        C   E            SCR1
+  56    1   4 R        C   E            SCR2
+  57          R    ( 1) MU E        3   SHEAR(3)
+  58    1   1 R    ( 1)C   E       23   SKIP(23)
+  59    2   5 R        C   E            SKPARM
+  60    2   1 R    ( 1)C   E      211   SKPPAR(211)
+  61         I?    ( 1)  U I            SQRT
+  62          R         MU E            SUM
+  63          R    ( 2) MU E        4   T(2,2)
+  64          R          U E            TIME
+  65          R         MU E            TWOPI
+  66          I    ( 1)I U E       13   TYPES(13)
+  67          R    ( 2) MU E        6   V(2,3)
+  68         s     ( 4)  U              WRITE
+     (I4V,R4A,I4E,I4E)
+     (   ,I4E,   ,   )
+  69   54   4 R    ( 2)A U E            X(3,1)
+**-- END OF SYMBOL TABLE

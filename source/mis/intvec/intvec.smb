@@ -1,0 +1,21 @@
+**++ Symbol table for subprogram INTVEC in file mis/intvec.f90
+     produced by SPAG     8.01RF-40 at 14:47:10 on  2 Dec 2023
+   0         X             K             mis/intvec.f90,0000002,0000039
+   1         C     / 2/  U        164   /SYSTEM/SKIP,NCPW
+   2          I         MU E            CHAR
+   3          I         MU E            I
+   4         S     ( 1) MU         20   INTVEC(VECTOR)
+   5          I         MU E            K
+   6         fI    ( 2)  U E            KLSHFT
+     (I4V,I4E)
+   7         fI    ( 2)  U E            KRSHFT
+     (I4V,I4E)
+   8          I        I?? E            N
+   9    1   2 I        C U E            NCPW
+  10          I         MU E            NSHAPE
+  11    1   1 R    ( 1)C   E       40   SKIP(40)
+  12          I    ( 1) MU E        4   VEC(4)
+  13    4   1 I        AMU E            VECTOR
+  14          I         MU E            VECWRD
+  15          I    ( 1)I?? E        4   XYZR(4)
+**-- END OF SYMBOL TABLE

@@ -1,0 +1,201 @@
+**++ Symbol table for subprogram KCONES in file mis/kcones.f90
+     produced by SPAG     8.01RF-40 at 14:46:38 on  2 Dec 2023
+   0         X             K             mis/kcones.f90,0000002,0000778
+   1         C     / 1/            20   /CONDAS/CONSTS
+   2         C     / 6/ M          24   /MATIN/MATID,INFLAG,ELTEMP,STRESS,SINTH,COSTH
+   3         C     / 8/ ?U         48   /MATOUT/G11,G12,G13,G22,G23,G33,DUM,GSUBE
+   4         C     / 8/ MU         92   /SMA1CL/IOPT4,K4GGSW,NPVT,DUMCL,LINK,IDETCK,DODET,NOGO
+   5         C     /67/ MU       1524   /SMA1DP/SUM,QQ1,QQ2,QQ3,QQ4,KIJD,INTEG,KIJ,HUQ,HYQF,HYQ,TEMP60,OPI,ZA,E11,CP,SPE22,ZB,E12,SP,CPE22,A,E22,CP2,SP2E22,B,E33,SP2,CP2E22,SIGN,T,D11,TEMP1,RA,TS,D12,TEMP2,RB,N,D22,TEMP3,RASQ,N2,D33,TEMP4,RBSQ,SL,NSP,TEMP5,TN,L2,NCP,TEMP6,PIOVB,DL,SPE12,TEMP7,TD,
+                                                TEMP,CPE12,OQ,N2E22,TWOD33,TNSP,N2E33,SP2E33,SPE33
+   6         C     / 1/ ?U        400   /SMA1ET/ECPT
+   7         C     / 4/ ??         52   /SMA1IO/DUM1,IFKGG,DUM2,IF4GG
+   8    5  22 R        CMU E            A
+   9         I?    ( 1)  U I            ABS
+  10    5  26 R        CMU E            B
+  11    1   1 R    ( 1)C   E        5   CONSTS(5)
+  12    2   6 R        CM  E            COSTH
+  13    5  16 R        CMU E            CP
+  14    5  24 R        CMU E            CP2
+  15    5  29 R        CMU E            CP2E22
+  16    5  60 R        CMU E            CPE12
+  17    5  21 R        CMU E            CPE22
+  18    5  32 R        CMU E            D11
+  19    5  36 R        CMU E            D12
+  20    5  40 R        CMU E            D22
+  21    5  44 R        CMU E            D33
+  22         ID    ( 1)  U I            DBLE
+  23          R         ?? E            DETERM
+  24    5  55 R        C   E            DL
+  25         ID    ( 1)  U I            DLOG
+  26    4   7 R        C   E            DODET
+  27    3   7 R    ( 1)C?? E        5   DUM(5)
+  28    7   1 R    ( 1)C   E       10   DUM1(10)
+  29    7   3 R        C   E            DUM2
+  30    4   4 R    ( 1)C   E        7   DUMCL(7)
+  31    5  15 R        CMU E            E11
+  32    5  19 R        CMU E            E12
+  33    5  23 R        CMU E            E22
+  34    5  27 R        CMU E            E33
+  35    6   1 R    ( 1)C?U E      100   ECPT(100)
+  36    2   3 R        CM  E            ELTEMP
+  37          R    ( 1)I U E        7   FAC(7)
+  38         IR    ( 1)  U I            FLOAT
+  39          R          U E            G
+  40    3   1 R        C U E            G11
+  41    3   2 R        C U E            G12
+  42    3   3 R        C   E            G13
+  43    3   4 R        C U E            G22
+  44    3   5 R        C   E            G23
+  45    3   6 R        C U E            G33
+  46         s     ( 9)  U              GMMATS
+     (R4L,I4E,I4E,I4E,R4L,I4E,I4E,I4E,R4L)
+  47    3   8 R        C U E            GSUBE
+  48          R    ( 1) M? E      120   H(120)
+  49          R          U E            H11
+  50          R          U E            H12
+  51          R          U E            H13
+  52          R          U E            H14
+  53          R          U E            H15
+  54          R          U E            H16
+  55          R          U E            H17
+  56          R          U E            H18
+  57          R          U E            H19
+  58          R          U E            H1TEN
+  59    5   9 R    ( 1)CMU E      100   HUQ(100)
+  60    5  11 R    ( 1)CMU E       10   HYQ(10)
+  61    5  10 R    ( 1)CMU E       10   HYQF(10)
+  62          I         MU E            I
+  63          R          U E            I00
+  64          R          U E            I01
+  65          R          U E            I02
+  66          R          U E            I03
+  67          R          U E            I04
+  68          R          U E            I10
+  69          R          U E            I11
+  70          R          U E            I12
+  71          R          U E            I13
+  72          R          U E            I14
+  73          R          U E            I20
+  74          R          U E            I21
+  75          R          U E            I22
+  76          R          U E            I23
+  77          R          U E            I24
+  78          R          U E            I31
+  79          R          U E            I32
+  80          R          U E            I33
+  81          R          U E            I34
+  82          R          U E            I42
+  83          R          U E            I43
+  84          R          U E            I44
+  85          R          U E            I52
+  86          R          U E            I53
+  87          R          U E            I54
+  88          R          U E            I62
+  89          R            E            I63
+  90          R          U E            I64
+  91    4   6 I        C   E            IDETCK
+  92          I         MU E            IDX
+  93    7   4 I        C?? E            IF4GG
+  94    7   2 I        C?? E            IFKGG
+  95          I         MU E            INC1
+  96          I         MU E            INC2
+  97    2   2 I        CM  E            INFLAG
+  98    5   7 R    ( 1)CM  E       28   INTEG(28)
+  99         s     ( 8)  U              INVERS
+     (I4E,R4L,I4E,R4A,I4E,R4V,I4V,R4L)
+ 100    4   1 I        C U E            IOPT4
+ 101          I         MU E            IRETRN
+ 102          I         MU E            ISING
+ 103          I         MU E            ITEN
+ 104          I         MU E            J
+ 105          I         MU E            K
+ 106    4   2 I        CM  E            K4GGSW
+ 107         S                    441   KCONES
+ 108    5   8 R    ( 1)C?U E       36   KIJ(36)
+ 109    5   6 D    ( 1)CM? E       36   KIJD(36)
+ 110          I         MU E            KK
+ 111          R    ( 2) MU E      100   KQE(10,10)
+ 112          R    ( 2) MU E      100   KQN(10,10)
+ 113          R    ( 2) MU E      100   KQX(10,10)
+ 114          R    ( 2) MU E      100   KQY(10,10)
+ 115    5  51 R        CMU E            L2
+ 116    4   5 I    ( 1)C   E       10   LINK(10)
+ 117         I?    ( 1)  U I            LOG
+ 118         s     ( 1)  U              MAT
+     (R4L)
+ 119    2   1 I        CM  E            MATID
+ 120          I          U E            MATID1
+ 121          I          U E            MATID2
+ 122          I          U E            MATID3
+ 123         s     ( 3)  U              MESAGE
+     (I4E,I4E,I4L)
+ 124          I         MU E            MK1
+ 125          I         MU E            MN2
+ 126          I         MU E            MNK2
+ 127          I         MU E            MPLUS1
+ 128    5  39 R        CMU E            N
+ 129    5  43 R        CMU E            N2
+ 130          R         MU E            N2D33
+ 131    5  62 R        CMU E            N2E22
+ 132    5  65 R        CMU E            N2E33
+ 133          I    ( 1)I U E        7   NA(7)
+ 134          I         MU E            NBEGIN
+ 135    5  52 R        CMU E            NCP
+ 136          I    ( 1) ?U E      100   NECPT(100)
+ 137          I    ( 1) M? E        2   NERROR(2)
+ 138          I         MU E            NINT
+ 139    4   8 I        CM  E            NOGO
+ 140          I         MU E            NPIVOT
+ 141    4   3 I        C U E            NPVT
+ 142    5  48 R        CMU E            NSP
+ 143          R         MU E            NSPOPI
+ 144          I        IMU E            OLDPT1
+ 145          I        IMU E            OLDPT2
+ 146          R        I U E            ONE
+ 147    5  13 R        CMU E            OPI
+ 148    5  61 R        CMU E            OQ
+ 149          R          U E            PI
+ 150    5  54 R        CMU E            PIOVB
+ 151    5   2 D        CMU E            QQ1
+ 152    5   3 D        CMU E            QQ2
+ 153    5   4 D        CMU E            QQ3
+ 154    5   5 D        CMU E            QQ4
+ 155    5  34 R        CMU E            RA
+ 156    5  42 R        CMU E            RASQ
+ 157    5  38 R        CMU E            RB
+ 158    5  46 R        CMU E            RBSQ
+ 159    5  30 R        CMU E            SIGN
+ 160    2   5 R        CM  E            SINTH
+ 161    5  47 R        CMU E            SL
+ 162         s     ( 5)  U              SMA1B
+     (R8L,I4L,I4E,I4V,R8E)
+ 163         IR    ( 1)  U I            SNGL
+ 164    5  20 R        CMU E            SP
+ 165    5  28 R        CMU E            SP2
+ 166          R         MU E            SP2D22
+ 167    5  25 R        CMU E            SP2E22
+ 168    5  66 R        CMU E            SP2E33
+ 169    5  56 R        CMU E            SPE12
+ 170    5  17 R        CMU E            SPE22
+ 171    5  67 R        CMU E            SPE33
+ 172         I?    ( 1)  U I            SQRT
+ 173    2   4 R        C   E            STRESS
+ 174    5   1 D        CMU E            SUM
+ 175    5  31 R        CMU E            T
+ 176    5  58 R        C   E            TD
+ 177    5  59 R        CMU E            TEMP
+ 178    5  33 R        CMU E            TEMP1
+ 179    5  37 R        CMU E            TEMP2
+ 180    5  41 R        CMU E            TEMP3
+ 181    5  45 R        CMU E            TEMP4
+ 182    5  49 R        CMU E            TEMP5
+ 183    5  53 R        CMU E            TEMP6
+ 184    5  12 R    ( 1)CMU E       60   TEMP60(60)
+ 185    5  57 R        CMU E            TEMP7
+ 186    5  50 R        CMU E            TN
+ 187    5  64 R        CMU E            TNSP
+ 188    5  35 R        CMU E            TS
+ 189    5  63 R        CMU E            TWOD33
+ 190    5  14 R        CMU E            ZA
+ 191    5  18 R        CMU E            ZB
+**-- END OF SYMBOL TABLE

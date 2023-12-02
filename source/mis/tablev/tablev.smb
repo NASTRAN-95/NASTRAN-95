@@ -1,0 +1,58 @@
+**++ Symbol table for subprogram TABLEV in file mis/tablev.f90
+     produced by SPAG     8.01RF-40 at 14:46:51 on  2 Dec 2023
+   0         X             K             mis/tablev.f90,0000002,0000171
+   1         C     / 2/  U          8   /SYSTEM/SYSBUF,NOUT
+   2         C     / 1/ MU          4   /ZZZZZZ/Z
+   3          C*1      I U E            B1*1
+   4         s     ( 2)  U              CLOSE
+     (I4V,I4E)
+   5          C*1      I U E            D1*1
+   6          L        I U E            DEBUG
+   7          D         M  E            DZ
+   8          I        I U E            END
+   9          C*5      I U E            END5*5
+  10          C*1      I U E            F1*1
+  11         s     ( 2)  U              FNAME
+     (I4V,I4A)
+  12          I    ( 1)I U E        2   FU(2)
+  13          I         MU E            FUF
+  14          C*1      I U E            I1*1
+  15   37   6 I        A U E            IBUF
+  16   37   1 I        A U E            IN
+  17          I         MU E            J
+  18          I         MU E            K
+  19          I         MU E            KORE
+  20          I         M  E            KORE9
+  21          I         MU E            KOUNT
+  22          I         MU E            L
+  23          I         MU E            LB
+  24   37   2 I        AMU E            LL
+  25          I         MU E            LN
+  26         s     ( 3)  U              MESAGE
+     (I4E,I4E,I4A)
+  27   37   4 I    ( 1)AM  E            NAME(3)
+  28          I    ( 1) ?U E        2   NAMEX(2)
+  29    1   2 I        C U E            NOUT
+  30         s     ( 4)  U              OPEN
+     (ALT,I4V,I4L,I4E)
+  31          I         MU E            OUT
+  32   37   5 I        A U E            P4
+  33          C*1      I U E            R1*1
+  34          R    ( 1) M  E        1   RZ(1)
+  35          I    ( 1)I?? E        2   SUB(2)
+  36    1   1 I        C   E            SYSBUF
+  37         S     ( 7) MU         87   TABLEV(IN,LL,TRL,NAME,P4,IBUF,Z5)
+  38          I        I U E            TBLE
+  39   37   3 I    ( 1)AMU E            TRL(7)
+  40         s     ( 4)  U              WRITE
+     (I4V,I4A,I4E,I4E)
+  41         s     ( 1)  U              WRTTRL
+     (I4A)
+  42    2   1 I    ( 1)CMU E        1   Z(1)
+  43          C*1        U E            Z1*1
+  44          C*10      MU E            Z10*10
+  45          C*15      MU E            Z15*15
+  46          R    ( 1)  U E        2   Z4(2)
+  47   37   7 C*5  ( 1)AMU E            Z5(1)*5
+  48          C*5       MU E            Z5L*5
+**-- END OF SYMBOL TABLE

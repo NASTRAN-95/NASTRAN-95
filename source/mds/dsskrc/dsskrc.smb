@@ -1,0 +1,26 @@
+**++ Symbol table for subprogram DSSKRC in file mds/dsskrc.f90
+     produced by SPAG     8.01RF-40 at 14:46:32 on  2 Dec 2023
+   0         X             K             mds/dsskrc.f90,0000002,0000033
+   1         s     ( 1)  U              DSMSG
+     (I4E)
+   2         s           U              DSRDNB
+   3         S                     26   DSSKRC
+   4         I?    ( 2)  U I            IAND
+   5         f?    ( 1)  U I            IBASE
+     (I4V)
+   6          I         MU E            ICLR
+   7          I         MU E            ID
+   8          ?          U I            IDSC
+   9          ?          U I            IDSEB
+  10          ?          U I            IDSEF
+  11          ?          U I            IDSRH
+  12          ?          U I            IDSRT
+  13          ?          U I            IDSSB
+  14          I         MU E            IFLG
+  15          ?         M  I            INDCBP
+  16          ?         MU I            INDCLR
+  17          I         MU E            LEN
+  18          ?          U I            MASKH2
+  19          ?          U I            MASKQ1
+  20          ?          U I            MASKQ2
+**-- END OF SYMBOL TABLE

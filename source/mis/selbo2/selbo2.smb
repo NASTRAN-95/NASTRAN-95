@@ -1,0 +1,119 @@
+**++ Symbol table for subprogram SELBO2 in file mis/selbo2.f90
+     produced by SPAG     8.01RF-40 at 14:46:48 on  2 Dec 2023
+   0         X             K             mis/selbo2.f90,0000002,0000196
+   1         C     / 9/  U        192   /SDR2X4/XXXXXX,ICSTM,NCSTM,IVEC,IVECN,LDTEMP,ELDEFM,DUM8,TLOADS
+   2         C     /56/ MU        848   /SDR2X7/JELID,JSILNO,SA,SB,ST,SDELTA,A,FJ,I1,I2,C,R1,T1,R2,T2,R3,T3,R4,T4,TSUB0,SIGMAT,SIGMAC,L,R,BETAR,THERM,ISELID,SIG1A,SIG2A,SIG3A,SIG4A,SIGAX,SIGAMX,SIGAMN,MSTEN,SIG1B,SIG2B,SIG3B,SIG4B,SIGBX,SIGBMX,SIGBMN,MSCOM,YYYYYY,IFELID,M1A,M2A,V1,V2,FX,T,M1B,M2BT,
+                                                V1BT,FXBT,TBT
+   3         C     /12/ MU         88   /SDR2X8/FA,FB,IDISP,IUA,IUB,P1,K1A,K2A,K1B,K2B,Q,W
+   4         C     / 1/ ??          4   /ZZZZZZ/ZZ
+   5    2   7 R        C U E            A
+   6         I?    ( 1)  U I            ABS
+   7         IR    ( 4)  U I            AMAX1
+   8         IR    ( 4)  U I            AMIN1
+   9    2  25 R        C U E            BETAR
+  10    2  11 R        C U E            C
+  11          R         MU E            C1
+  12          R         MU E            C2
+  13         GR    ( 1)  U E            COD
+  14         I?    ( 1)  U I            COS
+  15          R         MU E            D1
+  16          R         MU E            D2
+  17          R        I U E            DCR
+  18          R         MU E            DT
+  19    1   8 R    ( 1)C   E        8   DUM8(8)
+  20          R         MU E            EALF
+  21    1   7 R        C   E            ELDEFM
+  22          R         MU E            F1
+  23          R         MU E            F2
+  24    3   1 R    ( 1)CMU E        6   FA(6)
+  25    3   2 R    ( 1)C?U E        6   FB(6)
+  26    2   8 R        C   E            FJ
+  27    2  50 R        CMU E            FX
+  28    2  55 R        CMU E            FXBT
+  29          R         MU E            G1
+  30          R         MU E            G2
+  31         s     ( 9)  U              GMMATS
+     (R4L,I4E,I4E,I4E,R4L,I4E,I4E,I4E,R4L)
+  32          I         MU E            I
+  33    2   9 R        C U E            I1
+  34          R         MU E            I12
+  35    2  10 R        C U E            I2
+  36    1   2 I        C   E            ICSTM
+  37    3   3 I        CMU E            IDISP
+  38    2  45 I        CM  E            IFELID
+  39    2  27 I        CM  E            ISELID
+  40    3   4 I        CMU E            IUA
+  41    3   5 I        CMU E            IUB
+  42    1   4 I        C U E            IVEC
+  43    1   5 I        C   E            IVECN
+  44    2   1 I        C U E            JELID
+  45    2   2 I    ( 1)C U E        2   JSILNO(2)
+  46    3   7 R        CMU E            K1A
+  47    3   9 R        CMU E            K1B
+  48    3   8 R        CMU E            K2A
+  49    3  10 R        CMU E            K2B
+  50    2  23 R        C   E            L
+  51    1   6 I        C   E            LDTEMP
+  52    2  46 R        CMU E            M1A
+  53    2  52 R        CMU E            M1B
+  54    2  47 R        CMU E            M2A
+  55          R         MU E            M2B
+  56    2  53 R        CMU E            M2BT
+  57    2  43 I        CM  E            MSCOM
+  58    2  35 I        CM  E            MSTEN
+  59    1   3 I        C   E            NCSTM
+  60    3   6 R        C   E            P1
+  61    3  11 R        CMU E            Q
+  62    2  24 R        C U E            R
+  63    2  12 R        C U E            R1
+  64    2  14 R        C U E            R2
+  65    2  16 R        C U E            R3
+  66    2  18 R        C U E            R4
+  67    2   3 R    ( 1)C?? E       36   SA(36)
+  68    2   4 R    ( 1)C?? E       36   SB(36)
+  69    2   6 R        C   E            SDELTA
+  70         S     ( 1)  U        123   SELBO2(TI)
+  71         GR    ( 1)  U E            SID
+  72    2  28 R        CMU E            SIG1A
+  73    2  36 R        CMU E            SIG1B
+  74    2  29 R        CMU E            SIG2A
+  75    2  37 R        CMU E            SIG2B
+  76    2  30 R        CMU E            SIG3A
+  77    2  38 R        CMU E            SIG3B
+  78    2  31 R        CMU E            SIG4A
+  79    2  39 R        CMU E            SIG4B
+  80    2  34 R        CMU E            SIGAMN
+  81    2  33 R        CMU E            SIGAMX
+  82    2  32 R        CMU E            SIGAX
+  83    2  42 R        CMU E            SIGBMN
+  84    2  41 R        CMU E            SIGBMX
+  85    2  40 R        CMU E            SIGBX
+  86    2  22 R        C U E            SIGMAC
+  87    2  21 R        C U E            SIGMAT
+  88         I?    ( 1)  U I            SIN
+  89          R         M  E            SMCOM
+  90          R         M  E            SMTEN
+  91    2   5 R        C U E            ST
+  92    2  51 R        CMU E            T
+  93    2  13 R        C U E            T1
+  94    2  15 R        C U E            T2
+  95    2  17 R        C U E            T3
+  96    2  19 R        C U E            T4
+  97          R         MU E            TB
+  98          R         MU E            TBAR
+  99    2  56 R        CM  E            TBT
+ 101    2  26 R    ( 1)C U E        4   THERM(4)
+ 102   70   1 R    ( 1)A U E            TI(14)
+ 103    1   9 I        C U E            TLOADS
+ 104    2  20 R        C U E            TSUB0
+ 105    2  48 R        CMU E            V1
+ 106    2  54 R        CM  E            V1BT
+ 107    2  49 R        CMU E            V2
+ 108    3  12 R        CMU E            W
+ 109          R         MU E            X
+ 110          R         MU E            XL
+ 111    1   1 R    ( 1)C   E       33   XXXXXX(33)
+ 112          R         MU E            YL
+ 113    2  44 R    ( 1)C   E       83   YYYYYY(83)
+ 114    4   1 R    ( 1)C?? E        1   ZZ(1)
+**-- END OF SYMBOL TABLE

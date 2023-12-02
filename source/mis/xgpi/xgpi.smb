@@ -1,0 +1,341 @@
+**++ Symbol table for subprogram XGPI in file mis/xgpi.f90
+     produced by SPAG     7.61RG-40 at 01:00:00 on 21 Mar 2022
+   0         X             K             mis/xgpi.f90,0000002,0001374
+   1         C     / 3/ MU         12   /IFPX0/LBD,LCC,MJMSK
+   2         C     / 2/  U          8   /IFPX1/NCDS,MJCD
+   3         C     / 2/  U          8   /L15L8/L15,L8
+   4         C     / 1/ MU         24   /MODDMP/IFLG
+   5         C     / 2/ MU         48   /STAPID/TAPID,OTAPID
+   6         C     /24/ MU        328   /SYSTEM/IBUFSZ,OPTAPE,NOGO,SYS4,MPC,SPC,SYS7,LOAD,SYS9,PAGECT,SYS12,IECHO,SYS20,APPRCH,SYS22,ICFIAT,SYS25,CPPGCT,SYS27,SSCELL,SYS70,BANDIT,SYS78,ICPFLG
+   7         C     / 1/ ?U        128   /TWO/TWO
+   8         C     / 1/ MU        168   /XCEITB/CEITBL
+   9         C     / 1/ MU         12   /XDPL/DPL
+  10         C     / 1/ MU         12   /XFIAT/IFIAT
+  11         C     / 1/             4   /XFIST/IFIST
+  12         C     / 3/ ??         12   /XGPI2/LIBF,MPLPNT,MPL
+  13         C     / 1/ MU        800   /XGPI3/PVT
+  14         C     /15/ MU         60   /XGPI4/IRTURN,INSERT,ISEQN,DMPCNT,IDMPNT,DMPPNT,BCDCNT,LENGTH,ICRDTP,ICHAR,NEWCRD,MODIDX,LICF,ISAVDW,DMAP
+  15         C     /11/ MU         48   /XGPI5/ISOL,START,ALTER,SOL,SUBSET,IFLAG,IESTIM,ICFTOP,ICFPNT,LCTLFL,ICTLFL
+  16         C     /12/ MU        124   /XGPI6/MEDTP,FNMTP,CNMTP,MEDPNT,LMED,IPLUS,DIAG14,DIAG17,DIAG4,DIAG25,IFIRST,IBUFF
+  17         C     / 3/ MU         12   /XGPI8/ICPTOP,ICPBOT,LCPDPL
+  18         C     /31/ ?U        124   /XGPIC/ICOLD,ISLSH,IEQUL,NBLANK,NXEQUI,NMED,NSOL,NDMAP,NESTM1,NESTM2,NEXIT,NBEGIN,NEND,NJUMP,NCOND,NREPT,NTIME,NSAVE,NOUTPT,NCHKPT,NPURGE,NEQUIV,NCPW,NBPC,NWPC,MASKHI,MASKLO,ISGNON,NOSGN,IALLON,MASKS
+  19         C     /17/ MU        116   /XGPID/ICST,IUNST,IMST,IHAPP,IDSAPP,IDMAPP,ISAVE,ITAPE,MODFLG,INTGR,LOSGN,NOFLGS,SETEOR,EOTFLG,IEQFLG,CPNTRY,JMP
+  20         C     / 1/ M?          4   /XGPIE/NSCR
+  21         C     / 4/ MU         40   /XMDMSK/NMSKCD,NMSKFL,NMSKRF,MEDMSK
+  22         C     / 4/  U        102   /XMSSG/UFM,UWM,UIM,SFM
+  23         C     / 5/ MU         20   /XOLDPT/PTDTOP,PTDBOT,LPTDIC,NRLFL,SEQNO
+  24         C     / 1/ MU         16   /XVPS/VPS
+  25         C     / 1/ ??          4   /ZZZZZZ/CORE
+  26   15   3 I    ( 1)C?U E        2   ALTER(2)
+  27         fI    ( 2)  UXE            ANDF
+     (I4E,I4E)
+  28    6  14 I        C U E            APPRCH
+  29    6  22 I        CM  E            BANDIT
+  30   14   7 I        C   E            BCDCNT
+  31          I         MU E            BGNMSK
+  32    8   1 I    ( 1)CMU E       42   CEITBL(42)
+  33         s     ( 2)  U              CLOSE
+     (I4V,I4E)
+     (I4A,   )
+  34          I    ( 1)  U E        1   CNM(1)
+  35   16   3 I        CMU E            CNMTP
+  36         fI    ( 1)  UXE            COMPLF
+     (I4E)
+  37         s     ( 3)  U              CONMSG
+     (I4L,I4E,I4E)
+  38   25   1 I    ( 1)C?? E        1   CORE(1)
+  39   19  16 I    ( 1)CMU E        7   CPNTRY(7)
+  40    6  18 I        CM  E            CPPGCT
+  41         s     ( 5)  U              CPYFIL
+     (I4V,I4V,I4A,I4V,I4V)
+  42   16   7 I        CMU E            DIAG14
+  43   16   8 I        C?U E            DIAG17
+  44   16  10 I        C?U E            DIAG25
+  45   16   9 I        C?U E            DIAG4
+  46   14  15 I    ( 1)C   E        1   DMAP(1)
+  47   14   4 I        C   E            DMPCNT
+  48          I    ( 1)    E        1   DMPCRD(1)
+  49   14   6 I        C   E            DMPPNT
+  50    9   1 I    ( 1)CMU E        3   DPL(3)
+  51         s           U              DUMPER
+  52          I         MU E            ENDMSK
+  53         s     ( 1)  U              EOF
+     (I4V)
+  54   19  14 I        C   E            EOTFLG
+  55          I        IMU E            FILCON
+  56          I    ( 1)  U E        1   FNM(1)
+  57   16   2 I        CMU E            FNMTP
+  58         s     ( 2)  U              FWDREC
+     (ALT,I4V)
+  59         s     ( 3)  U              GOPEN
+     (I4V,I4L,I4E)
+  60          I         MU E            I
+  61          I         MU E            I1
+  62          I         MU E            I2
+  63         II    ( 1)  U I            IABS
+  64   18  30 I        C   E            IALLON
+  65          I         MU E            IB1S
+  66          I         MU E            IBEGN
+  67          I    ( 1) MU E        8   IBF(8)
+  68   16  12 I    ( 1)C   E       20   IBUFF(20)
+  69          I    ( 1) ?? E        1   IBUFR(1)
+  70    6   1 I        C U E            IBUFSZ
+  71          I         MU E            IBULK
+  72          I         MU E            ICASE
+  73          I    ( 1)    E        1   ICCNAM(1)
+  74          I    ( 1) ?U E        1   ICF(1)
+  75    6  16 I        C U E            ICFIAT
+  76   15   9 I        CM  E            ICFPNT
+  77   15   8 I        C U E            ICFTOP
+  78   14  10 I        C   E            ICHAR
+  79   18   1 I        C   E            ICOLD
+  80   17   2 I        C?U E            ICPBOT
+  81          I    ( 1) ?U E        1   ICPDPL(1)
+  82    6  24 I        C?U E            ICPFLG
+  83   17   1 I        CMU E            ICPTOP
+  84   14   9 I        C   E            ICRDTP
+  85   19   1 I        C U E            ICST
+  86   15  11 I    ( 1)C   E        1   ICTLFL(1)
+  87          I         MU E            IDELET
+  88   19   6 I        C   E            IDMAPP
+  89   14   5 I        C   E            IDMPNT
+  90          I        I?? E            IDP
+  91          I         MU E            IDPBUF
+  92          I         MU E            IDPFCT
+  93          I        I?? E            IDPWRD
+  94   19   5 I        C   E            IDSAPP
+  95    6  12 I        C U E            IECHO
+  96          I         MU E            IEND
+  97          I         MU E            IENDBT
+  98   19  15 I        C?? E            IEQFLG
+  99   18   3 I        C   E            IEQUL
+ 100   15   7 I        C   E            IESTIM
+ 101   10   1 I    ( 1)CMU E        3   IFIAT(3)
+ 102   16  11 I        C   E            IFIRST
+ 103   11   1 I    ( 1)C   E        1   IFIST(1)
+ 104   15   6 I        C   E            IFLAG
+ 105    4   1 I    ( 1)CMU E        6   IFLG(6)
+ 106   19   4 I        C   E            IHAPP
+ 107          I         MU E            II
+ 108          I         MU E            III
+ 109   19   3 I        C U E            IMST
+ 110          I         MU E            INDEX
+ 111   14   2 I        C   E            INSERT
+ 112   19  10 I        C   E            INTGR
+ 113          I        I?? E            IOP
+ 114          I         MU E            IOPBUF
+ 115          I        I?U E            IOPWRD
+ 116          I    ( 1)I?U E        2   IOSHDR(2)
+ 117          I         MU E            IPARBT
+ 118          I         MU E            IPARPT
+ 119          I         MU E            IPARW1
+ 120          I         MU E            IPARW2
+ 121   16   6 I        C   E            IPLUS
+ 122   14   1 I        CMU E            IRTURN
+ 123   14  14 I        C   E            ISAVDW
+ 124   19   7 I        C   E            ISAVE
+ 125   14   3 I        C   E            ISEQN
+ 126   18  28 I        C?? E            ISGNON
+ 127   18   2 I        C   E            ISLSH
+ 128   15   1 I    ( 1)C?? E        1   ISOL(1)
+ 129          I         MU E            ISTRBT
+ 130   19   8 I        C   E            ITAPE
+ 131          I    ( 1) MU E        7   ITRL(7)
+ 132          I    ( 1)I U E        6   ITYPE(6)
+ 133   19   2 I        C U E            IUNST
+ 134          I        I U E            IXTIM
+ 135          I         MU E            J
+ 136          I         MU E            J1
+ 137          I         MU E            J2
+ 138          I        I U E            JCARD
+ 139          I        I U E            JFILE
+ 140          I         MU E            JJ
+ 141          I         MU E            JJJ
+ 142   19  17 I    ( 1)CM? E        7   JMP(7)
+ 143          I         M? E            JTYPE
+ 144          I         MU E            K
+ 145          I         MU E            K1
+ 146          I         MU E            KK
+ 147         fI    ( 1)  U E            KORSZ
+     (I4A)
+ 148          I         MU E            KZ
+ 149          I         MU E            L
+ 150          I         MU E            L1
+ 151    3   1 I        C   E            L15
+ 152          I         MU E            L2
+ 153    3   2 I        C U E            L8
+ 154    1   1 I        C U E            LBD
+ 155          I         MU E            LBD1
+ 156          I         MU E            LBDLCC
+ 157    1   2 I        C U E            LCC
+ 158   17   3 I        C   E            LCPDPL
+ 159   15  10 I        C   E            LCTLFL
+ 160   14   8 I        C   E            LENGTH
+ 161   12   1 I        C?? E            LIBF
+ 162   14  13 I        C   E            LICF
+ 163          I         MU E            LIM1
+ 164          I         MU E            LIM2
+ 165          I         MU E            LL
+ 166          I         MU E            LLOSCR
+ 167          I         MU E            LLX
+ 168   16   5 I        CMU E            LMED
+ 169          L          U E            LNOGO
+ 170    6   8 I        CM  E            LOAD
+ 171          I         MU E            LOSCAR
+ 172   19  11 I        C?? E            LOSGN
+ 173   23   3 I        CM? E            LPTDIC
+ 174         fI    ( 2)  UXE            LSHIFT
+     (I4E,I4E)
+ 175          I         MU E            LSTDPL
+ 176          I         MU E            LX
+ 177          I         MU E            M
+ 178   18  26 I        C?? E            MASKHI
+ 179   18  27 I        C?U E            MASKLO
+ 180   18  31 I    ( 1)C   E        1   MASKS(1)
+ 181          I          U E            MAXDPL
+ 182          I    ( 1) MU E        1   MED(1)
+ 183   21   4 I    ( 1)CMU E        7   MEDMSK(7)
+ 184   16   4 I        C   E            MEDPNT
+ 185   16   1 I        CMU E            MEDTP
+ 186         s     ( 3)  U              MESAGE
+     (I4E,I4E,I4E)
+     (   ,   ,I4A)
+ 187    2   2 I    ( 1)C U E        1   MJCD(1)
+ 188    1   3 I    ( 1)CMU E        1   MJMSK(1)
+ 189         I?    ( 2)  U I            MOD
+ 190   19   9 I        C?U E            MODFLG
+ 191   14  12 I        C   E            MODIDX
+ 192    6   5 I        CM  E            MPC
+ 193   12   3 I    ( 1)C   E        1   MPL(1)
+ 194   12   2 I        C   E            MPLPNT
+ 195          I         M? E            NAM1
+ 196          I         M? E            NAM2
+ 197          I         MU E            NAMPT
+ 198   18  12 I        C   E            NBEGIN
+ 199   18   4 I        C?U E            NBLANK
+ 200   18  24 I        C   E            NBPC
+ 201    2   1 I        C   E            NCDS
+ 202   18  20 I        C   E            NCHKPT
+ 203   18  15 I        C   E            NCOND
+ 204   18  23 I        C   E            NCPW
+ 205   18   8 I        C   E            NDMAP
+ 206          I         MU E            NDPFIL
+ 207          I        I?? E            NDPL
+ 208   18  13 I        C   E            NEND
+ 209   18  22 I        C   E            NEQUIV
+ 210   18   9 I        C   E            NESTM1
+ 211   18  10 I        C   E            NESTM2
+ 212   14  11 I        C   E            NEWCRD
+ 213   18  11 I        C   E            NEXIT
+ 214          I         M? E            NFILE
+ 215   18  14 I        C   E            NJUMP
+ 216          I         MU E            NMASK
+ 217   18   6 I        C?? E            NMED
+ 218   21   1 I        C U E            NMSKCD
+ 219   21   2 I        C U E            NMSKFL
+ 220   21   3 I        C U E            NMSKRF
+ 221   19  12 I        C?? E            NOFLGS
+ 222    6   3 I        CMU E            NOGO
+ 223   18  29 I        C?? E            NOSGN
+ 224   18  19 I        C   E            NOUTPT
+ 225          I        I?U E            NPARAM
+ 226          I        I?? E            NPT
+ 227          I         MU E            NPTBUF
+ 228          I        I?U E            NPTWRD
+ 229   18  21 I        C   E            NPURGE
+ 230          I        I?U E            NPVT
+ 231   18  16 I        C   E            NREPT
+ 232   23   4 I        CMU E            NRLFL
+ 233   18  18 I        C   E            NSAVE
+ 234   20   1 I        CM? E            NSCR
+ 235   18   7 I        C   E            NSOL
+ 236   18  17 I        C   E            NTIME
+ 237   18  25 I        C   E            NWPC
+ 238          I        I U E            NXALTR
+ 239          I        I U E            NXCSA
+ 240   18   5 I        C   E            NXEQUI
+ 241          I    ( 1)I?? E        2   NXGPI(2)
+ 242          I    ( 1)I?U E        2   NXPTDC(2)
+ 243          I        I U E            NXVPS
+ 244         s     ( 4)  U              OPEN
+     (ALT,I4V,I4L,I4E)
+     (   ,I4A,   ,   )
+ 245    6   2 I        C U E            OPTAPE
+ 246         fI    ( 2)  UXE            ORF
+     (I4E,I4E)
+ 247          I    ( 1)    E        5   OS(5)
+ 248          I          U E            OSBOT
+ 249          I    ( 1) ?U E        1   OSCAR(1)
+ 250         s     ( 2)  U              OSCXRF
+     (I4E,I4E)
+ 251          I         MU E            OSPNT
+ 252          I            E            OSPRC
+ 253    5   2 I    ( 1)CMU E        6   OTAPID(6)
+ 254         s           U              PAGE1
+ 255         s     ( 1)  U              PAGE2
+     (I4E)
+ 256    6  10 I        C U E            PAGECT
+ 257         s           U              PEXIT
+ 258   23   2 I        CMU E            PTDBOT
+ 259          I    ( 1) MU E        1   PTDIC(1)
+ 260   23   1 I        CMU E            PTDTOP
+ 261          I         MU E            PTFCT
+ 262   13   1 I    ( 1)CMU E      200   PVT(200)
+ 263         s     ( 1)  U              RDTRL
+     (I4L)
+ 264         s     ( 7)  U              READ
+     (ALT,ALT,I4V,I4A,I4E,I4E,I4V)
+ 265         fI    ( 2)  UXE            RSHIFT
+     (I4E,I4E)
+ 266   23   5 I        CMU E            SEQNO
+ 267   19  13 I        C   E            SETEOR
+ 268   22   4 C*25     C U E            SFM*25
+ 269         s     ( 2)  U              SKPFIL
+     (I4V,I4E)
+ 270         s     ( 2)  U              SKPREC
+     (I4V,I4E)
+ 271   15   4 I        C   E            SOL
+ 272    6   6 I        CM  E            SPC
+ 273    6  20 I        C U E            SSCELL
+ 274         s     ( 2)  U              SSWTCH
+     (I4E,I4V)
+ 275   15   2 I        CMU E            START
+ 276   15   5 I        C   E            SUBSET
+ 277    6  11 I    ( 1)C   E        7   SYS12(7)
+ 278    6  13 I        C   E            SYS20
+ 279    6  15 I    ( 1)C   E        2   SYS22(2)
+ 280    6  17 I        C   E            SYS25
+ 281    6  19 I    ( 1)C   E       42   SYS27(42)
+ 282    6   4 I        C   E            SYS4
+ 283    6   7 I        C   E            SYS7
+ 284    6  21 I    ( 1)C   E        7   SYS70(7)
+ 285    6  23 I    ( 1)C   E        4   SYS78(4)
+ 286    6   9 I    ( 1)C   E        2   SYS9(2)
+ 287    5   1 I    ( 1)C?? E        6   TAPID(6)
+ 288    7   1 I    ( 1)C?U E       32   TWO(32)
+ 289   22   1 C*23     C   E            UFM*23
+ 290   22   3 C*29     C U E            UIM*29
+ 291   22   2 C*25     C   E            UWM*25
+ 292   24   1 I    ( 1)CMU E        4   VPS(4)
+ 293         s     ( 4)  U              WRITE
+     (I4V,I4A,I4E,I4E)
+     (   ,I4E,   ,   )
+     (I4A,   ,   ,   )
+ 294          I         MU E            WRNGRL
+ 295         s     ( 1)  U              WRTTRL
+     (I4L)
+ 296         s     ( 4)  U              XEOT
+     (I4V,I4E,I4L,I4L)
+ 297         s           U              XFLORD
+ 298         S                    769   XGPI
+ 299         s           U              XGPIBS
+ 300         s           U              XGPIDD
+ 301         s     ( 4)  U              XGPIDG
+     (I4E,I4E,I4E,I4E)
+ 302         s     ( 4)  U              XGPIMW
+     (I4E,I4E,I4E,I4E)
+     (   ,   ,   ,I4A)
+ 303         s           U              XLNKDD
+ 304         s           U              XMPLDD
+ 305         s           U              XOSGEN
+**-- END OF SYMBOL TABLE

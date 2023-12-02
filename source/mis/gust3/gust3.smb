@@ -1,0 +1,86 @@
+**++ Symbol table for subprogram GUST3 in file mis/gust3.f90
+     produced by SPAG     8.01RF-40 at 14:46:50 on  2 Dec 2023
+   0         X             K             mis/gust3.f90,0000002,0000128
+   1         C     / 5/ MU         20   /PACKX/ITC1,ITC2,II1,JJ1,INCR1
+   2         C     / 1/  U          4   /SYSTEM/SYSBUF
+   3         C     / 4/ MU         16   /UNPAKX/ITC,II,JJ,INCR
+   4         C     / 1/ MU          4   /ZZZZZZ/Z
+   5         s     ( 2)  U              CLOSE
+     (I4V,I4E)
+   6         s     ( 3)  U              DMPFIL
+     (I4E,R4A,I4V)
+   7         s     ( 4)  U              FREAD
+     (I4V,I4A,I4E,I4E)
+   8         s     ( 9)  U              GMMATC
+     (R4L,I4V,I4V,I4E,R4L,I4V,I4E,I4E,R4L)
+   9         s     ( 3)  U              GOPEN
+     (I4V,I4L,I4E)
+  10         S     (11) ?U         84   GUST3(QHJK,WJ,PP,GUSTL,PDEL,PGUST,Q,NFREQ,NLOAD,NROWJ,NCOLW)
+  11   10   4 I        A?? E            GUSTL
+  12          I         MU E            I
+  13          I         MU E            IBUF1
+  14          I         MU E            IBUF2
+  15          I         MU E            IBUF3
+  16          I         MU E            IBUF4
+  17    3   2 I        CM  E            II
+  18    1   3 I        C   E            II1
+  19    3   4 I        CM  E            INCR
+  20    1   5 I        CM  E            INCR1
+  21          I         MU E            IPDEL
+  22          I         MU E            IQHJ
+  23          I         M  E            IT1
+  24    3   1 I        CMU E            ITC
+  25    1   1 I        CM  E            ITC1
+  26    1   2 I        CM? E            ITC2
+  27          I         MU E            IWJ
+  28          I    ( 1) ?? E        1   IZ(1)
+  29          I         MU E            IZ2
+  30          I         MU E            J
+  31    3   3 I        CM  E            JJ
+  32    1   4 I        CMU E            JJ1
+  33         fI    ( 1)  U E            KORSZ
+     (I4A)
+  34          I         MU E            M
+  35         s     ( 5)  U              MAKMCB
+     (I4A,I4V,I4V,I4E,I4V)
+  36          I    ( 1) MU E        7   MCB(7)
+  37         s     ( 3)  U              MESAGE
+     (I4E,I4E,I4A)
+  38          I    ( 1)I?? E        2   NAME(2)
+  39   10  11 I        A   E            NCOLW
+  40   10   8 I        A U E            NFREQ
+  41   10   9 I        A U E            NLOAD
+  42   10  10 I        A?U E            NROWJ
+  43          I         MU E            NRQHJ
+  44          I         MU E            NTPDEL
+  45          I         MU E            NTQHJ
+  46          I         MU E            NTWZ
+  47          I         MU E            NZ
+  48         s     ( 3)  U              PACK
+     (R4A,I4V,I4A)
+  49   10   5 I        A?? E            PDEL
+  50          R         MU E            PGC
+  51          R         MU E            PGR
+  52   10   6 I        A?? E            PGUST
+  53   10   3 I        A?? E            PP
+  54   10   7 R        A U E            Q
+  55   10   1 I        A?U E            QHJK
+  56          R         MU E            QWG
+  57          R         MU E            QWGC
+  58          R         MU E            QWGR
+  59         s     ( 1)  U              RDTRL
+     (I4A)
+  60         s     ( 1)  U              REWIND
+     (I4V)
+  61         s     ( 2)  U              SKPREC
+     (I4V,I4E)
+  62    2   1 I        C U E            SYSBUF
+  63         s     ( 3)  U              UNPACK
+     (ALT,I4V,R4A)
+  64   10   2 I        A?? E            WJ
+  65         s     ( 1)  U              WRTTRL
+     (I4A)
+  66    4   1 R    ( 1)CMU E        1   Z(1)
+  67         s     ( 2)  U              ZEROC
+     (R4A,I4V)
+**-- END OF SYMBOL TABLE

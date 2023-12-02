@@ -1,0 +1,29 @@
+**++ Symbol table for subprogram FVRS2A in file mis/fvrs2a.f90
+     produced by SPAG     8.01RF-40 at 14:47:13 on  2 Dec 2023
+   0         X             K             mis/fvrs2a.f90,0000002,0000056
+   1         C     / 5/ MU         20   /PACKX/TYPIN,TYPOUT,II,NN,INCR
+   2    5   5 I    ( 1)A?? E            BUFFER(1)
+   3         s     ( 2)  U              CLOSE
+     (I4V,I4E)
+   4    5   1 I        A?U E            FILE
+   5         S     ( 5) MU         26   FVRS2A(FILE,KK1,KK2,NORO,BUFFER)
+   6         s     ( 3)  U              GOPEN
+     (I4V,I4A,I4E)
+   7    1   3 I        CM  E            II
+   8    1   5 I        CM  E            INCR
+   9          I         MU E            K1
+  10          I         MU E            K2
+  11    5   2 I        A U E            KK1
+  12    5   3 I        A U E            KK2
+  13    1   4 I        CM  E            NN
+  14    5   4 I        AM  E            NORO
+  15         s     ( 3)  U              PACK
+     (R4V,I4V,I4A)
+  16          I         MU E            ROW
+  17          I    ( 1) M? E        7   TRL(7)
+  18    1   1 I        CM  E            TYPIN
+  19    1   2 I        CMU E            TYPOUT
+  20          R         M? E            VALUE
+  21         s     ( 1)  U              WRTTRL
+     (I4A)
+**-- END OF SYMBOL TABLE

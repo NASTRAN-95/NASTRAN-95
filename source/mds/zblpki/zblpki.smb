@@ -1,0 +1,31 @@
+**++ Symbol table for subprogram ZBLPKI in file mds/zblpki.f90
+     produced by SPAG     7.61RG-40 at 01:00:00 on 21 Mar 2022
+   0         X             K             mds/zblpki.f90,0000002,0000056
+   1         C     / 2/ ?U         20   /ZBLPKX/A,I
+   2    1   1 I    ( 1)C?U E        4   A(4)
+   3         s     ( 1)  U              DSMSG
+     (I4E)
+   4         s     ( 1)  U              DSMSG1
+     (?*F)
+   5         s     ( 4)  U              DSUPKC
+     (I4V,?*E,I4A,?*E)
+   6         s     ( 1)  U              ENDPUT
+     (?*F)
+   7    1   2 I        C U E            I
+   8         f?    ( 1) MU I            IBASE
+     (I4E)
+   9         G?    ( 1) MU I            IBLKA
+  10          I         MU E            ICROW
+  11          I         MU E            INCCNT
+  12          I         MU E            INDEX
+  13          I         MU E            ITYPIN
+  14          I         MU E            K
+  15          I         MU E            KK
+  16          I         MU E            NEXROW
+  17          ?         MU I            NWORDS
+  18         f?    ( 1)  U I            NWRDEL
+     (I4V)
+  19         s     ( 1)  U              PUTSTR
+     (?*F)
+  20         S                     44   ZBLPKI
+**-- END OF SYMBOL TABLE

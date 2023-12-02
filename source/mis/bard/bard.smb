@@ -1,0 +1,212 @@
+**++ Symbol table for subprogram BARD in file mis/bard.f90
+     produced by SPAG     8.01RF-40 at 14:47:04 on  2 Dec 2023
+   0         X             K             mis/bard.f90,0000002,0000955
+   1         C     / 5/  U         20   /EMGDIC/IDUMM,LDICT,NGRIDS,ELID,ESTID
+   2         C     /30/ ?U        168   /EMGEST/IELID,ISILNO,SMALV,ICSSV,IPINFL,ZA,ZB,IMATID,A,I1,I2,FJ,NSM,FE,C1,C2,D1,D2,F1,F2,G1,G2,K1,K2,I12,MCSIDA,GPA,MCSIDB,GPB,TEMPEL
+   3         C     /14/ MU        100   /EMGPRM/IXTRA,JCORE,NCORE,DUM,ISTIF,IMASS,IDAMP,IPREC,NOGO,HEAT,ICMBAR,LCSTM,LMAT,LHMAT
+   4         C     /12/ MU       7352   /EMGTRX/KE,KEP,M,ME,MEP,KK,SMALVN,TA,TB,VEC,DELA,DELB
+   5         C     / 1/  U          4   /HMTOUT/FK
+   6         C     / 6/ M          24   /MATIN/MATIDC,MATFLG,ELTEMP,STRESS,SINTH,COSTH
+   7         C     /10/  U         40   /MATOUT/E,G,NU,RHO,ALPHA,TSUBO,GSUBE,SIGT,SIGC,SIGS
+   8         C     / 1/           400   /SYSTEM/KSYSTM
+   9         C     / 2/  U         48   /XMSSG/UFM,UWM
+  10    2   9 R        C U E            A
+  11          D         MU E            A2B
+  12          D         MU E            AEL
+  13    7   5 R        C   E            ALPHA
+  14          L         MU E            AOFSET
+  15         S                    591   BARD
+  16          L         MU E            BASIC
+  17          D         MU E            BETA
+  18          D         MU E            BL
+  19          D         MU E            BL13
+  20          D         MU E            BL22
+  21          D         MU E            BLCUBE
+  22          D         MU E            BLSQ
+  23          D         MU E            BLSQ3
+  24          D         MU E            BLSQ4
+  25          L         MU E            BOFSET
+  26    2  15 R        C   E            C1
+  27    2  16 R        C   E            C2
+  28          D         MU E            CONST
+  29    6   6 R        C   E            COSTH
+  30    2  17 R        C   E            D1
+  31    2  18 R        C   E            D2
+  32         ID    ( 1)  U I            DABS
+  33         ID    ( 1)  U I            DBLE
+  34    4  11 D    ( 1)CMU E        6   DELA(6)
+  35    4  12 D    ( 1)CMU E        6   DELB(6)
+  36          I    ( 1) M? E        7   DICT(7)
+  37         ID    ( 1)  U I            DSQRT
+  38    3   4 R    ( 1)C   E       12   DUM(12)
+  39    7   1 R        C U E            E
+  40          R    ( 1) ?U E       42   ECPT(42)
+  41          D         MU E            EI1
+  42          D         MU E            EI2
+  43    1   4 R        C   E            ELID
+  44    6   3 R        CM  E            ELTEMP
+  45         s     ( 7)  U              EMGOUT
+     (R8A,R8A,I4E,I4E,I4A,I4E,I4V)
+  46          D        I U E            EPSI
+  47          D        I U E            EPSI2
+  48    1   5 I        C U E            ESTID
+  49    2  19 R        C   E            F1
+  50    2  20 R        C   E            F2
+  51    2  14 R        C   E            FE
+  52    2  12 R        C U E            FJ
+  53    5   1 R        C U E            FK
+  54          D         MU E            FL
+  55          D         MU E            FLL
+  56          D         MU E            FM
+  57    7   2 R        C U E            G
+  58    2  21 R        C   E            G1
+  59    2  22 R        C   E            G2
+  60          R         MU E            GAK1
+  61          R         MU E            GAK2
+  62          D         MU E            GJL
+  63         s     ( 9)  U              GMMATD
+     (R8A,I4E,I4E,I4E,R8L,I4E,I4E,I4E,R8L)
+  64    2  27 R    ( 1)C   E        3   GPA(3)
+  65    2  29 R    ( 1)C   E        3   GPB(3)
+  66    7   7 I        C U E            GSUBE
+  67    3  10 R        C   E            HEAT
+  68         s     ( 1)  U              HMAT
+     (I4V)
+  69          I         MU E            I
+  70    2  10 R        C U E            I1
+  71    2  25 R        C U E            I12
+  72    2  11 R        C U E            I2
+  73         II    ( 1)  U I            IABS
+  74          I         MU E            IAFT
+  75    3  11 I        C U E            ICMBAR
+  76          I         MU E            ICODE
+  77          I         MU E            ICSIDA
+  78          I         MU E            ICSIDB
+  79    2   4 I        C U E            ICSSV
+  80    3   7 I        C   E            IDAMP
+  81          I         MU E            IDELA
+  82          I         MU E            IDELB
+  83    1   1 I        C   E            IDUMM
+  84          I    ( 1) ?U E       38   IECPT(38)
+  85    2   1 I        C?U E            IELID
+  86          I         MU E            IFORE
+  87          I         MU E            IG
+  88          I          U E            IHEAT
+  89          I         MU E            II
+  90          I         MU E            IJ
+  91          I         MU E            IK
+  92          I    ( 1)I U E        4   IKK(4)
+  93          I         MU E            IKX
+  94          I         MU E            IL
+  95          I         MU E            ILL
+  96    3   6 I        C U E            IMASS
+  97    2   8 I        C U E            IMATID
+  98          I          U E            IOUTPT
+  99          I         MU E            IP5
+ 100          I    ( 1) MU E       10   IPIN(10)
+ 101    2   5 I    ( 1)C   E        2   IPINFL(2)
+ 102    3   8 I        C?? E            IPREC
+ 103          I         MU E            IS
+ 104          I    ( 1)I U E        4   IS12OR(4)
+ 105          I    ( 1)I U E        4   IS21OR(4)
+ 106    2   2 I    ( 1)C U E        2   ISILNO(2)
+ 107    3   5 I        C U E            ISTIF
+ 108          I         MU E            ISV
+ 109          I         MU E            IWBEG
+ 110          I         MU E            IX
+ 111          I         MU E            IX1
+ 112          I         MU E            IX2
+ 113    3   1 I        C   E            IXTRA
+ 114          I         MU E            J
+ 115          I         MU E            J1
+ 116          I         MU E            J2
+ 117    3   2 I        C   E            JCORE
+ 118          I         MU E            JCSID
+ 119          I         MU E            JCSIDA
+ 120          I         MU E            JCSIDB
+ 121          I         MU E            JI
+ 122          I         MU E            JJ
+ 123          I         MU E            JLL
+ 124          I         MU E            JOFSET
+ 125          I         MU E            JOFSTA
+ 126          I         MU E            JOFSTB
+ 127          I         MU E            JPINA
+ 128          I         MU E            JPINB
+ 129          I         MU E            JTA
+ 130          I         MU E            JTB
+ 131          I         MU E            K
+ 132    2  23 R        C U E            K1
+ 133    2  24 R        C U E            K2
+ 134          I         MU E            KA
+ 135          I         MU E            KB
+ 136    4   1 D    ( 1)CMU E      144   KE(144)
+ 137    4   2 D    ( 1)CMU E      144   KEP(144)
+ 138    4   6 D    ( 1)CMU E      144   KK(144)
+ 139          I         MU E            KORM
+ 140          I         MU E            KSY87
+ 141    8   1 I    ( 1)C   E      100   KSYSTM(100)
+ 142          I         MU E            L1
+ 143          D         MU E            L2B3
+ 144          D         MU E            L2B6
+ 145          D         MU E            LB
+ 146    3  12 I        C   E            LCSTM
+ 147    1   2 I        C   E            LDICT
+ 148    3  14 I        C   E            LHMAT
+ 149          I         MU E            LIM
+ 150          D         MU E            LIMIT
+ 151          I         MU E            LJ
+ 152          I         MU E            LL
+ 153    3  13 I        C   E            LMAT
+ 154          I         MU E            LOW
+ 155          D         MU E            LR1
+ 156          D         MU E            LR2
+ 157    4   3 D    ( 2)CMU E      144   M(12,12)
+ 158         s     ( 1)  U              MAT
+     (I4L)
+     (R4L)
+ 159    6   2 I        CM  E            MATFLG
+ 160    6   1 I        CM  E            MATIDC
+ 161    2  26 I        C   E            MCSIDA
+ 162    2  28 I        C   E            MCSIDB
+ 163    4   4 D    ( 1)CMU E      144   ME(144)
+ 164    4   5 D    ( 1)CMU E      144   MEP(144)
+ 165          I         MU E            MM
+ 166         I?    ( 2)  U I            MOD
+ 167    3   3 I        C   E            NCORE
+ 168          I         MU E            NDOF
+ 169    1   3 I        C   E            NGRIDS
+ 170    3   9 L        CM  E            NOGO
+ 171    2  13 R        C U E            NSM
+ 172          I         M? E            NSQ
+ 173    7   3 I        C   E            NU
+ 174          L         MU E            OFFSET
+ 175          D         MU E            R1
+ 176          D         MU E            R2
+ 177    7   4 R        C U E            RHO
+ 178    7   9 R        C   E            SIGC
+ 179    7  10 R        C   E            SIGS
+ 180    7   8 R        C   E            SIGT
+ 181    6   5 R        C   E            SINTH
+ 182          D         MU E            SK1
+ 183          D         MU E            SK2
+ 184          D         MU E            SK3
+ 185          D         MU E            SK4
+ 186          D    ( 1) MU E        3   SMALLV(3)
+ 187    2   3 R    ( 1)C U E        3   SMALV(3)
+ 188    4   7 D    ( 1)CMU E        6   SMALVN(6)
+ 189    6   4 R        C   E            STRESS
+ 190    4   8 D    ( 1)C?? E       18   TA(18)
+ 191    4   9 D    ( 1)C?? E        9   TB(9)
+ 192    2  30 R        C U E            TEMPEL
+ 193         s     ( 2)  U              TRANSD
+     (R4L,R8A)
+ 194    7   6 R        C   E            TSUBO
+ 195    9   1 C*23     C U E            UFM*23
+ 196    9   2 C*25     C U E            UWM*25
+ 197    4  10 D    ( 1)C U E       10   VEC(10)
+ 198          D    ( 1) MU E        3   VECI(3)
+ 199          D    ( 1) MU E        3   VECJ(3)
+ 200          D    ( 1) MU E        3   VECK(3)
+ 201    2   6 R    ( 1)C   E        3   ZA(3)
+ 202    2   7 R    ( 1)C   E        3   ZB(3)
+**-- END OF SYMBOL TABLE

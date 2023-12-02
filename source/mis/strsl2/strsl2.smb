@@ -1,0 +1,71 @@
+**++ Symbol table for subprogram STRSL2 in file mis/strsl2.f90
+     produced by SPAG     8.01RF-40 at 14:47:20 on  2 Dec 2023
+   0         X             K             mis/strsl2.f90,0000002,0000315
+   1         C     / 8/  U        196   /SDR2X4/DUMMY,IVEC,IVECN,LDTEMP,DEFORM,DUM8,TLOADS,MAXSIZ
+   2         C     / 2/ MU       4896   /SDR2X7/PH1OUT,FORVEC
+   3         C     /11/ MU        128   /SDR2X8/TEMP,DELTA,NPOINT,IJ1,IJ2,NPT1,VEC,TEM,Z1OVRI,Z2OVRI,STRESS
+   4         C     / 1/ ??          4   /ZZZZZZ/Z
+   5         I?    ( 1)  U I            ABS
+   6         I?    ( 2)  U I            ATAN2
+   7    1   5 R        C   E            DEFORM
+   8    3   2 R        CMU E            DELTA
+   9    1   6 R    ( 1)C   E        8   DUM8(8)
+  10    1   1 R    ( 1)C   E       35   DUMMY(35)
+  11          R         M  E            F1
+  12          R         MU E            FF
+  13          L         MU E            FLAG
+  14    2   2 R    ( 1)CMU E       24   FORVEC(24)
+  15          R          U E            FTEMP
+  16         s     ( 9)  U              GMMATS
+     (R4L,I4E,I4E,I4E,R4L,I4E,I4E,I4E,R4L)
+  17          I         MU E            I
+  18          I         MU E            I1
+  19          I         MU E            I2
+  20          I         MU E            II
+  21          I         MU E            II1
+  22          I         MU E            IJ
+  23    3   4 I        C   E            IJ1
+  24    3   5 I        C   E            IJ2
+  25          I         MU E            IJK
+  26          I         MU E            IRETRN
+  27    1   2 I        C U E            IVEC
+  28    1   3 I        C   E            IVECN
+  29          I         MU E            J
+  30          I         MU E            J1
+  31          I         MU E            J2
+  32          I         MU E            JST
+  33          I         MU E            K1
+  34    1   4 I        C U E            LDTEMP
+  35    1   8 I        C   E            MAXSIZ
+  36          I          U E            N1
+  37          I    ( 1)  U E      990   NPH1OU(990)
+  38    3   3 I        CMU E            NPOINT
+  39    3   6 I        CMU E            NPT1
+  40          I         M  E            NPTS
+  41          I    ( 1)  U E        6   NSIL(6)
+  42    2   1 R    ( 1)CMU E     1200   PH1OUT(1200)
+  43          R    ( 1) MU E        4   REALI(4)
+  44          R    ( 1) MU E        3   SDELTA(3)
+  45          R    ( 1) ?? E       36   SI(36)
+  46          R         MU E            SIGX1
+  47          R         MU E            SIGX2
+  48          R         MU E            SIGXY1
+  49          R         MU E            SIGXY2
+  50          R         MU E            SIGY1
+  51          R         MU E            SIGY2
+  52         I?    ( 1)  U I            SQRT
+  53          R    ( 1) MU E       68   STOUT(68)
+  54          R    ( 1) MU E       18   STR(18)
+  55    3  11 R    ( 1)CMU E       18   STRESS(18)
+  56         S     ( 1)  U        184   STRSL2(TI)
+  57    3   8 R        CMU E            TEM
+  58    3   1 R        CMU E            TEMP
+  59   56   1 R    ( 1)A U E            TI(6)
+  60    1   7 I        C U E            TLOADS
+  61    3   7 R    ( 1)C?U E        5   VEC(5)
+  62    4   1 R    ( 1)C?? E        1   Z(1)
+  63          R         M  E            Z1
+  64    3   9 R        CMU E            Z1OVRI
+  65          R         M  E            Z2
+  66    3  10 R        CMU E            Z2OVRI
+**-- END OF SYMBOL TABLE

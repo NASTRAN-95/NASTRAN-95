@@ -1,0 +1,203 @@
+**++ Symbol table for subprogram SGEN in file mis/sgen.f90
+     produced by SPAG     8.01RF-40 at 14:46:47 on  2 Dec 2023
+   0         X             K             mis/sgen.f90,0000002,0000948
+   1         C     / 4/ MU         20   /BLANK/DRY,NAME,LUSET,NOGPDT
+   2         C     / 7/ MU         28   /SGENCM/NONO,NSS,IPTR,BUF1,BUF2,BUF3,NZ
+   3         C     / 2/  U          8   /SYSTEM/IBUF,OUTT
+   4         C     / 1/ ?U          8   /TWO/TWO
+   5         C     / 4/ M          16   /UNPAKX/ITY,IROW,NROW,INCR
+   6         C     / 4/  U        102   /XMSSG/UFM,UWM,UIM,SFM
+   7         C     / 1/ MU          4   /ZZZZZZ/RZ
+   8         fI    ( 2)  UXE            ANDF
+     (I4E,I4L)
+   9         s     ( 1)  U              BCKREC
+     (I4V)
+  10          I        I?U E            BGPDT
+  11         s     ( 6)  U              BISLOC
+     (ALT,I4L,I4L,I4E,I4V,I4V)
+  12    2   4 I        CMU E            BUF1
+  13    2   5 I        CMU E            BUF2
+  14    2   6 I        CMU E            BUF3
+  15          I         MU E            BUF4
+  16          I        I?U E            CASEC
+  17          I        I?U E            CASEI
+  18          I        I?U E            CASES
+  19         s     ( 2)  U              CLOSE
+     (I4V,I4E)
+  20          I         M? E            CODE
+  21         fI    ( 1)  UXE            COMPLF
+     (I4L)
+  22          I    ( 2)I?? E       16   CTYPEO(2,8)
+  23          I    ( 2) ?? E       16   CTYPES(2,8)
+  24          I    ( 1)I?? E        2   DAREAS(2)
+  25         s     ( 3)  U              DECODE
+     (I4V,I4A,I4V)
+  26          I    ( 1)I?? E        2   DELAYS(2)
+  27          I    ( 1)I?? E        2   DPHSES(2)
+  28    1   1 I        CMU E            DRY
+  29          I        I?U E            DYNAM
+  30          I        I?U E            DYNS
+  31          I        I?U E            EQEX
+  32          I        I?U E            EQSS
+  33          R         MU E            FACT
+  34          I         MU E            FILE
+  35          I         MU E            FLAG
+  36         s     ( 2)  U              FNAME
+     (I4V,I4L)
+  37         s     ( 4)  U              FREAD
+     (I4V,I4A,I4E,I4E)
+  38         s     ( 2)  U              FWDREC
+     (ALT,I4V)
+  39          I        I?U E            GEOM3
+  40          I        I?U E            GEOM4
+  41         s     ( 3)  U              GOPEN
+     (I4V,I4L,I4E)
+  42          I        I?U E            GP3S
+  43          I        I?U E            GP4S
+  44          I        I?U E            GPDT
+  45          I        I?U E            GPL
+  46          I         MU E            I
+  47         II    ( 1)  U I            IABS
+  48          I         MU E            IBS1
+  49          I         MU E            IBS2
+  50          I         MU E            IBS3
+  51    3   1 I        C U E            IBUF
+  52          I         MU E            IC
+  53          I    ( 2)IMU E       36   ICODE(4,9)
+  54          I    ( 1) ?U E       32   ICOMP(32)
+  55          I         ?? E            IDX
+  56          I         MU E            IFL
+  57          I         MU E            IG
+  58          I         ?U E            IGR
+  59          I         MU E            IGRD
+  60          I         MU E            ILD
+  61          I         MU E            INAM
+  62    5   4 I        CM  E            INCR
+  63          I         MU E            IP
+  64          I         MU E            IPT
+  65    2   3 I        CMU E            IPTR
+  66          I         MU E            IREC
+  67    5   2 I        CM  E            IROW
+  68          I         MU E            IS
+  69          I         MU E            ISS1
+  70          I         MU E            ISUB
+  71          I         M? E            ITEM
+  72          I         ?U E            ITEST
+  73    5   1 I        CM  E            ITY
+  74          I         MU E            IZ
+  75          I         MU E            IZL
+  76          I         MU E            J
+  77          I         MU E            JG
+  78          I         MU E            JPT
+  79         fI    ( 1)  U E            KORSZ
+     (I4L)
+  80          I         MU E            LARGE
+  81          I         MU E            LDCD
+  82          I         MU E            LID
+  83          I    ( 1)I?U E        3   LLOAD(3)
+  84          I    ( 1)I U E        2   LOADC(2)
+  85         s     ( 4)  U              LOCATE
+     (ALT,I4L,I4A,I4V)
+  86          I        I?U E            LODS
+  87          I    ( 1)I?U E        3   LSLOAD(3)
+  88          I    ( 2)I?U E       36   LTAB(4,9)
+  89    1   3 I        CMU E            LUSET
+  90          I         MU E            LVEC
+  91          I    ( 1) MU E        7   MCB(7)
+  92         s     ( 3)  U              MESAGE
+     (I4V,I4V,I4A)
+  93         II    ( 2)  U I            MIN0
+  94          I    ( 1)I?? E        3   MINUS(3)
+  95          I    ( 1)I U E        2   MPCS(2)
+  96         s     ( 5)  U              MTRXI
+     (I4V,I4A,I4V,I4L,I4V)
+  97          I         MU E            N
+  98    1   2 I    ( 1)C?U E        2   NAME(2)
+  99          I         ?U E            NC
+ 100          I    ( 1)I U E        2   NCASEC(2)
+ 101          I         MU E            NGRD
+ 102          I         M? E            NJ
+ 103          I         MU E            NL
+ 104          I    ( 1)I?? E        3   NLIMIT(3)
+ 105          I         MU E            NODYN
+ 106          I         MU E            NOG4
+ 107    1   4 I        CM  E            NOGPDT
+ 108          L         MU E            NOLC
+ 109          L         MU E            NOLS
+ 110    2   1 I        CMU E            NONO
+ 111          I         MU E            NPTR
+ 112    5   3 I        CM  E            NROW
+ 113          I         MU E            NSET
+ 114          I    ( 1)I?? E        2   NSGEN(2)
+ 115          I         ?U E            NSIL
+ 116          I         MU E            NSILD
+ 117    2   2 I        CMU E            NSS
+ 118          I        I?? E            NTYPEC
+ 119          I        I?? E            NTYPED
+ 120          I         MU E            NVEC
+ 121          I         ?U E            NWDS
+ 122    2   7 I        CMU E            NZ
+ 123          I         MU E            NZB
+ 124         s     ( 4)  U              OPEN
+     (ALT,I4V,I4L,I4E)
+ 125         fI    ( 2)  UXE            ORF
+     (I4L,I4L)
+ 126    3   2 I        C U E            OUTT
+ 127         s     ( 3)  U              PRELOC
+     (ALT,I4L,I4V)
+ 128          L         MU E            PSUEDO
+ 129          I        I?U E            PVEC
+ 130         s     ( 1)  U              RDTRL
+     (I4A)
+ 131         s     ( 7)  U              READ
+     (ALT,ALT,I4V,I4V,I4E,I4E,I4V)
+     (   ,   ,   ,I4A,   ,   ,   )
+ 132          R    ( 1) MU E       10   RTEMP(10)
+ 133          R    ( 1)  U E       10   RTEMP2(10)
+ 134    7   1 R    ( 1)CMU E        1   RZ(1)
+ 135          I        I?U E            SCRT
+ 136          I        I?U E            SCRT2
+ 137         s     ( 4)  U              SFETCH
+     (I4A,I4V,I4E,I4V)
+ 138    6   4 C*25     C U E            SFM*25
+ 139         S                    549   SGEN
+ 140         s     ( 9)  U              SGENA
+     (I4A,I4L,I4A,I4V,I4L,I4E,I4V,I4L,I4E)
+ 141         s     ( 9)  U              SGENB
+     (I4A,I4L,I4A,I4V,I4L,I4E,I4V,I4L,I4E)
+ 142         s     ( 8)  U              SGENM
+     (I4V,I4V,I4V,I4V,I4L,I4L,I4L,I4L)
+ 143          I         MU E            SIDC
+ 144          I         MU E            SIDS
+ 145          I        I?U E            SIL
+ 146         s     ( 1)  U              SJUMP
+     (I4V)
+ 147         s     ( 3)  U              SMSG
+     (I4V,I4V,I4A)
+ 148         s           U              SOFCLS
+ 149         s     ( 3)  U              SOFOPN
+     (I4L,I4L,I4L)
+ 150          I    ( 1)I?? E        2   SPCS(2)
+ 151          I    ( 1)I?? E        2   SPCS1(2)
+ 152          I    ( 1)I?? E        2   SPCSD(2)
+ 153          L         M  E            STEST
+ 154         s     ( 4)  U              SUREAD
+     (I4A,I4E,I4V,I4V)
+ 155          I    ( 1) MU E       10   TEMP(10)
+ 156          I    ( 1) MU E       10   TEMP2(10)
+ 157          I    ( 1)I?? E        2   TICS(2)
+ 158    4   1 I    ( 1)C?U E        2   TWO(2)
+ 159          I    ( 1) MU E        2   TYPE(2)
+ 160    6   1 C*23     C U E            UFM*23
+ 161    6   3 C*29     C   E            UIM*29
+ 162         s     ( 3)  U              UNPACK
+     (ALT,I4V,R4L)
+ 163    6   2 C*25     C U E            UWM*25
+ 164         s     ( 4)  U              WRITE
+     (I4V,I4A,I4E,I4E)
+     (   ,I4E,   ,   )
+ 165         s     ( 1)  U              WRTTRL
+     (I4A)
+ 166          I        I U E            XXXX
+ 167          I    ( 1) MU E        4   Z(4)
+**-- END OF SYMBOL TABLE

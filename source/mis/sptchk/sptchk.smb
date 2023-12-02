@@ -1,0 +1,66 @@
+**++ Symbol table for subprogram SPTCHK in file mis/sptchk.f90
+     produced by SPAG     8.01RF-40 at 14:46:47 on  2 Dec 2023
+   0         X             K             mis/sptchk.f90,0000002,0000101
+   1         C     / 3/ MU         36   /BANDA/IBUF1,DUM6,NPT
+   2         C     / 4/ MU         36   /BANDB/DUM3,NGRID,DUM4,IREPT
+   3         C     / 1/ M          36   /BANDD/NDD
+   4         C     / 2/  U         20   /BANDS/SKIP,MAXGRD
+   5         C     / 2/ ??          8   /GEOMX/GEOM1,GEOM2
+   6         C     / 4/ ?U         16   /GPTA1/NE,LAST,INCR,KE
+   7         C     / 4/ ??         20   /NAMES/RD,RDREW,DUM2,REW
+   8         C     / 2/  U          8   /SYSTEM/IBUF,NOUT
+   9         C     / 1/ MU          4   /ZZZZZZ/Z
+  10         s     ( 6)  U              BISLOC
+     (ALT,I4L,I4L,I4E,I4V,I4V)
+  11         s     ( 2)  U              CLOSE
+     (I4V,I4V)
+  12    7   3 R    ( 1)C   E        2   DUM2(2)
+  13    2   1 R    ( 1)C   E        3   DUM3(3)
+  14    2   3 R    ( 1)C   E        4   DUM4(4)
+  15    1   2 R    ( 1)C   E        6   DUM6(6)
+  16    5   1 I        C   E            GEOM1
+  17    5   2 I        C?? E            GEOM2
+  18          I         MU E            I
+  19    8   1 I        C   E            IBUF
+  20    1   1 I        C U E            IBUF1
+  21          I         MU E            IELEM
+  22    6   3 I        C U E            INCR
+  23    2   4 I        CMU E            IREPT
+  24          I         MU E            J
+  25          I         MU E            K
+  26    6   4 I    ( 1)C?U E        1   KE(1)
+  27          I    ( 1) ?U E      200   KG(200)
+  28    6   2 I        C   E            LAST
+  29         s     ( 4)  U              LOCATE
+     (ALT,I4L,I4A,I4V)
+  30    4   2 I        C U E            MAXGRD
+  31         s     ( 3)  U              MESAGE
+     (I4E,I4V,I4A)
+  32          I    ( 1)I?? E        2   NAME(2)
+  33    3   1 I    ( 1)CM  E        9   NDD(9)
+  34    6   1 I        C   E            NE
+  35          I         MU E            NGPT1
+  36          I         MU E            NGPTS
+  37    2   2 I        CM  E            NGRID
+  38    8   2 I        C U E            NOUT
+  39    1   3 I    ( 1)CMU E        2   NPT(2)
+  40          I         MU E            NS
+  41          I         MU E            NS1
+  42          I         MU E            NSS
+  43          I         M? E            NWDS
+  44         s     ( 3)  U              PRELOC
+     (ALT,I4L,I4V)
+  45    7   1 I        C   E            RD
+  46    7   2 I        C   E            RDREW
+  47         s     ( 7)  U              READ
+     (ALT,ALT,I4V,I4L,I4E,I4E,I4V)
+  48    7   4 I        C?? E            REW
+  49         s     ( 1)  U              REWIND
+     (I4V)
+  50    4   1 R    ( 1)C   E        4   SKIP(4)
+  51         s     ( 6)  U              SORT
+     (I4E,I4E,I4E,I4E,I4L,I4E)
+  52          I    ( 1)I?? E        2   SPOINT(2)
+  53         S                     57   SPTCHK
+  54    9   1 I    ( 1)CMU E        1   Z(1)
+**-- END OF SYMBOL TABLE

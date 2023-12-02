@@ -1,0 +1,87 @@
+**++ Symbol table for subprogram EMGCOR in file mis/emgcor.f90
+     produced by SPAG     8.01RF-40 at 14:46:57 on  2 Dec 2023
+   0         X             K             mis/emgcor.f90,0000002,0000118
+   1         C     / 4/  U         72   /BLANK/NOKMB,DUMMY,VOLUME,SURFAC
+   2         C     / 7/ ?U         44   /EMGFIL/EST,CSTM,MPT,DIT,GEOM2,KMBMAT,KMBDIC
+   3         C     /25/ MU        116   /EMGPRM/ICORE,JCORE,NCORE,ICSTM,NCSTM,IMAT,NMAT,IHMAT,NHMAT,IDIT,NDIT,ICONG,NCONG,LCONG,ANYCON,FLAGS,PRECIS,ERROR,HEAT,ICMBAR,LCSTM,LMAT,LHMAT,KFLAGS,L38
+   4         C     / 6/ ??         24   /NAMES/RD,RDREW,WRT,WRTREW,CLSREW,CLS
+   5         C     / 1/           260   /SYSTEM/KSYSTM
+   6         C     / 5/  U        129   /XMSSG/UFM,UWM,UIM,SFM,SWM
+   7         C     / 1/ ??          4   /ZZZZZZ/Z
+   8    3  15 L        C   E            ANYCON
+   9   18   1 I    ( 1)AMU E            BUF(8)
+  10          I         MU E            BUF1
+  11          I         MU E            BUF2
+  12          I         MU E            BUFS
+  13    4   6 I        C   E            CLS
+  14    4   5 I        C   E            CLSREW
+  15    2   2 I        C   E            CSTM
+  16    2   4 I        C   E            DIT
+  17    1   2 R    ( 1)C   E       13   DUMMY(13)
+  18         S     ( 1) MU         54   EMGCOR(BUF)
+  19          I        I?? E            EOR
+  20    3  18 L        C   E            ERROR
+  21    2   1 I        C?U E            EST
+  22    3  16 I    ( 1)CMU E        3   FLAGS(3)
+  23         s     ( 2)  U              FNAME
+     (I4L,I4A)
+  24    2   5 I        C   E            GEOM2
+  25    3  19 L        C   E            HEAT
+  26          I         MU E            I
+  27          I         MU E            IBUF
+  28    3  20 I        C   E            ICMBAR
+  29    3  12 I        C   E            ICONG
+  30    3   1 I        C   E            ICORE
+  31    3   4 I        C   E            ICSTM
+  32    3  10 I        C   E            IDIT
+  33    3   8 I        C   E            IHMAT
+  34    3   6 I        C   E            IMAT
+  35    3   2 I        C U E            JCORE
+  36    3  24 I    ( 1)CM  E        3   KFLAGS(3)
+  37    2   7 I    ( 1)C?U E        3   KMBDIC(3)
+  38    2   6 I    ( 1)C?U E        3   KMBMAT(3)
+  39    5   1 I    ( 1)C   E       65   KSYSTM(65)
+  40    3  25 I        C U E            L38
+  41    3  14 I        C   E            LCONG
+  42    3  21 I        C   E            LCSTM
+  43    3  23 I        C   E            LHMAT
+  44    3  22 I        C   E            LMAT
+  45         s     ( 3)  U              MESAGE
+     (I4E,I4E,I4A)
+  46    2   3 I        C   E            MPT
+  47          I         MU E            N
+  48          I    ( 1) ?? E        2   NAME(2)
+  49    3  13 I        C   E            NCONG
+  50    3   3 I        CMU E            NCORE
+  51    3   5 I        C   E            NCSTM
+  52    3  11 I        C   E            NDIT
+  53    3   9 I        C   E            NHMAT
+  54    3   7 I        C   E            NMAT
+  55    1   1 I    ( 1)C U E        3   NOKMB(3)
+  56         s     ( 4)  U              OPEN
+     (ALT,I4V,I4L,I4V)
+  57          I          U E            OUTPT
+  58         s     ( 1)  U              PAGE2
+     (I4E)
+  59    3  17 I        C   E            PRECIS
+  60    4   1 I        C   E            RD
+  61    4   2 I        C?? E            RDREW
+  62          I        I?? E            SCR4
+  63    6   4 C*25     C   E            SFM*25
+  64         s     ( 2)  U              SKPREC
+     (I4V,I4E)
+  65          I    ( 1)I?? E        2   SUBR(2)
+  66    1   4 R        C U E            SURFAC
+  67    6   5 C*27     C U E            SWM*27
+  68          I          U E            SYSBUF
+  69          I    ( 1)I U E        3   TYPE(3)
+  70    6   1 C*23     C   E            UFM*23
+  71    6   3 C*29     C U E            UIM*29
+  72    6   2 C*25     C U E            UWM*25
+  73    1   3 R        C U E            VOLUME
+  74         s     ( 4)  U              WRITE
+     (I4L,I4A,I4E,I4V)
+  75    4   3 I        C   E            WRT
+  76    4   4 I        C?? E            WRTREW
+  77    7   1 I    ( 1)C?? E        1   Z(1)
+**-- END OF SYMBOL TABLE

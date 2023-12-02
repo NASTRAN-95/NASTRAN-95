@@ -1,0 +1,108 @@
+**++ Symbol table for subprogram FLBELM in file mis/flbelm.f90
+     produced by SPAG     8.01RF-40 at 14:46:44 on  2 Dec 2023
+   0         X             K             mis/flbelm.f90,0000002,0000424
+   1         C     / 2/ M           8   /BLANK/NOGRAV,NOFREE
+   2         C     /20/ ?U         80   /FLBFIL/GEOM2,ECT,BGPDT,SIL,MPT,GEOM3,CSTM,USET,EQEXIN,USETF,USETS,AF,DKGG,FBELM,FRELM,CONECT,AFMAT,AFDICT,KGMAT,KGDICT
+   3         C     /16/ MU         64   /FLBPTR/ERROR,ICORE,LCORE,IBGPDT,NBGPDT,ISIL,NSIL,IGRAV,NGRAV,IGRID,NGRID,IBUF1,IBUF2,IBUF3,IBUF4,IBUF5
+   4         C     / 2/  U          8   /SYSTEM/SYSBUF,NOUT
+   5         C     / 1/  U         23   /XMSSG/UFM
+   6         C     / 1/ MU          4   /ZZZZZZ/Z
+   7    2  12 I        C   E            AF
+   8    2  18 I        C   E            AFDICT
+   9    2  17 I        C   E            AFMAT
+  10    2   3 I        C?U E            BGPDT
+  11         s     ( 6)  U              BISLOC
+     (ALT,I4L,I4L,I4E,I4V,I4V)
+  12          I    ( 1) ?U E       10   CARD(10)
+  13          I    ( 1)I?? E        2   CFLSTR(2)
+  14          I    ( 1)I?? E        2   CFREE(2)
+  15         s     ( 2)  U              CLOSE
+     (I4V,I4E)
+  16    2  16 I        C   E            CONECT
+  17    2   7 I        C   E            CSTM
+  18    2  13 I        C   E            DKGG
+  19    2   2 I        C?U E            ECT
+  20          I    ( 2)I U E       21   ELM2D(7,3)
+  21          I    ( 2)I U E       12   ELMFL(4,3)
+  22    2   9 I        C   E            EQEXIN
+  23    3   1 L        CMU E            ERROR
+  24    2  14 I        C?U E            FBELM
+  25          I         M? E            FILE
+  26         S                    201   FLBELM
+  27         s     ( 4)  U              FLFACE
+     (I4V,I4A,I4L,I4A)
+  28    2  15 I        C?U E            FRELM
+  29         s     ( 2)  U              FWDREC
+     (ALT,I4V)
+  30    2   1 I        C?U E            GEOM2
+  31    2   6 I        C   E            GEOM3
+  32         s     ( 3)  U              GOPEN
+     (I4V,I4L,I4E)
+  33          I    ( 1) ?U E        4   GRID(4)
+  34          I         MU E            I
+  35    3   4 I        CMU E            IBGPDT
+  36    3  12 I        C U E            IBUF1
+  37    3  13 I        C U E            IBUF2
+  38    3  14 I        C U E            IBUF3
+  39    3  15 I        C   E            IBUF4
+  40    3  16 I        C   E            IBUF5
+  41    3   2 I        CMU E            ICORE
+  42          I    ( 1) ?U E        3   ID(3)
+  43          I         MU E            IDS
+  44          I         MU E            IELMT
+  45    3   8 I        C   E            IGRAV
+  46    3  10 I        CMU E            IGRID
+  47    3   6 I        C   E            ISIL
+  48          I         MU E            J
+  49          I         MU E            JLOC
+  50    2  20 I        C   E            KGDICT
+  51    2  19 I        C   E            KGMAT
+  52    3   3 I        C   E            LCORE
+  53          I         MU E            LELMT
+  54          I         MU E            LGRID
+  55         s     ( 4)  U              LOCATE
+     (ALT,I4L,I4A,I4A)
+  56          I    ( 1)IM? E        7   MCB(7)
+  57         s     ( 3)  U              MESAGE
+     (I4V,I4V,I4A)
+  58    2   5 I        C   E            MPT
+  59          I         M? E            N
+  60          I        I U E            N2D
+  61          I    ( 1)I?? E        2   NAME(2)
+  62    3   5 I        C?U E            NBGPDT
+  63          I         MU E            NELM
+  64          I         MU E            NELMT
+  65          I        I U E            NFL
+  66    3   9 I        C   E            NGRAV
+  67          I         MU E            NGRDF
+  68          I         MU E            NGRDS
+  69          I         MU E            NGRDT
+  70    3  11 I        CM  E            NGRID
+  71    1   2 I        CM  E            NOFREE
+  72    1   1 I        C   E            NOGRAV
+  73    4   2 I        C U E            NOUT
+  74    3   7 I        C   E            NSIL
+  75          I         M? E            NTYPE
+  76          I         M? E            NWDS
+  77          I         M? E            NZ
+  78         s     ( 3)  U              PRELOC
+     (ALT,I4L,I4V)
+  79         s     ( 7)  U              READ
+     (ALT,ALT,I4V,I4A,I4E,I4E,I4V)
+     (   ,   ,   ,I4V,   ,   ,   )
+  80         s     ( 1)  U              REWIND
+     (I4V)
+  81    2   4 I        C   E            SIL
+  82         s     ( 6)  U              SORT
+     (I4E,I4E,I4E,I4E,I4L,I4V)
+  83    4   1 R        C   E            SYSBUF
+  84    5   1 C*23     C U E            UFM*23
+  85    2   8 I        C   E            USET
+  86    2  10 I        C   E            USETF
+  87    2  11 I        C   E            USETS
+  88         s     ( 4)  U              WRITE
+     (I4V,I4A,I4E,I4E)
+  89         s     ( 1)  U              WRTTRL
+     (I4A)
+  90    6   1 I    ( 1)CMU E        1   Z(1)
+**-- END OF SYMBOL TABLE

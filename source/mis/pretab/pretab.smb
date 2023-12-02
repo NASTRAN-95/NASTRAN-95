@@ -1,0 +1,135 @@
+**++ Symbol table for subprogram PRETAB in file mis/pretab.f90
+     produced by SPAG     8.01RF-40 at 14:46:36 on  2 Dec 2023
+   0         X             K             mis/pretab.f90,0000002,0000508
+   1         C     / 5/  U         20   /CONDAS/PI,TWOPI,RADEG,DEGRA,S4PISQ
+   2         C     / 2/  U          8   /SYSTEM/IBUF,NOUT
+   3         C     / 1/  U         23   /XMSSG/UFM
+   4         C     / 1/ MU          4   /ZZZZZZ/IZ
+   5          X         MU E            A
+   6         I?    ( 1)  U I            ABS
+   7         IR    ( 1)  U I            AIMAG
+   8          X         MU E            B
+   9   79   4 R    ( 1)A?? E            BUF(1)
+  10         IX    ( 1)  U I            CEXP
+  11         s     ( 2)  U              CLOSE
+     (I4V,I4V)
+  12          I        I?? E            CLSRW
+  13         IX    ( 2)  U I            CMPLX
+  14          R         ?U E            CP
+  15    1   4 R        C   E            DEGRA
+  16          I         M? E            DIT
+  17   79   1 I        A U E            DITF
+  18         s     ( 2)  U              ERRTRC
+     (C*E,I4E)
+  19          R         ?? E            FLAG
+  20          I         MU E            I
+  21         II    ( 1)  U I            IABS
+  22          I    ( 1) MU E        8   IARY(8)
+  23    2   1 I        C   E            IBUF
+  24          I         MU E            ICHECK
+  25          I         MU E            ICRQ
+  26          I         MU E            IDIC
+  27          I         MU E            IDICH
+  28          I         MU E            IDICL
+  29          I         MU E            IFLAG
+  30         s     ( 3)  U              IFTE2
+     (R4V,R4V,R4V)
+  31          I         MU E            IGOTO
+  32          I         MU E            IHOP
+  33          I         MU E            II
+  34          I         MU E            INDEX
+  35   79   3 I    ( 1)A?? E            INZ(1)
+  36          I         MU E            ITABL
+  37          I         MU E            ITABLE
+  38          I         MU E            ITYPE
+  39    4   1 I    ( 1)CMU E        1   IZ(1)
+  40          I         MU E            J
+  41          I         MU E            JJ
+  42          I         MU E            JJ3
+  43          I         MU E            JLIM
+  44          I         MU E            JLOW
+  45          I         MU E            K
+  46          I         MU E            KHI
+  47          I         MU E            KLO
+  48          I         MU E            KX
+  49          I         MU E            KXX
+  50          I         MU E            KXX1
+  51          I         MU E            L
+  52   79   5 I        A U E            LCRGVN
+  53   79   6 I        AM  E            LCUSED
+  54          I         MU E            LIM
+  55          I         MU E            LIMJJ
+  56   79   8 I    ( 1)A?U E            LIST(1)
+  57          I        I U E            LNTH
+  58         s     ( 4)  U              LOCATE
+     (ALT,R4A,I4L,R4V)
+  59         fI    ( 1)  U E            LOCFX
+     (I4L)
+  60         s     ( 6)  U              LOGLOG
+     (R4L,R4L,R4L,R4L,R4V,R4V)
+  61         s     ( 6)  U              LOGSMI
+     (R4L,R4L,R4L,R4L,R4V,R4V)
+  62          I         MU E            LX
+  63         s     ( 3)  U              MESAGE
+     (I4E,I4E,I4A)
+     (   ,   ,I4V)
+  64          I         M? E            MN
+  65          I    ( 1)I?? E        2   NAME(2)
+  66          I        I?? E            NEOR
+  67          I         MU E            NN
+  68    2   2 I        C U E            NOUT
+  69          I         MU E            NTABL
+  70          I         M? E            NWDS
+  71          I         MU E            NWDSRD
+  72          I         MU E            OFFSET
+  73          R         MU E            OMEGA
+  74          R         M? E            OMEGAX
+  75          R         MU E            P
+  76          L         MU E            PART1
+  77    1   1 R        C   E            PI
+  78         s     ( 3)  U              PRELOC
+     (ALT,R4A,I4V)
+  79         S     ( 8) MU        277   PRETAB(DITF,RZ,INZ,BUF,LCRGVN,LCUSED,TABNOL,LIST)
+  80          R         MU E            PROP
+  81          R    ( 2)I U E        4   PX(2,2)
+  82    1   3 R        C   E            RADEG
+  83         s     ( 7)  U              READ
+     (ALT,ALT,I4V,I4A,I4E,I4V,R4V)
+     (   ,   ,   ,   ,   ,   ,I4V)
+     (   ,   ,   ,R4L,   ,   ,   )
+  84         IR    ( 1)  U I            REAL
+  85          R         ?U E            RP
+  86   79   2 R    ( 1)A   E            RZ(1)
+  87    1   5 R        C U E            S4PISQ
+  88          I         MU E            SCTYP
+  89         s     ( 6)  U              SMILOG
+     (R4L,R4L,R4L,R4L,R4V,R4V)
+  90          X         MU E            SUM
+  91         E     ( 3)                 TAB(TABID,X,Y)
+  92         E     ( 3)                 TAB1(TABID,X,Y)
+  93          I        A?U E            TABID
+  94          I         MU E            TABIDO
+  95          I         MU E            TABNO
+  96   79   7 I    ( 1)AMU E            TABNOL(1)
+  97          I         MU E            TABTYP
+  98          X         MU E            TERM
+  99          R         MU E            TR
+ 100    1   2 R        C U E            TWOPI
+ 101    3   1 C*23     C U E            UFM*23
+ 102          R         MU E            UP
+ 103          R         MU E            WSQ
+ 104          R        A U E            X
+ 105          R         MU E            X1
+ 106          R         MU E            X2
+ 107          R         MU E            XI
+ 108          R         MU E            XIP1
+ 109          R         MU E            XKSQ
+ 110          R         MU E            XLU
+ 111          R         MU E            XO
+ 112          R         MU E            XX
+ 113          R    ( 1)AMU E        2   Y(2)
+ 114          R         MU E            YI
+ 115          R         MU E            YIP1
+ 116          R         MU E            YO
+ 117          R    ( 1) MU E        1   Z(1)
+**-- END OF SYMBOL TABLE

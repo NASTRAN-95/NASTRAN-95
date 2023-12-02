@@ -1,0 +1,32 @@
+**++ Symbol table for subprogram FNDPAR in file mis/fndpar.f90
+     produced by SPAG     8.01RF-40 at 14:46:39 on  2 Dec 2023
+   0         X             K             mis/fndpar.f90,0000002,0000078
+   1         C     / 1/ ?U         28   /OSCENT/OSCAR
+   2         C     / 3/ ??         12   /SEM/MASK,MASK2,MASK3
+   3         C     / 2/  U          8   /SYSTEM/SYSBUF,NOUT
+   4         C     / 1/  U         23   /XMSSG/UFM
+   5         fI    ( 2)  UXE            ANDF
+     (I4L,I4E)
+   6         S     ( 2) MU         43   FNDPAR(NP2,INDEX)
+   7          I         MU E            I
+   8         II    ( 1)  U I            IABS
+   9    6   2 I        AM  E            INDEX
+  10          I         MU E            ITYPE
+  11          I         MU E            K
+  12          I         MU E            M
+  13    2   1 I        C   E            MASK
+  14    2   2 I        C   E            MASK2
+  15    2   3 I        C?? E            MASK3
+  16         s     ( 3)  U              MESAGE
+     (I4E,I4E,I4A)
+  17          I    ( 1)I?? E        2   NAME(2)
+  18          I         MU E            NIP
+  19          I         MU E            NOP
+  20    3   2 I        C U E            NOUT
+  21          I         MU E            NP
+  22          I         MU E            NP1
+  23    6   1 I        A U E            NP2
+  24    1   1 I    ( 1)C?U E        7   OSCAR(7)
+  25    3   1 R        C   E            SYSBUF
+  26    4   1 C*23     C U E            UFM*23
+**-- END OF SYMBOL TABLE

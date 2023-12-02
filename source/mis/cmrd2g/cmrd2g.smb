@@ -1,0 +1,113 @@
+**++ Symbol table for subprogram CMRD2G in file mis/cmrd2g.f90
+     produced by SPAG     8.01RF-40 at 14:46:54 on  2 Dec 2023
+   0         X             K             mis/cmrd2g.f90,0000002,0000412
+   1         C     /17/ MU        216   /BLANK/IDUM1,DRY,POPT,GBUF1,IDUM2,INFILE,IDUM3,KORLEN,KORBGN,OLDNAM,NEWNAM,IDUM4,IO,IDUM5,MODPTS,IDUM9,PONLY
+   2         C     / 6/ MU         48   /SYSTEM/IDUM6,IPRNTR,IDUM7,NLPP,IDUM8,LINE
+   3         C     / 1/  U         23   /XMSSG/UFM
+   4         C     / 1/ MU          4   /ZZZZZZ/Z
+   5         fI    ( 2)  UXE            ANDF
+     (I4E,I4E)
+   6         s     ( 2)  U              CLOSE
+     (I4V,I4E)
+   7         s     ( 7)  U              CMIWRT
+     (I4E,I4A,I4E,I4V,I4V,I4A,I4A)
+     (   ,   ,I4A,   ,   ,   ,   )
+   8         S                    292   CMRD2G
+   9         s     ( 3)  U              DECODE
+     (I4V,I4A,I4V)
+  10    1   2 I        CMU E            DRY
+  11          I         ?U E            EQST
+  12    1   4 I        C U E            GBUF1
+  13         s     ( 3)  U              GOPEN
+     (I4V,I4L,I4E)
+  14          I         MU E            I
+  15          I         M? E            ICODE
+  16    1   1 I        C   E            IDUM1
+  17    1   5 I    ( 1)C   E        5   IDUM2(5)
+  18    1   7 I    ( 1)C   E       17   IDUM3(17)
+  19    1  12 I    ( 1)C   E        4   IDUM4(4)
+  20    1  14 I    ( 1)C   E        3   IDUM5(3)
+  21    2   1 I        C   E            IDUM6
+  22    2   3 I    ( 1)C   E        6   IDUM7(6)
+  23    2   5 I    ( 1)C   E        2   IDUM8(2)
+  24    1  16 I        C   E            IDUM9
+  25          I         M? E            IFILE
+  26          I         M? E            IMSG
+  27          I         MU E            INDEX1
+  28    1   6 I    ( 1)C   E       11   INFILE(11)
+  29    1  13 I        C?? E            IO
+  30          I         MU E            IPID
+  31    2   2 I        C U E            IPRNTR
+  32          I         MU E            IPS
+  33          I         MU E            ITEM
+  34          I         MU E            ITEST
+  35          I    ( 1)I?U E        3   ITMLST(3)
+  36          I    ( 1) MU E        2   ITMNAM(2)
+  37          I    ( 1) MU E        7   ITRLR(7)
+  38          I         M? E            ITYPE
+  39          I         MU E            IWDS
+  40          I         MU E            J
+  41          I         MU E            K
+  42    1   9 I        CMU E            KORBGN
+  43          I         MU E            KORE
+  44    1   8 I        C U E            KORLEN
+  45          I         MU E            LAMLOC
+  46    2   6 I        CMU E            LINE
+  47          I        I U E            LOAP
+  48          I         MU E            LOC
+  49          I         MU E            LOCBGS
+  50          I         MU E            LOCEQS
+  51          I         MU E            LOCNEW
+  52          I         MU E            LOCOLD
+  53          I        I?U E            LODS
+  54          I    ( 1) ?? E       32   LSTBIT(32)
+  55          I         MU E            LSTSIL
+  56         s     ( 3)  U              MESAGE
+     (I4V,I4V,I4A)
+  57          I         MU E            MODE
+  58          I    ( 1)I?U E        2   MODNAM(2)
+  59    1  15 I        C U E            MODPTS
+  60          I         MU E            MODUSE
+  61          I         MU E            NAMLOC
+  62          I         MU E            NBGSS
+  63          I         MU E            NCSUBS
+  64          I         MU E            NEWCS
+  65    1  11 I    ( 1)C?U E        2   NEWNAM(2)
+  66          I         MU E            NEWPTS
+  67          I         M? E            NGRP
+  68          I        I?? E            NHCSTM
+  69          I        I?? E            NHPLTS
+  70    2   4 I        C U E            NLPP
+  71          I         MU E            NOFREQ
+  72          I         M? E            NWDS
+  73          I         ?U E            NWDSD
+  74          I         MU E            NWDSRD
+  75    1  10 I    ( 1)C?U E        2   OLDNAM(2)
+  76         s           U              PAGE1
+  77          R        I U E            PAPP
+  78    1  17 L        C U E            PONLY
+  79    1   3 I        C U E            POPT
+  80         s     ( 1)  U              RDTRL
+     (I4A)
+  81         s     ( 7)  U              READ
+     (ALT,ALT,I4V,I4L,I4E,I4E,I4V)
+  82         fI    ( 2)  UXE            RSHIFT
+     (I4V,I4E)
+  83          R    ( 1) MU E        1   RZ(1)
+  84         s     ( 4)  U              SFETCH
+     (I4A,I4V,I4E,I4V)
+  85         s     ( 1)  U              SJUMP
+     (I4V)
+  86         s     ( 3)  U              SMSG
+     (I4V,I4V,I4A)
+  87         s           U              SOFCLS
+  88          I        I U E            SOFEOG
+  89         s     ( 6)  U              SORT
+     (I4E,I4E,I4E,I4E,I4L,I4V)
+  90         s     ( 4)  U              SUREAD
+     (I4L,I4E,I4V,I4V)
+  91         s     ( 3)  U              SUWRT
+     (I4A,I4E,I4E)
+  92    3   1 C*23     C U E            UFM*23
+  93    4   1 I    ( 1)CMU E        1   Z(1)
+**-- END OF SYMBOL TABLE

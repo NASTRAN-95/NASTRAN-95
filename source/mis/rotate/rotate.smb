@@ -1,0 +1,24 @@
+**++ Symbol table for subprogram ROTATE in file mis/rotate.f90
+     produced by SPAG     8.01RF-40 at 14:46:40 on  2 Dec 2023
+   0         X             K             mis/rotate.f90,0000002,0000047
+   1         C     / 2/  U        404   /GIVN/TITLE,N
+   2   11   7 D    ( 1)A U E            COS(1)
+   3          D         MU E            COSINE
+   4   11   1 D    ( 1)AMU E            DA(1)
+   5          I         MU E            I
+   6          I         MU E            J
+   7          I         MU E            JP1
+   8          I         MU E            M
+   9    1   2 I        C U E            N
+  10   11   5 D    ( 1)AMU E            O(1)
+  11         S     ( 7) MU         25   ROTATE(DA,ROW,ROW1,ROW2,O,SIN,COS)
+  12   11   2 I        A U E            ROW
+  13   11   3 I        A U E            ROW1
+  14   11   4 I        A U E            ROW2
+  15   11   6 D    ( 1)A U E            SIN(1)
+  16          D         MU E            SINE
+  17    1   1 R    ( 1)C   E      100   TITLE(100)
+  18          D         MU E            X
+  19          D         MU E            Y
+  20          D         MU E            Z
+**-- END OF SYMBOL TABLE

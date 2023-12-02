@@ -1,0 +1,83 @@
+**++ Symbol table for subprogram QRITER1 in file mis/qriter1.f90
+     produced by SPAG     7.61RG-40 at 01:00:00 on 21 Mar 2022
+   0         X             K             mis/qriter1.f90,0000002,0000282
+   1         C     /16/ MU        460   /GIVN/IDUM0,N,LFREQ,IDUM3,IDUM4,HFREQ,LAMA,NV,NE,IDUM9,NFOUND,IDUM11,IDUM12,IDUM13,NEVER,MAX
+   2         C     / 1/  U          4   /MGIVXX/DLMDAS
+   3         C     / 1/  U          4   /REIGKR/IOPTN
+   4         C     / 4/  U        220   /SYSTEM/SYSBUF,NOUT,IDUM,IPREC
+   5         C     / 3/  U         77   /XMSSG/UFM,UWM,UIM
+   6          C*5      I U E            ABOVE*5
+   7         I?    ( 1)  U I            ABS
+   8          C*5       MU E            BELABV*5
+   9          C*5      I U E            BELOW*5
+  10         s     ( 2)  U              CLOSE
+     (I4V,I4E)
+  11    2   1 R        C U E            DLMDAS
+  12          R        I U E            EPSI
+  13          R         MU E            G
+  14         s     ( 3)  U              GOPEN
+     (I4V,R4L,I4E)
+  15    1   6 R        C U E            HFREQ
+  16          I         MU E            I
+  17          I         MU E            IB
+  18          I         MU E            IBUF1
+  19    4   3 I    ( 1)C   E       52   IDUM(52)
+  20    1   1 I    ( 1)C   E      100   IDUM0(100)
+  21    1  12 I        C   E            IDUM11
+  22    1  13 I        C   E            IDUM12
+  23    1  14 I        C   E            IDUM13
+  24    1   4 I        C   E            IDUM3
+  25    1   5 I        C   E            IDUM4
+  26    1  10 I        C   E            IDUM9
+  27    3   1 I        C U E            IOPTN
+  28    4   4 I        C U E            IPREC
+  29          I         MU E            ITER
+  30          I         MU E            J
+  31          I         MU E            K
+  32         fI    ( 1)  U E            KORSZ
+     (R4A)
+  33    1   7 I        C?U E            LAMA
+  34    1   3 R        C U E            LFREQ
+  35   58   3 I    ( 1)AMU E            LOC(1)
+  36          I         MU E            M
+  37          I         MU E            M1
+  38          I         MU E            M1P1
+  39          I         MU E            M2
+  40          I         MU E            M2M1
+  41    1  16 I        CMU E            MAX
+  42         s     ( 3)  U              MESAGE
+     (I4L,R4L,I4V)
+  43          I        I U E            MGIV
+  44          I         MU E            MM
+  45          I         MU E            MP1
+  46          I    ( 1)IM? E       10   MSG(10)
+  47    1   2 I        C U E            N
+  48    1   9 I        CMU E            NE
+  49    1  15 I        CMU E            NEVER
+  50    1  11 I        CMU E            NFOUND
+  51          I         MU E            NN
+  52    4   2 I        C U E            NOUT
+  53    1   8 I        CMU E            NV
+  54   58   2 R    ( 1)AMU E            O(1)
+  55          R        I U E            ONE
+  56          R         MU E            ONES
+  57   58   4 I        A U E            QR
+  58         S     ( 4) MU        159   QRITER1(VAL,O,LOC,QR)
+  59          R         MU E            R
+  60          R         MU E            S
+  61          R         MU E            SHIFT
+  62    4   1 I        C U E            SYSBUF
+  63          R         MU E            T
+  64          R         MU E            U
+  65    5   1 C*23     C   E            UFM*23
+  66    5   3 C*29     C U E            UIM*29
+  67    5   2 C*25     C   E            UWM*25
+  68   58   1 R    ( 1)AMU E            VAL(1)
+  69          R         MU E            VALX
+  70         s     ( 4)  U              WRITE
+     (I4V,R4V,I4E,I4E)
+     (   ,I4E,   ,   )
+  71         s     ( 1)  U              WRTTRL
+     (I4L)
+  72          R        I U E            ZERO
+**-- END OF SYMBOL TABLE

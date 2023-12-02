@@ -1,0 +1,47 @@
+**++ Symbol table for subprogram JACOB2 in file mis/jacob2.f90
+     produced by SPAG     8.01RF-40 at 14:46:45 on  2 Dec 2023
+   0         X             K             mis/jacob2.f90,0000002,0000119
+   1         C     / 6/ MU        100   /Q4DT/DETJ,HZTA,PSITRN,NNODE,BADJ,N1
+   2         C     / 3/ MU         12   /SYSTEM/IBUF,NOUT,NOGO
+   3    1   5 L        CM  E            BADJ
+   4   25   5 R    ( 2)A U E            BGPDT(4,1)
+   5         ID    ( 1)  U I            DABS
+   6         s     ( 3)  U              DAXB
+     (R8A,R8A,R8A)
+   7    1   1 D        C?U E            DETJ
+   8   25   3 D    ( 1)A U E            DSHP(1)
+   9         ID    ( 1)  U I            DSQRT
+  10          D    ( 1) ?? E        3   DUM(3)
+  11   25   1 I        A U E            ELID
+  12          D    ( 1) M  E        3   ENK(3)
+  13          D        I U E            EPS
+  14   25   6 R    ( 2)A U E            GPNORM(4,1)
+  15   25   4 D    ( 1)A U E            GPTH(1)
+  16    1   2 D        C U E            HZTA
+  17          I         MU E            I
+  18    2   1 I        C   E            IBUF
+  19          I    ( 2) ?? E        9   INDEX(3,3)
+  20         s     ( 8)  U              INVERD
+     (I4E,R8A,I4E,R8A,I4E,R8V,I4V,I4A)
+  21          I         MU E            IPOINT
+  22          I         ?U E            ISING
+  23          I         MU E            J
+  24   25   7 D    ( 2)AMU E            JACOB(3,3)
+  25         S     ( 7) MU         58   JACOB2(ELID,SHP,DSHP,GPTH,BGPDT,GPNORM,JACOB)
+  26          I         MU E            JTEMP
+  27          I         MU E            K
+  28    1   6 I        C U E            N1
+  29    1   4 I        C U E            NNODE
+  30    2   3 I        CM  E            NOGO
+  31    2   2 I        C U E            NOUT
+  32    1   3 D    ( 1)C   E        9   PSITRN(9)
+  33   25   2 D    ( 1)A U E            SHP(1)
+  34          D    ( 1) M? E        3   SK(3)
+  35          D    ( 2) MU E       24   TGRID(3,8)
+  36          D         MU E            THICK
+  37          D    ( 1) M? E        3   TK(3)
+  38          D    ( 1) MU E        3   V1(3)
+  39          D    ( 1) MU E        3   V2(3)
+  40          D    ( 1) MU E        3   V3(3)
+  41          D         MU E            VAL
+**-- END OF SYMBOL TABLE

@@ -1,0 +1,41 @@
+**++ Symbol table for subprogram MCE1B in file mis/mce1b.f90
+     produced by SPAG     8.01RF-40 at 14:46:47 on  2 Dec 2023
+   0         X             K             mis/mce1b.f90,0000002,0000047
+   1         C     /11/ ?U         68   /BLANK/USET,RG,GM,SCR1,SCR2,SCR3,RM,RN,L,U,MCB
+   2         C     /10/ MU        120   /DCOMPX/A,LX,UX,SCRX1,SCRX2,SCRX3,DET,POWER,NZ,MINDIA
+   3         C     / 1/ ??          4   /ZZZZZZ/Z
+   4    2   1 I    ( 1)CMU E        7   A(7)
+   5         s     ( 4)  U              DECOMP
+     (ALT,R4A,R4A,R4A)
+   6    2   7 D        C   E            DET
+   7    1   3 I        C   E            GM
+   8         fI    ( 1)  U E            KORSZ
+     (R4A)
+   9    1   9 I        C U E            L
+  10    2   2 I    ( 1)CM? E        7   LX(7)
+  11    1  11 I    ( 1)C   E        7   MCB(7)
+  12         S                     19   MCE1B
+  13         s     ( 3)  U              MESAGE
+     (I4E,I4V,I4A)
+  14    2  10 D        C   E            MINDIA
+  15          I    ( 1)I?? E        2   NAM(2)
+  16    2   9 I        CM  E            NZ
+  17    2   8 R        C   E            POWER
+  18         s     ( 1)  U              RDTRL
+     (I4A)
+  19    1   2 I        C   E            RG
+  20    1   7 I        C?U E            RM
+  21    1   8 I        C   E            RN
+  22    1   4 I        C U E            SCR1
+  23    1   5 I        C U E            SCR2
+  24    1   6 I        C U E            SCR3
+  25    2   4 I        CM  E            SCRX1
+  26    2   5 I        CM  E            SCRX2
+  27    2   6 I        CM  E            SCRX3
+  28    1  10 I        C U E            U
+  29    1   1 I        C   E            USET
+  30    2   3 I    ( 1)CM? E        7   UX(7)
+  31         s     ( 1)  U              WRTTRL
+     (I4A)
+  32    3   1 R    ( 1)C?? E        1   Z(1)
+**-- END OF SYMBOL TABLE

@@ -1,0 +1,48 @@
+**++ Symbol table for subprogram CINFBS in file mis/cinfbs.f90
+     produced by SPAG     7.61RG-40 at 01:00:00 on 21 Mar 2022
+   0         X             K             mis/cinfbs.f90,0000002,0000105
+   1         C     / 2/ ?U         56   /CINFBX/IFILL,IFILU
+   2         C     /11/  U         44   /NAMES/RD,RDREW,WRT,WRTREW,REW,NOREW,EOFNRW,RSP,RDP,CSP,CDP
+   3         C     / 3/  U         24   /ZNTPKX/DA,II,EOL
+   4    2  11 I        C U E            CDP
+   5         S     ( 3) MU         65   CINFBS(DX,DY,IOBUF)
+   6    2  10 R        C   E            CSP
+   7    3   1 D    ( 1)C U E        2   DA(2)
+   8          D         MU E            DTEMP
+   9    5   1 D    ( 1)A U E            DX(1)
+  10    5   2 D    ( 1)AMU E            DY(1)
+  11    2   7 R        C   E            EOFNRW
+  12    3   3 I        C U E            EOL
+  13          I         MU E            I
+  14          I         M? E            IFILE
+  15    1   1 I    ( 1)C?U E        7   IFILL(7)
+  16    1   2 I    ( 1)C?U E        7   IFILU(7)
+  17         II    ( 1)  U I            IFIX
+  18    3   2 I        C U E            II
+  19          I         MU E            IN1
+  20          I         MU E            IN2
+  21         s     ( 5)  U              INTPK
+     (ALT,I4L,I4E,I4V,I4E)
+  22    5   3 I    ( 1)A   E            IOBUF(1)
+  23          I         MU E            IOFF
+  24          I         MU E            J
+  25          I         MU E            K
+  26         s     ( 3)  U              MESAGE
+     (I4E,I4V,I4A)
+  27          I    ( 1)I?? E        2   NAME(2)
+  28    2   6 I        C   E            NOREW
+  29          I          U E            NROW
+  30          I         MU E            NROW2
+  31    2   1 R        C   E            RD
+  32    2   9 R        C   E            RDP
+  33    2   2 R        C   E            RDREW
+  34    2   5 R        C   E            REW
+  35         s     ( 1)  U              REWIND
+     (I4L)
+  36    2   8 R        C   E            RSP
+  37         IR    ( 1)  U I            SNGL
+  38          I         M? E            TYPEAR
+  39    2   3 R        C   E            WRT
+  40    2   4 R        C   E            WRTREW
+  41         s           U              ZNTPKI
+**-- END OF SYMBOL TABLE

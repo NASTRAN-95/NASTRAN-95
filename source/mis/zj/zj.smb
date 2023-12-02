@@ -1,0 +1,12 @@
+**++ Symbol table for subprogram ZJ in file mis/zj.f90
+     produced by SPAG     8.01RF-40 at 14:46:45 on  2 Dec 2023
+   0         X             K             mis/zj.f90,0000002,0000022
+   1          R         MU E            A
+   2         I?    ( 1)  U I            ABS
+   3          R         MU E            AN
+   4    8   1 R        A U E            ARG
+   5          R         MU E            DBSLJ
+   6          I         MU E            I
+   7          R         MU E            PF
+   8         FR    ( 1) MU E       11   ZJ(ARG)
+**-- END OF SYMBOL TABLE

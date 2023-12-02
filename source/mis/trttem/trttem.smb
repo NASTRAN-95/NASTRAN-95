@@ -1,0 +1,107 @@
+**++ Symbol table for subprogram TRTTEM in file mis/trttem.f90
+     produced by SPAG     7.61RG-40 at 01:00:00 on 21 Mar 2022
+   0         X             K             mis/trttem.f90,0000002,0000251
+   1         C     / 1/            20   /CONDAS/CONSTS
+   2         C     / 6/ M          24   /MATIN/MATIDC,MATFLG,ELTEMP,STRESS,SINTH,COSTH
+   3         C     / 9/  U        100   /MATOUT/E,ANU,RHO,G,ALF,TZERO,GSUBE,MOSKP,SETMAT
+   4         C     / 1/ ?U        136   /TRIMEX/ECPT
+   5          R         MU E            AA
+   6         fR    ( 5)  U E            AIS
+     (I4E,I4E,I4E,R4A,R4A)
+   7          R         MU E            AJHO
+   8    3   5 R    ( 1)C U E        3   ALF(3)
+   9         IR    ( 3)  U I            AMIN1
+  10    3   2 R    ( 1)C U E        3   ANU(3)
+  11          R         MU E            C1
+  12          R         MU E            C2
+  13          R         MU E            C2S2
+  14          R         MU E            C3
+  15          R         MU E            C4
+  16    1   1 R    ( 1)C   E        5   CONSTS(5)
+  17         I?    ( 1)  U I            COS
+  18          R         MU E            COSG
+  19    2   6 R        CM  E            COSTH
+  20          R    ( 1) M  E        3   D(3)
+  21          R          U E            DEGRAD
+  22          R         MU E            DEL
+  23          R    ( 1) MU E       12   DELINT(12)
+  24          R         MU E            DGAMA
+  25          R         MU E            DGAMR
+  26          R    ( 1) MU E        9   DTT(9)
+  27    3   1 R    ( 1)C U E        3   E(3)
+  28    4   1 R    ( 1)C?U E       34   ECPT(34)
+  29          R         MU E            EE01
+  30          R         MU E            EE02
+  31          R         MU E            EE03
+  32          R         MU E            EE04
+  33          R         MU E            EE08
+  34          R         MU E            EE09
+  35          R         MU E            EE10
+  36          R         MU E            EE15
+  37          R         MU E            EE16
+  38    2   3 R        CM  E            ELTEMP
+  39          R         MU E            ER
+  40          R         MU E            ET
+  41          R         MU E            EZ
+  42          R    ( 1) ?U E        9   FIJ(9)
+  43    3   4 R    ( 1)C U E        3   G(3)
+  44          R    ( 2) M? E       81   GABABQ(9,9)
+  45         s     ( 9)  U              GMMATS
+     (R4A,I4E,I4E,I4E,R4A,I4E,I4E,I4E,R4A)
+  46          R         MU E            GOR
+  47          R         MU E            GRZ
+  48    3   7 R        C   E            GSUBE
+  49          R         MU E            GZO
+  50          I         MU E            I
+  51          I    ( 1) M  E        3   ICS(3)
+  52          I         M? E            IDEL
+  53          I    ( 1)  U E       34   IECPT(34)
+  54          I    ( 1) MU E        3   IGP(3)
+  55          I         MU E            J
+  56          I         MU E            K
+  57          I         MU E            L
+  58         s     ( 1)  U              MAT
+     (I4V)
+  59    2   2 I        CM  E            MATFLG
+  60          I         MU E            MATID
+  61    2   1 I        CM  E            MATIDC
+  62         s     ( 3)  U              MESAGE
+     (I4E,I4E,R4L)
+  63    3   8 I    ( 1)C   E        9   MOSKP(9)
+  64   87   2 R    ( 1)AMU E            PG(1)
+  65          R          U E            PI
+  66          R    ( 1) M? E        3   R(3)
+  67          R          U E            R1
+  68          R          U E            R2
+  69          R          U E            R3
+  70    3   3 R        C   E            RHO
+  71          R         MU E            S2
+  72          R         MU E            S4
+  73    3   9 R        C U E            SETMAT
+  74         I?    ( 1)  U I            SIN
+  75          R         MU E            SING
+  76    2   5 R        CM  E            SINTH
+  77    2   4 R        C   E            STRESS
+  78          R         MU E            T
+  79          R         MU E            T1
+  80          R         MU E            T2
+  81          R         MU E            T3
+  82          R         MU E            T4
+  83          R         MU E            TEMPE
+  84          R    ( 1) MU E       21   TEO(21)
+  85   87   1 R    ( 1)A U E            TI(3)
+  86          R    ( 1) MU E        9   TL(9)
+  87         S     ( 2) MU        152   TRTTEM(TI,PG)
+  88    3   6 R        C U E            TZERO
+  89          R         MU E            VOR
+  90          R         MU E            VOZ
+  91          R         MU E            VRO
+  92          R         MU E            VRZ
+  93          R         MU E            VZO
+  94          R         MU E            VZR
+  95          R    ( 1) M? E        3   Z(3)
+  96          R         MU E            Z1
+  97          R         MU E            Z2
+  98          R         MU E            Z3
+  99          R         MU E            ZMIN
+**-- END OF SYMBOL TABLE

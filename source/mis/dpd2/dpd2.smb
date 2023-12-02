@@ -1,0 +1,129 @@
+**++ Symbol table for subprogram DPD2 in file mis/dpd2.f90
+     produced by SPAG     8.01RF-40 at 14:46:51 on  2 Dec 2023
+   0         X             K             mis/dpd2.f90,0000002,0000428
+   1         C     /11/ M          44   /BLANK/LUSET,LUSETD,NOTFL,NODLT,NOPSDL,NOFRL,NONLFT,NOTRL,NOEED,NOSDT,NOUE
+   2         C     /47/ MU        568   /DPDCOM/DPOOL,GPL,SIL,USET,GPLD,SILD,USETD,DLT,FRL,NLFT,TFL,TRL,PSDL,EED,SCR1,SCR2,SCR3,SCR4,BUF,BUF1,BUF2,BUF3,BUF4,EPOINT,SEQEP,L,KN,NEQDYN,LOADS,DLOAD,FREQ1,FREQ,NOLIN,NOGO,MSG,TIC,TSTEP,TF,PSD,EIGR,EIGB,EIGC,MCB,NAM,EQDYN,SDT,INEQ
+   3         C     / 5/ ??         20   /NAMES/RD,RDREW,WRT,WRTREW,CLSREW
+   4         C     / 2/  U        224   /SYSTEM/IDUMMY,ITHRML
+   5         C     / 1/ MU          4   /ZZZZZZ/Z
+   6    2  19 I    ( 1)CMU E       24   BUF(24)
+   7    2  20 I        C U E            BUF1
+   8    2  21 I        C U E            BUF2
+   9    2  22 I        C   E            BUF3
+  10    2  23 I        C U E            BUF4
+  11          R    ( 1)    E       20   BUFR(20)
+  12          I    ( 1)  U E        3   BUFX(3)
+  13         s     ( 2)  U              CLOSE
+     (I4V,R4V)
+  14    3   5 R        C?? E            CLSREW
+  15    2  30 I    ( 1)C?? E        2   DLOAD(2)
+  16    2   8 I        C?U E            DLT
+  17         S                    292   DPD2
+  18         s           U              DPDAA
+  19    2   1 I        C?U E            DPOOL
+  20    2  14 I        C   E            EED
+  21    2  41 I    ( 1)C   E        2   EIGB(2)
+  22    2  42 I    ( 1)C   E        2   EIGC(2)
+  23    2  40 I    ( 1)C   E        2   EIGR(2)
+  24    2  24 I    ( 1)C   E        2   EPOINT(2)
+  25    2  45 I        C   E            EQDYN
+  26          I         M? E            FILE
+  27          I         ?? E            FLAG
+  28         s     ( 2)  U              FNAME
+     (I4V,I4A)
+  29    2  32 I    ( 1)C   E        2   FREQ(2)
+  30    2  31 I    ( 1)C   E        2   FREQ1(2)
+  31    2   9 I        C   E            FRL
+  32         s     ( 2)  U              FWDREC
+     (ALT,I4V)
+  33    2   2 I        C   E            GPL
+  34    2   5 I        C   E            GPLD
+  35          I         MU E            I
+  36          I         MU E            IBUF
+  37          I         MU E            ID
+  38          I         MU E            IDAREA
+  39          I         MU E            IDLOAD
+  40    4   1 I    ( 1)C   E       55   IDUMMY(55)
+  41          I         MU E            IEMF
+  42          I         MU E            II
+  43          I         MU E            III
+  44    2  47 I        CM  E            INEQ
+  45          I         MU E            ITABL
+  46          I         MU E            ITEMP
+  47    4   2 I        C U E            ITHRML
+  48          I         MU E            J
+  49          I         MU E            J2
+  50          I         MU E            JJ
+  51          I         MU E            K
+  52          I         MU E            KK
+  53    2  27 I        C   E            KN
+  54    2  26 I        CMU E            L
+  55    2  29 I    ( 1)CMU E       32   LOADS(32)
+  56         s     ( 4)  U              LOCATE
+     (ALT,I4L,I4A,I4V)
+  57    1   1 I        C   E            LUSET
+  58    1   2 I        C   E            LUSETD
+  59          I         MU E            M
+  60    2  43 I    ( 1)CM? E        7   MCB(7)
+  61         s     ( 3)  U              MESAGE
+     (I4E,I4E,I4A)
+  62    2  35 I    ( 1)CM? E        3   MSG(3)
+  63          I         MU E            N
+  64    2  44 I    ( 1)C?? E        2   NAM(2)
+  65          I         MU E            NCORE
+  66    2  28 I        C U E            NEQDYN
+  67          I            E            NGRID
+  68    2  10 I        C   E            NLFT
+  69          I         MU E            NLIST
+  70          I         MU E            NN
+  71          I         MU E            NODLD
+  72    1   4 I        CM  E            NODLT
+  73    1   9 I        C   E            NOEED
+  74    1   6 I        C   E            NOFRL
+  75    2  34 I        CM  E            NOGO
+  76    2  33 I    ( 1)C   E       21   NOLIN(21)
+  77    1   7 I        C   E            NONLFT
+  78    1   5 I        C   E            NOPSDL
+  79    1  10 I        C   E            NOSDT
+  80    1   3 I        C   E            NOTFL
+  81    1   8 I        C   E            NOTRL
+  82    1  11 I        C   E            NOUE
+  83          I         MU E            NX
+  84         s     ( 4)  U              OPEN
+     (ALT,I4V,I4L,R4V)
+  85         s     ( 3)  U              PRELOC
+     (ALT,I4L,I4V)
+  86    2  39 I    ( 1)C   E        2   PSD(2)
+  87    2  13 I        C   E            PSDL
+  88    3   1 R        C   E            RD
+  89    3   2 R        C?? E            RDREW
+  90         s     ( 7)  U              READ
+     (ALT,ALT,I4V,I4A,I4E,I4E,I4V)
+  91          I    ( 1) ?U E        4   SCR(4)
+  92    2  15 I        C   E            SCR1
+  93    2  16 I        C   E            SCR2
+  94    2  17 I        C   E            SCR3
+  95    2  18 I        C   E            SCR4
+  96    2  46 I        C   E            SDT
+  97    2  25 I    ( 1)C   E        2   SEQEP(2)
+  98    2   3 I        C   E            SIL
+  99    2   6 I        C   E            SILD
+ 100         s     ( 6)  U              SORT
+     (I4E,I4E,I4E,I4E,I4A,I4V)
+ 101    2  38 I    ( 1)C   E        2   TF(2)
+ 102    2  11 I        C   E            TFL
+ 103    2  36 I    ( 1)C   E        2   TIC(2)
+ 104    2  12 I        C   E            TRL
+ 105    2  37 I    ( 1)C   E        2   TSTEP(2)
+ 106    2   4 I        C   E            USET
+ 107    2   7 I        C   E            USETD
+ 108         s     ( 4)  U              WRITE
+     (I4V,I4A,I4E,I4E)
+     (   ,I4E,   ,   )
+ 109    3   3 R        C   E            WRT
+ 110    3   4 R        C?? E            WRTREW
+ 111         s     ( 1)  U              WRTTRL
+     (I4A)
+ 112    5   1 I    ( 1)CMU E        1   Z(1)
+ 113          R    ( 1)    E        1   ZZ(1)
+**-- END OF SYMBOL TABLE

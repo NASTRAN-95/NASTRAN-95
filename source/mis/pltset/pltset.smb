@@ -1,0 +1,46 @@
+**++ Symbol table for subprogram PLTSET in file mis/pltset.f90
+     produced by SPAG     8.01RF-40 at 14:46:49 on  2 Dec 2023
+   0         X             K             mis/pltset.f90,0000002,0000107
+   1         C     / 2/  U         20   /BLANK/SKP4,PLTNUM
+   2         C     / 1/  U          4   /MACHIN/MACH
+   3         C     / 8/ MU        240   /PLTDAT/MODEL,PLOTER,REG,AXYMAX,XYEDGE,CHRSCL,PDATA,PLTDAT
+   4         C     / 1/           260   /SYSTEM/KSYSTM
+   5         C     / 3/  U         77   /XMSSG/UFM,UWM,UIM
+   6         C     / 5/ MU        944   /XXPARM/PBUFSZ,SKPARM,PAPSIZ,SKP235,OFFSCL
+   7    3   4 R    ( 1)CMU E        2   AXYMAX(2)
+   8    3   6 R        C U E            CHRSCL
+   9          I          U E            CHRWRD
+  10          R    ( 1) MU E        2   CNTCHR(2)
+  11          R          U E            CNTSIN
+  12          I         MU E            I
+  13         II    ( 1)  U I            IABS
+  14          I            E            ITRACK
+  15    4   1 I    ( 1)C   E       65   KSYSTM(65)
+  16    2   1 I        C U E            MACH
+  17    3   1 I        C U E            MODEL
+  18          I          U E            NOUT
+  19    6   5 I        CMU E            OFFSCL
+  20    6   3 R    ( 1)CMU E        2   PAPSIZ(2)
+  21          I          U E            PBFSIZ
+  22    6   1 I        CM  E            PBUFSZ
+  23    3   7 I    ( 1)CMU E       20   PDATA(20)
+  24    3   2 I        C U E            PLOTER
+  25          I        I?U E            PLT1
+  26          I        I?? E            PLT2
+  27    3   8 I    ( 2)C U E       20   PLTDAT(20,1)
+  28    1   2 I        C U E            PLTNUM
+  29         S                     39   PLTSET
+  30          I         MU E            PLTYPE
+  31    3   3 R    ( 2)CM  E        4   REG(2,2)
+  32    6   4 R    ( 1)C   E      226   SKP235(226)
+  33    1   1 R    ( 1)C   E        4   SKP4(4)
+  34    6   2 R    ( 1)C   E        6   SKPARM(6)
+  35         fL    ( 1)  U E            TAPBIT
+     (I4V)
+  36    5   1 C*23     C   E            UFM*23
+  37    5   3 C*29     C U E            UIM*29
+  38    5   2 C*25     C   E            UWM*25
+  39    3   5 R    ( 1)CM  E       11   XYEDGE(11)
+  40          R    ( 1)  U E        2   XYMAX(2)
+  41          R    ( 1)I U E        2   XYSIZE(2)
+**-- END OF SYMBOL TABLE

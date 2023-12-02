@@ -1,0 +1,67 @@
+**++ Symbol table for subprogram STPAIC in file mis/stpaic.f90
+     produced by SPAG     8.01RF-40 at 14:46:50 on  2 Dec 2023
+   0         X             K             mis/stpaic.f90,0000002,0000065
+   1         C     /10/ ?U         88   /AMGMN/MCB,NROW,ND,NE,REFC,FMACH,RFK,TSKJ,ISK,NSK
+   2         C     / 5/ MU         20   /PACKX/ITI,ITO,II,NN,INCR
+   3         C     /11/ MU        192   /STRIPC/NNS,BREF,CLAM,FM,NCIRC,NNCIRC,EKR,DUM,BB,BETA,EKM
+   4   58  10 R        A?? E            AJJL
+   5    3   9 R    ( 1)C U E        4   BB(4)
+   6    3  10 R    ( 1)C   E        4   BETA(4)
+   7   58   1 R    ( 1)A U E            BLOC(1)
+   8   58   5 R    ( 3)A U E            BM(4,4,Ns)
+   9          R         MU E            BOB
+  10    3   2 R        C U E            BREF
+  11          X    ( 2) MU E       16   CDUM(4,4)
+  12          X    ( 2) MU E        9   CH(3,3)
+  13          R         M? E            CI
+  14   58   9 R    ( 1)A U E            CLA(1)
+  15    3   3 R        C U E            CLAM
+  16         IX    ( 2)  U I            CMPLX
+  17          R         MU E            CONST
+  18          R         M? E            CR
+  19    3   8 R        C   E            DUM
+  20   58   2 R    ( 1)A U E            DY(1)
+  21          R         M? E            EKL
+  22    3  11 X    ( 2)C U E       16   EKM(4,4)
+  23    3   7 R    ( 1)CMU E        1   EKR(1)
+  24    3   4 R        C U E            FM
+  25    1   6 R        C   E            FMACH
+  26   58   4 R    ( 1)A U E            GAP(1)
+  27   58   6 R    ( 3)A U E            GM(4,3,Ns)
+  28          I         MU E            I
+  29    2   3 I        CMU E            II
+  30          I         MU E            IM
+  31    2   5 I        C   E            INCR
+  32    1   9 I        C   E            ISK
+  33    2   1 I        C   E            ITI
+  34    2   2 I        C   E            ITO
+  35          I         MU E            J
+  36          I         MU E            J1
+  37          I         MU E            JM
+  38          I         MU E            K
+  39          I         MU E            M
+  40    1   1 I    ( 1)C?? E        7   MCB(7)
+  41          I         MU E            N
+  42    3   5 I        C U E            NCIRC
+  43    1   3 I        C   E            ND
+  44    1   4 I        C   E            NE
+  45    2   4 I        CMU E            NN
+  46    3   6 I        C   E            NNCIRC
+  47    3   1 I        C   E            NNS
+  48          I         M? E            NOPEN
+  49    1   2 I        C U E            NROW
+  50   58   8 I        A U E         Z  NS
+  51   58   3 I    ( 1)A?U E            NSIZE(1)
+  52    1  10 I        C   E            NSK
+  53          I         M? E            NSTED
+  54         s     ( 3)  U              PACK
+     (X8L,R4V,I4A)
+  55   58   7 R    ( 2)A?? E            PM(37,Ns)
+  56    1   5 R        C   E            REFC
+  57    1   7 R        C   E            RFK
+  58         S     (10) ?U         48   STPAIC(BLOC,DY,NSIZE,GAP,BM,GM,PM,NS,CLA,AJJL)
+  59         s     (11)  U              STPK
+     (R4V,I4E,I4L,I4V,I4V,R4V,R4L,R4V,R4V,I4V,I4V)
+  60    1   8 R    ( 1)C   E        7   TSKJ(7)
+  61          R         M? E            TSR
+**-- END OF SYMBOL TABLE

@@ -1,0 +1,112 @@
+**++ Symbol table for subprogram CTHMCK in file mis/cthmck.f90
+     produced by SPAG     8.01RF-40 at 14:46:45 on  2 Dec 2023
+   0         X             K             mis/cthmck.f90,0000002,0000280
+   1         C     / 7/  U         28   /BANDA/IBUF1,NOMPC,NODEP,NOPCH,NORUN,METHOD,ICRIT
+   2         C     / 4/  U         28   /BANDB/DUM3B,NGRID,DUMB2,KDIM
+   3         C     / 5/ MU         20   /BANDD/KORIG,KNEW,IH0,IHE,NCM
+   4         C     / 5/ MU         20   /BANDS/NN,MM,IH,IB,MAXGRD
+   5         C     / 7/ MU         28   /BANDW/MAXW0,RMS0,MAXW1,RMS1,I77,BRMS0,BRMS1
+   6         C     / 4/  U         36   /SYSTEM/ISYS,NOUT,DUM6Y,NLPP
+   7         C     / 3/  U         77   /XMSSG/UFM,UWM,UIM
+   8          R         ?U E            AVERW
+   9          R         MU E            BRMS
+  10    5   6 R        CMU E            BRMS0
+  11    5   7 R        CM  E            BRMS1
+  12          R         MU E            CRIT1
+  13          R         MU E            CRIT2
+  14         S     (16) MU        126   CTHMCK(NT,NUM,NOM,IO,IG,IC,IDEG,IDIS,IW,NEW,ICC,ILD,IPP,JUMP,UN,NODESL)
+  15         s     ( 3)  U              DEGREE
+     (I4A,I4A,R4A)
+  16         s     (13)  U              DIAM
+     (I4E,I4V,I4V,I4A,I4V,I4V,I4A,I4A,I4A,I4A,I4A,I4A,R4A)
+  17         s     ( 4)  U              DIST
+     (I4A,I4A,I4V,I4V)
+  18    2   1 R    ( 1)C   E        3   DUM3B(3)
+  19    6   3 R    ( 1)C   E        6   DUM6Y(6)
+  20    2   3 R    ( 1)C   E        2   DUMB2(2)
+  21          I         MU E            I
+  22    5   5 I        C   E            I77
+  23          I         M? E            IAJDIM
+  24    4   4 I        CMU E            IB
+  25    1   1 I        C   E            IBUF1
+  26   14   6 I    ( 1)A?? E            IC(1)
+  27   14  11 I    ( 1)A?? E            ICC(1)
+  28    1   7 I        C U E            ICRIT
+  29   14   7 I    ( 1)A?? E            IDEG(1)
+  30          I         MU E            IDEM
+  31   14   8 I    ( 1)A?? E            IDIS(1)
+  32   14   5 I    ( 1)A?? E            IG(1)
+  33    4   3 I        CMU E            IH
+  34    3   3 I        CMU E            IH0
+  35    3   4 I        CM  E            IHE
+  36          I         MU E            IJ
+  37   14  12 I    ( 1)AMU E            ILD(1)
+  38          R         MU E            IM1
+  39          R         MU E            IM2
+  40   14   4 I        A U E            IO
+  41   14  13 I    ( 1)A?? E            IPP(1)
+  42          I         ?U E            IS
+  43    6   1 I        C   E            ISYS
+  44   14   9 I    ( 1)A?? E            IW(1)
+  45          I         MU E            J
+  46          I         MU E            JMAX
+  47   14  14 I        AM  E            JUMP
+  48          I         MU E            K
+  49          I         MU E            K2
+  50    2   4 I        C U E            KDIM
+  51    3   2 I        CM  E            KNEW
+  52         fI    ( 6)  U E            KOMPNT
+     (I4A,I4A,I4A,I4A,I4A,R4A)
+  53    3   1 I        CM  E            KORIG
+  54          I         MU E            MA
+  55          I         MU E            MAD
+  56         II    ( 2)  U I            MAX0
+  57          I         MU E            MAXD
+  58         fI    ( 3)  U E            MAXDGR
+     (I4E,I4A,I4A)
+  59    4   5 I        C   E            MAXGRD
+  60          I         ?? E            MAXLEV
+  61          I         MU E            MAXW
+  62    5   1 I        CMU E            MAXW0
+  63    5   3 I        CM  E            MAXW1
+  64          I         ?U E            MEDIAN
+  65    1   6 I        C U E            METHOD
+  66          I         MU E            MI
+  67         II    ( 2)  U I            MIN0
+  68         fI    ( 3)  U E            MINDEG
+     (I4E,I4A,I4A)
+  69    4   2 I        C   E            MM
+  70          I         M  E            MMC
+  71          I         ?? E            MODD
+  72          I         MU E            NC
+  73    3   5 I        CMU E            NCM
+  74   14  10 I    ( 1)AM? E            NEW(1)
+  75    2   2 I        C U E            NGRID
+  76          I         ?U E            NL
+  77    6   4 I        C U E            NLPP
+  78    4   1 I        C U E            NN
+  79    1   3 I        C U E            NODEP
+  80   14  16 I    ( 1)A?? E            NODESL(1)
+  81   14   3 I        A U E            NOM
+  82    1   2 I        C U E            NOMPC
+  83    1   4 I        C U E            NOPCH
+  84    1   5 I        C   E            NORUN
+  85    6   2 I        C U E            NOUT
+  86   14   1 I        A U E            NT
+  87   14   2 I        A U E            NUM
+  88         s           U              PAGE1
+  89         s     (13)  U              RELABL
+     (I4E,I4L,I4A,I4A,I4A,I4A,I4A,I4A,I4A,I4A,I4L,R4A,I4V)
+  90          R         MU E            RMS
+  91    5   2 R        CMU E            RMS0
+  92    5   4 R        CM  E            RMS1
+  93         s     ( 4)  U              STACK
+     (I4A,I4A,I4A,I4A)
+  94          I         ?U E            SUMW
+  95    7   1 C*23     C   E            UFM*23
+  96    7   3 C*29     C U E            UIM*29
+  97   14  15 R    ( 1)A?? E            UN(1)
+  98    7   2 C*25     C   E            UWM*25
+  99         s     (13)  U              WAVEY
+     (I4A,I4A,I4A,I4E,I4A,I4A,I4V,I4V,R4V,I4V,R4V,R4V,R4A)
+**-- END OF SYMBOL TABLE

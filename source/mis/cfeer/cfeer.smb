@@ -1,0 +1,132 @@
+**++ Symbol table for subprogram CFEER in file mis/cfeer.f90
+     produced by SPAG     8.01RF-40 at 14:46:35 on  2 Dec 2023
+   0         X             K             mis/cfeer.f90,0000002,0000377
+   1         C     /12/ MU        580   /FEERAA/IK,IM,IB,ILAM,IPHI,IDMPFL,ISCR,REG,MCBLT,MCBUT,MCBVEC,MCBLMB
+   2         C     /25/ MU        116   /FEERXC/LAMBDA,SYMMET,MREDUC,NORD,IDIAG,EPS,NORTHO,NORD2,NORD4,NORDP1,NSWP,JSKIP,NOB,IT,TEN2MT,TENMHT,NSTART,QPR,JREG,NOREG,NZERO,TENMTT,MINOPN,NUMORT,NUMRAN
+   3         C     / 9/ ??         36   /NAMES/RD,RDREW,WRT,WRTREW,REW,NOREW,EOFNRW,RSP,RDP
+   4         C     / 1/ ??          4   /OUTPUT/HEAD
+   5         C     / 1/  U        260   /SYSTEM/KSYSTM
+   6         C     / 3/  U         77   /XMSSG/UFM,UWM,UIM
+   7         C     / 1/ ??          4   /ZZZZZZ/Z
+   8          R         M  E            ANODES
+   9          R         M  E            ASYM
+  10         S     ( 3) MU        198   CFEER(EED,METHOD,NFOUND)
+  11         s           U              CFEER1
+  12         s     ( 1)  U              CFEER2
+     (I4V)
+  13         s           U              CFEER3
+  14         s           U              CFEER4
+  15         s     ( 2)  U              CLOSE
+     (I4A,R4V)
+     (I4V,   )
+  16         ID    ( 1)  U I            DBLE
+  17   10   1 I        A?U E            EED
+  18          I    ( 1)I?? E        2   EIGC(2)
+  19    3   7 R        C?? E            EOFNRW
+  20    2   6 D        CMU E            EPS
+  21          R         ?? E            FLAG
+  22         s     ( 4)  U              FREAD
+     (I4V,I4A,I4E,I4E)
+  23         s     ( 3)  U              GOPEN
+     (I4V,R4L,R4V)
+  24          I    ( 1) MU E       10   HAVE(10)
+  25    4   1 R    ( 1)C?? E        1   HEAD(1)
+  26          I         MU E            I
+  27    1   3 I    ( 1)CMU E        7   IB(7)
+  28          I         MU E            IBUF
+  29    2   5 I        C?U E            IDIAG
+  30    1   6 I        CMU E            IDMPFL
+  31          I         M? E            IFILE
+  32         II    ( 1)  U I            IFIX
+  33          I    ( 1)I?? E       10   IHEAD(10)
+  34    1   1 I    ( 1)CMU E        7   IK(7)
+  35    1   4 I    ( 1)CMU E        7   ILAM(7)
+  36    1   2 I    ( 1)CMU E        7   IM(7)
+  37          I         MU E            IOPN
+  38    1   5 I    ( 1)CMU E        7   IPHI(7)
+  39          I    ( 2) ?U E        7   IREG(7,1)
+  40          I         MU E            IRET
+  41    1   7 I    ( 1)CM  E       11   ISCR(11)
+  42          I         MU E            ISING
+  43    2  14 I        CMU E            IT
+  44          I         MU E            ITERM
+  45          I         MU E            IXX
+  46          I    ( 1) M? E        1   IZ(1)
+  47    2  19 I        CMU E            JREG
+  48    2  12 I        CMU E            JSKIP
+  49         fI    ( 1)  U E            KORSZ
+     (R4A)
+  50    5   1 I    ( 1)C U E       65   KSYSTM(65)
+  51    2   1 D    ( 1)CMU E        2   LAMBDA(2)
+  52          I         MU E            LIMSUM
+  53         s     ( 4)  U              LOCATE
+     (ALT,R4L,I4L,R4V)
+  54    1  12 I    ( 1)C   E        7   MCBLMB(7)
+  55    1   9 I    ( 1)C   E        7   MCBLT(7)
+  56    1  10 I    ( 1)C   E        7   MCBUT(7)
+  57    1  11 I    ( 1)C   E        7   MCBVEC(7)
+  58         s     ( 3)  U              MESAGE
+     (I4E,I4E,I4A)
+  59   10   2 I        A U E            METHOD
+  60    2  23 I        CMU E            MINOPN
+  61    2   3 I        CMU E            MREDUC
+  62          I    ( 1)I?? E        2   NAME(2)
+  63          I          U E            NBPW
+  64   10   3 I        AMU E            NFOUND
+  65    2  13 L        CM  E            NOB
+  66          I         MU E            NODCMP
+  67          I         MU E            NODES
+  68          I         MU E            NOMNF
+  69          I          U E            NONSYM
+  70    2   4 I        CMU E            NORD
+  71    2   8 I        CMU E            NORD2
+  72    2   9 I        CM  E            NORD4
+  73    2  10 I        CM  E            NORDP1
+  74    2  20 I        CMU E            NOREG
+  75    3   6 I        C   E            NOREW
+  76    2   7 I        CMU E            NORTHO
+  77          I          U E            NOUT
+  78          I         MU E            NPRINT
+  79    2  17 I        C U E            NSTART
+  80    2  11 I        CM  E            NSWP
+  81    2  24 I        CMU E            NUMORT
+  82    2  25 I        CMU E            NUMRAN
+  83          I         MU E            NZ
+  84    2  21 I        CMU E            NZERO
+  85         s     ( 4)  U              OPEN
+     (ALT,I4A,R4L,R4V)
+     (   ,I4V,   ,   )
+  86         s     ( 3)  U              PRELOC
+     (ALT,R4L,I4V)
+  87    2  18 L        CM  E            QPR
+  88    3   1 R        C   E            RD
+  89    3   9 R        C   E            RDP
+  90    3   2 R        C   E            RDREW
+  91         s     ( 1)  U              RDTRL
+     (I4A)
+  92    1   8 R    ( 2)C U E       70   REG(7,10)
+  93    3   5 R        C?? E            REW
+  94    3   8 R        C   E            RSP
+  95         IR    ( 1)  U I            SNGL
+  96         s     ( 2)  U              SSWTCH
+     (I4E,I4V)
+  97    2   2 L        CM  E            SYMMET
+  98    2  15 R        CM  E            TEN2MT
+  99    2  16 R        CM  E            TENMHT
+ 100    2  22 R        CM  E            TENMTT
+ 101    6   1 C*23     C   E            UFM*23
+ 102    6   3 C*29     C U E            UIM*29
+ 103          R         MU E            UNIDUM
+ 104    6   2 C*25     C U E            UWM*25
+ 105          I    ( 1) MU E       10   WANT(10)
+ 106         s     ( 4)  U              WRITE
+     (I4V,I4L,I4E,I4E)
+     (   ,R4L,   ,   )
+ 107    3   3 R        C?? E            WRT
+ 108    3   4 R        C?? E            WRTREW
+ 109         s     ( 1)  U              WRTTRL
+     (I4L)
+ 110          R         MU E            X1
+ 111          R         MU E            Y1
+ 112    7   1 R    ( 1)C?? E        1   Z(1)
+**-- END OF SYMBOL TABLE

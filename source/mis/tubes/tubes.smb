@@ -1,0 +1,16 @@
+**++ Symbol table for subprogram TUBES in file mis/tubes.f90
+     produced by SPAG     8.01RF-40 at 14:47:18 on  2 Dec 2023
+   0         X             K             mis/tubes.f90,0000002,0000052
+   1         C     / 1/  U          4   /CONDAS/PI
+   2         C     / 1/ MU        400   /EMGEST/EST
+   3          R         MU E            A
+   4          R         MU E            C
+   5    2   1 R    ( 1)CMU E      100   EST(100)
+   6          R         MU E            FJ
+   7          I         MU E            I
+   8          I         MU E            M
+   9    1   1 R        C U E            PI
+  10         s           U              RODS
+  11          R         MU E            TEMP
+  12         S                     13   TUBES
+**-- END OF SYMBOL TABLE

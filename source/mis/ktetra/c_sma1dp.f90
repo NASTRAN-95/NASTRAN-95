@@ -1,0 +1,13 @@
+!*==/home/marcusmae/nasa/nastran/SPAGged/C_SMA1DP.f90  created by SPAG 8.01RF at 14:46 on  2 Dec 2023
+MODULE C_SMA1DP
+   USE ISO_FORTRAN_ENV
+   REAL(REAL64), DIMENSION(72) :: C
+   REAL(REAL64), DIMENSION(18) :: Ct, Gct
+   INTEGER :: Direc, Kount, Ngpt
+   REAL(REAL64), DIMENSION(36) :: G, Kij
+   REAL(REAL64), DIMENSION(16) :: H
+   REAL(REAL64) :: Hdeter, Temp1
+   REAL(REAL64), DIMENSION(9) :: T
+   REAL(REAL64), DIMENSION(12) :: Temp
+   REAL :: Tvol
+END MODULE C_SMA1DP

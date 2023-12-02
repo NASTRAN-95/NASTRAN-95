@@ -1,0 +1,71 @@
+**++ Symbol table for subprogram TRANSP in file mis/transp.f90
+     produced by SPAG     7.61RG-40 at 01:00:00 on 21 Mar 2022
+   0         X             K             mis/transp.f90,0000002,0000114
+   1         C     / 2/ ??          8   /MACHIN/MACH,IHALF
+   2         C     / 9/ ?U         36   /NAMES/RD,RDREW,WRT,WRTREW,REW,NOREW,EOFNRW,RSP,RDP
+   3         C     / 1/  U          4   /SYSTEM/SYSBUF
+   4         C     / 4/ ?U         28   /ZNTPKX/IA,II,EOL,EOR
+   5   50   5 I        A U E            B
+   6         s     ( 2)  U              CLOSE
+     (I4V,R4V)
+   7         fI    ( 1)  UXE            COMPLF
+     (I4E)
+   8          D         M  E            DI
+   9    2   7 R        C   E            EOFNRW
+  10    4   3 I        C U E            EOL
+  11    4   4 I        C U E            EOR
+  12   50   4 I    ( 1)A?U E            FILEA(7)
+  13          I         MU E            I
+  14    4   1 I    ( 1)C U E        4   IA(4)
+  15          I         M? E            IFILE
+  16    1   2 I        C?? E            IHALF
+  17    4   2 I        C?U E            II
+  18          I    ( 1) M? E        4   III(4)
+  19          I         MU E            INCR
+  20         s     ( 5)  U              INTPK
+     (ALT,I4L,I4E,I4V,I4E)
+  21          I         MU E            IOBUF
+  22          I         MU E            ISTOR
+  23   50   1 I    ( 1)AMU E            IX(1)
+  24          I         MU E            J
+  25          I         MU E            K
+  26          I         MU E            KK
+  27          I         MU E            L
+  28         fI    ( 2)  UXE            LSHIFT
+     (I4V,I4V)
+  29    1   1 I        C   E            MACH
+  30         s     ( 3)  U              MESAGE
+     (I4V,I4V,I4A)
+  31          I         M? E            N
+  32          I    ( 1)I?? E        2   NAME(2)
+  33          I         MU E            NCOL
+  34          I         MU E            NO
+  35    2   6 I        C   E            NOREW
+  36          I         MU E            NUM
+  37   50   3 I        A U E            NX
+  38         s     ( 4)  U              OPEN
+     (ALT,I4V,I4L,R4V)
+  39         fI    ( 2)  UXE            ORF
+     (I4E,I4E)
+  40    2   1 R        C   E            RD
+  41    2   9 I        C U E            RDP
+  42    2   2 R        C   E            RDREW
+  43    2   5 R        C?? E            REW
+  44         s     ( 1)  U              REWIND
+     (I4L)
+  45         fI    ( 2)  UXE            RSHIFT
+     (I4E,I4E)
+  46    2   8 R        C   E            RSP
+  47         s     ( 2)  U              SKPREC
+     (I4A,I4E)
+  48   50   6 I        A?U E            SR1FIL
+  49    3   1 I        C U E            SYSBUF
+  50         S     ( 6) MU         69   TRANSP(IX,X,NX,FILEA,B,SR1FIL)
+  51          I         MU E            TYPEA
+  52         s     ( 4)  U              WRITE
+     (I4V,I4L,I4E,I4E)
+  53    2   3 R        C   E            WRT
+  54    2   4 R        C?? E            WRTREW
+  55   50   2 R    ( 1)A U E            X(1)
+  56         s           U              ZNTPKI
+**-- END OF SYMBOL TABLE

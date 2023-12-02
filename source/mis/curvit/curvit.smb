@@ -1,0 +1,71 @@
+**++ Symbol table for subprogram CURVIT in file mis/curvit.f90
+     produced by SPAG     8.01RF-40 at 14:47:20 on  2 Dec 2023
+   0         X             K             mis/curvit.f90,0000002,0000242
+   1         C     / 6/ ??         24   /NAMES/RD,RDREW,WRT,WRTREW,CLSREW,CLS
+   2         C     / 2/  U          8   /SYSTEM/SYSBUF,IOUTPT
+   3         C     / 2/  U         48   /XMSSG/UFM,UWM
+   4         s     ( 2)  U              CLOSE
+     (I4V,I4V)
+   5    1   6 I        C   E            CLS
+   6    1   5 I        C?? E            CLSREW
+   7         S     (13) MU        109   CURVIT(INDEP,NI,DEP,ND,IFILE,Z,IZ,LZ,MCLOSE,TOLER,MCSID,XSCALE,YSCALE)
+   8    7   3 R    ( 2)A?U E            DEP(2,1)
+   9          I        I?? E            EOR
+  10          R         MU E            FMAX
+  11          R         MU E            FMIN
+  12         s     ( 3)  U              GOPEN
+     (I4V,I4L,I4E)
+  13          I         MU E            I
+  14          I         MU E            IBUF
+  15          I         MU E            ICRQ
+  16          I         MU E            IDX
+  17    7   5 I        A?? E            IFILE
+  18          I         MU E            ILIST
+  19    7   1 R    ( 2)A?U E            INDEP(2,1)
+  20    2   2 I        C U E            IOUTPT
+  21          I         MU E            IPTS
+  22          I         ?U E            ISING
+  23          I    ( 1) M? E        2   ITEMP(2)
+  24          I         MU E            IXY
+  25    7   7 I    ( 1)AMU E            IZ(1)
+  26          I         MU E            J
+  27          I         MU E            JXY
+  28          I         MU E            JZ
+  29          I         MU E            K
+  30          I         MU E            K1
+  31          I         MU E            K2
+  32    7   8 I        A U E            LZ
+  33    7   9 I        A U E            MCLOSE
+  34    7  11 I        A U E            MCSID
+  35         s     ( 3)  U              MESAGE
+     (I4E,I4V,I4A)
+  36         II    ( 2)  U I            MIN0
+  37          I         MU E            N
+  38          I         MU E            NCLOSE
+  39    7   4 I        A?U E            ND
+  40    7   2 I        A?U E            NI
+  41          I         MU E            NLIST
+  42          I        I?? E            NOEOR
+  43          I         MU E            NXY
+  44         s     ( 1)  U              PAGE2
+     (I4E)
+  45    1   1 I        C   E            RD
+  46    1   2 I        C   E            RDREW
+  47         s     (12)  U              SSPLIN
+     (I4V,R4L,I4E,R4L,I4E,I4E,I4E,I4E,I4E,R4L,I4E,I4V)
+  48          I    ( 1)I?? E        2   SUBR(2)
+  49    2   1 I        C U E            SYSBUF
+  50          R         MU E            TOL
+  51    7  10 R        A U E            TOLER
+  52    3   1 C*23     C   E            UFM*23
+  53    3   2 C*25     C U E            UWM*25
+  54         s     ( 4)  U              WRITE
+     (I4V,I4E,I4E,I4V)
+  55    1   3 I        C   E            WRT
+  56    1   4 I        C   E            WRTREW
+  57          R         MU E            X
+  58    7  12 R        A U E            XSCALE
+  59          R         MU E            Y
+  60    7  13 R        A U E            YSCALE
+  61    7   6 R    ( 1)AMU E            Z(1)
+**-- END OF SYMBOL TABLE

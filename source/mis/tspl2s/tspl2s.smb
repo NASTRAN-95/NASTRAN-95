@@ -1,0 +1,17 @@
+**++ Symbol table for subprogram TSPL2S in file mis/tspl2s.f90
+     produced by SPAG     8.01RF-40 at 14:47:16 on  2 Dec 2023
+   0         X             K             mis/tspl2s.f90,0000002,0000050
+   1         C     / 2/  U          8   /SMA1IO/X,Y
+   2          I         MU E            I
+   3    4   1 R    ( 1)AMU E            TS7(60)
+   4         S     ( 1) MU         38   TSPL2S(TS7)
+   5    1   1 R        C U E            X
+   6          R         MU E            X2
+   7          R         MU E            X2Y
+   8          R         MU E            X3
+   9          R         MU E            XY
+  10          R         MU E            XY2
+  11    1   2 R        C U E            Y
+  12          R         MU E            Y2
+  13          R         MU E            Y3
+**-- END OF SYMBOL TABLE

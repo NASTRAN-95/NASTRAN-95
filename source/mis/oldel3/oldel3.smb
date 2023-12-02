@@ -1,0 +1,20 @@
+**++ Symbol table for subprogram OLDEL3 in file mis/oldel3.f90
+     produced by SPAG     8.01RF-40 at 14:47:19 on  2 Dec 2023
+   0         X             K             mis/oldel3.f90,0000002,0000025
+   1         s           U              EMGOLD
+   2         S                      1   OLDEL3
+   3         E                          TETRAD
+   4         E                          TETRAS
+   5         E                          TRAPRD
+   6         E                          TRAPRS
+   7         E                          TRIA1D
+   8         E                          TRIA1S
+   9         E                          TRIA2D
+  10         E                          TRIA2S
+  11         E                          TRIARD
+  12         E                          TRIARS
+  13         E                          TRPLTD
+  14         E                          TRPLTS
+  15         E                          WEDGED
+  16         E                          WEDGES
+**-- END OF SYMBOL TABLE

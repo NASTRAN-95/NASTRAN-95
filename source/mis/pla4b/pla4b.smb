@@ -1,0 +1,38 @@
+**++ Symbol table for subprogram PLA4B in file mis/pla4b.f90
+     produced by SPAG     8.01RF-40 at 14:47:07 on  2 Dec 2023
+   0         X             K             mis/pla4b.f90,0000002,0000073
+   1         C     /13/  U        596   /PLA42C/IDUM5,IGPCT,NGPCT,IPOINT,NPOINT,I6X6K,N6X6K,IDUM11,JMAX,FROWIC,LROWIC,NROWSC,IDUM
+   2         C     / 1/             4   /ZZZZZZ/Z
+   3          D    ( 1) MU E        1   DZ(1)
+   4    1  10 I        C U E            FROWIC
+   5          I         MU E            I
+   6          I         MU E            I1
+   7    1   6 I        C U E            I6X6K
+   8         II    ( 1)  U I            IABS
+   9    1  13 I    ( 1)C   E      121   IDUM(121)
+  10    1   8 I    ( 1)C   E       12   IDUM11(12)
+  11    1   1 I    ( 1)C   E        6   IDUM5(6)
+  12    1   2 I        C U E            IGPCT
+  13    1   4 I        C U E            IPOINT
+  14          I         MU E            ISAVE
+  15          I    ( 1)  U E        1   IZ(1)
+  16   33   2 I        A U E            J
+  17          I         MU E            J1
+  18          I         MU E            J2
+  19          I         MU E            JJ
+  20    1   9 I        C U E            JMAX
+  21          I         MU E            K
+  22          I         MU E            K1
+  23   33   1 D    ( 1)A U E            KE(36)
+  24          I         MU E            L
+  25          I         MU E            L1
+  26          I         MU E            LIM
+  27          I         MU E            LOW
+  28    1  11 I        C   E            LROWIC
+  29    1   7 I        C   E            N6X6K
+  30    1   3 I        C U E            NGPCT
+  31    1   5 I        C   E            NPOINT
+  32    1  12 I        C U E            NROWSC
+  33         S     ( 2)  U         35   PLA4B(KE,J)
+  34    2   1 R    ( 1)C   E        1   Z(1)
+**-- END OF SYMBOL TABLE

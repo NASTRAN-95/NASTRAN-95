@@ -1,0 +1,134 @@
+**++ Symbol table for subprogram XDPH in file mis/xdph.f90
+     produced by SPAG     8.01RF-40 at 14:46:52 on  2 Dec 2023
+   0         X             K             mis/xdph.f90,0000002,0000256
+   1         C     / 6/  U        164   /SYSTEM/IBUFSZ,OUTTAP,DUM,NBPC,NBPW,NCPW
+   2         C     / 5/ MU         24   /XDPL/DPD,DMXLG,DCULG,DDBN,DFNU
+   3         C     / 6/ ?U         28   /XFIAT/FIAT,FMXLG,FCULG,FILE,FDBN,FMAT
+   4         C     / 1/ M           8   /XFIST/FIST
+   5         C     / 4/  U        102   /XMSSG/UFM,UWM,UIM,SFM
+   6         C     / 1/  U          4   /XPFIST/NPFIST
+   7         C     / 8/          7708   /XSFA1/MD,SOS,COMM,XF1AT,FPUN,FCUM,FCUS,FKND
+   8         C     / 1/             4   /XXFIAT/EXFIAT
+   9         C     / 1/ ??          4   /ZZZZZZ/ENDSFA
+  10          I         ?? E            ALMSK
+  11         fI    ( 2)  UXE            ANDF
+     (I4V,I4V)
+  12          I            E            APNDMK
+  13         s     ( 2)  U              CLOSE
+     (I4V,I4E)
+  14    7   3 I    ( 1)C   E       20   COMM(20)
+  15         s     ( 5)  U              CPYFIL
+     (I4V,I4V,I4L,I4V,I4V)
+  16          I            E            CURSNO
+  17    2   3 I        CMU E            DCULG
+  18    2   4 I    ( 1)CMU E        2   DDBN(2)
+  19    2   5 I    ( 1)CMU E        1   DFNU(1)
+  20    2   2 I        C U E            DMXLG
+  21          I         MU E            DNAF
+  22    2   1 I    ( 1)C?U E        1   DPD(1)
+  23    1   3 I    ( 1)C   E       36   DUM(36)
+  24    9   1 I    ( 1)C?? E        1   ENDSFA(1)
+  25          I          U E            ENTN1
+  26          I            E            ENTN2
+  27          I            E            ENTN3
+  28          I          U E            ENTN4
+  29         s     ( 1)  U              EOF
+     (I4V)
+  30    8   1 I        C   E            EXFIAT
+  31    3   3 I        C   E            FCULG
+  32    7   6 I    ( 1)C   E        1   FCUM(1)
+  33    7   7 I    ( 1)C   E        1   FCUS(1)
+  34    3   5 I    ( 1)C?U E        2   FDBN(2)
+  35          I    ( 1)    E        1   FEQU(1)
+  36    3   1 I    ( 1)C   E        1   FIAT(1)
+  37    3   4 I    ( 1)C   E        1   FILE(1)
+  38    4   1 I    ( 1)CM  E        2   FIST(2)
+  39    7   8 I    ( 1)C   E        1   FKND(1)
+  40          I         MU E            FLAG
+  41    3   6 I    ( 1)C   E        1   FMAT(1)
+  42    3   2 I        C   E            FMXLG
+  43          I         MU E            FN
+  44          I    ( 1)    E        1   FNTU(1)
+  45          I         M  E            FNX
+  46          I    ( 1)    E        1   FON(1)
+  47          I    ( 1)    E        1   FORD(1)
+  48    7   5 I    ( 1)C   E        1   FPUN(1)
+  49          I          U E            FUNLG
+  50          I         MU E            I
+  51    1   1 I        C U E            IBUFSZ
+  52          I         MU E            II
+  53          I         MU E            IPRT1
+  54          I         MU E            IPRT2
+  55          I         MU E            IPRT3
+  56          I         MU E            ISAV
+  57          I         MU E            ISTART
+  58          I         MU E            IWKBUF
+  59          I         MU E            IX
+  60          I         MU E            J
+  61          I         MU E            K
+  62          I         MU E            KK
+  63         fI    ( 1)  U E            KORSZ
+     (I4A)
+  64          I         ?? E            LMSK
+  65          I         MU E            LMT
+  66          I         MU E            LMT2
+  67          I         MU E            LMT3
+  68          I         ?? E            LXMSK
+  69          I         MU E            M
+  70    7   1 I    ( 1)C   E      401   MD(401)
+  71         s     ( 3)  U              MESAGE
+     (I4E,I4E,I4A)
+  72          I    ( 1)    E        1   MINP(1)
+  73          I    ( 1)    E        1   MLSN(1)
+  74          I    ( 1)    E        1   MOUT(1)
+  75          I    ( 1)    E        1   MSCR(1)
+  76    1   4 I        C   E            NBPC
+  77    1   5 I        C U E            NBPW
+  78          I         MU E            NCNT
+  79          I        I U E            NCONST
+  80    1   6 I        C   E            NCPW
+  81          I         MU E            NCULG
+  82          I    ( 1) MU E        1   NDPD(1)
+  83          I    ( 1)I?? E        2   NDPH(2)
+  84          I         MU E            NFILE
+  85          I         MU E            NGCNT
+  86    6   1 I        C U E            NPFIST
+  87          I        I?U E            NPOL
+  88         s     ( 4)  U              OPEN
+     (ALT,I4V,I4A,I4E)
+  89         fI    ( 2)  UXE            ORF
+     (I4E,I4V)
+  90    1   2 I        C U E            OUTTAP
+  91         s           U              PAGE1
+  92          I        I?? E            POOL
+  93          I         ?? E            RMSK
+  94         fI    ( 2)  UXE            RSHIFT
+     (I4E,I4E)
+  95          I         ?? E            RXMSK
+  96          I         ?? E            S
+  97          I    ( 1)    E        1   SAL(1)
+  98          I            E            SCORNT
+  99          I        I U E            SCRN1
+ 100          I        I?? E            SCRN2
+ 101          I    ( 1)    E        1   SDBN(1)
+ 102    5   4 C*25     C U E            SFM*25
+ 103          I            E            SLGN
+ 104          I    ( 1)    E        1   SNTU(1)
+ 105          I    ( 1)    E        1   SORD(1)
+ 106    7   2 I    ( 1)C   E     1501   SOS(1501)
+ 107         s     ( 2)  U              SSWTCH
+     (I4E,I4V)
+ 108          I            E            TAPMSK
+ 109          I         ?? E            THCRMK
+ 110          I         MU E            TRIAL
+ 111    5   1 C*23     C   E            UFM*23
+ 112    5   3 C*29     C   E            UIM*29
+ 113    5   2 C*25     C   E            UWM*25
+ 114         s     ( 4)  U              WRITE
+     (I4V,I4A,I4E,I4E)
+ 115         S                    161   XDPH
+ 116    7   4 I    ( 1)C   E        1   XF1AT(1)
+ 117         s     ( 1)  U              XFILPS
+     (I4V)
+ 118          I            E            ZAP
+**-- END OF SYMBOL TABLE

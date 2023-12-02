@@ -1,0 +1,363 @@
+!*==pkqdpl.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
+ 
+SUBROUTINE pkqdpl
+USE C_CONDAS
+USE C_MATIN
+USE C_MATOUT
+USE C_PLA42C
+USE C_PLA42D
+USE C_PLA4ES
+USE ISO_FORTRAN_ENV                 
+   IMPLICIT NONE
+!
+! Local variable declarations rewritten by SPAG
+!
+   REAL(REAL64) , DIMENSION(1) :: a
+   REAL :: degra
+   INTEGER :: i , j , k
+   INTEGER , DIMENSION(12) , SAVE :: m
+   INTEGER , DIMENSION(100) :: necpt
+   REAL(REAL64) , DIMENSION(8) :: requiv
+   REAL , DIMENSION(3) :: vq1 , vq2 , vq3 , vq4
+   EXTERNAL gmmatd , mesage , pktrbs , pla4b , transd
+!
+! End of declarations rewritten by SPAG
+!
+!
+!     THIS ROUTINE CALCULATES THE STIFFNESS MATRIX FOR QUAD-PLATES IN
+!     PLA4
+!
+!     THIS ROUTINE GENERATES THE FOLLOWING
+!
+!     FOUR 6X6 STIFFNESS MATRICES WITH RESPECT TO ONE PIVOT POINT OF A
+!     QUADRILATERAL PLATE ELEMENT.
+!
+!     REF.  FMMS-44   JULY  18, 1967   TRI.BENDING ELEMENT STIFF.
+!           FMMS-48   AUGUST 1, 1967   QUAD. BENDING ELEMENT STIFF.
+!
+!     CALLS FROM THIS ROUTINE ARE MADE TO
+!           PKTRBS - BASIC BENDING TRIANGLE
+!           TRANSD - SUPPLIES 3X3 TRANSFORMATIONS
+!           PLA4B  - INSERTION ROUTINE
+!           GMMATD - GENERAL MATRIX MULITPLY AND TRANSPOSE ROUTINE
+!           MESAGE - ERROR MESSAGE WRITER
+!
+!
+!     ECPT LISTS AS OF AUGUST 4, 1967
+!
+!                 DEFINITION                   DEFINITION
+!       ECPT      BSC.BEND.TRI.-----TYPE       QUAD.PLT.---------TYPE
+!     ==================================================================
+!     ECPT( 1) = ELEMENT ID         INTEGER ** ELEMENT           INTEGER
+!     ECPT( 2) = GRID PT. A         INTEGER ** GRID PT.A         INTEGER
+!     ECPT( 3) = GRID PT. B         INTEGER ** GRID PT.B         INTEGER
+!     ECPT( 4) = GRID PT. C         INTEGER ** GRID PT.C         INTEGER
+!     ECPT( 5) = THETA              REAL    ** GRID PT.D         INTEGER
+!     ECPT( 6) = MAT ID 1           INTEGER ** THETA             REAL
+!     ECPT( 7) = I  MOM. OF INERT.  REAL    ** MAT ID 1          INTEGER
+!     ECPT( 8) = MAT ID 2           INTEGER ** I  MOM. OF INERT. REAL
+!     ECPT( 9) = T2                 REAL    ** MAT ID 2          INTEGER
+!     ECPT(10) = NON-STRUCT. MASS   REAL    ** T2                REAL
+!     ECPT(11) = Z1                 REAL    ** NON-STRUCT. MASS  REAL
+!     ECPT(12) = Z2                 REAL    ** Z1                REAL
+!     ECPT(13) = COORD. SYS. ID 1   INTEGER ** Z2                REAL
+!     ECPT(14) = X1                 REAL    ** COORD. SYS. ID 1  INTEGER
+!     ECPT(15) = Y1                 REAL    ** X1                REAL
+!     ECPT(16) = Z1                 REAL    ** Y1                REAL
+!     ECPT(17) = COORD. SYS. ID 2   INTEGER ** Z1                REAL
+!     ECPT(18) = X2                 REAL    ** COORD. SYS. ID 2  INTEGER
+!     ECPT(19) = Y2                 REAL    ** X2                REAL
+!     ECPT(20) = Z2                 REAL    ** Y2                REAL
+!     ECPT(21) = COORD. SYS. ID 3   INTEGER ** Z2                REAL
+!     ECPT(22) = X3                 REAL    ** COORD. SYS. ID 3  INTEGER
+!     ECPT(23) = Y3                 REAL    ** X3                REAL
+!     ECPT(24) = Z3                 REAL    ** Y3                REAL
+!     ECPT(25) = ELEMENT TEMP       REAL    ** Z3                REAL
+!     ECPT(26) =                            ** COORD. SYS. ID 4  INTEGER
+!     ECPT(27) =                            ** X4                REAL
+!     ECPT(28) =                            ** Y4                REAL
+!     ECPT(29) =                            ** Z4                REAL
+!     ECPT(30) =                            ** ELEMENT TEMP      REAL
+!
+   !>>>>EQUIVALENCE (Consts(4),Degra) , (Necpt(1),Ecpt(1)) , (R(1,1),Requiv(1)) , (Vq1(1),Ecpt(15)) , (Vq2(1),Ecpt(19)) ,                &
+!>>>>    & (Vq3(1),Ecpt(23)) , (Vq4(1),Ecpt(27)) , (A(1),Kout(1))
+   DATA m/2 , 4 , 1 , 3 , 1 , 2 , 4 , 2 , 3 , 1 , 3 , 4/
+!
+!     DETERMINE PIVOT POINT NUMBER
+!
+   DO i = 1 , 4
+      IF ( Npvt==necpt(i+1) ) THEN
+         Npivot = i
+         CALL spag_block_1
+         RETURN
+      ENDIF
+   ENDDO
+!
+!     FALL THRU ABOVE LOOP IMPLIES ERROR CONDITION
+!
+   CALL mesage(-30,34,Ecpt(1))
+   CALL spag_block_1
+CONTAINS
+   SUBROUTINE spag_block_1
+!
+      Theta = Ecpt(6)*degra
+      Sinang = sin(Theta)
+      Cosang = cos(Theta)
+!
+      IF ( Npivot<=2 ) THEN
+         Jnot = Npivot + 2
+      ELSE
+         Jnot = Npivot - 2
+      ENDIF
+!
+!     FORMATION OF THE R-MATRIX CONTAINING COORDINATES OF THE
+!     SUB TRIANGLES.  (2X4) FOR QUADRILATERAL PLATE...
+!     FORMATION ALSO OF THE I,J, AND K VECTORS USED IN THE E-MATRIX.
+!
+!     ZERO OUT R-MATRIX
+!
+      DO i = 1 , 8
+         requiv(i) = 0.0D0
+      ENDDO
+!
+!     SHIFT ECPT UP TO MATCH PKTRBS FOR CERTAIN VARIABLES.
+!
+      DO i = 6 , 12
+         Ecpt(i) = Ecpt(i+1)
+      ENDDO
+!
+      DO i = 1 , 3
+         D1(i) = dble(vq3(i)) - dble(vq1(i))
+         D2(i) = dble(vq4(i)) - dble(vq2(i))
+         A1(i) = dble(vq2(i)) - dble(vq1(i))
+      ENDDO
+!
+!     NON-NORMALIZED K-VECTOR = D1 CROSS D2
+!
+      Kvect(1) = D1(2)*D2(3) - D2(2)*D1(3)
+      Kvect(2) = D1(3)*D2(1) - D2(3)*D1(1)
+      Kvect(3) = D1(1)*D2(2) - D2(1)*D1(2)
+!
+!     NORMALIZE K-VECTOR
+!
+      Temp = dsqrt(Kvect(1)**2+Kvect(2)**2+Kvect(3)**2)
+      IF ( Temp/=0.0D0 ) THEN
+         DO i = 1 , 3
+            Kvect(i) = Kvect(i)/Temp
+         ENDDO
+!
+!     COMPUTE H = (A1 DOT KVECT)/2
+!
+         Temp = (A1(1)*Kvect(1)+A1(2)*Kvect(2)+A1(3)*Kvect(3))/2.0D0
+!
+!     I-VECTOR =(A1) - H*(KVECT)    NON-NORMALIZED
+!
+         DO i = 1 , 3
+            Ivect(i) = A1(i) - Temp*Kvect(i)
+         ENDDO
+!
+!     NORMALIZE I-VECTOR
+!
+         Temp = dsqrt(Ivect(1)**2+Ivect(2)**2+Ivect(3)**2)
+         IF ( Temp/=0.0D0 ) THEN
+            DO i = 1 , 3
+               Ivect(i) = Ivect(i)/Temp
+            ENDDO
+!
+!     J-VECTOR = K CROSS I, AND X3 CALCULATION
+!
+            Jvect(1) = Kvect(2)*Ivect(3) - Ivect(2)*Kvect(3)
+            Jvect(2) = Kvect(3)*Ivect(1) - Ivect(3)*Kvect(1)
+            Jvect(3) = Kvect(1)*Ivect(2) - Ivect(1)*Kvect(2)
+!
+!     NORMALIZE J VECTOR TO MAKE SURE
+!
+            Temp = dsqrt(Jvect(1)**2+Jvect(2)**2+Jvect(3)**2)
+            IF ( Temp/=0.0D0 ) THEN
+               DO i = 1 , 3
+                  Jvect(i) = Jvect(i)/Temp
+               ENDDO
+!
+!     X3 GOES INTO R(1,3) = D1 DOT IVECT
+!
+               R(1,3) = D1(1)*Ivect(1) + D1(2)*Ivect(2) + D1(3)*Ivect(3)
+!
+!     X2 GOES INTO R(1,2) AND Y3 GOES INTO R(2,3)
+!
+               R(1,2) = A1(1)*Ivect(1) + A1(2)*Ivect(2) + A1(3)*Ivect(3)
+               R(2,3) = D1(1)*Jvect(1) + D1(2)*Jvect(2) + D1(3)*Jvect(3)
+!
+!     X4 GOES INTO R(1,4) AND Y4 GOES INTO R(2,4)
+!
+               R(1,4) = D2(1)*Ivect(1) + D2(2)*Ivect(2) + D2(3)*Ivect(3) + R(1,2)
+               R(2,4) = D2(1)*Jvect(1) + D2(2)*Jvect(2) + D2(3)*Jvect(3)
+!
+!     CHECK OF 4 POINTS FOR ANGLE GREATER THAN OR EQUAL TO 180 DEGREES.
+!
+               IF ( R(2,3)>0.0D0 .AND. R(2,4)>0.0D0 ) THEN
+                  Temp = R(1,2) - (R(1,2)-R(1,3))*R(2,4)/R(2,3)
+                  IF ( R(1,4)<Temp ) THEN
+                     Temp = R(2,3)*R(1,4)/R(2,4)
+                     IF ( R(1,3)>Temp ) THEN
+!
+! 140 AT 140 THE COORDINATES OF THE PLATE IN THE ELEMENT
+!     SYSTEM ARE STORED IN THE R-MATRIX WHERE THE COLUMN DENOTES THE
+!     POINT AND THE ROW DENOTES THE X OR Y COORDINATE FOR ROW 1 OR
+!     ROW 2 RESPECTIVELY.
+!
+!
+!     SET UP THE M-MATRIX FOR MAPPING TRIANGLES, IN DATA STATEMENT.
+!
+!
+!     COMPUTE SUB-TRIANGLE COORDINATES
+!
+!     ZERO OUT KSUM MATRICES
+!
+                        DO i = 1 , 36
+                           Ksum(i) = 0.0D0
+                        ENDDO
+!
+                        DO j = 1 , 4
+                           IF ( j/=Jnot ) THEN
+                              Km = 3*j - 3
+                              Subsca = m(Km+1)
+                              Subscb = m(Km+2)
+                              Subscc = m(Km+3)
+!
+                              DO i = 1 , 2
+                                 V(i) = R(i,Subscb) - R(i,Subsca)
+                                 Vv(i) = R(i,Subscc) - R(i,Subsca)
+                              ENDDO
+                              Xsubb = dsqrt(V(1)**2+V(2)**2)
+                              U1 = V(1)/Xsubb
+                              U2 = V(2)/Xsubb
+                              Xsubc = U1*Vv(1) + U2*Vv(2)
+                              Ysubc = U1*Vv(2) - U2*Vv(1)
+!
+                              Sinth = Sinang*U1 - Cosang*U2
+                              Costh = Cosang*U1 + Sinang*U2
+                              IF ( abs(Sinth)<1.0E-06 ) Sinth = 0.0E0
+!
+!     AT THIS POINT, XSUBB, XSUBC, YSUBC ARE AT HAND FOR
+!     TRIANGLE -J-
+!
+                              CALL pktrbs(1)
+!                         U
+!     NOW HAVE AT HAND  K    I,J, =1,2,3.   9-3X3 MATRICES STORED AT
+!                        IJ                 A(1) THROUGH A(81).
+!
+!     MAP THE 3 3X3-S FOR THE PIVOT ROW INTO THE SUMMATION ARRAYS...
+!
+!     SET UP OF T-MATRIX
+!
+                              T(1) = 1.0D0
+                              T(2) = 0.0D0
+                              T(3) = 0.0D0
+                              T(4) = 0.0D0
+                              T(5) = U1
+                              T(6) = U2
+                              T(7) = 0.0D0
+                              T(8) = -U2
+                              T(9) = U1
+!
+!     FIND WHICH POINT OF THE SUBTRIANGLE IS ALSO THE PIVOT OF THE
+!     QUADRILATERAL
+!
+                              SPAG_Loop_2_1: DO i = 1 , 3
+                                 Npoint = Km + i
+                                 IF ( m(Npoint)==Npivot ) THEN
+                                    Nbegin = 27*i - 27
+                                    EXIT SPAG_Loop_2_1
+                                 ENDIF
+                              ENDDO SPAG_Loop_2_1
+!
+                              DO i = 1 , 3
+                                 Npoint = Nbegin + 9*i - 8
+                                 CALL gmmatd(T,3,3,1,a(Npoint),3,3,0,Temp9)
+                                 CALL gmmatd(Temp9,3,3,0,T,3,3,0,Prod9)
+!
+!     ADD THIS PRODUCT IN NOW.
+!
+                                 Npoint = Km + i
+                                 Npoint = 9*m(Npoint) - 9
+                                 DO k = 1 , 9
+                                    Npoint = Npoint + 1
+                                    Ksum(Npoint) = Ksum(Npoint) + Prod9(k)/2.0D0
+                                 ENDDO
+                              ENDDO
+                           ENDIF
+!
+                        ENDDO
+!
+!     FILL E-MATRIX
+!
+                        DO i = 1 , 18
+                           E(i) = 0.0D0
+                        ENDDO
+                        E(1) = Kvect(1)
+                        E(4) = Kvect(2)
+                        E(7) = Kvect(3)
+                        E(11) = Ivect(1)
+                        E(14) = Ivect(2)
+                        E(17) = Ivect(3)
+                        E(12) = Jvect(1)
+                        E(15) = Jvect(2)
+                        E(18) = Jvect(3)
+!
+!              T
+!     FORM   T   E      STORE IN TITE-MATRIX (6X3)
+!             I
+!
+                        IF ( necpt(4*Npivot+10)==0 ) THEN
+!
+                           DO k = 1 , 18
+                              Tite(k) = E(k)
+                           ENDDO
+                        ELSE
+                           CALL transd(necpt(4*Npivot+10),T)
+                           CALL gmmatd(T,3,3,1,E(1),3,3,0,Tite(1))
+                           CALL gmmatd(T,3,3,1,E(10),3,3,0,Tite(10))
+                        ENDIF
+!
+                        DO j = 1 , 4
+!
+!     TRANSFORMATIONS AND INSERTION
+!
+                           IF ( necpt(4*j+10)==0 ) THEN
+                              DO k = 1 , 18
+                                 Tjte(k) = E(k)
+                              ENDDO
+                           ELSE
+                              CALL transd(necpt(4*j+10),T)
+                              CALL gmmatd(T,3,3,1,E(1),3,3,0,Tjte(1))
+                              CALL gmmatd(T,3,3,1,E(10),3,3,0,Tjte(10))
+                           ENDIF
+                           CALL gmmatd(Ksum(9*j-8),3,3,0,Tjte,6,3,1,Temp18(1))
+                           CALL gmmatd(Tite(1),6,3,0,Temp18(1),3,6,0,Kout(1))
+                           CALL pla4b(Kout(1),necpt(j+1))
+!
+                        ENDDO
+                        RETURN
+                     ENDIF
+                  ENDIF
+               ENDIF
+               CALL mesage(30,35,Ecpt(1))
+!
+!     SET FLAG FOR FATAL ERROR WHILE ALLOWING ERROR MESSAGES TO
+!     ACCUMULATE
+!
+               Nogo = 1
+               RETURN
+            ENDIF
+         ENDIF
+      ENDIF
+!
+      CALL mesage(30,26,Ecpt(1))
+!
+!     SET FLAG FOR FATAL ERROR WHILE ALLOWING ERROR MESSAGES TO
+!     ACCUMULATE
+!
+      Nogo = 1
+   END SUBROUTINE spag_block_1
+END SUBROUTINE pkqdpl

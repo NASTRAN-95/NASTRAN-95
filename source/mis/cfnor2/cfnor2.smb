@@ -1,0 +1,29 @@
+**++ Symbol table for subprogram CFNOR2 in file mis/cfnor2.f90
+     produced by SPAG     8.01RF-40 at 14:46:37 on  2 Dec 2023
+   0         X             K             mis/cfnor2.f90,0000002,0000120
+   1         C     / 2/  U         88   /FEERXC/DUMXC,QPR
+   2         C     / 1/           260   /SYSTEM/KSYSTM
+   3         C     / 2/  U         48   /XMSSG/UFM,UWM
+   4         S     ( 5) MU         52   CFNOR2(RIGHT,LEFT,SIZE2,OPTION,RI)
+   5         ID    ( 2)  U I            DATAN2
+   6         ID    ( 1)  U I            DCOS
+   7         ID    ( 1)  U I            DSIN
+   8         ID    ( 1)  U I            DSQRT
+   9    1   1 R    ( 1)C   E       21   DUMXC(21)
+  10          I         MU E            I
+  11          I         MU E            J
+  12    2   1 I    ( 1)C   E       65   KSYSTM(65)
+  13    4   2 D    ( 1)AMU E            LEFT(1)
+  14          I          U E            NOUT
+  15    4   4 I        A U E            OPTION
+  16    1   2 L        C U E            QPR
+  17    4   5 D    ( 1)AMU E            RI(2)
+  18    4   1 D    ( 1)AMU E            RIGHT(1)
+  19          D    ( 1) MU E        2   RJ(2)
+  20          D         MU E            RSQRT
+  21    4   3 I        A U E            SIZE2
+  22          L         MU E            SKIP
+  23          D         MU E            THETA2
+  24    3   1 C*23     C   E            UFM*23
+  25    3   2 C*25     C U E            UWM*25
+**-- END OF SYMBOL TABLE

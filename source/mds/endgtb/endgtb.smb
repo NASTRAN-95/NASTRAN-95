@@ -1,0 +1,20 @@
+**++ Symbol table for subprogram ENDGTB in file mds/endgtb.f90
+     produced by SPAG     8.01RF-40 at 14:46:34 on  2 Dec 2023
+   0         X             K             mds/endgtb.f90,0000002,0000015
+   1    5   1 I    ( 1)A U E            BLOCK(15)
+   2         s           U              DSGEFL
+   3         s     ( 1)  U              DSMSG
+     (I4E)
+   4         s           U              DSSDCB
+   5         S     ( 1)  U          7   ENDGTB(BLOCK)
+   6         I?    ( 2)  U I            IAND
+   7         f?    ( 1)  U I            IBASE
+     (?*V)
+   8          I         MU E            ID
+   9          ?          U I            IDSST
+  10          ?         MU I            INDCBP
+  11          I         MU E            LEN
+  12          ?          U I            MASKH2
+  13          ?          U I            MASKQ1
+  14          ?         M  I            NAME
+**-- END OF SYMBOL TABLE

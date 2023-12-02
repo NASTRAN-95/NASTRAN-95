@@ -1,0 +1,104 @@
+**++ Symbol table for subprogram VARIAN in file mis/varian.f90
+     produced by SPAG     8.01RF-40 at 14:46:52 on  2 Dec 2023
+   0         X             K             mis/varian.f90,0000002,0000367
+   1         C     / 2/  U         12   /BLANK/IOP,DELTA
+   2         C     / 3/ MU        372   /SYSTEM/SYSBUF,SKIP,JRUN
+   3         C     / 1/             4   /ZZZZZZ/RZ
+   4         s     ( 2)  U              CLOSE
+     (I4V,I4E)
+   5    1   2 R        C U E            DELTA
+   6          I        I U E            DER
+   7          I    ( 1)I U E        3   DERL(3)
+   8         s     ( 1)  U              EOF
+     (I4V)
+   9          I         MU E            FILE
+  10         s     ( 2)  U              FNAME
+     (I4L,I4A)
+  11         s     ( 2)  U              FWDREC
+     (ALT,I4V)
+  12         s     ( 3)  U              GOPEN
+     (I4V,I4L,I4E)
+  13          I         MU E            I
+  14          I        I U E            IBLNK
+  15          I         MU E            IBUF1
+  16          I         MU E            IBUF2
+  17          I         MU E            IBUF3
+  18          I         MU E            ID1
+  19          I         MU E            ID2
+  20          I         M? E            IEOR
+  21          I         ?U E            IFLAG
+  22          I         MU E            IFOUND
+  23          I         MU E            IN1
+  24          I        I?U E            INPT
+  25         s     ( 3)  U              INT2A8
+     (ALT,I4V,I4A)
+  26          I         MU E            IO1
+  27    1   1 I    ( 1)C U E        2   IOP(2)
+  28          I         M? E            IP1
+  29          I         ?? E            IREAD
+  30          I         MU E            IRET
+  31          I         MU E            IRTN
+  32          I         MU E            IRTN1
+  33          I         MU E            IRTN2
+  34          I         MU E            IRTN3
+  35          I        I?? E            IT1
+  36          I        I   E            IT2
+  37          I        I   E            IT3
+  38          I        I   E            IT4
+  39          I        I   E            IT5
+  40          I    ( 1) ?U E        5   ITF(5)
+  41          I    ( 1) ?U E        5   ITO(5)
+  42          I         MU E            ITYPE
+  43          I    ( 1) MU E      260   IZ(260)
+  44          I         MU E            J
+  45    2   3 I        CMU E            JRUN
+  46          I         MU E            K
+  47         fI    ( 1)  U E            KORSZ
+     (R4L)
+  48         s     ( 4)  U              LOCATE
+     (ALT,I4L,I4A,I4V)
+  49          I         MU E            M
+  50          I    ( 1)IMU E        7   MCB(7)
+  51         s     ( 3)  U              MESAGE
+     (I4E,I4E,I4A)
+  52          I    ( 1)I?? E        2   NAME(2)
+  53          I         MU E            NJRUN
+  54          I         MU E            NREC
+  55         fI    ( 1)  U E            NUMTYP
+     (I4L)
+  56          I         M  E            NW
+  57          I         MU E            NZ
+  58         s     ( 4)  U              OPEN
+     (ALT,I4V,I4L,I4E)
+  59          I        I   E            OT1
+  60          I        I   E            OT2
+  61          I        I   E            OT3
+  62          I        I   E            OT4
+  63          I        I   E            OT5
+  64         s     ( 3)  U              PRELOC
+     (ALT,I4L,I4V)
+  65         s     ( 1)  U              RDTRL
+     (I4A)
+  66         s     ( 7)  U              READ
+     (ALT,ALT,I4V,I4L,I4E,I4E,I4V)
+  67    3   1 R    ( 1)C   E        1   RZ(1)
+  68          I        I U E            SCR1
+  69          I        I U E            SCR2
+  70    2   2 R    ( 1)C   E       91   SKIP(91)
+  71         s     ( 2)  U              SKPFIL
+     (I4V,I4E)
+  72         I?    ( 1)  U I            SQRT
+  73    2   1 I        C U E            SYSBUF
+  74         fL    ( 1)  U E            TAPBIT
+     (I4V)
+  75          I        I U E            VAR
+  76          I    ( 1)I?? E        2   VARAN(2)
+  77         S                    254   VARIAN
+  78          I    ( 1)I U E        3   VARL(3)
+  79         s     ( 4)  U              WRITE
+     (I4V,I4E,I4E,I4E)
+     (   ,I4A,   ,   )
+  80         s     ( 1)  U              WRTTRL
+     (I4A)
+  81          R    ( 1) MU E      200   Z(200)
+**-- END OF SYMBOL TABLE

@@ -1,0 +1,28 @@
+**++ Symbol table for subprogram SCE1 in file mis/sce1.f90
+     produced by SPAG     8.01RF-40 at 14:47:09 on  2 Dec 2023
+   0         X             K             mis/sce1.f90,0000002,0000022
+   1         C     / 3/            24   /PATX/N,N3,NN
+   2          I        I?? E            BFF
+   3          I        I?? E            BNN
+   4          I        I?? E            K4FF
+   5          I        I?? E            K4NN
+   6          I        I?? E            KFF
+   7          I        I?? E            KFS
+   8          I        I?? E            KNN
+   9          I        I?? E            KSS
+  10          I        I?? E            MFF
+  11          I        I?? E            MNN
+  12         s     ( 5)  U              MPART
+     (I4V,I4V,I4E,I4E,I4E)
+  13    1   1 I    ( 1)C   E        2   N(2)
+  14    1   2 I        C   E            N3
+  15    1   3 I    ( 1)C   E        3   NN(3)
+  16          I        I?? E            PVECT
+  17         S                      5   SCE1
+  18          I        I?? E            UF
+  19          I        I?? E            UN
+  20         s     ( 5)  U              UPART
+     (I4V,I4V,I4V,I4V,I4V)
+  21          I        I?? E            US
+  22          I        I?? E            USET
+**-- END OF SYMBOL TABLE

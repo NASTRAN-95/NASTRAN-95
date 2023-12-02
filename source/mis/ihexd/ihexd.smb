@@ -1,0 +1,186 @@
+**++ Symbol table for subprogram IHEXD in file mis/ihexd.f90
+     produced by SPAG     7.61RG-40 at 01:00:00 on 21 Mar 2022
+   0         X             K             mis/ihexd.f90,0000002,0001478
+   1         C     / 3/  U         72   /BLANK/SKIP16,VOLUME,SURFAC
+   2         C     / 4/ MU         20   /EMGDIC/SPAC,NGRIDS,SPAC1,IESTID
+   3         C     / 1/ MU        800   /EMGEST/EST
+   4         C     /10/ MU         84   /EMGPRM/IEXT,IZS,NZS,DUM,KGG1,MGG1,BGG1,IPREC,NOGO,HEAT1
+   5         C     / 2/  U         28   /HMTOUT/KHEAT,CP
+   6         C     / 3/ MU         16   /MATIN/MID,INFLAG,TEMP
+   7         C     / 1/  U        184   /MATISO/BUFM6
+   8         C     / 9/ MU        104   /MATOUT/E,G,NU,RHO,TALPHA,TREF,CDAMP,SPACE,MTDEP
+   9         C     / 4/  U         40   /SYSTEM/SYSBUF,OTPT,SYS1,MTEMP
+  10         C     / 1/  U         23   /XMSSG/UFM
+  11         C     / 1/ MU          4   /ZZZZZZ/RZ
+  12          R         MU E            ALFA
+  13          L         MU E            ANIS
+  14          I         MU E            BACK
+  15          R        I U E            BALFA
+  16          R        I U E            BAR
+  17          R        I U E            BBETA
+  18          R        I U E            BCD1
+  19          R    ( 1)I U E        3   BCD2(3)
+  20          I         MU E            BCORD
+  21          R         MU E            BETA
+  22    4   7 R        C   E            BGG1
+  23          I         MU E            BGPDT
+  24          R         MU E            BMAG
+  25    7   1 R    ( 1)C U E       46   BUFM6(46)
+  26          D    ( 2) MU E        9   C(3,3)
+  27    8   7 I        C   E            CDAMP
+  28          I         MU E            CID
+  29         I?    ( 1)  U I            COS
+  30    5   2 R        C U E            CP
+  31          R    ( 1)I U E        3   DALFA(3)
+  32          D    ( 1) M? E        6   DALPHA(6)
+  33          R    ( 1)I U E        2   DBETA(2)
+  34         ID    ( 1)  U I            DBLE
+  35          D         ?U E            DETJ
+  36          L         MU E            DIAG
+  37          I    ( 1) M? E       40   DICT(40)
+  38          R    ( 1)I U E        3   DMAXAR(3)
+  39          R         M  E            DSTLD
+  40          R        I U E            DTOR
+  41    4   4 R    ( 1)C   E       12   DUM(12)
+  42    8   1 R        C   E            E
+  43          D         MU E            E1
+  44          D         MU E            E2
+  45          D         MU E            E3
+  46          I         MU E            EDGE
+  47          I         ?U E            EID
+  48          I    ( 1)I U E        3   ELNO(3)
+  49         s     ( 7)  U              EMGOUT
+     (R8L,R8L,I4E,I4E,I4A,I4E,I4E)
+  50    3   1 R    ( 1)CMU E      200   EST(200)
+  51          R    ( 2) MU E       36   EVEC(3,12)
+  52          I    ( 1)I U E        3   EXCD(3)
+  53          I         MU E            FACE
+  54    8   2 R        C   E            G
+  55          D    ( 1)I U E        8   GAUSS(8)
+  56          D    ( 1) M? E       36   GMAT(36)
+  57         s     ( 9)  U              GMMATD
+     (R8A,I4E,I4E,I4E,R8A,I4E,I4E,I4E,R8A)
+  58          I         MU E            GPT
+  59          R    ( 1) MU E       32   GPTLD(32)
+  60          D    ( 1) MU E        4   H(4)
+  61          I         MU E            HEAT
+  62    4  10 L        C U E            HEAT1
+  63         s     ( 1)  U              HMAT
+     (I4V)
+  64          I         MU E            I
+  65          I    ( 1)  U E       46   IB(46)
+  66          I         M  E            ICODE
+  67          I         MU E            ICP
+  68          I         MU E            ID
+  69          I         M? E            IDON
+  70          I          U E            IDSTLD
+  71          I    ( 1) MU E        1   IEST(1)
+  72    2   4 I        C U E            IESTID
+  73    4   1 I        C   E            IEXT
+  74          I         MU E            IG
+  75          I         MU E            IGCS
+  76          I        I U E            IHEX
+  77         S     ( 1) ?U        917   IHEXD(TYPE)
+  78         s     (10)  U              IHEXSD
+     (I4V,R8L,R8L,R8A,R8V,I4V,R8L,R8L,R8L,R4L)
+  79          I         MU E            II
+  80          I         MU E            IJK
+  81          I         MU E            IJKL
+  82          I         MU E            IJL
+  83          I         MU E            IK
+  84          I         MU E            IL
+  85          I         MU E            IM
+  86          I         MU E            IN
+  87          I         MU E            INC
+  88    6   2 I        CM  E            INFLAG
+  89    4   8 I        C   E            IPREC
+  90          I         MU E            IRP
+  91          I         MU E            IT
+  92          I    ( 1)    E        1   IWORK(1)
+  93          I         MU E            IX
+  94          I         MU E            IZ
+  95    4   2 I        C U E            IZS
+  96          I         MU E            J
+  97          D    ( 2) ?? E        9   JACOB(3,3)
+  98          I    ( 1) MU E        1   JZ(1)
+  99          I         MU E            K
+ 100          I         MU E            KGG
+ 101    4   5 I        C U E            KGG1
+ 102    5   1 R    ( 1)C U E        6   KHEAT(6)
+ 103          I         MU E            L
+ 104          I         MU E            M
+ 105         s     ( 1)  U              MAT
+     (I4V)
+ 106          R         MU E            MAXAR
+ 107          I         MU E            MGG
+ 108    4   6 I        C U E            MGG1
+ 109    6   1 I        CMU E            MID
+ 110    8   9 L        C U E            MTDEP
+ 111    9   4 I        C   E            MTEMP
+ 112          I         MU E            MZ
+ 113          I         MU E            N
+ 114          I    ( 1) MU E        8   NC(8)
+ 115          I         MU E            ND
+ 116          I        I U E            NERR1
+ 117          I        I U E            NERR2
+ 118          I         MU E            NGG
+ 119          I         MU E            NGP
+ 120    2   2 I        CM  E            NGRIDS
+ 121          I         MU E            NIP
+ 122          I         MU E            NK
+ 123          I         MU E            NM
+ 124          L         MU E            NOCSTM
+ 125    4   9 L        CMU E            NOGO
+ 126    8   3 R        C   E            NU
+ 127          I         MU E            NZ
+ 128    4   3 I        C U E            NZS
+ 129    9   2 I        C U E            OTPT
+ 130          D    ( 2) MU E        9   PART(3,3)
+ 131          D         MU E            PRT1
+ 132          L         MU E            RECT
+ 133    8   4 R        CMU E            RHO
+ 134          I    ( 1)I U E        5   RVRS(5)
+ 135   11   1 R    ( 1)CMU E        1   RZ(1)
+ 136          D    ( 1) M? E        4   S(4)
+ 137          I        I?? E            SCR4
+ 138          D         MU E            SFACT
+ 139          D    ( 1) MU E        6   SIG(6)
+ 140          I    ( 1) MU E        1   SIL(1)
+ 141    1   1 R    ( 1)C   E       16   SKIP16(16)
+ 142          R         MU E            SMAG
+ 143    2   1 R    ( 1)C   E        2   SPAC(2)
+ 144    2   3 R        C   E            SPAC1
+ 145    8   8 R    ( 1)C   E       18   SPACE(18)
+ 146         I?    ( 1)  U I            SQRT
+ 147          D    ( 1) MU E       45   STORE(45)
+ 148          D    ( 1) MU E       18   STR(18)
+ 149    1   3 R        C U E            SURFAC
+ 150          D         MU E            SX
+ 151          D          U E            SXY
+ 152          D         MU E            SY
+ 153    9   3 R    ( 1)C   E        7   SYS1(7)
+ 154    9   1 R        C   E            SYSBUF
+ 155          D          U E            SYZ
+ 156          D         MU E            SZ
+ 157          D          U E            SZX
+ 158    8   5 R        C U E            TALPHA
+ 159          L         MU E            TDEP
+ 160    6   3 D        CMU E            TEMP
+ 161          D    ( 2) ?U E        9   TF(3,3)
+ 162          D    ( 2) MU E        9   TK(3,3)
+ 163          R         MU E            TMAG
+ 164         s     ( 2)  U              TRANSD
+     (R4L,R8A)
+ 165    8   6 R        C U E            TREF
+ 166          D         MU E            TVOL
+ 167          I    ( 1)I U E        9   TWINS(9)
+ 168   77   1 I        A?U E            TYPE
+ 169   10   1 C*23     C U E            UFM*23
+ 170          I         MU E            UGV
+ 171          R    ( 2) MU E        6   VN(3,2)
+ 172    1   2 R        C U E            VOLUME
+ 173          R    ( 1)    E       66   WORK(66)
+ 174         s     ( 4)  U              WRITE
+     (I4V,R4L,I4V,I4E)
+ 175          D    ( 1) MU E        1   Z(1)
+**-- END OF SYMBOL TABLE

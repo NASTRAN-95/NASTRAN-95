@@ -1,0 +1,18 @@
+**++ Symbol table for subprogram PERMUT in file mis/permut.f90
+     produced by SPAG     8.01RF-40 at 14:46:48 on  2 Dec 2023
+   0         X             K             mis/permut.f90,0000002,0000041
+   1          I         MU E            I
+   2          I         MU E            I1
+   3   14   1 I    ( 1)A U E            IA(1)
+   4          I    ( 1) MU E       32   IB(32)
+   5          I    ( 1) MU E       32   IC(32)
+   6   14   2 I    ( 1)AM  E            ID(10)
+   7          I         MU E            IS1
+   8   14   4 I        A U E            ISW
+   9          I         MU E            J
+  10          I         MU E            K
+  11          I         MU E            L
+  12   14   3 I        A U E            N
+  13          I         MU E            N1
+  14         S     ( 4) MU         34   PERMUT(IA,ID,N,ISW)
+**-- END OF SYMBOL TABLE

@@ -1,0 +1,91 @@
+**++ Symbol table for subprogram HDSOLV in file mis/hdsolv.f90
+     produced by SPAG     8.01RF-40 at 14:46:42 on  2 Dec 2023
+   0         X             K             mis/hdsolv.f90,0000002,0000136
+   1         C     /16/  U         64   /GO3/L0,L1,L00,L01,L2,L3,L4,L5,L6,L7,L8,L9,L10,L11,L12,L13
+   2         C     / 5/  U         20   /HDPTRS/XDUM,XCC,XASOLV,YASOLV,ZASOLV
+   3         C     / 1/ MU          4   /ZZZZZZ/RZ
+   4          R         MU E            A
+   5          R         MU E            A1
+   6          R         MU E            A3
+   7          R         MU E            A4
+   8         I?    ( 1)  U I            ABS
+   9          R         MU E            B
+  10          R         MU E            B1
+  11          R         MU E            B3
+  12          R         MU E            B4
+  13          R         MU E            C
+  14          R         MU E            C1
+  15          R         MU E            C3
+  16          R         MU E            C4
+  17   26   4 R    ( 1)A?U E            CCC(1)
+  18          R         MU E            D3
+  19          R         MU E            D4
+  20          R         MU E            E
+  21          R         MU E            ER
+  22          R         MU E            ERS
+  23          R         MU E            EXP
+  24          R         MU E            EXX
+  25          R         MU E            F
+  26         S     (15) MU         94   HDSOLV(IXR,J,XXX,CCC,II,NNO,NIT,X21,Y21,Z21,IIA,NC,ZM,ZMI,LZ)
+  27         s     (18)  U              HDSTAT
+     (I4V,I4V,I4V,R4A,R4A,R4A,I4A,I4A,R4V,R4V,R4V,I4V,R4L,R4L,R4L,R4A,R4A,I4V
+     )
+  28          I         MU E            I
+  29          I         MU E            IG
+  30   26   5 I        A U E            II
+  31   26  11 I    ( 1)A?? E            IIA(1)
+  32          I         MU E            IS
+  33          I    ( 1) MU E        2   IV(2)
+  34          I         MU E            IX
+  35   26   1 I        A?? E            IXR
+  36   26   2 I        A?U E            J
+  37          I         MU E            JB
+  38          I         MU E            JJ
+  39          I         MU E            JT
+  40          I         MU E            JV
+  41          I         MU E            JX
+  42          I         MU E            K
+  43          I         MU E            L
+  44    1   1 I        C   E            L0
+  45    1   3 I        C   E            L00
+  46    1   4 I        C   E            L01
+  47    1   2 I        C   E            L1
+  48    1  13 I        C   E            L10
+  49    1  14 I        C   E            L11
+  50    1  15 I        C U E            L12
+  51    1  16 I        C U E            L13
+  52    1   5 I        C U E            L2
+  53    1   6 I        C U E            L3
+  54    1   7 I        C U E            L4
+  55    1   8 I        C   E            L5
+  56    1   9 I        C   E            L6
+  57    1  10 I        C   E            L7
+  58    1  11 I        C   E            L8
+  59    1  12 I        C   E            L9
+  60   26  15 I        A?U E            LZ
+  61          I         MU E            M
+  62          I         MU E            MT
+  63   26  12 I        A   E            NC
+  64   26   7 I        A?U E            NIT
+  65          I         MU E            NK
+  66   26   6 I    ( 1)A U E            NNO(1)
+  67          I         MU E            NR
+  68    3   1 R    ( 1)CMU E        1   RZ(1)
+  69          R         MU E            S
+  70          R         MU E            S1
+  71          R         MU E            T
+  72   26   8 R    ( 1)A?? E            X21(1)
+  73    2   3 I        C U E            XASOLV
+  74    2   2 I        C U E            XCC
+  75    2   1 R        C   E            XDUM
+  76          R         MU E            XO
+  77   26   3 R    ( 1)AMU E            XXX(1)
+  78   26   9 R    ( 1)A?? E            Y21(1)
+  79    2   4 I        C U E            YASOLV
+  80          R         MU E            YO
+  81   26  10 R    ( 1)A?? E            Z21(1)
+  82    2   5 I        C U E            ZASOLV
+  83   26  13 R    ( 1)A U E            ZM(1)
+  84   26  14 R    ( 1)A U E            ZMI(1)
+  85          R         MU E            ZT
+**-- END OF SYMBOL TABLE

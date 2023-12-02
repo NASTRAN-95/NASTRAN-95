@@ -1,0 +1,37 @@
+**++ Symbol table for subprogram IFP4C in file mis/ifp4c.f90
+     produced by SPAG     8.01RF-40 at 14:47:00 on  2 Dec 2023
+   0         X             K             mis/ifp4c.f90,0000002,0000045
+   1         C     / 6/ ??         24   /NAMES/RD,RDREW,WRT,WRTREW,CLSREW,CLS
+   2   12   3 I    ( 1)A?? E            BUF1(10)
+   3   12   4 I    ( 1)A?? E            BUF2(10)
+   4    1   6 R        C   E            CLS
+   5    1   5 R        C   E            CLSREW
+   6   12   5 L        AM  E            EOF
+   7          I        I?? E            EOR
+   8   12   1 I        A?U E            FILE
+   9          I         ?? E            FLAG
+  10         s     ( 2)  U              FNAME
+     (I4V,I4A)
+  11          I         MU E            I
+  12         S     ( 5) MU         25   IFP4C(FILE,SCRT,BUF1,BUF2,EOF)
+  13         s     ( 3)  U              MESAGE
+     (I4E,I4V,I4A)
+  14          I    ( 1)I?? E        2   NAME(2)
+  15          I    ( 1) ?? E        2   NAME2(2)
+  16          I        I?? E            NOEOR
+  17         s     ( 4)  U              OPEN
+     (ALT,I4V,I4A,R4V)
+  18    1   1 R        C   E            RD
+  19    1   2 R        C?? E            RDREW
+  20         s     ( 1)  U              RDTRL
+     (I4A)
+  21         s     ( 7)  U              READ
+     (ALT,ALT,I4V,I4A,I4E,I4V,I4V)
+  22   12   2 I        A?? E            SCRT
+  23          I    ( 1) MU E        7   TRAIL(7)
+  24          I    ( 1) ?? E       10   WORK(10)
+  25         s     ( 4)  U              WRITE
+     (I4V,I4A,I4E,I4V)
+  26    1   3 R        C   E            WRT
+  27    1   4 R        C?? E            WRTREW
+**-- END OF SYMBOL TABLE

@@ -1,0 +1,16 @@
+**++ Symbol table for subprogram SAVPOS in file mds/savpos.f90
+     produced by SPAG     7.61RG-40 at 01:00:00 on 21 Mar 2022
+   0         X             K             mds/savpos.f90,0000002,0000012
+   1         C     / 1/  U        640   /DDIOSV/IFLPOS
+   2         s           U              DSGEFL
+   3         f?    ( 2)  U I            FCB
+     (I4E,?*V)
+   4   11   1 I        A U E            FILE
+   5          ?         ?U I            IFILEX
+   6    1   1 I    ( 2)C U E      160   IFLPOS(2,80)
+   7   11   2 I        AM  E            IPOS
+   8          ?          U I            IPRVOP
+   9          ?          U I            MULQ2
+  10          ?         M  I            NAME
+  11         S     ( 2) MU          4   SAVPOS(FILE,IPOS)
+**-- END OF SYMBOL TABLE

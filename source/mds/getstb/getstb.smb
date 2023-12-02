@@ -1,0 +1,33 @@
+**++ Symbol table for subprogram GETSTB in file mds/getstb.f90
+     produced by SPAG     8.01RF-40 at 14:46:34 on  2 Dec 2023
+   0         X             K             mds/getstb.f90,0000002,0000064
+   1    7   1 I    ( 1)AMU E            BLOCK(15)
+   2         s           U              DSGEFL
+   3         s     ( 1)  U              DSMSG
+     (I4E)
+   4         s     ( 1)  U              DSPRCL
+     (I4A)
+   5         s           U              DSRDPB
+   6         s           U              DSSDCB
+   7         S     ( 1) MU         53   GETSTB(BLOCK)
+   8         I?    ( 2)  U I            IAND
+   9         f?    ( 1)  U I            IBASE
+     (?*E)
+  10          I         MU E            ID
+  11          I         MU E            IDIV
+  12          ?          U I            IDSCH
+  13          ?          U I            IDSCT
+  14          ?          U I            IDSRT
+  15          ?          U I            IDSSD
+  16          ?          U I            IDSSE
+  17          ?          U I            IDSSH
+  18          ?          U I            IDSST
+  19          ?          U I            INDBAS
+  20          ?         MU I            INDCBP
+  21          ?         MU I            INDCLR
+  22          ?         MU I            IRETRN
+  23          ?          U I            MASKH2
+  24          ?          U I            MASKQ1
+  25         II    ( 2)  U I            MIN0
+  26          ?         M  I            NAME
+**-- END OF SYMBOL TABLE

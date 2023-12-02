@@ -1,0 +1,52 @@
+**++ Symbol table for subprogram DMPALT in file mis/dmpalt.f90
+     produced by SPAG     8.01RF-40 at 14:46:39 on  2 Dec 2023
+   0         X             K             mis/dmpalt.f90,0000003,0000257
+   1         C     / 3/ MU         12   /ALTRXX/ALTFIL,NEWALT,NOGO
+   2         C     / 2/  U          8   /SYSTEM/ISYSBF,NOUT
+   3         C     / 2/  U        464   /XRGDXX/IDUM,NMDMAP
+   4    1   1 I        C?? E            ALTFIL
+   5         S     ( 3) ?U        173   DMPALT(ISIZE,IOPEN,IPTAPE)
+   6          I    ( 1) MU E        2   IALTER(2)
+   7          I    ( 1) ?U E       18   ICARD(18)
+   8          I         MU E            ICHECK
+   9          I         MU E            ICOUNT
+  10          I         MU E            IDMAP1
+  11          I         MU E            IDMAP2
+  12    3   1 I    ( 1)C   E      115   IDUM(115)
+  13          I         ?U E            IEND
+  14          I         ?U E            IFLAG
+  15          I         MU E            IGOTO
+  16          I         MU E            INUMBR
+  17          I         MU E            IOCCUR
+  18          I         MU E            IOFFST
+  19    5   2 I    ( 1)A?U E            IOPEN(1)
+  20          I         MU E            IPOINT
+  21    5   3 I        A?? E            IPTAPE
+  22          I         M? E            IREQD
+  23    5   1 I        A?U E            ISIZE
+  24          I    ( 1)I?? E        2   ISUBR(2)
+  25    2   1 I        C   E            ISYSBF
+  26          I         MU E            ITEMP
+  27          I         MU E            J
+  28          I         MU E            JGOTO
+  29          I         MU E            LOGIC
+  30         s     ( 3)  U              MESAGE
+     (I4E,I4E,I4A)
+     (   ,   ,I4E)
+  31          I         MU E            N2DMAP
+  32    1   2 I        C U E            NEWALT
+  33    3   2 I        C U E            NMDMAP
+  34    1   3 I        CM  E            NOGO
+  35    2   2 I        C U E            NOUT
+  36          I         MU E            NWORDS
+  37          I        IMU E            OLDALT
+  38         s     ( 7)  U              READ
+     (ALT,ALT,I4V,I4A,I4E,I4E,I4V)
+  39         s     ( 1)  U              REWIND
+     (I4V)
+  40         s     ( 2)  U              SKPFIL
+     (I4V,I4E)
+  41         s     ( 4)  U              WRITE
+     (I4V,I4A,I4E,I4E)
+  42          I    ( 1)I?? E        2   XALTER(2)
+**-- END OF SYMBOL TABLE

@@ -1,0 +1,161 @@
+**++ Symbol table for subprogram CONTOR in file mis/contor.f90
+     produced by SPAG     8.01RF-40 at 14:47:04 on  2 Dec 2023
+   0         X             K             mis/contor.f90,0000002,0000398
+   1         C     / 9/ ??        112   /BLANK/SKIP,PARM,SKP4,EST,SKP8,STRESS,SORT,NEWOES,SCR1
+   2         C     / 3/  U         64   /DRWDAT/JSET,SKIP7,PEDGE
+   3         C     / 2/  U         12   /PLTDAT/SKIP3,XMIN
+   4         C     / 2/  U          8   /SYSTEM/BUFSIZ,NOUT
+   5         C     / 3/  U         77   /XMSSG/UFM,UWM,UIM
+   6         C     / 9/ MU        940   /XXPARM/SKIP2,NCNTR,CNTR,ICNTVL,SKIP6,ISET,SK18,COLOR,LAYER
+   7         I?    ( 1)  U I            ABS
+   8   20   9 I        A?U E            B1
+   9          I         MU E            B2
+  10          I         MU E            B3
+  11         s     ( 1)  U              BCKREC
+     (I4V)
+  12    4   1 I        C U E            BUFSIZ
+  13          R         M? E            CENTER
+  14          R         MU E            CENVAL
+  15         s     ( 2)  U              CLOSE
+     (I4V,I4E)
+  16    6   3 R    ( 1)CMU E       50   CNTR(50)
+  17    6   8 I        C U E            COLOR
+  18          R         ?U E            CONMAX
+  19          R         ?U E            CONMIN
+  20         S     (10) MU        323   CONTOR(GPLST,X,U,DD,Z,IZ,PPEN,DEFORM,B1,OPCOR)
+  21         s     (11)  U              CREATE
+     (I4A,R4A,R4A,I4V,R4V,R4V,R4L,R4L,I4V,I4V,I4V)
+  22          R         MU E            D
+  23   20   4 R    ( 2)A?? E            DD(3,1)
+  24   20   8 I        A?U E            DEFORM
+  25          R         MU E            DELTA
+  26         s     ( 9)  U              DISPLA
+     (I4A,R4A,R4A,R4A,I4V,I4V,I4A,R4A,I4V)
+  27          I         MU E            ELID
+  28          I         ?U E            ELMID
+  29          I         MU E            ERR
+  30          R         ?? E            ESSYM
+  31    1   4 I        C?? E            EST
+  32          I         ?U E            ESYM
+  33         IR    ( 1)  U I            FLOAT
+  34         s     ( 4)  U              FREAD
+     (I4V,I4E,I4E,I4E)
+     (   ,I4A,   ,   )
+     (   ,R4V,   ,   )
+     (   ,R4A,   ,   )
+  35         s     ( 2)  U              FWDREC
+     (ALT,I4V)
+  36         s     ( 3)  U              GOPEN
+     (I4V,I4L,I4E)
+  37   20   1 I    ( 1)A?U E            GPLST(1)
+  38          I    ( 1) ?U E       12   GPTS(12)
+  39          I         MU E            I
+  40         II    ( 1)  U I            IABS
+  41          I         MU E            IB
+  42          I    ( 1) ?? E        2   IBEGIN(2)
+  43          I         MU E            IC
+  44          I         MU E            ICEN
+  45    6   4 I        C U E            ICNTVL
+  46          I         MU E            ICOLOR
+  47          I         MU E            ID
+  48          I         MU E            ID1
+  49          I         ?U E            IFLAG
+  50          I         MU E            IG
+  51          I         MU E            IG1
+  52          I          U E            IGDPT
+  53          I         MU E            II
+  54          I         MU E            IK
+  55          I         MU E            IK1
+  56          I         MU E            IK2
+  57          I         MU E            IK3
+  58          I         MU E            IK4
+  59          I         MU E            IMHERE
+  60          I         MU E            IREAD
+  61          I         MU E            IRR
+  62          I         MU E            IRTN
+  63          I         MU E            IS
+  64          I         MU E            ISAV
+  65    6   6 I        CMU E            ISET
+  66          I         MU E            IV
+  67          I         MU E            IVAL
+  68   20   6 I    ( 1)AMU E            IZ(1)
+  69          I         MU E            J
+  70          I         MU E            JC
+  71          I         MU E            JRR
+  72          I         MU E            JS
+  73    2   1 I        C U E            JSET
+  74          I         MU E            JV
+  75          I         MU E            K
+  76          I        I U E            KBAR
+  77          I        I U E            KQ4
+  78          I        I U E            KT3
+  79          I         MU E            L
+  80          I    ( 1) MU E       50   LABL(50)
+  81    6   9 I        C   E            LAYER
+  82         s     ( 6)  U              LINE
+     (R4E,R4E,R4E,R4E,I4E,I4E)
+  83          I         ?U E            LINES
+  84          I         MU E            LOPCOR
+  85          I         MU E            LOPCOX
+  86          I         ?? E            M
+  87         II    ( 2)  U I            MIN0
+  88    6   2 I        CMU E            NCNTR
+  89          I         MU E            NEL
+  90    1   8 I        C   E            NEWOES
+  91          I         ?U E            NGPPE
+  92    4   2 I        C U E            NOUT
+  93          I         MU E            OFFSET
+  94   20  10 I        A U E            OPCOR
+  95         s     ( 9)  U              ORDER
+     (I4A,R4L,R4L,R4L,R4L,I4V,I4V,I4V,I4V)
+  96    1   2 I        C?? E            PARM
+  97    2   3 I        C U E            PEDGE
+  98          I         M? E            PEN
+  99         s           U              PLTOPR
+ 100   20   7 I        A U E            PPEN
+ 101          R    ( 1) MU E        8   PT(8)
+ 102          R         MU E            RCNTRL
+ 103          R         MU E            RCOLOR
+ 104         s     ( 7)  U              READ
+     (ALT,ALT,I4V,I4V,I4E,I4E,I4V)
+     (   ,   ,   ,R4V,   ,   ,   )
+ 105         s     ( 1)  U              REWIND
+     (I4V)
+ 106          R         MU E            S
+ 107    1   9 I        C?? E            SCR1
+ 108    6   7 R    ( 1)C   E       18   SK18(18)
+ 109    1   1 R    ( 1)C   E       10   SKIP(10)
+ 110    6   1 R    ( 1)C   E      157   SKIP2(157)
+ 111    3   1 R    ( 1)C   E        2   SKIP3(2)
+ 112    6   5 R    ( 1)C   E        5   SKIP6(5)
+ 113    2   2 R    ( 1)C   E       14   SKIP7(14)
+ 114    1   3 R        C   E            SKP4
+ 115    1   5 R    ( 1)C   E       11   SKP8(11)
+ 116         s     ( 2)  U              SKPREC
+     (I4V,I4E)
+ 117    1   7 I        C?? E            SORT
+ 118         I?    ( 1)  U I            SQRT
+ 119    1   6 I        C?? E            STRESS
+ 120          I    ( 1)I   E        2   SUB(2)
+ 121          R         MU E            SUM1
+ 122          R         MU E            SUM2
+ 123         s     ( 6)  U              TYPFLT
+     (R4E,R4E,I4E,I4E,I4E,I4E)
+     (   ,   ,   ,R4V,   ,   )
+ 124         s     ( 6)  U              TYPINT
+     (R4E,R4E,I4E,I4E,I4E,I4E)
+ 125   20   3 R    ( 2)A?U E            U(2,1)
+ 126    5   1 C*23     C   E            UFM*23
+ 127    5   3 C*29     C U E            UIM*29
+ 128    5   2 C*25     C   E            UWM*25
+ 129          R         ?U E            V
+ 130         s     ( 4)  U              WRITE
+     (I4V,I4E,I4E,I4E)
+     (   ,R4L,   ,   )
+ 131   20   2 R    ( 2)A?U E            X(3,1)
+ 132          R    ( 1) MU E        8   XB(8)
+ 133          R         MU E            XMID
+ 134    3   2 R        C U E            XMIN
+ 135          R         MU E            YMID
+ 136   20   5 R    ( 1)AMU E            Z(1)
+**-- END OF SYMBOL TABLE

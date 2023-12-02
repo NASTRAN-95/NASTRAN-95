@@ -1,0 +1,11 @@
+!*==/home/marcusmae/nasa/nastran/SPAGged/C_XSRTCM.f90  created by SPAG 8.01RF at 14:46 on  2 Dec 2023
+MODULE C_XSRTCM
+   INTEGER, DIMENSION(6) :: Im1
+   INTEGER, DIMENSION(3) :: Im10
+   INTEGER, DIMENSION(5) :: Im2
+   INTEGER, DIMENSION(4) :: Im3, Im4, Isft
+   INTEGER, DIMENSION(2) :: Im5
+   INTEGER :: Im6, Im8, Isfim, Mis
+   INTEGER, DIMENSION(8) :: Im7
+   INTEGER, DIMENSION(7) :: Im9
+END MODULE C_XSRTCM

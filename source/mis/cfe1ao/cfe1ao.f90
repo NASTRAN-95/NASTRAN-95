@@ -1,0 +1,163 @@
+!*==cfe1ao.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
+ 
+SUBROUTINE cfe1ao(Tpose,V1,V2,V3,Zb)
+   IMPLICIT NONE
+   USE C_FEERAA
+   USE C_FEERXC
+   USE C_SYSTEM
+!
+! Dummy argument declarations rewritten by SPAG
+!
+   LOGICAL , DIMENSION(1) :: Tpose
+   REAL , DIMENSION(1) :: V1
+   REAL , DIMENSION(1) :: V2
+   REAL , DIMENSION(1) :: V3
+   REAL , DIMENSION(1) :: Zb
+!
+! Local variable declarations rewritten by SPAG
+!
+   INTEGER :: i , j , ni , nj
+   EXTERNAL cf1fbs , cfe1my
+!
+! End of declarations rewritten by SPAG
+!
+!*******
+!     CFE1AO IS A SINGLE PRECISION ROUTINE WHICH PERFORMS THE OPERATION
+!     (A) OR (A)-TRANSPOSE FOR THE COMPLEX FEER METHOD. THIS OPERATION
+!     IS CALLED THE EIGENMATRIX MULTIPLICATION.
+!*******
+!     DEFINITION OF INPUT AND OUTPUT PARAMETERS
+!*******
+!     TPOSE    = .FALSE. --- PERFORM OPERATION (A)
+!              = .TRUE.  --- PERFORM OPERATION (A)-TRANSPOSE
+!     V1       = INPUT  VECTOR
+!     V2       = OUTPUT VECTOR
+!     V3       = INPUT WORKING SPACE (FOR INTERNAL USE)
+!     ZB       = INPUT GINO BUFFER
+!*******
+!*******
+   IF ( Qpr ) WRITE (Nout,99001) Tpose
+99001 FORMAT (1H0,12HENTER CFE1AO,8X,11HTRANSPOSE =,L2)
+   IF ( Tpose(1) ) THEN
+!*******
+!     PERFORM OPERATION (A)-TRANSPOSE  = TRANSPOSED EIGENMATRIX
+!                                                   MULTIPLICATION
+!*******
+      IF ( Nob ) THEN
+!*******
+!     DAMPING MATRIX ABSENT
+!*******
+!     PERFORM BACKWARD AND FORWARD SWEEPS
+!*******
+         DO i = 1 , Nord2
+            V3(i) = V1(i)
+         ENDDO
+         CALL cf1fbs(Tpose(1),V3(1),Zb(1))
+         IF ( Qpr ) WRITE (Nout,99002) (V3(i),i=1,Nord2)
+!*******
+!     MULTIPLY SWEEP OUTPUT VECTOR BY TRANSPOSED MASS MATRIX
+!*******
+         CALL cfe1my(Tpose(1),V3(1),V2(1),Im(1),Zb(1))
+         DO i = 1 , Nord2
+            V2(i) = -V2(i)
+         ENDDO
+         IF ( Qpr ) WRITE (Nout,99002) (V2(i),i=1,Nord2)
+      ELSE
+!*******
+!     CALCULATE RIGHT-HAND SIDE OF SWEEP EQUATION
+!*******
+         DO i = Nordp1 , Nord2 , 2
+            j = i + 1
+            ni = i - Nord
+            nj = ni + 1
+            V3(i) = V1(ni) + Lambda(1)*V1(i) - Lambda(3)*V1(j)
+            V3(j) = V1(nj) + Lambda(1)*V1(j) + Lambda(3)*V1(i)
+         ENDDO
+         IF ( Qpr ) WRITE (Nout,99002) (V3(i),i=Nordp1,Nord2)
+!*******
+!     PERFORM BACKWARD AND FORWARD SWEEPS
+!*******
+         CALL cf1fbs(Tpose(1),V3(Nordp1),Zb(1))
+         IF ( Qpr ) WRITE (Nout,99002) (V3(i),i=Nordp1,Nord2)
+!*******
+!     MULTIPLY SWEEP OUTPUT VECTOR BY -(LAMBDA*M+B)-TRANSPOSE
+!*******
+         CALL cfe1my(Tpose(1),V3(Nordp1),V3(1),Mcblmb(1),Zb(1))
+         IF ( Qpr ) WRITE (Nout,99002) (V3(i),i=1,Nord)
+!*******
+!     COMPUTE UPPER HALF OF OUTPUT VECTOR
+!*******
+         DO i = 1 , Nord
+            j = Nord + i
+            V2(i) = V1(j) + V3(i)
+         ENDDO
+         IF ( Qpr ) WRITE (Nout,99002) (V2(i),i=1,Nord)
+!*******
+!     MULTIPLY SWEEP OUTPUT VECTOR BY TRANSPOSED MASS MATRIX
+!     (GENERATES NEGATIVE OF LOWER HALF OF OUTPUT VECTOR)
+!*******
+         CALL cfe1my(Tpose(1),V3(Nordp1),V2(Nordp1),Im(1),Zb(1))
+         DO i = Nordp1 , Nord2
+            V2(i) = -V2(i)
+         ENDDO
+         IF ( Qpr ) WRITE (Nout,99002) (V2(i),i=Nordp1,Nord2)
+      ENDIF
+!*******
+!     PERFORM OPERATION (A)  = EIGENMATRIX MULTIPLICATION
+!*******
+   ELSEIF ( Nob ) THEN
+!*******
+!     DAMPING MATRIX ABSENT
+!*******
+!     MULTIPLY INPUT VECTOR BY MASS MATRIX
+!*******
+      CALL cfe1my(Tpose(1),V1(1),V2(1),Im(1),Zb(1))
+      DO i = 1 , Nord2
+         V2(i) = -V2(i)
+      ENDDO
+      IF ( Qpr ) WRITE (Nout,99002) (V2(i),i=1,Nord2)
+!*******
+!     PERFORM FORWARD AND BACKWARD SWEEPS
+!*******
+      CALL cf1fbs(Tpose(1),V2(1),Zb(1))
+      IF ( Qpr ) WRITE (Nout,99002) (V2(i),i=1,Nord2)
+   ELSE
+!*******
+!     MULTIPLY LOWER HALF OF INPUT VECTOR BY MASS MATRIX
+!*******
+      CALL cfe1my(Tpose(1),V1(Nordp1),V3(1),Im(1),Zb(1))
+      IF ( Qpr ) WRITE (Nout,99002) (V3(i),i=1,Nord)
+!*******
+!     MULTIPLY UPPER HALF OF INPUT VECTOR BY -(LAMBDA*M+B)
+!*******
+      CALL cfe1my(Tpose(1),V1(1),V3(Nordp1),Mcblmb(1),Zb(1))
+      IF ( Qpr ) WRITE (Nout,99002) (V3(i),i=Nordp1,Nord2)
+!*******
+!     CALCULATE RIGHT-HAND SIDE OF SWEEP EQUATION
+!*******
+      DO i = 1 , Nord
+         j = Nord + i
+         V2(i) = -V3(i) + V3(j)
+      ENDDO
+      IF ( Qpr ) WRITE (Nout,99002) (V2(i),i=1,Nord)
+!*******
+!     PERFORM FORWARD AND BACKWARD SWEEPS
+!     (GENERATES UPPER HALF OF OUTPUT VECTOR)
+!*******
+      CALL cf1fbs(Tpose(1),V2(1),Zb(1))
+      IF ( Qpr ) WRITE (Nout,99002) (V2(i),i=1,Nord)
+!*******
+!     COMPUTE LOWER HALF OF OUTPUT VECTOR
+!*******
+      DO i = 1 , Nord , 2
+         j = i + 1
+         ni = Nord + i
+         nj = ni + 1
+         V2(ni) = V1(i) + Lambda(1)*V2(i) - Lambda(3)*V2(j)
+         V2(nj) = V1(j) + Lambda(1)*V2(j) + Lambda(3)*V2(i)
+      ENDDO
+      IF ( Qpr ) WRITE (Nout,99002) (V2(i),i=Nordp1,Nord2)
+   ENDIF
+99002 FORMAT (3H --,32(4H----),/(1H ,6E21.13))
+END SUBROUTINE cfe1ao

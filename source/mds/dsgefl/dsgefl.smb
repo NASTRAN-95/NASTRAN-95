@@ -1,0 +1,26 @@
+**++ Symbol table for subprogram DSGEFL in file mds/dsgefl.f90
+     produced by SPAG     7.61RG-40 at 01:00:00 on 21 Mar 2022
+   0         X             K             mds/dsgefl.f90,0000002,0000032
+   1         C     / 1/  U        440   /DSUNIT/IUNIT
+   2         S                     23   DSGEFL
+   3         s     ( 1)  U              DSMSG
+     (I4E)
+   4         f?    ( 2)  U I            FCB
+     (I4E,?*V)
+   5         s     ( 1)  U              GETURN
+     (?*V)
+   6         f?    ( 1)  U I            IBASE
+     (? E)
+   7          ?         MU I            IFILEX
+   8          ?         MU I            INDBAS
+   9          ?         M  I            INDCBP
+  10          ?         M  I            INDCLR
+  11          I         MU E            IOBUF
+  12          ?         MU I            IPRVOP
+  13          ?          U I            IRETRN
+  14    1   1 I*2  ( 1)C U E      220   IUNIT(220)*2
+  15          ?         M  I            LASNAM
+  16          ?         M  I            LCW
+  17          ?         ?U I            NAME
+  18          ?         M  I            NBLOCK
+**-- END OF SYMBOL TABLE

@@ -1,0 +1,181 @@
+**++ Symbol table for subprogram CURV1 in file mis/curv1.f90
+     produced by SPAG     8.01RF-40 at 14:46:59 on  2 Dec 2023
+   0         X             K             mis/curv1.f90,0000002,0000481
+   1         C     / 4/ MU         24   /BLANK/IP1,IP2,ICMPLX,ZDUM
+   2         C     / 2/ MU         44   /CURVC1/LSBUF,SBUF
+   3         C     / 2/ MU        404   /CURVC2/LBUF,BUF
+   4         C     / 4/ ?U        620   /CURVC3/VEC,VMAX,VMIN,IDREC
+   5         C     108/ MU        432   /CURVTB/IMID,NMID,LMID,NMIDS,IELTYP,NELTYP,JELTYP,ICSTM,NCSTM,CSTMS,LCSTM,IESTX,NESTX,IMCSID,NMCSID,LMCSID,MCSIDS,JMCSID,KMCSID,ISIL,NSIL,LSIL,JSIL,IOES1M,NOES1M,LOES1M,IDEP,NDEP,IINDEP,NINDEP,JINDEP,ISIGMA,NSIGMA,IGMAT,NGMAT,IEXT,NEXT,LEXT,SCR1,SCR2,SCR3,
+                                                SCR4,OES1M,OES1G,OES1,MPT,CSTM,EST,SIL,GPL,JCORE,LCORE,IBUF1,IBUF2,IBUF3,IBUF4,I,J,K,L,K1,K2,IXYZ1,IXYZ2,LX1,LX2,ELTYPE,MCSID,IDSCR1,IDOES1,NPTS,NPTS4,IWORDS,NWORDS,SUBCAS,KOUNT,ISIG1,ISIG2,LOC,FILE,IMSG,NELEMS,IMATID,ICOMP,ESTWDS,EWORDS,JP,OWORDS,
+                                                MATID,DEPTS,INDPTS,ICTYPE,IVMAT,ITRAN,CSTYPE,ISING,DEVICE,OLDID,ANY,EOFOS1,FIRST,ANYOUT,FOES1G,STRAIN,LOGERR,ANY1M,ANY1G,SCR5
+   6         C     / 6/ ??         24   /NAMES/RD,RDREW,WRT,WRTREW,CLSREW,CLS
+   7         C     / 2/  U          8   /SYSTEM/SYSBUF,IOUTPT
+   8         C     / 1/ MU          4   /ZZZZZZ/IZ
+   9    5  99 L        CMU E            ANY
+  10    5 107 L        CM  E            ANY1G
+  11    5 106 L        CM  E            ANY1M
+  12    5 102 L        C   E            ANYOUT
+  13         s     ( 1)  U              BCKREC
+     (I4V)
+  14         s     ( 6)  U              BISLOC
+     (ALT,I4V,I4L,I4E,I4V,I4V)
+  15    3   2 I    ( 1)C?U E      100   BUF(100)
+  16         s     ( 2)  U              CLOSE
+     (I4V,I4V)
+  17    6   6 I        C?? E            CLS
+  18    6   5 I        C?? E            CLSREW
+  19    5  47 I        CMU E            CSTM
+  20    5  10 I        CM  E            CSTMS
+  21    5  95 I        C   E            CSTYPE
+  22         S                    225   CURV1
+  23    5  90 I        C   E            DEPTS
+  24    5  97 I        C   E            DEVICE
+  25          I    ( 2)I U E       20   ELEM(5,4)
+  26    5  67 I        C?U E            ELTYPE
+  27    5 100 L        CM  E            EOFOS1
+  28          I         ?? E            EOR
+  29    5  48 I        CMU E            EST
+  30    5  85 I        CMU E            ESTWDS
+  31    5  86 I        C   E            EWORDS
+  32    5  80 I        CM  E            FILE
+  33    5 101 L        C   E            FIRST
+  34          R         ?? E            FLAG
+  35    5 103 L        CMU E            FOES1G
+  36         s     ( 2)  U              FWDREC
+     (ALT,I4V)
+  37         s     ( 3)  U              GOPEN
+     (I4V,I4L,I4E)
+  38    5  50 I        CMU E            GPL
+  39    5  57 I        CMU E            I
+  40    5  53 I        CMU E            IBUF1
+  41    5  54 I        CMU E            IBUF2
+  42    5  55 I        CMU E            IBUF3
+  43    5  56 I        CMU E            IBUF4
+  44    1   3 I        CM  E            ICMPLX
+  45    5  84 I        C   E            ICOMP
+  46          I         MU E            ICRQ
+  47    5   8 I        CMU E            ICSTM
+  48    5  92 I        C   E            ICTYPE
+  49    5  27 I        C   E            IDEP
+  50    5  70 I        C   E            IDOES1
+  51    4   4 I    ( 1)C?U E      146   IDREC(146)
+  52    5  69 I        C   E            IDSCR1
+  53          I         ?? E            IDUM
+  54    5   5 I        CMU E            IELTYP
+  55    5  12 I        C   E            IESTX
+  56    5  36 I        CMU E            IEXT
+  57    5  34 I        C   E            IGMAT
+  58    5  29 I        C   E            IINDEP
+  59    5  83 I        CMU E            IMATID
+  60    5  14 I        CMU E            IMCSID
+  61    5   1 I        CMU E            IMID
+  62    5  81 I        CM  E            IMSG
+  63    5  91 I        C   E            INDPTS
+  64    5  24 I        C   E            IOES1M
+  65    7   2 I        C   E            IOUTPT
+  66    1   1 I        C U E            IP1
+  67    1   2 I        C   E            IP2
+  68    5  77 I        C   E            ISIG1
+  69    5  78 I        C   E            ISIG2
+  70    5  32 I        C   E            ISIGMA
+  71    5  20 I        CMU E            ISIL
+  72    5  96 I        C   E            ISING
+  73    5  94 I        C   E            ITRAN
+  74    5  93 I        C   E            IVMAT
+  75    5  73 I        CMU E            IWORDS
+  76    5  63 I        CMU E            IXYZ1
+  77    5  64 I        CMU E            IXYZ2
+  78    8   1 I    ( 1)CMU E        1   IZ(1)
+  79    5  58 I        C   E            J
+  80    5  51 I        CMU E            JCORE
+  81    5   7 I        CMU E            JELTYP
+  82    5  31 I        C   E            JINDEP
+  83    5  18 I        C   E            JMCSID
+  84    5  87 I        C?U E            JP
+  85    5  23 I        CMU E            JSIL
+  86    5  59 I        C   E            K
+  87    5  61 I        CMU E            K1
+  88    5  62 I        C   E            K2
+  89          I         M? E            KID
+  90    5  19 I        C   E            KMCSID
+  91         fI    ( 1)  U E            KORSZ
+     (I4L)
+  92    5  76 I        C   E            KOUNT
+  93    5  60 I        C   E            L
+  94    3   1 I        CMU E            LBUF
+  95    5  52 I        CMU E            LCORE
+  96    5  11 I        CMU E            LCSTM
+  97    5  38 I        C?U E            LEXT
+  98    5  16 I        CMU E            LMCSID
+  99    5   3 I        CMU E            LMID
+ 100    5  79 I        CM  E            LOC
+ 101         s     ( 4)  U              LOCATE
+     (ALT,I4L,I4L,I4V)
+ 102    5  26 I        C   E            LOES1M
+ 103    5 105 I        CMU E            LOGERR
+ 104    2   1 I        CMU E            LSBUF
+ 105    5  22 I        C?U E            LSIL
+ 106    5  65 I        C   E            LX1
+ 107    5  66 I        C   E            LX2
+ 108          I    ( 1)I?U E        6   MAT(6)
+ 109    5  89 I        CMU E            MATID
+ 110    5  68 I        CMU E            MCSID
+ 111    5  17 I        CM? E            MCSIDS
+ 112    5  46 I        CMU E            MPT
+ 113    5   9 I        CMU E            NCSTM
+ 114    5  28 I        C   E            NDEP
+ 115    5  82 I        CMU E            NELEMS
+ 116    5   6 I        CMU E            NELTYP
+ 117    5  13 I        C   E            NESTX
+ 118    5  37 I        CM  E            NEXT
+ 119    5  35 I        C   E            NGMAT
+ 120    5  30 I        C   E            NINDEP
+ 121    5  15 I        CMU E            NMCSID
+ 122    5   2 I        CMU E            NMID
+ 123    5   4 I        CM? E            NMIDS
+ 124          I         ?? E            NOEOR
+ 125    5  25 I        C   E            NOES1M
+ 126    5  71 I        CMU E            NPTS
+ 127    5  72 I        C   E            NPTS4
+ 128    5  33 I        C   E            NSIGMA
+ 129    5  21 I        CMU E            NSIL
+ 130    5  74 I        C?U E            NWORDS
+ 131    5  45 I        CMU E            OES1
+ 132    5  44 I        CM? E            OES1G
+ 133    5  43 I        CM? E            OES1M
+ 134    5  98 I        CMU E            OLDID
+ 135         s     ( 4)  U              OPEN
+     (ALT,I4V,I4L,I4V)
+ 136    5  88 I        C   E            OWORDS
+ 137         s     ( 3)  U              PRELOC
+     (ALT,I4L,I4V)
+ 138         s     ( 2)  U              PRETRS
+     (I4L,I4V)
+ 140    6   1 I        C   E            RD
+ 141    6   2 I        C   E            RDREW
+ 142         s     ( 7)  U              READ
+     (ALT,ALT,I4V,I4V,I4E,I4E,I4V)
+     (   ,   ,   ,   ,   ,   ,R4V)
+ 143    2   2 I    ( 1)CM? E       10   SBUF(10)
+ 144    5  39 I        CMU E            SCR1
+ 145    5  40 I        CM  E            SCR2
+ 146    5  41 I        CM  E            SCR3
+ 147    5  42 I        CM  E            SCR4
+ 148    5 108 I        CM  E            SCR5
+ 149    5  49 I        CMU E            SIL
+ 150         s     ( 6)  U              SORT
+     (I4E,I4E,I4E,I4E,I4L,I4V)
+     (   ,   ,   ,   ,R4L,   )
+ 151    5 104 L        CM  E            STRAIN
+ 152    5  75 I        C   E            SUBCAS
+ 153    7   1 I        C U E            SYSBUF
+ 154    4   1 R    ( 1)C   E        3   VEC(3)
+ 155    4   2 R    ( 1)C   E        3   VMAX(3)
+ 156    4   3 R    ( 1)C   E        3   VMIN(3)
+ 157         s     ( 4)  U              WRITE
+     (I4V,I4E,I4E,I4V)
+ 158    6   3 I        C   E            WRT
+ 159    6   4 I        C?? E            WRTREW
+ 160          R    ( 1) ?? E        1   Z(1)
+ 161    1   4 R    ( 1)C   E        3   ZDUM(3)
+**-- END OF SYMBOL TABLE

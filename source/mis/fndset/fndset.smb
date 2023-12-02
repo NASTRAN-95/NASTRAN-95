@@ -1,0 +1,50 @@
+**++ Symbol table for subprogram FNDSET in file mis/fndset.f90
+     produced by SPAG     8.01RF-40 at 14:47:04 on  2 Dec 2023
+   0         X             K             mis/fndset.f90,0000002,0000080
+   1         C     / 8/ ?U         96   /BLANK/NGP,SKP11,NGPSET,SKP12,SKP21,BGPDT,SKP22,OES1
+   2         C     / 5/ ??         24   /NAMES/NIREW,INPREW,SKPN1,REW,NOREW
+   3         C     / 4/  U        856   /XXPARM/SKPP,SUBC,FLAG,DATA
+   4         I?    ( 1)  U I            ABS
+   5         I?    ( 1)  U I            ATAN
+   6         s     ( 1)  U              BCKREC
+     (I4V)
+   7    1   6 I        C?? E            BGPDT
+   8         s     ( 2)  U              CLOSE
+     (I4V,I4V)
+   9    3   4 R        C U E            DATA
+  10    3   3 R        C U E            FLAG
+  11         S     ( 4) MU         38   FNDSET(GPID,X,IBUF,N)
+  12         s     ( 4)  U              FREAD
+     (I4V,I4E,I4E,I4E)
+     (   ,R4A,   ,   )
+  13         s     ( 2)  U              FWDREC
+     (ALT,I4V)
+  14         s     ( 3)  U              GOPEN
+     (I4V,I4L,I4V)
+  15   11   1 I    ( 1)A?U E            GPID(1)
+  16          I         MU E            I
+  17   11   3 I        A U E            IBUF
+  18    2   2 I        C?? E            INPREW
+  19          I          U E            INSUB
+  20          I         MU E            J
+  21   11   4 I        AMU E            N
+  22    1   1 I        C U E            NGP
+  23    1   3 I        C   E            NGPSET
+  24    2   1 I        C   E            NIREW
+  25    2   5 I        C?? E            NOREW
+  26    1   8 I        C?? E            OES1
+  27         s     ( 7)  U              READ
+     (ALT,ALT,I4V,I4V,I4E,I4E,I4V)
+  28    2   4 I        C?? E            REW
+  29    1   2 R    ( 1)C   E        4   SKP11(4)
+  30    1   4 R    ( 1)C   E        4   SKP12(4)
+  31    1   5 R    ( 1)C   E        4   SKP21(4)
+  32    1   7 R    ( 1)C   E        8   SKP22(8)
+  33    2   3 R    ( 1)C   E        2   SKPN1(2)
+  34    3   1 R    ( 1)C   E      211   SKPP(211)
+  35         I?    ( 1)  U I            SQRT
+  36    3   2 I        C U E            SUBC
+  37          R        IMU E            TWOPI
+  38          R    ( 1) MU E        3   U(3)
+  39   11   2 R    ( 2)A?? E            X(3,1)
+**-- END OF SYMBOL TABLE

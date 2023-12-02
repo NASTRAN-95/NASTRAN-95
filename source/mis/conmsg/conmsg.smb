@@ -1,0 +1,51 @@
+**++ Symbol table for subprogram CONMSG in file mis/conmsg.f90
+     produced by SPAG     8.01RF-40 at 14:47:03 on  2 Dec 2023
+   0         X             K             mis/conmsg.f90,0000002,0000083
+   1         C     / 2/  U         18   /CHMACH/MCHNAM,MACHOS
+   2         C     / 1/  U          4   /LOGOUT/LOUT
+   3         C     / 1/           700   /SYSTEM/ISYSTM
+   4          C*41      MU E            AHEAD*41
+   5         S     ( 3)  U         39   CONMSG(MESAGE,NWORDS,IDUMMY)
+   6          R          U E            CPUSTR
+   7          R         MU E            CPUTIM
+   8          R         MU E            CPUTMM
+   9          C*8       MU E            CTIME*8
+  10          C*4  ( 1)    E        8   CVALUES(8)*4
+  11         I?    ( 4)    I            DATE_AND_TIME
+  12          I         MU E            FCHAR
+  13         s     ( 1)  U              FLUSH
+     (I4E)
+  14          I         MU E            I
+  15          I        I U E            IAUDT
+  16          I    ( 1)  U E        3   ICRDAT(3)
+  17          I        I   E            IDASH
+  18          I    ( 1)  U E        3   IDATE(3)
+  19          I        I U E            IDSMS
+  20    5   3 I        A U E            IDUMMY
+  21          I         MU E            IMODTM
+  22          I        I U E            IMPYA
+  23          R         MU E            INCTIM
+  24         II    ( 2)  U I            INDEX
+  25    3   1 I    ( 1)C   E      175   ISYSTM(175)
+  26          I    ( 1) ?U E        3   ITIME(3)
+  27          I        I U E            IWRTT
+  28          I         MU E            LOGLIN
+  29          I            E            LOGPAG
+  30    2   1 I        C U E            LOUT
+  31    1   2 C*7      C U E            MACHOS*7
+  32    1   1 C*11     C U E            MCHNAM*11
+  33    5   1 I    ( 1)A U E            MESAGE(1)
+  34         II    ( 2)  U I            MIN0
+  35          R        IMU E            MODTIM
+  36          I         MU E            MWORDS
+  37         s     ( 4)  U              NASTIM
+     (I4L,I4L,I4L,R4V)
+  38          I         MU E            NCMNAM
+  39          I         MU E            NCMOS
+  40          I          U E            NLLOG
+  41    5   2 I        A U E            NWORDS
+  42          R          U E            OLDCPU
+  43          C*12 ( 1) ?? E        3   REAL_CLOCK(3)*12
+  44          C*12      ?U E            TIME*12
+  45          I    ( 1) ?? E        8   VALUES(8)
+**-- END OF SYMBOL TABLE

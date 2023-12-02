@@ -1,0 +1,87 @@
+**++ Symbol table for subprogram DDRMMA in file mis/ddrmma.f90
+     produced by SPAG     8.01RF-40 at 14:47:02 on  2 Dec 2023
+   0         X             K             mis/ddrmma.f90,0000002,0000176
+   1         C     / 1/  U          4   /CLSTRS/COMPLX
+   2         C     /47/ MU       1492   /DDRMC1/IDREC,BUFF,PASSES,OUTFIL,JFILE,MCB,ENTRYS,SETS,INFILE,LAMBDA,FILE,SORT2,COL1,FRSTID,NCORE,NSOLS,DHSIZE,FILNAM,RBUF,IDOUT,ICC,NCC,ILIST,NLIST,NWDS,SETID,TRNSNT,I1,I2,PHASE,ITYPE1,ITYPE2,NPTSF,LSF,NWDSF,SCRT,IERROR,ITEMP,DEVICE,FORM,ISTLST,LSTLST,UVSOL,
+                                                NLAMBS,NWORDS,OMEGA,IPASS
+   3         C     / 6/  U        452   /STDATA/LMINOR,NSTXTR,NPOS,SAVDAT,SAVPOS,BUFSAV
+   4         C     / 4/ MU         28   /ZNTPKX/A,IROW,IEOL,IEOR
+   5    4   1 R    ( 1)C U E        4   A(4)
+   6          I    ( 1) M  E      150   BUF(150)
+   7          I    ( 1) MU E       75   BUFA(75)
+   8          I    ( 1) MU E       75   BUFB(75)
+   9    2   2 I    ( 1)C   E        6   BUFF(6)
+  10    3   6 I    ( 1)C U E       10   BUFSAV(10)
+  11    2  13 L        C   E            COL1
+  12    1   1 I    ( 1)C U E        1   COMPLX(1)
+  13         S     ( 1)  U        102   DDRMMA(SETUP)
+  14    2  39 I        C   E            DEVICE
+  15    2  17 I        C   E            DHSIZE
+  16          I    ( 1) MU E      300   ELWORK(300)
+  17    2   7 I        C   E            ENTRYS
+  18    2  11 I        C   E            FILE
+  19    2  18 I    ( 1)C   E        2   FILNAM(2)
+  20    2  40 I        C U E            FORM
+  21    2  14 L        C   E            FRSTID
+  22          I         MU E            I
+  23    2  28 I        C U E            I1
+  24    2  29 I        C U E            I2
+  25    2  21 I        C   E            ICC
+  26          I         MU E            ICOMP
+  27    2  20 I        C   E            IDOUT
+  28    2   1 I    ( 1)C   E      146   IDREC(146)
+  29    4   3 I        C U E            IEOL
+  30    4   4 I        C   E            IEOR
+  31    2  37 I        C   E            IERROR
+  32    2  23 I        C   E            ILIST
+  33    2   9 I        C   E            INFILE
+  34         s     ( 5)  U              INTPK
+     (ALT,I4L,I4E,I4V,I4E)
+  35          I         MU E            IOUT
+  36    2  47 I        C U E            IPASS
+  37    4   2 I        CMU E            IROW
+  38    2  41 I        C   E            ISTLST
+  39    2  38 I        C   E            ITEMP
+  40    2  31 I        C U E            ITYPE1
+  41    2  32 I        C   E            ITYPE2
+  42          I         MU E            J
+  43    2   5 I        C   E            JFILE
+  44          I         MU E            K
+  45    2  10 R        C   E            LAMBDA
+  46    3   1 L        C U E            LMINOR
+  47    2  34 I        C U E            LSF
+  48    2  42 I        C   E            LSTLST
+  49         s     ( 2)  U              MAGPHA
+     (I4L,I4L)
+  50    2   6 I    ( 1)C   E        7   MCB(7)
+  51    2  22 I        C   E            NCC
+  52    2  15 I        C   E            NCORE
+  53    2  44 I        C   E            NLAMBS
+  54    2  24 I        C   E            NLIST
+  55    3   3 I        C U E            NPOS
+  56          I         MU E            NPT
+  57    2  33 I        C U E            NPTSF
+  58    2  16 I        C   E            NSOLS
+  59    3   2 I        C U E            NSTXTR
+  60    2  25 I        C   E            NWDS
+  61    2  35 I        CM  E            NWDSF
+  62    2  45 I        C   E            NWORDS
+  63    2  46 R        C U E            OMEGA
+  64    2   4 I        C   E            OUTFIL
+  65    2   3 I        C   E            PASSES
+  66    2  30 I        C   E            PHASE
+  67    2  19 R    ( 1)C   E      150   RBUF(150)
+  68          R    ( 1) M  E       75   RBUFA(75)
+  69          R    ( 1) M  E       75   RBUFB(75)
+  70    3   4 I    ( 1)C   E       75   SAVDAT(75)
+  71    3   5 I    ( 1)C U E       25   SAVPOS(25)
+  72    2  36 I    ( 1)C?? E        7   SCRT(7)
+  73    2  26 I        C   E            SETID
+  74    2   8 I    ( 2)C   E       15   SETS(5,3)
+  75   13   1 L        A U E            SETUP
+  76    2  12 L        C   E            SORT2
+  77    2  27 L        C U E            TRNSNT
+  78          I         M? E            TYPOUT
+  79    2  43 I        C   E            UVSOL
+  80         s           U              ZNTPKI
+**-- END OF SYMBOL TABLE

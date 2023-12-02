@@ -1,0 +1,108 @@
+**++ Symbol table for subprogram GP3B in file mis/gp3b.f90
+     produced by SPAG     8.01RF-40 at 14:46:46 on  2 Dec 2023
+   0         X             K             mis/gp3b.f90,0000002,0000310
+   1         C     / 3/ M          12   /BLANK/NOGRAV,NOLOAD,NOTEMP
+   2         C     /32/ MU       1428   /GP3COM/GEOM3,EQEXIN,GEOM2,SLT,ETT,SCR1,SCR2,BUF1,BUF2,BUF,CARDID,IDNO,CARDDT,MASK,STATUS,NTYPES,IPLOAD,IGRAV,PLOAD2,LOAD,NOPLD2,TEMP,TEMPD,TEMPP1,TEMPP2,TEMPP3,TEMPRB,BUF3,PLOAD3,IPLD3,TEMPG,TEMPP4
+   3         C     / 5/ ??         20   /NAMES/RD,RDREW,WRT,WRTREW,CLSREW
+   4         C     / 2/  U          8   /SYSTEM/SYSBUF,NOUT
+   5         C     / 1/  U         23   /XMSSG/UFM
+   6         C     / 1/ MU          4   /ZZZZZZ/Z
+   7         s     ( 1)  U              BCKREC
+     (I4V)
+   8    2  10 I    ( 1)CMU E       50   BUF(50)
+   9    2   8 I        C U E            BUF1
+  10    2   9 I        C U E            BUF2
+  11    2  28 I        C?U E            BUF3
+  12    2  13 R    ( 1)C   E       60   CARDDT(60)
+  13    2  11 R    ( 1)C   E       60   CARDID(60)
+  14         s     ( 2)  U              CLOSE
+     (I4V,I4V)
+  15    3   5 I        C?? E            CLSREW
+  16    2   2 I        C?U E            EQEXIN
+  17    2   5 I        C?U E            ETT
+  18          I         M? E            FILE
+  19          I         ?? E            FLAG
+  20         s     ( 2)  U              FNAME
+     (I4V,I4A)
+  21         s     ( 2)  U              FWDREC
+     (ALT,I4V)
+  22    2   3 R        C   E            GEOM2
+  23    2   1 I        C   E            GEOM3
+  24          I         ?U E            GEOMP
+  25         S                    219   GP3B
+  26          I         ?U E            GPTT
+  27          I         MU E            I
+  28          I         MU E            ID
+  29    2  12 I    ( 1)C   E       30   IDNO(30)
+  30          I         M? E            IFILE
+  31    2  18 I        C   E            IGRAV
+  32          L         MU E            INTERN
+  33    2  30 I        C   E            IPLD3
+  34    2  17 I        C   E            IPLOAD
+  35          I         MU E            ISAVE
+  36          I         MU E            ITABL
+  37          I         MU E            ITEMPD
+  38          I         MU E            J
+  39          I         MU E            K
+  40          I         MU E            KHI
+  41          I         MU E            KLO
+  42          I         MU E            KN
+  43          I         MU E            L
+  44    2  20 I    ( 1)C   E        2   LOAD(2)
+  45         s     ( 4)  U              LOCATE
+     (ALT,I4L,I4A,I4V)
+  46    2  14 I    ( 1)C   E       60   MASK(60)
+  47         s     ( 3)  U              MESAGE
+     (I4E,I4E,I4A)
+     (   ,   ,I4E)
+  48          I         MU E            N
+  49          I         MU E            N1
+  50          I    ( 1)I?? E        2   NAM(2)
+  51          I         ?U E            NEQX
+  52          I         MU E            NI
+  53          I         MU E            NODEF
+  54          I         MU E            NOGO
+  55    1   1 I        C   E            NOGRAV
+  56    1   2 I        C   E            NOLOAD
+  57    2  21 I        C   E            NOPLD2
+  58    1   3 I        CM  E            NOTEMP
+  59    4   2 I        C U E            NOUT
+  60          I         MU E            NTEMPD
+  61    2  16 I        C   E            NTYPES
+  62          I         MU E            NX
+  63         s     ( 4)  U              OPEN
+     (ALT,I4V,I4L,I4V)
+  64         s     ( 1)  U              PAGE2
+     (I4E)
+  65    2  19 R    ( 1)C   E        2   PLOAD2(2)
+  66    2  29 R    ( 1)C   E        2   PLOAD3(2)
+  67         s     ( 3)  U              PRELOC
+     (ALT,I4L,I4V)
+  68    3   1 I        C   E            RD
+  69    3   2 I        C?? E            RDREW
+  70         s     ( 7)  U              READ
+     (ALT,ALT,I4V,I4A,I4E,I4E,I4V)
+     (   ,   ,   ,I4E,   ,   ,   )
+  71    2   6 I        C   E            SCR1
+  72    2   7 R        C   E            SCR2
+  73    2   4 I        C   E            SLT
+  74         s     ( 6)  U              SORT
+     (I4E,I4E,I4E,I4E,I4L,I4V)
+  75    2  15 R    ( 1)C   E       60   STATUS(60)
+  76    4   1 R        C   E            SYSBUF
+  77    2  22 I    ( 1)C?? E        2   TEMP(2)
+  78    2  23 I    ( 1)C?? E        2   TEMPD(2)
+  79    2  31 I    ( 1)C   E        2   TEMPG(2)
+  80    2  24 I    ( 1)C   E        2   TEMPP1(2)
+  81    2  25 I    ( 1)C   E        2   TEMPP2(2)
+  82    2  26 I    ( 1)C   E        2   TEMPP3(2)
+  83    2  32 I    ( 1)C   E        2   TEMPP4(2)
+  84    2  27 I    ( 1)C   E        2   TEMPRB(2)
+  85    5   1 C*23     C U E            UFM*23
+  86         s     ( 4)  U              WRITE
+     (I4V,I4A,I4E,I4E)
+     (   ,I4E,   ,   )
+  87    3   3 I        C   E            WRT
+  88    3   4 I        C?? E            WRTREW
+  89    6   1 I    ( 1)CMU E        1   Z(1)
+**-- END OF SYMBOL TABLE

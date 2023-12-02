@@ -1,0 +1,85 @@
+**++ Symbol table for subprogram SDR1 in file mis/sdr1.f90
+     produced by SPAG     8.01RF-40 at 14:46:49 on  2 Dec 2023
+   0         X             K             mis/sdr1.f90,0000002,0000220
+   1         C     /16/ ?U         64   /BITPOS/UM,UO,UR,USG,USB,UL,UA1,UF1,US,UN1,UG1,UE,UP,UNE,UFE,UD
+   2         C     / 2/  U         12   /BLANK/APPEND,ITYPE
+   3         C     / 3/ ?U        224   /SYSTEM/ISYS,IPREC,IHEAT
+   4         C     / 1/ ??        128   /TWO/TWO1
+   5         fI    ( 2)  UXE            ANDF
+     (I4L,R4L)
+   6    2   1 R        C   E            APPEND
+   7          I        I U E            DYNA
+   8          I         M? E            GM
+   9          I         M? E            GO
+  10          I    ( 1) MU E        7   IA(7)
+  11    3   3 I        C U E            IHEAT
+  12          I         MU E            IMULTI
+  13          I         MU E            IOMT
+  14    3   2 I        C?? E            IPREC
+  15          I         M? E            IPVECT
+  16          I         MU E            IREACT
+  17          I          U E            IRFNO
+  18          I         MU E            ISAV
+  19          I         M? E            ISCR5
+  20          I         MU E            ISCR6
+  21          I         MU E            ISNG
+  22    3   1 I    ( 1)C   E       54   ISYS(54)
+  23          I         MU E            ITRAN
+  24    2   2 I    ( 1)C U E        2   ITYPE(2)
+  25          I         MU E            IUA
+  26          I         MU E            IUF
+  27          I         M? E            IUF1
+  28          I         M? E            IUG
+  29          I         M? E            IUM
+  30          I         MU E            IUN
+  31          I         M? E            IUO
+  32          I         M? E            IUR
+  33          I         MU E            IUS
+  34          I         M? E            KFS
+  35          I         M? E            KSS
+  36          I         MU E            NOUE
+  37          I         M? E            PG
+  38          I         M? E            PGX
+  39          I         M? E            PS
+  40          I         M? E            QR
+  41          I         MU E            QSX
+  42         s     ( 1)  U              RDTRL
+     (I4L)
+  43          I        I U E            REIG
+  44         S                    128   SDR1
+  45         s     ( 2)  U              SDR1A
+     (I4V,I4V)
+  46         s     (10)  U              SDR1B
+     (I4V,I4V,I4E,I4V,I4V,R4V,I4V,I4V,I4E,I4E)
+     (   ,   ,   ,   ,   ,I4V,R4V,   ,   ,   )
+  47         s     ( 4)  U              SDR1D
+     (I4V,I4V,I4V,I4V)
+  48         s     ( 8)  U              SSG2B
+     (I4V,I4V,I4E,I4V,I4E,I4V,I4E,I4V)
+  49    4   1 R    ( 1)C?? E       32   TWO1(32)
+  50          I         M? E            UA
+  51    1   7 I        C U E            UA1
+  52    1  16 I        C U E            UD
+  53    1  12 I        C?U E            UE
+  54          I         M? E            UF
+  55    1   8 I        C?U E            UF1
+  56    1  15 I        C U E            UFE
+  57          I         M? E            UG
+  58    1  11 I        C U E            UG1
+  59          I         M? E            UGVX
+  60    1   6 R        C?? E            UL
+  61          I         MU E            ULV
+  62    1   1 I        C?U E            UM
+  63          I         M? E            UN
+  64    1  10 I        C U E            UN1
+  65    1  14 I        C U E            UNE
+  66    1   2 I        C?U E            UO
+  67          I         M? E            UOOV
+  68    1  13 I        C U E            UP
+  69    1   3 I        C?U E            UR
+  70    1   9 I        C?U E            US
+  71    1   5 R        C   E            USB
+  72          I         MU E            USET
+  73    1   4 R        C   E            USG
+  74          I         MU E            YS
+**-- END OF SYMBOL TABLE

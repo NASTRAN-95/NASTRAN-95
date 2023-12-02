@@ -1,0 +1,24 @@
+**++ Symbol table for subprogram IFP1F in file mis/ifp1f.f90
+     produced by SPAG     8.01RF-40 at 14:46:45 on  2 Dec 2023
+   0         X             K             mis/ifp1f.f90,0000002,0000032
+   1         C     / 6/ ?U         56   /IFP1A/SKIP1,NCPW4,SKIP2,IZZZBB,SKIP3,IBEN
+   2         C     / 1/             4   /ZZZZZZ/COREX
+   3          R    ( 1) ?? E        1   CORE(1)
+   4    2   1 R    ( 1)C   E        1   COREX(1)
+   6          I         MU E            I
+   7    1   6 I        C U E            IBEN
+   8         S     ( 2) MU         16   IFP1F(IWORD,II)
+   9    8   2 I        AMU E            II
+  10    8   1 I        AM? E            IWORD
+  11    1   4 I        C?U E            IZZZBB
+  12          I         MU E            J
+  13          I         MU E            K
+  14         fI    ( 4)  U E            KHRFN1
+     (I4V,I4E,R4L,I4E)
+     (   ,   ,I4V,   )
+  15          I         MU E            L
+  16    1   2 I        C U E            NCPW4
+  17    1   1 R    ( 1)C   E        4   SKIP1(4)
+  18    1   3 R    ( 1)C   E        4   SKIP2(4)
+  19    1   5 R    ( 1)C   E        3   SKIP3(3)
+**-- END OF SYMBOL TABLE

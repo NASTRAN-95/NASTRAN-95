@@ -1,0 +1,12 @@
+**++ Symbol table for subprogram ISFT in file mis/isft.f90
+     produced by SPAG     8.01RF-40 at 14:47:03 on  2 Dec 2023
+   0         X             K             mis/isft.f90,0000002,0000016
+   1    2   1 I        A?? E            BF
+   2         FI    ( 3) MU E        7   ISFT(BF,SFT,J)
+   3    2   3 I        A U E            J
+   4         fI    ( 2)  UXE            LSHIFT
+     (I4V,I4V)
+   5         fI    ( 2)  UXE            RSHIFT
+     (I4V,I4V)
+   6    2   2 I        A?? E            SFT
+**-- END OF SYMBOL TABLE

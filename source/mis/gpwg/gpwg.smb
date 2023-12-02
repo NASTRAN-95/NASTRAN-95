@@ -1,0 +1,27 @@
+**++ Symbol table for subprogram GPWG in file mis/gpwg.f90
+     produced by SPAG     8.01RF-40 at 14:46:58 on  2 Dec 2023
+   0         X             K             mis/gpwg.f90,0000002,0000042
+   1         C     / 2/ ?U          8   /BLANK/POINT,WTMASS
+   2          I        I?? E            BGPDT
+   3          I        I?? E            CSTM
+   4          I        I?? E            EQEXIN
+   5         S                      9   GPWG
+   6         s     ( 6)  U              GPWG1A
+     (I4V,I4V,I4V,I4V,I4V,I4V)
+   7         s     ( 4)  U              GPWG1B
+     (I4V,I4V,R4V,I4V)
+   8          I         M? E            IP
+   9          I        I?? E            MGG
+  10          I         ?U E            NOGO
+  11          I        I?? E            OGPWG
+  12    1   1 I        C?U E            POINT
+  13          I        I?? E            SCR1
+  14          I        I?? E            SCR2
+  15          I        I?? E            SCR3
+  16          I        I?? E            SCR4
+  17         s     ( 8)  U              SSG2B
+     (I4V,I4V,I4E,I4V,I4E,I4E,I4E,I4V)
+  18         s     (11)  U              TRANP1
+     (I4V,I4V,I4E,I4V,I4V,I4E,I4E,I4E,I4E,I4E,I4E)
+  19    1   2 R        C?? E            WTMASS
+**-- END OF SYMBOL TABLE

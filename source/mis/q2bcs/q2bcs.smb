@@ -1,0 +1,31 @@
+**++ Symbol table for subprogram Q2BCS in file mis/q2bcs.f90
+     produced by SPAG     8.01RF-40 at 14:46:45 on  2 Dec 2023
+   0         X             K             mis/q2bcs.f90,0000002,0000110
+   1          R    ( 1) MU E        3   D12(3)
+   2          R    ( 1) M? E        3   D13(3)
+   3          R    ( 1) M? E        3   D24(3)
+   4   19   1 R    ( 1)A U E            EST(1)
+   5   19   4 R    ( 2)AMU E            ET(3,3)
+   6          R    ( 1) MU E        3   G1(3)
+   7          R    ( 1) MU E        3   G2(3)
+   8          R    ( 1) MU E        3   G3(3)
+   9          R    ( 1) MU E        3   G4(3)
+  10          R    ( 1) M  E        3   G5(3)
+  11         s     ( 9)  U              GMMATS
+     (R4A,I4E,I4E,I4E,R4A,I4E,I4E,I4E,R4L)
+  12          R    ( 2)  U E       15   GRID(3,5)
+  13          I         MU E            I
+  14          R         MU E            IAREA
+  15   19   5 I        AM  E            IERROR
+  16          R         MU E            ITWOH
+  17          R         MU E            MAG
+  18   19   2 L        AM  E            PLANAR
+  19         S     ( 5) MU         56   Q2BCS(EST,PLANAR,RMAT,ET,IERROR)
+  20   19   3 R    ( 2)AMU E            RMAT(3,5)
+  21         fR    ( 2)  U E            SADOTB
+     (R4A,R4A)
+  22         s     ( 3)  U              SAXB
+     (R4A,R4A,R4A)
+  23         I?    ( 1)  U I            SQRT
+  24          R    ( 1) MU E        3   VEC(3)
+**-- END OF SYMBOL TABLE

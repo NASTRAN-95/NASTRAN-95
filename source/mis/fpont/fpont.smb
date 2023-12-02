@@ -1,0 +1,64 @@
+**++ Symbol table for subprogram FPONT in file mis/fpont.f90
+     produced by SPAG     7.61RG-40 at 01:00:00 on 21 Mar 2022
+   0         X             K             mis/fpont.f90,0000002,0000101
+   1         C     / 6/ ?U         68   /LOADX/LC,SLT,BG,OLD,N,IFM
+   2         C     / 1/ MU          4   /ZZZZZZ/CORE
+   3         s     ( 4)  U              BASGLB
+     (R4L,R4L,I4L,I4L)
+   4    1   3 R        C   E            BG
+   5    2   1 R    ( 1)CMU E        1   CORE(1)
+   6         s     ( 3)  U              CROSS
+     (R4L,R4L,R4L)
+   7         E                          DIRECT
+   8          R         ?? E            FLAG
+   9         s     ( 2)  U              FNDPNT
+     (I4L,I4V)
+  10         s     ( 1)  U              FNDSIL
+     (I4V)
+  11         S                     62   FPONT
+  12         s     ( 4)  U              GLBBAS
+     (R4L,R4L,I4L,I4V)
+  13          R    ( 1)  U E        3   GPCO1(3)
+  14          R    ( 1)  U E        3   GPCO2(3)
+  15          R    ( 1)  U E        3   GPCO3(3)
+  16          R    ( 1)  U E        3   GPCO4(3)
+  17          I         MU E            GPID
+  18          R    ( 1) ?U E        7   GRIDP(7)
+  19          I         MU E            I
+  20          I         ?U E            ICOSYT
+  21    1   6 I        C U E            IFM
+  22          I    ( 2) ?U E       20   IGPCO(4,5)
+  23          I         MU E            IN
+  24          I    ( 1) ?U E        5   IORD(5)
+  25          I          U E            IP1
+  26          I          U E            IP2
+  27          I          U E            IP3
+  28          I          U E            IP4
+  29          I         M? E            IPARM
+  30          I         MU E            L
+  31    1   1 I        C   E            LC
+  32         s     ( 3)  U              MESAGE
+     (I4V,I4V,I4A)
+  33          I         MU E            MINUS
+  34    1   5 I    ( 1)C   E       12   N(12)
+  35          I         M? E            N1
+  36         s     ( 2)  U              NORM
+     (R4L,R4V)
+  37          I         MU E            NP
+  38          I         M? E            NR
+  39    1   4 R        C?? E            OLD
+  40         s     ( 4)  U              PERMUT
+     (I4L,I4L,I4V,R4V)
+  41          I    ( 1) M? E        5   PONT(5)
+  42         s     ( 7)  U              READ
+     (ALT,ALT,I4V,R4L,I4E,I4E,R4V)
+  43          R         MU E            SCALE
+  44         E                          SLOAD
+  45    1   2 I        C?U E            SLT
+  46          I    ( 1)I?? E        2   SWLOAD(2)
+  47         E                          TPONT
+  48          R    ( 1) MU E        3   VECT(3)
+  49          R    ( 1) M? E        3   VECT1(3)
+  50          R    ( 1) M? E        3   VECT2(3)
+  51          R         ?? E            XL
+**-- END OF SYMBOL TABLE

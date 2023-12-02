@@ -1,0 +1,15 @@
+**++ Symbol table for subprogram DEGREE in file mis/degree.f90
+     produced by SPAG     8.01RF-40 at 14:46:59 on  2 Dec 2023
+   0         X             K             mis/degree.f90,0000002,0000026
+   1         C     / 2/ ?U          8   /BANDS/NN,MM
+   2         s     ( 4)  U              BUNPAK
+     (I4A,I4E,I4V,I4A)
+   3         S     ( 3) MU          8   DEGREE(IG,IDEG,JG)
+   4          I         MU E            I
+   5    3   2 I    ( 1)AMU E            IDEG(1)
+   6    3   1 I    ( 1)A?? E            IG(1)
+   7          I         MU E            J
+   8    3   3 I    ( 1)A?U E            JG(1)
+   9    1   2 I        C?U E            MM
+  10    1   1 I        C U E            NN
+**-- END OF SYMBOL TABLE

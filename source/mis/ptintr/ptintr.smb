@@ -1,0 +1,30 @@
+**++ Symbol table for subprogram PTINTR in file mis/ptintr.f90
+     produced by SPAG     8.01RF-40 at 14:46:50 on  2 Dec 2023
+   0         X             K             mis/ptintr.f90,0000002,0000099
+   1   21   1 D    ( 1)A U E            A(2)
+   2   21   2 D    ( 1)A U E            AA(2)
+   3          D         MU E            AAA
+   4          D         MU E            AX
+   5          D         MU E            AY
+   6   21   3 D    ( 1)A U E            B(2)
+   7   21   4 D    ( 1)A U E            BB(2)
+   8          D         MU E            BBB
+   9          D         MU E            BX
+  10          D         MU E            BY
+  11          D         MU E            D
+  12         ID    ( 1)  U I            DABS
+  13         GD    ( 4)  U E            DIST
+  14   21   7 D    ( 1)A U E            EPS(2)
+  15   21   6 I        AM  E            K
+  16          D    ( 1) MU E        2   P(2)
+  17          D         MU E            PA
+  18          D         MU E            PAA
+  19          D         MU E            PB
+  20          D         MU E            PBB
+  21         S     ( 7) MU         44   PTINTR(A,AA,B,BB,S,K,EPS)
+  22   21   5 D    ( 1)AM  E            S(2)
+  23          D         MU E            U
+  24          D         MU E            V
+  25          D         MU E            X
+  26          D         MU E            Y
+**-- END OF SYMBOL TABLE

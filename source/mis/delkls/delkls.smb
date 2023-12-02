@@ -1,0 +1,39 @@
+**++ Symbol table for subprogram DELKLS in file mis/delkls.f90
+     produced by SPAG     8.01RF-40 at 14:47:11 on  2 Dec 2023
+   0         X             K             mis/delkls.f90,0000002,0000153
+   1          R         MU E            A
+   2          R         MU E            A2
+   3          R         MU E            A3
+   4          R         MU E            AAB
+   5          R         MU E            AB
+   6          R         MU E            ABB
+   7         I?    ( 1)  U I            ABS
+   8         IR    ( 1)  U I            ALOG
+   9          R         MU E            B
+  10          R         MU E            B2
+  11          R         MU E            B3
+  12   13   1 R    ( 1)AMU E            DEL(15)
+  13         S     ( 4) MU         80   DELKLS(DEL,R,Z,KODE)
+  14          I         MU E            GOBACK
+  15          I         MU E            I
+  16   13   4 I        A U E            KODE
+  17          I         MU E            L
+  18          R         MU E            LN
+  19          I         MU E            M
+  20          I         MU E            N
+  21   13   2 R    ( 1)A U E            R(4)
+  22          R         MU E            R1
+  23          R         MU E            R2
+  24          R         MU E            R3
+  25          R         MU E            R4
+  26          R         MU E            R5
+  27          R         MU E            R6
+  28          R         MU E            R7
+  29          R         MU E            RI
+  30          R         MU E            RM
+  31          R         MU E            SI
+  32          R         MU E            SM
+  33   13   3 R    ( 1)A U E            Z(4)
+  34          R         MU E            ZI
+  35          R         MU E            ZM
+**-- END OF SYMBOL TABLE

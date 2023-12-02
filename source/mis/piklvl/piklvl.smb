@@ -1,0 +1,32 @@
+**++ Symbol table for subprogram PIKLVL in file mis/piklvl.f90
+     produced by SPAG     8.01RF-40 at 14:47:15 on  2 Dec 2023
+   0         X             K             mis/piklvl.f90,0000002,0000137
+   1         C     / 2/  U          8   /BANDG/IDUM,IDPTH
+   2   24   3 I    ( 1)A U E            CCSTOR(1)
+   3          I         MU E            END
+   4          I         MU E            I
+   5   24   4 I        A U E            IDFLT
+   6    1   2 I        C U E            IDPTH
+   7    1   1 I        C   E            IDUM
+   8          I         MU E            INODE
+   9   24   5 I        AM  E            ISDIR
+  10          I         MU E            IT
+  11          I         MU E            J
+  12          I         MU E            K
+  13          I         MU E            LVLNH
+  14          I         MU E            LVLNL
+  15   24   1 I    ( 1)A U E            LVLS1(1)
+  16   24   2 I    ( 1)AMU E            LVLS2(1)
+  17          I         MU E            M
+  18          I         MU E            MAX1
+  19          I         MU E            MAX2
+  20          I         MU E            N
+  21   24   9 I    ( 1)AMU E            NACUM(1)
+  22   24   7 I    ( 1)AMU E            NHIGH(1)
+  23   24   8 I    ( 1)AMU E            NLOW(1)
+  24         S     (11) MU         67   PIKLVL(LVLS1,LVLS2,CCSTOR,IDFLT,ISDIR,XC,NHIGH,NLOW,NACUM,SIZE,STPT)
+  25   24  10 I    ( 1)AMU E            SIZE(1)
+  26   24  11 I    ( 1)AMU E            STPT(1)
+  27          I         MU E            TEMP
+  28   24   6 I        A U E            XC
+**-- END OF SYMBOL TABLE

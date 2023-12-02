@@ -1,0 +1,185 @@
+**++ Symbol table for subprogram MMA in file mis/mma.f90
+     produced by SPAG     7.61RG-40 at 01:00:00 on 21 Mar 2022
+   0         X             K             mis/mma.f90,0000002,0000418
+   1         C     / 1/  U          4   /LOGOUT/LOUT
+   2         C     /11/ MU        140   /MPYADX/FILEA,FILEB,FILEC,FILED,NZ,T,SIGNAB,SIGNC,PREC1,SCRTCH,TIME
+   3         C     / 6/ ??         24   /NAMES/RD,RDREW,WRT,WRTREW,CLSREW,CLS
+   4         C     / 5/ MU         20   /PACKX/TYPEI,TYPEP,IROW1P,IROWNP,INCRP
+   5         C     / 1/           608   /SYSTEM/KSYSTM
+   6         C     / 4/ MU         16   /UNPAKX/TYPEU,IROWU,IROWNU,INCRU
+   7         C     / 3/  U         77   /XMSSG/UFM,UWM,UIM
+   8         C     / 2/            20   /ZBLPKX/D,IROWBK
+   9         C     / 4/ ?U         28   /ZNTPKX/A,IROWIN,EOL,EOR
+  10    9   1 R    ( 1)C?? E        4   A(4)
+  11          D    ( 1)    E        2   AD(2)
+  12         s     ( 5)  U              BLDPK
+     (I4V,I4V,I4A,I4A,I4E)
+  13         s     ( 4)  U              BLDPKI
+     (R4A,I4V,I4A,I4A)
+  14         s     ( 3)  U              BLDPKN
+     (I4A,I4A,I4A)
+  15          I    ( 1) M? E       15   BLK1(15)
+  16          I    ( 1) M? E       15   BLK2(15)
+  17         s     ( 2)  U              CLOSE
+     (I4A,R4V)
+  18    3   6 R        C   E            CLS
+  19    3   5 R        C?? E            CLSREW
+  20         s     ( 3)  U              CONMSG
+     (I4A,I4E,I4E)
+  21         s     ( 4)  U              CPYSTR
+     (I4A,I4A,I4E,I4E)
+  22          C*2       MU E            CT*2
+  23    8   1 R    ( 1)C   E        4   D(4)
+  24          D    ( 1) M? E        2   DD(2)
+  25          R         MU E            DENSTYA
+  26          R         MU E            DENSTYB
+  27          R         MU E            DENSTYC
+  28         s     ( 5)  U              DSSIZE
+     (I4A,I4V,I4V,I4V,I4V)
+  29    9   3 I        C U E            EOL
+  30    9   4 I        C   E            EOR
+  31    2   1 I    ( 1)C?U E        7   FILEA(7)
+  32    2   2 I    ( 1)C?U E        7   FILEB(7)
+  33    2   3 I    ( 1)C?U E        7   FILEC(7)
+  34    2   4 I    ( 1)CMU E        7   FILED(7)
+  35         s     ( 2)  U              FNAME
+     (I4A,I4A)
+  36         s     ( 3)  U              GOPEN
+     (I4A,R4L,R4V)
+  37          I         MU E            I
+  38          I         MU E            IBUF1
+  39          I         MU E            IBUF2
+  40          I         M  E            IERR
+  41    4   5 I        CMU E            INCRP
+  42    6   4 I        CMU E            INCRU
+  43         s     ( 5)  U              INTPK
+     (ALT,I4A,I4E,I4E,I4E)
+  44          ?          U I            IPASS
+  45          I          U E            IPREC
+  46    4   3 I        CMU E            IROW1P
+  47    8   2 I        C   E            IROWBK
+  48    9   2 I        C?? E            IROWIN
+  49    4   4 I        CMU E            IROWNP
+  50    6   3 I        CMU E            IROWNU
+  51    6   2 I        CMU E            IROWU
+  52          I    ( 1) MU E        9   ISAVE(9)
+  53          I         M  E            ITEST1
+  54          I         MU E            ITEST2
+  55          I        I U E            JBEGN
+  56          I        I U E            JEND
+  57          I          U E            KSYS58
+  58    5   1 I    ( 1)C   E      152   KSYSTM(152)
+  59          I         ?U E            L19
+  60    1   1 I        C U E            LOUT
+  61         II    ( 3)  U I            MAX0
+  62          I         MU E            MEMAVL
+  63         s     ( 3)  U              MESAGE
+     (I4E,I4E,I4E)
+  64          ?         MU I            METHOD
+  65         II    ( 3)  U I            MIN0
+  66         S     ( 3) ??        243   MMA(ZI,ZR,ZD)
+  67         s     ( 5)  U              MMA1
+     (I4A,R4A,R8A,R4A,R8A)
+  68         s     ( 5)  U              MMA2
+     (I4A,R4A,R8A,R4A,R8A)
+  69         s     ( 5)  U              MMA3
+     (I4A,R4A,R8A,R4A,R8A)
+  70         s     ( 5)  U              MMA4
+     (I4A,R4A,R8A,R4A,R8A)
+  71          I    ( 1)IM? E        3   MODULE(3)
+  72          I         MU E            MPASS10
+  73          I         MU E            MPASS11
+  74          I         MU E            MPASS20
+  75          I         MU E            MPASS21
+  76          I         MU E            MPASS30
+  77          I         MU E            MPASS31
+  78          I         MU E            MPASS32
+  79          I         MU E            MPASS40
+  80          I         MU E            MPASS41
+  81          I          U E            NAC
+  82          I          U E            NADENS
+  83          I            E            NAFORM
+  84          I    ( 1) ?U E        2   NAMEA(2)
+  85          I    ( 1) ?U E        2   NAMEB(2)
+  86          I    ( 1) ?U E        2   NAMEC(2)
+  87          I    ( 1) ?U E        2   NAMED(2)
+  88          I            E            NANZWD
+  89          I         MU E            NAPACK
+  90          I          U E            NAR
+  91          ?         MU I            NASTOR
+  92          I         ?U E            NASTRGS
+  93          I         ?U E            NATERMS
+  94          I         MU E            NATOTAL
+  95          I          U E            NATYPE
+  96          I          U E            NBC
+  97          I          U E            NBDENS
+  98          I            E            NBFORM
+  99          I            E            NBNZWD
+ 100          I         MU E            NBPACK
+ 101          I            E            NBPW
+ 102          I          U E            NBR
+ 103          ?         MU I            NBSTOR
+ 104          I         ?U E            NBSTRGS
+ 105          I         ?U E            NBTERMS
+ 106          I         MU E            NBTOTAL
+ 107          I          U E            NBTYPE
+ 108          I          U E            NCC
+ 109          I          U E            NCDENS
+ 110          I            E            NCFORM
+ 111          I            E            NCNZWD
+ 112          I         ?? E            NCOLS
+ 113          I         MU E            NCPACK
+ 114          I          U E            NCR
+ 115          I         MU E            NCSTOR
+ 116          I         ?U E            NCSTRGS
+ 117          I         ?U E            NCTERMS
+ 118          I         MU E            NCTOTAL
+ 119          I          U E            NCTYPE
+ 120          I         MU E            NDC
+ 121          I            E            NDDENS
+ 122          I         MU E            NDFORM
+ 123          I            E            NDNZWD
+ 124          I         MU E            NDR
+ 125          I         MU E            NDTOTAL
+ 126          I         MU E            NDTYPE
+ 127          I          U E            NOUT
+ 128          I         MU E            NUMC
+ 129          I         ?U E            NWDA
+ 130          ?         ?U I            NWDB
+ 131          I         MU E            NWDC
+ 132          ?         MU I            NWDD
+ 133    2   5 I        C U E            NZ
+ 134         s     ( 3)  U              PACK
+     (R8A,I4A,I4A)
+ 135          R         MU E            PERCNTA
+ 136          R         MU E            PERCNTB
+ 137          R         MU E            PERCNTC
+ 138    2   9 I        C U E            PREC1
+ 139          I    ( 1)I U E        4   PRNTYP(4)
+ 140    3   1 R        C   E            RD
+ 141    3   2 R        C?? E            RDREW
+ 142    2  10 I        C   E            SCRTCH
+ 143    2   7 I        C U E            SIGNAB
+ 144    2   8 I        C U E            SIGNC
+ 145         s     ( 2)  U              SSWTCH
+     (I4E,I4V)
+ 146          I          U E            SYSBUF
+ 147    2   6 I        C U E            T
+ 148          R        I U E            TESTPCT
+ 149    2  11 R        C   E            TIME
+ 150    4   1 I        CMU E            TYPEI
+ 151    4   2 I        CMU E            TYPEP
+ 152    6   1 I        CMU E            TYPEU
+ 153    7   1 C*23     C U E            UFM*23
+ 154    7   3 C*29     C   E            UIM*29
+ 155          C*6  ( 1)I U E        2   UPMETH(2)*6
+ 156    7   2 C*25     C   E            UWM*25
+ 157    3   3 R        C   E            WRT
+ 158    3   4 R        C?? E            WRTREW
+ 159          R         MU E            X
+ 160          R         MU E            Y
+ 161   66   3 D    ( 1)A?? E            ZD(2)
+ 162   66   1 I    ( 1)A?? E            ZI(2)
+ 163         s           U              ZNTPKI
+ 164   66   2 R    ( 1)A?? E            ZR(2)
+**-- END OF SYMBOL TABLE

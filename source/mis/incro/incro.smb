@@ -1,0 +1,96 @@
+**++ Symbol table for subprogram INCRO in file mis/incro.f90
+     produced by SPAG     8.01RF-40 at 14:47:09 on  2 Dec 2023
+   0         X             K             mis/incro.f90,0000002,0000125
+   1         C     / 8/  U         32   /DLM/K10,K20,K1RT1,K1IT1,K2RT2P,K2IT2P,K10T1,K20T2P
+   2         C     / 1/ M           4   /KDS/IND
+   3          R         M? E            A2I
+   4          R         M? E            A2R
+   5         I?    ( 1)  U I            ABS
+   6          R         M? E            AIM
+   7          R         M? E            ARE
+   8          R         MU E            AT1
+   9          R         MU E            AT1S
+  10          R         MU E            AT2
+  11          R         MU E            AT2S
+  12   53   1 R        A U E            AX
+  13   53   4 R        A U E            AX1
+  14   53   7 R        A U E            AX2
+  15   53   2 R        A U E            AY
+  16   53   5 R        A U E            AY1
+  17   53   8 R        A U E            AY2
+  18   53   3 R        A U E            AZ
+  19   53   6 R        A U E            AZ1
+  20   53   9 R        A U E            AZ2
+  21          R         MU E            AZET0
+  22          R         M? E            B2I
+  23          R         M? E            B2R
+  24   53  16 R        A U E            BETA
+  25          R         M? E            BIM
+  26          R         M? E            BR
+  27          R         M? E            BRE
+  28          R         M? E            C2I
+  29          R         M? E            C2R
+  30   53  11 R        A?? E            CGR
+  31   53  13 R        A?U E            CGS
+  32          R         M? E            CIM
+  33          R         MU E            COUNT
+  34          R         M? E            CRE
+  35   53  20 R        AMU E            DELI
+  36   53  19 R        AMU E            DELR
+  37   53  18 R        A U E            DELY
+  38          R         MU E            DIIJI
+  39          R         MU E            DIIJR
+  40          R         MU E            DKIC
+  41          R         MU E            DKII
+  42          R         MU E            DKIO
+  43          R         MU E            DKRC
+  44          R         MU E            DKRI
+  45          R         MU E            DKRO
+  46          R         MU E            E2
+  47          R         MU E            EE
+  48          R         M  E            EPS
+  49          R         MU E            ETA01
+  50   53  15 R        A U E            FL
+  51         s     (13)  U              IDF1
+     (R4V,R4V,R4V,R4V,R4V,R4V,R4V,R4V,R4V,R4V,R4V,R4V,R4V)
+  52         s     (13)  U              IDF2
+     (R4V,R4V,R4V,R4V,R4V,R4V,R4V,R4V,R4V,R4V,R4V,R4V,R4V)
+  53         S     (20) MU         98   INCRO(AX,AY,AZ,AX1,AY1,AZ1,AX2,AY2,AZ2,SGR,CGR,SGS,CGS,KR,FL,BETA,SDELX,DELY,DELR,DELI)
+  54    2   1 I        CM  E            IND
+  55    1   1 R        C   E            K10
+  56    1   7 R        C U E            K10T1
+  57    1   4 R        C U E            K1IT1
+  58    1   3 R        C U E            K1RT1
+  59    1   2 R        C   E            K20
+  60    1   8 R        C U E            K20T2P
+  61    1   6 R        C U E            K2IT2P
+  62    1   5 R        C U E            K2RT2P
+  63   53  14 R        A?? E            KR
+  64          R         M? E            M
+  65          R         MU E            PI
+  66          R         M? E            R1SQX
+  67   53  17 R        A U E            SDELX
+  68   53  10 R        A?? E            SGR
+  69   53  12 R        A?U E            SGS
+  70         I?    ( 1)  U I            SQRT
+  71          R         MU E            T1
+  72          R         MU E            T2
+  73         s     (12)  U              TKER
+     (R4V,R4V,R4V,R4V,R4V,R4V,R4V,R4V,R4V,R4V,R4V,R4V)
+  74          R         M? E            X0
+  75          R         MU E            XDELX
+  76          R         MU E            XDELY
+  77          R         MU E            XIIJI
+  78          R         MU E            XIIJR
+  79          R         MU E            XKIC
+  80          R         MU E            XKII
+  81          R         MU E            XKIO
+  82          R         MU E            XKRC
+  83          R         MU E            XKRI
+  84          R         MU E            XKRO
+  85          R         MU E            XMULT
+  86          R         MU E            Y0
+  87          R         MU E            Z0
+  88          R         MU E            ZERO
+  89          R         MU E            ZET01
+**-- END OF SYMBOL TABLE

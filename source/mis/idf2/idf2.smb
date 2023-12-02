@@ -1,0 +1,56 @@
+**++ Symbol table for subprogram IDF2 in file mis/idf2.f90
+     produced by SPAG     8.01RF-40 at 14:47:05 on  2 Dec 2023
+   0         X             K             mis/idf2.f90,0000002,0000086
+   1   34   6 R        A U E            A2I
+   2   34   5 R        A U E            A2R
+   3         I?    ( 1)  U I            ABS
+   4          R         MU E            ALPHA
+   5          R         MU E            ARGA
+   6          R         MU E            ARGT
+   7         I?    ( 1)  U I            ATAN
+   8          R         MU E            ATANA
+   9          R         MU E            AZET
+  10   34   8 R        A U E            B2I
+  11   34   7 R        A U E            B2R
+  12   34  10 R        A U E            C2I
+  13   34   9 R        A U E            C2R
+  14          R         MU E            COEF
+  15          R         MU E            DEN2
+  16          R         MU E            DEN3
+  17          R         MU E            DENA
+  18          R         MU E            DENB
+  19          R         MU E            DENO
+  20   34  13 R        AM  E            DIIJI
+  21   34  12 R        AM  E            DIIJR
+  22   34   2 R        A U E            E2
+  23   34   1 R        A U E            EE
+  24          R         M  E            EPS
+  25   34   3 R        A U E            ETA01
+  26          R         MU E            ETA02
+  27          R         MU E            FAC2A
+  28          R         MU E            FAC2B
+  29          R         MU E            FAC3A
+  30          R         MU E            FAC3B
+  31          R         MU E            FACI
+  32          R         MU E            FACR
+  33          R         MU E            FUNCT
+  34         S     (13) MU         76   IDF2(EE,E2,ETA01,ZET01,A2R,A2I,B2R,B2I,C2R,C2I,R1SQX,DIIJR,DIIJI)
+  35          R         MU E            PARN
+  36   34  11 R        A U E            R1SQX
+  37          R         MU E            S
+  38          R         MU E            SER
+  39          R         MU E            TEST
+  40          R         MU E            TEST0
+  41          R         MU E            TRM1I
+  42          R         MU E            TRM1R
+  43          R         MU E            TRM2I
+  44          R         MU E            TRM2R
+  45          R         MU E            TRM3I
+  46          R         MU E            TRM3R
+  47          R         MU E            UP1I
+  48          R         MU E            UP1R
+  49          R         MU E            UP2I
+  50          R         MU E            UP2R
+  51   34   4 R        A U E            ZET01
+  52          R         MU E            ZET02
+**-- END OF SYMBOL TABLE

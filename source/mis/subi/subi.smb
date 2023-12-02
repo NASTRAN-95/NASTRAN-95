@@ -1,0 +1,69 @@
+**++ Symbol table for subprogram SUBI in file mis/subi.f90
+     produced by SPAG     8.01RF-40 at 14:47:05 on  2 Dec 2023
+   0         X             K             mis/subi.f90,0000002,0000115
+   1          R         MU E            ABAR
+   2          R         MU E            ABAR2
+   3         I?    ( 1)  U I            ABS
+   4          R         MU E            COSTH
+   5          R         MU E            CT2
+   6          R         MU E            CT3
+   7   53   1 R        A U E            DA
+   8   53   4 R        A U E            DAR
+   9   53   7 R        A U E            DCGAM
+  10   53  14 R        AM  E            DCGAMI
+  11   53   9 R        A U E            DEE
+  12   53  16 R        AMU E            DEEI
+  13          R         MU E            DELXI
+  14   53   5 R        A U E            DETA
+  15   53  12 R        AMU E            DETAI
+  16   53  18 R        AM  E            DMUY
+  17   53  19 R        AM  E            DMUZ
+  18   53   8 R        A U E            DSGAM
+  19   53  15 R        AM  E            DSGAMI
+  20   53  17 R        AM  E            DTLAMI
+  21   53  10 R        A U E            DXI
+  22          R         MU E            DXI1
+  23          R         MU E            DXI2
+  24   53   3 R        A U E            DYB
+  25          R         MU E            DYBM
+  26          R         MU E            DYBP
+  27   53   2 R        A U E            DZB
+  28          R         MU E            DZBM
+  29          R         MU E            DZBP
+  30   53   6 R        A U E            DZETA
+  31   53  13 R        AMU E            DZETAI
+  32          R         MU E            EPS
+  33          R         MU E            ETA1
+  34          R         MU E            ETA2
+  35          R         MU E            ETAI1
+  36          R         MU E            ETAI2
+  37          I         MU E            IGO
+  38   53  20 I        A U E            INFL
+  39   53  21 I        AM  E            IOUTFL
+  40          R         MU E            PAR3
+  41          R         MU E            PAREN
+  42          R         MU E            PART1
+  43          R         MU E            PART2
+  44          R         MU E            PSQR
+  45          R         MU E            RHO12
+  46          R         MU E            RHO2
+  47          R         MU E            RHO22
+  48          R         MU E            RHO4
+  49          R         MU E            SINTH
+  50         I?    ( 1)  U I            SQRT
+  51          R         MU E            ST2
+  52          R         MU E            ST3
+  53         S     (21) MU        100   SUBI(DA,DZB,DYB,DAR,DETA,DZETA,DCGAM,DSGAM,DEE,DXI,TL,DETAI,DZETAI,DCGAMI,DSGAMI,DEEI,DTLAMI,DMUY,DMUZ,INFL,IOUTFL)
+  54          R         MU E            TEDIF
+  55   53  11 R        A U E            TL
+  56          R         MU E            TRM1
+  57          R         MU E            TRM2
+  58          R         MU E            XETAI
+  59          R         MU E            XZETAI
+  60          R         MU E            YCBAR
+  61          R         MU E            ZCBAR
+  62          R         MU E            ZETA1
+  63          R         MU E            ZETA2
+  64          R         MU E            ZETI1
+  65          R         MU E            ZETI2
+**-- END OF SYMBOL TABLE

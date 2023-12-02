@@ -1,0 +1,115 @@
+**++ Symbol table for subprogram FRRD1C in file mis/frrd1c.f90
+     produced by SPAG     8.01RF-40 at 14:46:55 on  2 Dec 2023
+   0         X             K             mis/frrd1c.f90,0000002,0000191
+   1         C     /12/ MU        136   /CDCMPX/FA,FL,FU,SR1,SR2,SR3,DET,POWR,NX,MINDA,IB,IBBAR
+   2         C     /13/ M?        136   /DCOMPX/IA,IL,IU,ISCR1,ISCR2,ISCR3,DETT,IPOW,NY,MINDIA,IIB,IIBB,ICBR
+   3         C     / 8/ MU        276   /SADDX/NOMAT,LCORE,MCBA,MCBB,MCBC,MCBD,MCBE,MX
+   4         C     /12/ M?        132   /SFACT/MFA,MFL,MFC,M1FIL,M2FIL,MXX,DDR,DDC,POWER,M3FIL,MINDD,CHLSKY
+   5         C     / 1/           252   /SYSTEM/KSYSTM
+   6         C     / 1/  U         23   /XMSSG/UFM
+   7         C     / 1/ ?U          4   /ZZZZZZ/CORE
+   8          D    ( 1) M  E        2   AMCB(2)
+   9   26   4 I        A U E            BDD
+  10          D    ( 1) M  E        2   BMCB(2)
+  11         s     ( 4)  U              CDCOMP
+     (ALT,R4L,R4L,R4L)
+  12    4  12 I        CM  E            CHLSKY
+  13         s     ( 2)  U              CLOSE
+     (I4V,I4E)
+  14          D    ( 1) M  E        2   CMCB(2)
+  15    7   1 R    ( 1)C?U E        1   CORE(1)
+  16    4   8 D        C   E            DDC
+  17    4   7 D        C   E            DDR
+  18         s     ( 4)  U              DECOMP
+     (ALT,I4A,I4A,I4A)
+  19    1   7 D    ( 1)C   E        2   DET(2)
+  20    2   7 D        C   E            DETT
+  21    1   1 I    ( 1)CMU E        7   FA(7)
+  22    1   2 I    ( 1)CM? E        7   FL(7)
+  23         s     ( 4)  U              FREAD
+     (I4V,R4A,I4V,I4E)
+  24   26   1 I        A?? E            FRL
+  25   26   2 I        A U E            FRQSET
+  26         S     (13) MU        120   FRRD1C(FRL,FRQSET,MDD,BDD,KDD,IFR,ULL,LLL,SCR1,SCR2,SCR3,SCR4,IGOOD)
+  27    1   3 I    ( 1)CM? E        7   FU(7)
+  28         s     ( 3)  U              GOPEN
+     (I4V,R4L,I4E)
+  29          I         MU E            I
+  30    2   1 I    ( 1)CM  E        7   IA(7)
+  31         II    ( 1)  U I            IABS
+  32    1  11 I        CM  E            IB
+  33    1  12 I        CM  E            IBBAR
+  34    2  13 I    ( 1)C   E        3   ICBR(3)
+  35          I    ( 1) ?? E        1   ICORE(1)
+  36   26   6 I        A?U E            IFR
+  37   26  13 I        AM  E            IGOOD
+  38    2  11 I        C   E            IIB
+  39    2  12 I        C   E            IIBB
+  40    2   2 I    ( 1)CM? E        7   IL(7)
+  41    2   8 I        C   E            IPOW
+  42          I          U E            IPREC
+  43    2   4 I        CM  E            ISCR1
+  44    2   5 I        CM  E            ISCR2
+  45    2   6 I        CM  E            ISCR3
+  46    2   3 I    ( 1)CM? E        7   IU(7)
+  47   26   5 I        A U E            KDD
+  48         fI    ( 1)  U E            KORSZ
+     (R4A)
+     (I4A)
+  49    5   1 I    ( 1)C   E       63   KSYSTM(63)
+  50    3   2 I        CM  E            LCORE
+  51   26   8 I        A U E            LLL
+  52    4   4 I        CM  E            M1FIL
+  53    4   5 I        CM  E            M2FIL
+  54    4  10 I        CM  E            M3FIL
+  55    3   3 I    ( 1)CMU E       12   MCBA(12)
+  56    3   4 I    ( 1)CMU E       12   MCBB(12)
+  57    3   5 I    ( 1)CMU E       12   MCBC(12)
+  58    3   6 I    ( 1)C   E       12   MCBD(12)
+  59    3   7 I    ( 1)C   E       12   MCBE(12)
+  60          I    ( 1) ?? E        1   MCORE(1)
+  61   26   3 I        A U E            MDD
+  62         s     ( 3)  U              MESAGE
+     (I4E,I4E,I4A)
+  63    4   1 I    ( 1)CM  E        7   MFA(7)
+  64    4   3 I    ( 1)CM  E        7   MFC(7)
+  65    4   2 I    ( 1)CM? E        7   MFL(7)
+  66         II    ( 3)  U I            MIN0
+  67    1  10 D        C   E            MINDA
+  68    4  11 D        C   E            MINDD
+  69    2  10 I        C   E            MINDIA
+  70    3   8 I    ( 1)CM? E        7   MX(7)
+  71          I         MU E            MX4A
+  72          I         MU E            MX4B
+  73          I         MU E            MX4C
+  74    4   6 I        CM  E            MXX
+  75          I    ( 1)I?? E        2   NAME(2)
+  76    3   1 I        CM  E            NOMAT
+  77          I          U E            NOUT
+  78    1   9 I        CMU E            NX
+  79    2   9 I        CM  E            NY
+  80          I         MU E            NZ
+  81    4   9 R        C   E            POWER
+  82    1   8 R        C   E            POWR
+  83         s     ( 1)  U              RDTRL
+     (I4A)
+  84         s     ( 2)  U              SADD
+     (R4A,R4A)
+  85   26   9 I        A U E            SCR1
+  86   26  10 I        A U E            SCR2
+  87   26  11 I        A?U E            SCR3
+  88   26  12 I        A U E            SCR4
+  89         s     ( 4)  U              SDCOMP
+     (ALT,I4A,I4A,I4A)
+  90         s     ( 2)  U              SKPREC
+     (I4V,I4E)
+  91    1   4 I        CM  E            SR1
+  92    1   5 I        CM  E            SR2
+  93    1   6 I        CM  E            SR3
+  94          I          U E            SYSBUF
+  95    6   1 C*23     C U E            UFM*23
+  96   26   7 I        AMU E            ULL
+  97          R         MU E            W
+  98         s     ( 1)  U              WRTTRL
+     (I4A)
+**-- END OF SYMBOL TABLE

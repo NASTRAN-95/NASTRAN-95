@@ -1,0 +1,98 @@
+**++ Symbol table for subprogram MRED2O in file mis/mred2o.f90
+     produced by SPAG     8.01RF-40 at 14:47:21 on  2 Dec 2023
+   0         X             K             mis/mred2o.f90,0000002,0000167
+   1         C     /18/ ?U        228   /BLANK/IDUM1,DRY,IDUM2,GBUF1,GBUF2,IDUM3,SBUF1,SBUF2,SBUF3,INFILE,OTFILE,ISCR,KORLEN,KORBGN,IDUM5,NMODES,IDUM4,LSTZWD
+   2         C     / 9/ MU        188   /MPY3TL/ITRLRA,ITRLRB,ITRLRE,ITRLRC,JSCR,LKORE,ICODE,PREC,DUMMY
+   3         C     / 5/ MU         20   /PACKX/TYPIN,TYPOUT,IROW,NROW,INCR
+   4         C     / 1/ ??          4   /ZZZZZZ/Z
+   5          R    ( 1) M? E       11   BLOCK(11)
+   6         s     ( 2)  U              CLOSE
+     (I4V,I4E)
+   7          I         MU E            DBLKOR
+   8    1   2 I        C U E            DRY
+   9    2   9 R    ( 1)C   E       13   DUMMY(13)
+  10          D    ( 1) ?? E        1   DZ(1)
+  11         s     ( 2)  U              FWDREC
+     (ALT,I4V)
+  12    1   4 I        C U E            GBUF1
+  13    1   5 I        C U E            GBUF2
+  14         s     (11)  U              GMMERG
+     (I4V,I4V,I4E,I4E,I4E,I4V,I4E,I4A,I4L,I4L,I4V)
+  15         s     ( 3)  U              GOPEN
+     (I4V,I4L,I4E)
+  16          I         ?U E            GS
+  17          I         ?U E            GSZERO
+  18          I         ?U E            HK
+  19          I         MU E            HM
+  20          I         MU E            I
+  21    2   7 I        CM  E            ICODE
+  22    1   1 I        C   E            IDUM1
+  23    1   3 I        C   E            IDUM2
+  24    1   6 I        C   E            IDUM3
+  25    1  17 I    ( 1)C   E        2   IDUM4(2)
+  26    1  15 I    ( 1)C   E       14   IDUM5(14)
+  27          I         M? E            IFILE
+  28          I         M? E            IFORM
+  29          I         M? E            IMSG
+  30    3   5 I        CM  E            INCR
+  31    1  10 I    ( 1)C   E       12   INFILE(12)
+  32          I         M? E            IOP
+  33          I         MU E            IPRC
+  34    3   3 I        CM  E            IROW
+  35    1  12 I    ( 1)C U E       10   ISCR(10)
+  36          I    ( 1) M? E        4   ISUB(4)
+  37          I    ( 1) MU E        7   ITRLR1(7)
+  38          I    ( 1) MU E        7   ITRLR2(7)
+  39    2   1 I    ( 1)CMU E        7   ITRLRA(7)
+  40    2   2 I    ( 1)CMU E        7   ITRLRB(7)
+  41    2   4 I    ( 1)C?? E        7   ITRLRC(7)
+  42    2   3 I    ( 1)CM  E        7   ITRLRE(7)
+  43          I         MU E            ITYP
+  44          I         M? E            ITYPE
+  45          I         MU E            J
+  46    2   5 I    ( 1)CM  E        3   JSCR(3)
+  47          I         ?U E            KMW2
+  48    1  14 I        C U E            KORBGN
+  49    1  13 I        C?? E            KORLEN
+  50          I         ?U E            LAMAMR
+  51    2   6 I        CM  E            LKORE
+  52    1  18 I        C U E            LSTZWD
+  53          I         ?? E            M
+  54         s     ( 5)  U              MAKMCB
+     (I4A,I4V,I4V,I4V,I4V)
+  55         s     ( 3)  U              MESAGE
+     (I4V,I4V,I4A)
+  56          I    ( 1)I?? E        2   MODNAM(2)
+  57         s     ( 1)  U              MPY3DR
+     (R8L)
+  58         S     ( 1)  U         97   MRED2O(NUS)
+  59    1  16 I        C?U E            NMODES
+  60    3   4 I        CMU E            NROW
+  61   58   1 I        A U E            NUS
+  62          I         ?? E            NWDSRD
+  63    1  11 I    ( 1)C   E        6   OTFILE(6)
+  64         s     ( 3)  U              PACK
+     (I4L,I4V,I4A)
+  65    2   8 I        CM  E            PREC
+  66         s     ( 1)  U              RDTRL
+     (I4A)
+  67         s     ( 7)  U              READ
+     (ALT,ALT,I4V,I4L,I4E,I4E,I4V)
+  68          I         ?? E            RPRTN
+  69          R    ( 1) MU E        1   RZ(1)
+  70    1   7 I        C U E            SBUF1
+  71    1   8 I        C U E            SBUF2
+  72    1   9 I        C U E            SBUF3
+  73         s           U              SOFCLS
+  74         s     ( 3)  U              SOFOPN
+     (I4L,I4L,I4L)
+  75         s     ( 5)  U              SSG2C
+     (I4V,I4V,I4V,I4V,R4A)
+  76          I         M  E            TYPEA
+  77          I         M  E            TYPEB
+  78    3   1 I        CM? E            TYPIN
+  79    3   2 I        CM  E            TYPOUT
+  80         s     ( 1)  U              WRTTRL
+     (I4A)
+  81    4   1 I    ( 1)C?? E        1   Z(1)
+**-- END OF SYMBOL TABLE

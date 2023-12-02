@@ -1,0 +1,87 @@
+**++ Symbol table for subprogram MRED2N in file mis/mred2n.f90
+     produced by SPAG     8.01RF-40 at 14:46:58 on  2 Dec 2023
+   0         X             K             mis/mred2n.f90,0000002,0000104
+   1         C     /18/ ?U        228   /BLANK/IDUM1,DRY,IDUM2,GBUF1,GBUF2,IDUM3,SBUF1,SBUF2,SBUF3,INFILE,OTFILE,ISCR,KORLEN,KORBGN,IDUM4,NMODES,IDUM6,LSTZWD
+   2         C     / 2/  U         20   /CONDAS/IDUM5,FORPI2
+   3         C     / 9/ MU        188   /MPY3TL/ITRLRA,ITRLRB,ITRLRE,ITRLRC,JSCR,LKORE,ICODE,PREC,DUMMY
+   4         C     / 5/ M          20   /PACKX/TYPIN,TYPOUT,IROW,NROW,INCR
+   5         C     / 1/ ??          4   /ZZZZZZ/Z
+   6         s     ( 2)  U              CLOSE
+     (I4V,I4E)
+   7          I         MU E            DBLKOR
+   8    1   2 I        C U E            DRY
+   9    3   9 R    ( 1)C   E       13   DUMMY(13)
+  10          D    ( 1) ?? E        1   DZ(1)
+  11    2   2 R        C U E            FORPI2
+  12         s     ( 2)  U              FWDREC
+     (ALT,I4V)
+  13    1   4 I        C U E            GBUF1
+  14    1   5 I        C U E            GBUF2
+  15         s     ( 3)  U              GOPEN
+     (I4V,R4L,I4E)
+  16          I          U E            HK
+  17          I         MU E            I
+  18    3   7 I        CM  E            ICODE
+  19    1   1 I        C   E            IDUM1
+  20    1   3 I        C   E            IDUM2
+  21    1   6 I        C   E            IDUM3
+  22    1  15 I    ( 1)C   E       14   IDUM4(14)
+  23    2   1 I    ( 1)C   E        4   IDUM5(4)
+  24    1  17 I    ( 1)C   E        2   IDUM6(2)
+  25          I         M? E            IFILE
+  26          I         M? E            IFORM
+  27          I         M? E            IMSG
+  28    4   5 I        CM  E            INCR
+  29    1  10 I    ( 1)C   E       12   INFILE(12)
+  30          I         MU E            IPRC
+  31    4   3 I        CM  E            IROW
+  32    1  12 I    ( 1)C U E       10   ISCR(10)
+  33          I    ( 1) ?U E        7   ITRLR1(7)
+  34          I    ( 1) MU E        7   ITRLR2(7)
+  35    3   1 I    ( 1)CMU E        7   ITRLRA(7)
+  36    3   2 I    ( 1)CMU E        7   ITRLRB(7)
+  37    3   4 I    ( 1)C?? E        7   ITRLRC(7)
+  38    3   3 I    ( 1)CM  E        7   ITRLRE(7)
+  39          I         MU E            ITYP
+  40          I         M? E            ITYPE
+  41          I         MU E            J
+  42    3   5 I    ( 1)CM  E        3   JSCR(3)
+  43          I         ?? E            K
+  44          I         ?? E            KMW2
+  45    1  14 I        C U E            KORBGN
+  46    1  13 I        C U E            KORLEN
+  47          I         ?U E            LAMAMR
+  48    3   6 I        CM  E            LKORE
+  49    1  18 I        C U E            LSTZWD
+  50         s     ( 5)  U              MAKMCB
+     (I4A,I4V,I4V,I4V,I4V)
+  51         s     ( 3)  U              MESAGE
+     (I4V,I4V,I4A)
+  52          I    ( 1)I?? E        2   MODNAM(2)
+  53         s     ( 1)  U              MPY3DR
+     (R8L)
+  54         S                     63   MRED2N
+  55    1  16 I        C?U E            NMODES
+  56    4   4 I        CM  E            NROW
+  57          I         ?? E            NWDSRD
+  58    1  11 I    ( 1)C   E        6   OTFILE(6)
+  59         s     ( 3)  U              PACK
+     (R4L,I4V,I4A)
+  60    3   8 I        CM  E            PREC
+  61         s     ( 1)  U              RDTRL
+     (I4A)
+  62         s     ( 7)  U              READ
+     (ALT,ALT,I4V,R4L,I4E,I4E,I4V)
+  63          R    ( 1) MU E        1   RZ(1)
+  64    1   7 I        C U E            SBUF1
+  65    1   8 I        C U E            SBUF2
+  66    1   9 I        C U E            SBUF3
+  67         s           U              SOFCLS
+  68         s     ( 3)  U              SOFOPN
+     (R4L,R4L,R4L)
+  69    4   1 I        CM  E            TYPIN
+  70    4   2 I        CM  E            TYPOUT
+  71         s     ( 1)  U              WRTTRL
+     (I4A)
+  72    5   1 R    ( 1)C?? E        1   Z(1)
+**-- END OF SYMBOL TABLE

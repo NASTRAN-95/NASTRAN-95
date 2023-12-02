@@ -1,0 +1,48 @@
+**++ Symbol table for subprogram GENPAR in file mis/genpar.f90
+     produced by SPAG     8.01RF-40 at 14:46:40 on  2 Dec 2023
+   0         X             K             mis/genpar.f90,0000002,0000127
+   1         C     / 2/ MU          8   /BLANK/LMODES,NMODES
+   2         C     / 5/ MU         20   /PACKX/IN,IOUT,II,NN,INCR
+   3         C     / 2/  U          8   /SYSTEM/SYSBUF,OTPE
+   4         C     / 1/  U         23   /XMSSG/UFM
+   5         C     / 1/ M?          4   /ZZZZZZ/Z
+   6          I         MU E            BUF1
+   7         s     ( 2)  U              CLOSE
+     (I4V,I4E)
+   8          I        I?U E            CPLAMB
+   9          I        I?U E            CPMP
+  10         S                     82   GENPAR
+  11         s     ( 3)  U              GOPEN
+     (I4V,R4L,I4E)
+  12          I         MU E            I
+  13    2   3 I        CM  E            II
+  14    2   1 I        CM  E            IN
+  15    2   5 I        CM  E            INCR
+  16    2   2 I        CM  E            IOUT
+  18         fI    ( 1)  U E            KORSZ
+     (R4A)
+  19          I         MU E            L1
+  20          I         MU E            LCORE
+  21    1   1 I        CMU E            LMODES
+  22          I    ( 1) MU E        7   MCB(7)
+  23         s     ( 3)  U              MESAGE
+     (I4E,I4E,I4A)
+     (   ,   ,I4E)
+  24          I    ( 1)I?? E        2   NAM(2)
+  25          I         M  E            NDIR
+  26    1   2 I        CMU E            NMODES
+  27    2   4 I        CMU E            NN
+  28    3   2 I        C U E            OTPE
+  29         s     ( 3)  U              PACK
+     (R4A,I4V,I4A)
+  30          I        I U E            PF
+  31         s     ( 1)  U              RDTRL
+     (I4A)
+  32          I        I?U E            RPLAMB
+  33          I        I?U E            RPPF
+  34    3   1 I        C U E            SYSBUF
+  35    4   1 C*23     C U E            UFM*23
+  36         s     ( 1)  U              WRTTRL
+     (I4A)
+  37    5   1 R    ( 1)CM? E        1   Z(1)
+**-- END OF SYMBOL TABLE

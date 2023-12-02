@@ -1,0 +1,13 @@
+**++ Symbol table for subprogram FCURL in file mis/fcurl.f90
+     produced by SPAG     8.01RF-40 at 14:46:41 on  2 Dec 2023
+   0         X             K             mis/fcurl.f90,0000002,0000096
+   1         S     ( 7) MU         81   FCURL(FMEO,FME1,FFEO,FFE1,YI,S,LAM1)
+   2    1   4 R    ( 2)AM  E            FFE1(10,2)
+   3    1   3 R    ( 2)AM  E            FFEO(10,2)
+   4    1   2 R    ( 2)AM  E            FME1(10,2)
+   5    1   1 R    ( 2)AM  E            FMEO(10,2)
+   6    1   7 R        A U E            LAM1
+   7    1   6 R        A U E            S
+   8          R         MU E            S1
+   9    1   5 R    ( 2)A U E            YI(6,7)
+**-- END OF SYMBOL TABLE

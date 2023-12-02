@@ -1,0 +1,27 @@
+**++ Symbol table for subprogram CPYFIL in file mis/cpyfil.f90
+     produced by SPAG     8.01RF-40 at 14:46:41 on  2 Dec 2023
+   0         X             K             mis/cpyfil.f90,0000002,0000054
+   1         C     / 1/  U          4   /BLANK/IPARAM
+   2    4   3 I    ( 1)A?U E            AREA(2)
+   3    4   5 I        AMU E            COUNT
+   4         S     ( 5) MU         22   CPYFIL(INFILE,OUFILE,AREA,N,COUNT)
+   5         s     ( 4)  U              CPYSTR
+     (I4A,I4A,I4E,I4E)
+   6          I         MU E            EOR
+   7         s     ( 2)  U              FNAME
+     (I4V,I4A)
+   8          I    ( 1) M? E       15   INBLK(15)
+   9    4   1 I        A?U E            INFILE
+  10    1   1 I        C U E            IPARAM
+  11    4   4 I        A?U E            N
+  12          I         MU E            NWDS
+  13          I    ( 1) MU E       15   OUBLK(15)
+  14    4   2 I        A?U E            OUFILE
+  15         s     ( 7)  U              READ
+     (ALT,ALT,I4V,I4A,I4V,I4E,I4V)
+  16         s     ( 2)  U              RECTYP
+     (I4V,I4V)
+  17          I         ?U E            TYPE
+  18         s     ( 4)  U              WRITE
+     (I4V,I4A,I4V,I4V)
+**-- END OF SYMBOL TABLE

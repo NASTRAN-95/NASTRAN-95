@@ -1,0 +1,122 @@
+**++ Symbol table for subprogram EM1D in file mis/em1d.f90
+     produced by SPAG     7.61RG-40 at 01:00:00 on 21 Mar 2022
+   0         X             K             mis/em1d.f90,0000002,0000360
+   1         C     / 1/  U        800   /EMECPT/ECPT
+   2         C     / 4/  U         16   /GPTA1/NELEMS,LAST,INCR,NE
+   3         C     / 1/  U          4   /HMTOUT/XMAT
+   4         C     / 3/ M          12   /MATIN/MATID,INFLAG,ELTEMP
+   5         C     / 1/           256   /SYSTEM/KSYSTM
+   6         C     / 1/  U         23   /XMSSG/UFM
+   7         C     / 1/ MU          4   /ZZZZZZ/Z
+   8         I?    ( 1)  U I            ABS
+   9          R         MU E            AHCX
+  10          R         MU E            AHCY
+  11          R         MU E            AHCZ
+  12   25   8 I        A U E            ALL
+  13          R         MU E            ARROD
+  14         s     ( 8)  U              AXLOOP
+     (R4A,I4A,R4V,R4V,R4V,R4V,R4V,R4V)
+  15          R    ( 1) M? E       50   BUF(50)
+  16          R         MU E            CONST
+  17          R         MU E            DIA
+  18         s     ( 8)  U              DIPOLE
+     (R4A,I4A,R4V,R4V,R4V,R4V,R4V,R4V)
+  19          R    ( 1) MU E        2   DNDX(2)
+  20          R    ( 1) MU E        2   DNDY(2)
+  21          R    ( 1) MU E        2   DNDZ(2)
+  22    1   1 R    ( 1)C U E      200   ECPT(200)
+  23    4   3 R        CM  E            ELTEMP
+  24   25   1 I        A U E            ELTYPE
+  25         S     ( 9)  U        204   EM1D(ELTYPE,ISTART,ITYPE,NCOUNT,IDO,IWORDS,NBDYS,ALL,NELOUT)
+  26          I         M  E            ESTWDS
+  27         s     ( 8)  U              GELOOP
+     (R4A,I4A,R4V,R4V,R4V,R4V,R4V,R4V)
+  28          R         MU E            GNU
+  29          R         MU E            H1
+  30          R         MU E            H2
+  31          R         MU E            H3
+  32          R         MU E            HC1
+  33          R         MU E            HC2
+  34          R         MU E            HC3
+  35          R    ( 1) MU E        2   HCX(2)
+  36          R    ( 1) MU E        2   HCY(2)
+  37          R    ( 1) MU E        2   HCZ(2)
+  38          R         MU E            HL
+  39         s     ( 1)  U              HMAT
+     (I4L)
+  40          I         MU E            I
+  41          I         MU E            IAR
+  42          I    ( 1) ?? E       50   IBUF(50)
+  43   25   5 I        A U E            IDO
+  44          I         MU E            IDX
+  45          I         MU E            IJK
+  46    2   3 I        C U E            INCR
+  47    4   2 I        CM  E            INFLAG
+  48          I         MU E            IS
+  49          I    ( 1) M  E        5   ISC(5)
+  50   25   2 I        A U E            ISTART
+  51          I         MU E            ISUB
+  52          I         MU E            ITEMP
+  53          I            E            ITHRML
+  54   25   3 I        A U E            ITYPE
+  55   25   6 I        A U E            IWORDS
+  56          I         MU E            IX1
+  57          I         MU E            IX2
+  58          I         MU E            IY1
+  59          I         MU E            IY2
+  60          I    ( 1)  U E        1   IZ(1)
+  61          I         MU E            IZ1
+  62          I         MU E            IZ2
+  63          I         MU E            J
+  64          I         MU E            JTYPE
+  65          I         MU E            K
+  66    5   1 I    ( 1)C   E       64   KSYSTM(64)
+  67    2   2 I        C   E            LAST
+  68    4   1 I        CM  E            MATID
+  69         s     ( 3)  U              MESAGE
+     (I4E,I4E,I4A)
+  70          I         MU E            MID
+  71          I    ( 1)I?? E        2   NAM(2)
+  72          I    ( 1) M  E        2   NAME(2)
+  73   25   7 I        A U E            NBDYS
+  74   25   4 I        A U E            NCOUNT
+  75    2   4 I    ( 1)C U E        1   NE(1)
+  76          I    ( 1) ?U E      200   NECPT(200)
+  77    2   1 I        C   E            NELEMS
+  78   25   9 I        A U E            NELOUT
+  79          I         MU E            NG
+  80          I         MU E            NGRIDS
+  81          I         MU E            NPTS
+  82          I    ( 1)  U E        2   NSIL(2)
+  83          L         MU E            ONLYC
+  84          I          U E            OUTPT
+  85          R         MU E            PI
+  86          R         MU E            RAD
+  87          R    ( 1) M? E        5   SC(5)
+  88          I        I?? E            SCR6
+  89         I?    ( 1)  U I            SQRT
+  90          I            E            SYSBUF
+  91          R         MU E            TH
+  92    6   1 C*23     C U E            UFM*23
+  93          R         MU E            VOL
+  94          R    ( 1) MU E        2   W(2)
+  95         s     ( 4)  U              WRITE
+     (I4V,R4A,I4E,I4E)
+  96          R    ( 1) MU E        2   XI(2)
+  97          R         MU E            XL
+  98          R    ( 1) MU E        3   XLACC(3)
+  99          R         MU E            XLEN
+ 100          R    ( 1) MU E        2   XLOAD(2)
+ 101          R         MU E            XLOCAL
+ 102          R         MU E            XLX
+ 103          R         MU E            XLXP
+ 104    3   1 R        C U E            XMAT
+ 105          R    ( 1) M  E        2   XN(2)
+ 106          R         M? E            XX
+ 107          R         MU E            YL
+ 108          R         M? E            YY
+ 109    7   1 R    ( 1)CMU E        1   Z(1)
+ 110          R    ( 1) MU E        3   ZI(3)
+ 111          R         MU E            ZL
+ 112          R         M? E            ZZ
+**-- END OF SYMBOL TABLE

@@ -1,0 +1,50 @@
+**++ Symbol table for subprogram STORD2 in file mis/stord2.f90
+     produced by SPAG     8.01RF-40 at 14:47:15 on  2 Dec 2023
+   0         X             K             mis/stord2.f90,0000002,0000138
+   1         C     / 7/  U        156   /SDR2X4/DUM1,ICSTM,NCSTM,IVEC,IVECN,TEMPLD,ELDEFM
+   2         C     / 6/ ?U       1432   /SDR2X7/IDEL,IGP,TZ,SEL,TS,AK
+   3         C     / 3/ MU        156   /SDR2X8/DISP,EFORC,ESTRES
+   4         C     / 1/  U          4   /ZZZZZZ/ZZ
+   5    2   6 R    ( 1)C?? E      144   AK(144)
+   6    3   1 R    ( 1)CM? E       12   DISP(12)
+   7          R         MU E            DTF1
+   8          R         MU E            DTF2
+   9          R         MU E            DTM1
+  10          R         MU E            DTM2
+  11    1   1 R    ( 1)C   E       33   DUM1(33)
+  12          R    ( 1)    E      225   DUM3(225)
+  13    3   2 R    ( 1)C?U E       12   EFORC(12)
+  14    1   7 R        C   E            ELDEFM
+  15    3   3 R    ( 1)CMU E       15   ESTRES(15)
+  16          R    ( 1) M  E       25   FORCE(25)
+  17         s     ( 9)  U              GMMATS
+     (R4L,I4V,I4V,I4E,R4L,I4V,I4E,I4E,R4L)
+  18          I         MU E            I
+  19    1   2 I        C   E            ICSTM
+  20    2   1 I        C U E            IDEL
+  21          I    ( 1) M  E       25   IFORCE(25)
+  22    2   2 I    ( 1)C U E        2   IGP(2)
+  23          I         MU E            ILOC
+  24          I    ( 1) M  E      100   ISTRES(100)
+  25    1   4 I        C U E            IVEC
+  26    1   5 I        C   E            IVECN
+  27          I         MU E            J
+  28          I         MU E            K
+  29          I         MU E            KK
+  30          I          U E            LDTEMP
+  31          I         M? E            N
+  32          I         MU E            NCOMP
+  33    1   3 I        C   E            NCSTM
+  34          I         MU E            NDOF
+  35          I         M? E            NS
+  36          I         MU E            NSP
+  37          I         MU E            NUMPT
+  38    2   4 R    ( 1)C?? E      180   SEL(180)
+  39         S     ( 1)  U         54   STORD2(TI)
+  40          R    ( 1) M  E      100   STRES(100)
+  41    1   6 R        C   E            TEMPLD
+  42   39   1 R    ( 1)A U E            TI(2)
+  43    2   5 R    ( 1)C U E       30   TS(30)
+  44    2   3 R        C U E            TZ
+  45    4   1 R    ( 1)C U E        1   ZZ(1)
+**-- END OF SYMBOL TABLE

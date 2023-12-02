@@ -1,0 +1,12 @@
+**++ Symbol table for subprogram CLSTAB in file mis/clstab.f90
+     produced by SPAG     8.01RF-40 at 14:46:45 on  2 Dec 2023
+   0         X             K             mis/clstab.f90,0000002,0000011
+   1         s     ( 2)  U              CLOSE
+     (I4A,I4V)
+   2         S     ( 2) ?U          3   CLSTAB(FILE,OPT)
+   3    2   1 I        A U E            FILE
+   4    2   2 I        A?? E            OPT
+   5          I    ( 1)IM? E        7   TRLR(7)
+   6         s     ( 1)  U              WRTTRL
+     (I4A)
+**-- END OF SYMBOL TABLE

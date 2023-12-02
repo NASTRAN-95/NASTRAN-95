@@ -1,0 +1,91 @@
+**++ Symbol table for subprogram DTRMEM in file mis/dtrmem.f90
+     produced by SPAG     8.01RF-40 at 14:47:02 on  2 Dec 2023
+   0         X             K             mis/dtrmem.f90,0000002,0000397
+   1         C     / 1/            20   /CONDAS/CONSTS
+   2         C     / 3/  U         12   /DS1AAA/NPVT,ICSTM,NCSTM
+   3         C     /27/ MU       1520   /DS1ADP/E,C,KD,TEMP1,TEMP2,G,T,DISP,MU,LAMDA,DELTA,TEMP,GAMMA1,GAMMA2,GAMMA3,AREAT,XSUBB,XSUBC,YSUBC,DUMDP,THETA,ICSTM1,NPIVOT,IDUM,SIGX,SIGY,SIGXY
+   4         C     / 4/ ?U        128   /DS1AET/ECPT,ELDEF,LDTEMP,SDISP
+   5         C     / 6/ MU         24   /MATIN/MATID,INFLAG,ELTEMP,STRESS,SINTH,COSTH
+   6         C     /18/  U         72   /MATOUT/G11,G12,G13,G22,G23,G33,RHO,ALPHA1,ALPHA2,ALPH12,TSUB0,GSUBE,SIGTEN,SIGCOM,SIGSHE,G2X211,G2X212,G2X222
+   7         I?    ( 1)  U I            ABS
+   8    6  10 R        C U E            ALPH12
+   9    6   8 R        C U E            ALPHA1
+  10    6   9 R        C U E            ALPHA2
+  11    3  16 D        CMU E            AREAT
+  12    3   2 D    ( 1)CMU E       54   C(54)
+  13    1   1 R    ( 1)C   E        5   CONSTS(5)
+  14         I?    ( 1)  U I            COS
+  15    5   6 R        CM  E            COSTH
+  16         ID    ( 1)  U I            DBLE
+  17          R          U E            DEGRA
+  18    3  11 D        CMU E            DELTA
+  19    3   8 D    ( 1)CMU E        9   DISP(9)
+  20         s     ( 2)  U              DS1B
+     (R8L,I4L)
+  21         ID    ( 1)  U I            DSQRT
+  22         S     ( 1)  U        186   DTRMEM(IOPT)
+  23    3  20 D    ( 1)C   E       12   DUMDP(12)
+  24    3   1 D    ( 1)CMU E        9   E(9)
+  25    4   1 R    ( 1)C?U E       21   ECPT(21)
+  26    4   2 R        C   E            ELDEF
+  27    5   3 R        CM  E            ELTEMP
+  28          R          U E            FTEMP
+  29    3   6 D    ( 1)CM? E        9   G(9)
+  30    6   1 R        C U E            G11
+  31    6   2 R        C U E            G12
+  32    6   3 R        C U E            G13
+  33    6   4 R        C U E            G22
+  34    6   5 R        C U E            G23
+  35    6  16 R        C   E            G2X211
+  36    6  17 R        C   E            G2X212
+  37    6  18 R        C   E            G2X222
+  38    6   6 R        C U E            G33
+  39    3  13 D        CMU E            GAMMA1
+  40    3  14 D        CMU E            GAMMA2
+  41    3  15 D        CMU E            GAMMA3
+  42         s     ( 9)  U              GMMATD
+     (R8A,I4E,I4E,I4E,R8L,I4E,I4E,I4E,R8L)
+  43    6  12 R        C   E            GSUBE
+  44          I         MU E            I
+  45    2   2 I        C   E            ICSTM
+  46    3  22 I        C   E            ICSTM1
+  47    3  24 I        CMU E            IDUM
+  48    5   2 I        CM  E            INFLAG
+  49   22   1 I        A U E            IOPT
+  50          I         MU E            J
+  51    3   3 D    ( 1)CMU E       36   KD(36)
+  52          D    ( 1) M? E       36   KIJ(36)
+  53    3  10 D        CMU E            LAMDA
+  54    4   3 I        C U E            LDTEMP
+  55         s     ( 1)  U              MAT
+     (R4L)
+  56    5   1 I        CM  E            MATID
+  57    3   9 D        CMU E            MU
+  58    2   3 I        C   E            NCSTM
+  59          I    ( 1) ?U E        6   NECPT(6)
+  60    3  23 I        CMU E            NPIVOT
+  61    2   1 I        C U E            NPVT
+  62    6   7 R        C   E            RHO
+  63    4   4 R    ( 1)C U E        9   SDISP(9)
+  64    6  14 R        C   E            SIGCOM
+  65    6  15 R        C   E            SIGSHE
+  66    6  13 R        C   E            SIGTEN
+  67    3  25 D        CMU E            SIGX
+  68    3  27 D        CMU E            SIGXY
+  69    3  26 D        CMU E            SIGY
+  70         I?    ( 1)  U I            SIN
+  71    5   5 R        CMU E            SINTH
+  72    5   4 R        C   E            STRESS
+  73          D    ( 1) MU E        3   SUM(3)
+  74    3   7 D    ( 1)C?? E        9   T(9)
+  75    3  12 D        CMU E            TEMP
+  76    3   4 D    ( 1)CMU E       18   TEMP1(18)
+  77    3   5 D    ( 1)CMU E       18   TEMP2(18)
+  78    3  21 R        CMU E            THETA
+  79         s     ( 2)  U              TRANSD
+     (I4L,R8L)
+  80    6  11 R        C U E            TSUB0
+  81    3  17 D        CMU E            XSUBB
+  82    3  18 D        CMU E            XSUBC
+  83    3  19 D        CMU E            YSUBC
+**-- END OF SYMBOL TABLE

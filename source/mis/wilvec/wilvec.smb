@@ -1,0 +1,155 @@
+**++ Symbol table for subprogram WILVEC in file mis/wilvec.f90
+     produced by SPAG     8.01RF-40 at 14:47:06 on  2 Dec 2023
+   0         X             K             mis/wilvec.f90,0000002,0000467
+   1         C     /17/ MU        600   /GIVN/TITLE,MO,T3,MR,MT1,T6,MV1,T8,ENTRY,T12,RSTRT,V2,T19,XENTRY,T21,VCOM,T131
+   2         C     / 1/  U          8   /MGIVXX/DLMDAS
+   3         C     / 5/ MU         20   /PACKX/IT1,IT2,II,JJ,INCR
+   4         C     / 1/  U          4   /REIGKR/IOPTN
+   5         C     / 4/ ?U        220   /SYSTEM/SYSBUF,IOTPE,KSYS,IPREC
+   6         C     / 4/ MU         16   /UNPAKX/IT3,III,JJJ,INCR1
+   7         C     / 3/  U         77   /XMSSG/UFM,UWM,UIM
+   8         s     ( 1)  U              BCKREC
+     (I4V)
+   9         s     ( 2)  U              CLOSE
+     (I4V,I4E)
+  10  134   1 D    ( 1)A U E            D(1)
+  11         ID    ( 1)  U I            DABS
+  12         ID    ( 1)  U I            DBLE
+  13          D         MU E            DEPS
+  14    2   1 D        C U E            DLMDAS
+  15         ID    ( 1)  U I            DSQRT
+  16    1   9 I        C U E            ENTRY
+  17  134   6 D    ( 1)AMU E            F(1)
+  18         IR    ( 1)  U I            FLOAT
+  19         s     ( 3)  U              GOPEN
+     (I4V,I4L,I4E)
+  20          I         MU E            I
+  21          I         MU E            I1
+  22          I         MU E            IBUF1
+  23          I         MU E            IBUF2
+  24          I         MU E            ICLOS
+  25          I         ?U E            IFIN
+  26    3   3 I        CMU E            II
+  27    6   2 I        CM  E            III
+  28          I         MU E            IM
+  29          I         M? E            IM1
+  30          I         M? E            IM2
+  31    3   5 I        CM  E            INCR
+  32    6   4 I        CM  E            INCR1
+  33    4   1 I        C U E            IOPTN
+  34    5   2 I        C U E            IOTPE
+  35    5   4 I        C?U E            IPREC
+  36          I         ?U E            IST
+  37    3   1 I        CM  E            IT1
+  38    3   2 I        CM  E            IT2
+  39    6   1 I        CM  E            IT3
+  40          I         MU E            ITER
+  41          I         M  E            ITERM
+  42          I         ?U E            ITIME
+  43          I         MU E            J
+  44    3   4 I        CM  E            JJ
+  45    6   3 I        CMU E            JJJ
+  46          I         MU E            K
+  47          I         MU E            KK
+  48          I         MU E            KKK
+  49         s     ( 1)  U              KLOCK
+     (I4V)
+  50         fI    ( 1)  U E            KORSZ
+     (I4A)
+  51    5   3 I    ( 1)C   E       52   KSYS(52)
+  52          I         MU E            L
+  53          I         MU E            L1
+  54          I         MU E            L2
+  55          I         MU E            LM1
+  56          I         MU E            LOC
+  57          I         MU E            M
+  58         s     ( 5)  U              MAKMCB
+     (I4A,I4V,I4V,I4E,I4V)
+  59          I         MU E            MAX
+  60         II    ( 2)  U I            MAX0
+  61          I         MU E            MAXITR
+  62          I    ( 1)I?? E        7   MCB(7)
+  63          I    ( 1)I?? E        7   MCB1(7)
+  64          I        I U E            MGIV
+  65          I         MU E            MIN
+  66         II    ( 2)  U I            MIN0
+  67    1   2 I        C U E            MO
+  68    1   4 I        C   E            MR
+  69          I         M? E            MT
+  70    1   5 I        C?U E            MT1
+  71          I         MU E            MUL1
+  72          I         MU E            MUL2
+  73          I        IMU E            MUL3
+  74          I         MU E            MULP1
+  75          I         MU E            MULP2
+  76          I         MU E            MULP3
+  77    1   7 I        C   E            MV1
+  78          I         ?U E            N
+  79          I         MU E            N1
+  80          I         MU E            N2
+  81          I         MU E            N2M1
+  82          I         MU E            N2M2
+  83          I         MU E            NM1
+  84          I         MU E            NM2
+  85          I          U E            NRIGID
+  86          I          U E            NV
+  87          I         MU E            NV1
+  88          I         MU E            NV2
+  89          I         M  E            NVER
+  90  134  11 I        A U E         Z  NX
+  91          I         MU E            NZ
+  92  134   2 D    ( 1)A U E            O(1)
+  93          D        I U E            ONE
+  94  134   7 D    ( 1)AMU E            P(1)
+  95         s     ( 3)  U              PACK
+     (R8A,I4V,I4A)
+     (R8V,   ,   )
+  96          I         MU E            PATH
+  97          I         ?? E            PHIA
+  98          I            E            PV
+  99  134   8 D    ( 1)AMU E            Q(1)
+ 100  134   9 D    ( 1)AMU E            R(1)
+ 101          D         MU E            RMULT
+ 102          D         MU E            RRMULT
+ 103    1  11 R        C   E            RSTRT
+ 104          D         MU E            SFT
+ 105          D         MU E            SFTINV
+ 106         IR    ( 1)  U I            SNGL
+ 107  134  12 I    ( 1)A?? E            SVEC(1)
+ 108    5   1 I        C U E            SYSBUF
+ 109    1  10 R    ( 1)C   E        5   T12(5)
+ 110    1  17 R    ( 1)C   E       20   T131(20)
+ 111    1  13 R        C   E            T19
+ 112    1  15 R    ( 1)C   E       80   T21(80)
+ 113    1   3 R        C   E            T3
+ 114    1   6 R        C   E            T6
+ 115    1   8 R    ( 1)C   E        3   T8(3)
+ 116    1   1 R    ( 1)C   E        1   TITLE(1)
+ 117         s     ( 1)  U              TMTOGO
+     (I4V)
+ 118    7   1 C*23     C   E            UFM*23
+ 119    7   3 C*29     C U E            UIM*29
+ 120         s     ( 3)  U              UNPACK
+     (ALT,I4V,R8A)
+ 121    7   2 C*25     C   E            UWM*25
+ 122  134   5 D    ( 1)AMU E            V(1)
+ 123          I         MU E            V1
+ 124    1  12 I        CMU E            V2
+ 125  134   3 D    ( 1)AMU E            VAL(1)
+ 126          D         MU E            VALUE
+ 127    1  16 R    ( 1)C   E       30   VCOM(30)
+ 128  134  10 D    ( 2)AMU E            VEC(Nx,1)
+ 129          I         MU E            VECTOR
+ 130  134   4 I    ( 1)AMU E            VLOC(1)
+ 131          D         MU E            VMULT
+ 132          I         MU E            VV
+ 133          D         MU E            W
+ 134         S     (12) MU        323   WILVEC(D,O,VAL,VLOC,V,F,P,Q,R,VEC,NX,SVEC)
+ 135         s     ( 1)  U              WRTTRL
+     (I4A)
+ 136          D         MU E            X
+ 137    1  14 I        CM  E            XENTRY
+ 138          D         MU E            Y
+ 139          D         MU E            Z
+ 140          D        I?U E            ZERO
+**-- END OF SYMBOL TABLE

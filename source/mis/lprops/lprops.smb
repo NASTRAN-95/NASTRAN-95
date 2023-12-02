@@ -1,0 +1,22 @@
+**++ Symbol table for subprogram LPROPS in file mis/lprops.f90
+     produced by SPAG     8.01RF-40 at 14:46:55 on  2 Dec 2023
+   0         X             K             mis/lprops.f90,0000002,0000208
+   1         C     / 1/  U        100   /MATOUT/RMTOUT
+   2          R         MU E            CONST
+   3          D    ( 1)AMU E       25   D(25)
+   4         ID    ( 1)  U I            DBLE
+   5          D         MU E            DONST
+   6          R          U E            E1
+   7          R          U E            E2
+   8   13   1 R    ( 1)AMU E            G(25)
+   9          I         MU E            I
+  10         II    ( 1)  U I            IFIX
+  11          I         MU E            II
+  12         E     ( 1)                 LPROPD(D)
+  13         S     ( 1) MU        112   LPROPS(G)
+  14          I         MU E            MTYP
+  15          R         MU E            MTYPE
+  16          R          U E            NU12
+  17          R         MU E            NU21
+  18    1   1 R    ( 1)C U E       25   RMTOUT(25)
+**-- END OF SYMBOL TABLE

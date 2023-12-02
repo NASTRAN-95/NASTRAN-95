@@ -1,0 +1,103 @@
+**++ Symbol table for subprogram STRQD2 in file mis/strqd2.f90
+     produced by SPAG     8.01RF-40 at 14:46:44 on  2 Dec 2023
+   0         X             K             mis/strqd2.f90,0000002,0000397
+   1         C     / 2/  U         44   /BLANK/IDUMMY,STRAIN
+   2         C     / 2/  U         36   /SDR2DE/SKP2DE,IELTYP
+   3         C     / 7/  U        192   /SDR2X4/DUMMY,IVEC,IVECN,LDTEMP,DEFORM,DUM8,TLOADS
+   4         C     / 2/ MU        824   /SDR2X7/PH1OUT,FORVEC
+   5         C     /14/ MU        256   /SDR2X8/TEMP,DELTA,NPOINT,I,J,NPT1,VEC,TEM,Z1OVRI,Z2OVRI,STRESS,CHPOUT,CVEC,CFRVEC
+   6         C     / 6/  U         28   /SDR2X9/NCHK,ISUB,ILD,FRTMEI,TWOTOP,FNCHK
+   7         C     / 4/ MU         48   /SYSTEM/IBFSZ,NOUT,IDM,LINE
+   8         C     / 1/ ??          4   /ZZZZZZ/Z
+   9         I?    ( 1)  U I            ABS
+  10         I?    ( 2)  U I            ATAN2
+  11    5  14 R    ( 1)CMU E       12   CFRVEC(12)
+  12    5  12 R    ( 1)C   E       30   CHPOUT(30)
+  13    5  13 R    ( 1)C?U E        5   CVEC(5)
+  14    3   5 R        C   E            DEFORM
+  15    5   2 R        CMU E            DELTA
+  16    3   6 R    ( 1)C   E        8   DUM8(8)
+  17    3   1 R    ( 1)C   E       35   DUMMY(35)
+  18         fI    ( 1)  U E            EJECT
+     (I4E)
+  19          R         M  E            F1
+  20          R         MU E            FF
+  21          L         MU E            FLAG
+  22    6   6 R        C   E            FNCHK
+  23    4   2 R    ( 1)CMU E        6   FORVEC(6)
+  24          R    ( 1)IMU E        2   FRLAST(2)
+  25    6   4 R    ( 1)C U E        2   FRTMEI(2)
+  26          R          U E            FTEMP
+  27    5   4 I        CMU E            I
+  28         II    ( 1)  U I            IABS
+  29    7   1 I        C   E            IBFSZ
+  30          I        I U E            IBLANK
+  31    7   3 I    ( 1)C   E        9   IDM(9)
+  32    1   1 I    ( 1)C   E       10   IDUMMY(10)
+  33    2   2 I        C U E            IELTYP
+  34          I    ( 1)  U E       12   IFRVEC(12)
+  35          I         MU E            II
+  36    6   3 I        C U E            ILD
+  37          I         MU E            IRETRN
+  38          I    ( 1) ?? E        7   ISHED(7)
+  39          I    ( 1) M  E       10   IST(10)
+  40          I    ( 1) MU E        2   ISTYP(2)
+  41    6   2 I        C U E            ISUB
+  42    3   2 I        C U E            IVEC
+  43    3   3 I        C   E            IVECN
+  44    5   5 I        CMU E            J
+  45          I         MU E            JST
+  46          I         MU E            K
+  47          I         MU E            K1
+  48    3   4 I        C U E            LDTEMP
+  49    7   4 I        CMU E            LINE
+  50          I        IMU E            LLD
+  51          I        IMU E            LSUB
+  52          I          U E            N1
+  53    6   1 I        C U E            NCHK
+  54    7   2 I        C U E            NOUT
+  55          I    ( 1)  U E        2   NPH1OU(2)
+  56    5   3 I        CMU E            NPOINT
+  57    5   6 I        CMU E            NPT1
+  58   81   1 I        A U E            NPTS
+  59          I    ( 1)  U E        4   NSIL(4)
+  60          I    ( 1)I U E        2   ONTW(2)
+  61         s           U              PAGE1
+  62    4   1 R    ( 1)C?U E      200   PH1OUT(200)
+  63          I        I U E            QU
+  64         s     ( 2)  U              SD2RHD
+     (I4A,I4V)
+  65          R    ( 1) MU E        3   SDELTA(3)
+  66         s     ( 4)  U              SDRCHK
+     (R4L,R4L,I4E,I4V)
+  67          R    ( 1) ?? E       36   SI(36)
+  68          R         MU E            SIGX1
+  69          R         MU E            SIGX2
+  70          R         MU E            SIGXY1
+  71          R         MU E            SIGXY2
+  72          R         MU E            SIGY1
+  73          R         MU E            SIGY2
+  74    2   1 R    ( 1)C   E        8   SKP2DE(8)
+  75         s     (10)  U              SMMATS
+     (R4L,I4E,I4E,I4E,R4L,I4E,I4E,I4E,R4L,R4L)
+  76         I?    ( 1)  U I            SQRT
+  77          R    ( 1) MU E        3   SSTRSS(3)
+  78          R    ( 1) MU E       18   STR(18)
+  79    1   2 L        C U E            STRAIN
+  80    5  11 R    ( 1)CMU E        3   STRESS(3)
+  81         S     ( 2)  U        206   STRQD2(NPTS,TI)
+  82    5   8 R        CMU E            TEM
+  83    5   1 R        CMU E            TEMP
+  84   81   2 R    ( 1)A U E            TI(6)
+  85    3   7 I        C U E            TLOADS
+  86          I        I U E            TR
+  87    6   5 R        C   E            TWOTOP
+  88    5   7 R    ( 1)C?U E        5   VEC(5)
+  89    8   1 R    ( 1)C?? E        1   Z(1)
+  90          R         MU E            Z1
+  91          R         MU E            Z1I
+  92    5   9 R        CMU E            Z1OVRI
+  93          R         MU E            Z2
+  94          R         MU E            Z2I
+  95    5  10 R        CMU E            Z2OVRI
+**-- END OF SYMBOL TABLE

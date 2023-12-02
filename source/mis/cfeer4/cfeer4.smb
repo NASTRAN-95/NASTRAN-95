@@ -1,0 +1,168 @@
+**++ Symbol table for subprogram CFEER4 in file mis/cfeer4.f90
+     produced by SPAG     8.01RF-40 at 14:46:38 on  2 Dec 2023
+   0         X             K             mis/cfeer4.f90,0000002,0000731
+   1         C     / 7/ ?U        552   /FEERAA/IKMB,ILAM,IPHI,IDMPFL,ISCR,DUMAA,MCBVEC
+   2         C     /22/ MU        108   /FEERXC/LAMBDA,SWDUM,MREDUC,NORD,IDIAG,EPS,NORTHO,NORD2,NORD4,NORDP1,NSWP,NOB,IT,TEN2MT,TENMHT,NSTART,QPR,JREG,NOREG,NZERO,TENMTT,MINOPN
+   3         C     / 7/ ??         28   /NAMES/RD,RDREW,WRT,WRTREW,REW,NOREW,EOFNRW
+   4         C     / 1/  U        260   /SYSTEM/KSYSTM
+   5         C     / 4/ M          16   /UNPAKX/IPRC,II,NN,INCR
+   6         C     / 3/  U         77   /XMSSG/UFM,UWM,UIM
+   7         C     / 1/ MU          4   /ZZZZZZ/Z
+   8          R    ( 1)I U E        2   ACCEPT(2)
+   9          R    ( 1) MU E        2   ALAM(2)
+  10         s     (11)  U              ALLMAT
+     (R4L,R4L,R4L,R4L,R4L,R4L,R4L,R4L,I4V,I4V,I4V)
+  11         I?    ( 2)  U I            ATAN2
+  12         S                    470   CFEER4
+  13         s     ( 2)  U              CLOSE
+     (I4L,R4V)
+     (   ,I4V)
+  14         s     ( 2)  U              CNORM1
+     (R4L,I4L)
+  15         I?    ( 1)  U I            COS
+  16          D    ( 1)  U E        4   D(4)
+  17         ID    ( 1)  U I            DBLE
+  18          L         MU E            DECREM
+  19          R         MU E            DENOM
+  20          R    ( 1) MU E        2   DM(2)
+  21          R    ( 1) MU E        2   DMP1(2)
+  22          L         MU E            DPMACH
+  23    1   6 R    ( 1)C   E       84   DUMAA(84)
+  24          D    ( 1) MU E        1   DZ(1)
+  25    3   7 R        C?? E            EOFNRW
+  26          I         M? E            EOR
+  27    2   6 D        C U E            EPS
+  28         IR    ( 1)  U I            FLOAT
+  29         s     ( 3)  U              GOPEN
+     (I4L,R4L,R4V)
+  30          I         MU E            I
+  31          I         MU E            I1
+  32          I         MU E            I2
+  33          I         MU E            IA
+  34          I         MU E            IA1
+  35          I         MU E            IB
+  36          I         MU E            IBUF1
+  37          I         MU E            IBUF2
+  38    2   5 I        C U E            IDIAG
+  39    1   4 I        C   E            IDMPFL
+  40          I         MU E            IH
+  41          I         MU E            IHL
+  42          I         MU E            IHL1
+  43    5   2 I        CM  E            II
+  44    1   1 I    ( 1)C?? E       21   IKMB(21)
+  45          I         MU E            IL
+  46    1   2 I    ( 1)C?? E        7   ILAM(7)
+  47          I         MU E            IM
+  48    5   4 I        CM  E            INCR
+  49          I         MU E            INIDUM
+  50          I         MU E            INTH
+  51          I         MU E            INTQ
+  52          I         MU E            IOPN
+  53    1   3 I    ( 1)C?U E        7   IPHI(7)
+  54    5   1 I        CM  E            IPRC
+  55          I          U E            IPREC
+  56    1   5 I    ( 1)C?U E       11   ISCR(11)
+  57          I         MU E            ISHFT
+  58    2  13 I        C   E            IT
+  59          I         MU E            IV
+  60          I         MU E            IV1
+  61          I         MU E            IV1X
+  62          I         MU E            IV2
+  63          I    ( 1) MU E        1   IZ(1)
+  64          I         MU E            IZZ
+  65          I         MU E            J
+  66          I         MU E            JI
+  67          I         MU E            JJ
+  68          I         MU E            JR
+  69    2  18 I        C U E            JREG
+  70          I         MU E            K
+  71          I         MU E            KI
+  72          I         MU E            KK
+  73         fI    ( 1)  U E            KORSZ
+     (R4L)
+  74          I         MU E            KR
+  75    4   1 I    ( 1)C U E       65   KSYSTM(65)
+  76          I         MU E            L
+  77          I         MU E            L1
+  78          D    ( 1) M? E        2   LAM1(2)
+  79    2   1 D    ( 1)C U E        2   LAMBDA(2)
+  80          I         MU E            LIM1
+  81          I         MU E            LIM2
+  82          I         MU E            LL
+  83          I         MU E            LLL
+  84          L    ( 1) MU E        1   LZ(1)
+  85          I         MU E            M
+  86    1   7 I    ( 1)C   E        7   MCBVEC(7)
+  87         s     ( 3)  U              MESAGE
+     (I4E,I4E,I4A)
+  88          I         MU E            MI
+  89          I         MU E            MID
+  90    2  22 I        CMU E            MINOPN
+  91          I         MU E            MM
+  92         I?    ( 2)  U I            MOD
+  93          I         MU E            MR
+  94          I         MU E            MRD
+  95    2   3 I        CMU E            MREDUC
+  96          I         MU E            MSAVE
+  97          I         ?? E            N3
+  98          I    ( 1)I?U E        2   NAME(2)
+  99          I         MU E            NFOUND
+ 100    5   3 I        CM  E            NN
+ 101    2  12 L        C U E            NOB
+ 102    2   4 I        C U E            NORD
+ 103    2   8 I        C U E            NORD2
+ 104    2   9 I        C U E            NORD4
+ 105          I         MU E            NORD8
+ 106    2  10 I        C   E            NORDP1
+ 107    2  19 I        C U E            NOREG
+ 108    3   6 I        C?? E            NOREW
+ 109    2   7 I        CMU E            NORTHO
+ 110          I          U E            NOUT
+ 111          I         MU E            NROW
+ 112          I         MU E            NROW1
+ 113          I         MU E            NROW2
+ 114          I         MU E            NROW22
+ 115          I         MU E            NROWSQ
+ 116    2  16 I        C   E            NSTART
+ 117    2  11 I    ( 1)CMU E        2   NSWP(2)
+ 118          I         M? E            NW
+ 119          I         MU E            NZ
+ 120    2  20 I        C?U E            NZERO
+ 121         s     ( 4)  U              OPEN
+     (ALT,I4L,R4L,I4E)
+ 122    2  17 L        C U E            QPR
+ 123    3   1 R        C   E            RD
+ 124    3   2 R        C?? E            RDREW
+ 125         s     ( 7)  U              READ
+     (ALT,ALT,I4L,R4L,I4E,I4E,I4V)
+ 126          R    ( 1)I U E        2   REJECT(2)
+ 127    3   5 R        C?? E            REW
+ 128          R         MU E            RMS
+ 129          R         MU E            RSQRT
+ 130          R    ( 1) ?U E        8   S(8)
+ 131         I?    ( 1)  U I            SIN
+ 132         s     ( 2)  U              SKPREC
+     (I4L,I4V)
+ 133         IR    ( 1)  U I            SNGL
+ 134         I?    ( 1)  U I            SQRT
+ 135          R    ( 1) MU E        2   STATUS(2)
+ 136          R         MU E            SUMI
+ 137          R         MU E            SUMR
+ 138    2   2 R        C   E            SWDUM
+ 139    2  14 R        C   E            TEN2MT
+ 140    2  15 R        C   E            TENMHT
+ 141    2  21 R        C U E            TENMTT
+ 142          R         MU E            THETA2
+ 143    6   1 C*23     C   E            UFM*23
+ 144    6   3 C*29     C U E            UIM*29
+ 145          R         MU E            UNIDUM
+ 146         s     ( 3)  U              UNPACK
+     (ALT,I4L,R4L)
+ 147    6   2 C*25     C U E            UWM*25
+ 148         s     ( 4)  U              WRITE
+     (I4L,R8L,I4E,I4E)
+     (   ,R4L,   ,   )
+ 149    3   3 R        C?? E            WRT
+ 150    3   4 I        C?? E            WRTREW
+ 151    7   1 R    ( 1)CMU E        1   Z(1)
+**-- END OF SYMBOL TABLE

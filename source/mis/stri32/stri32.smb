@@ -1,0 +1,152 @@
+**++ Symbol table for subprogram STRI32 in file mis/stri32.f90
+     produced by SPAG     7.61RG-40 at 01:00:00 on 21 Mar 2022
+   0         X             K             mis/stri32.f90,0000002,0000460
+   1         C     / 6/  U         44   /BLANK/APP,SORT2,IDUM,COMPS,SKP,OSTRAI
+   2         C     /10/ MU         40   /OUTREQ/STSREQ,STNREQ,FORREQ,STRCUR,GRIDS,VONMS,LAYER,GRIDSS,VONMSS,LAYERS
+   3         C     / 7/ ?U         28   /SDR2C1/IPCMP,NPCMP,IPCMP1,NPCMP1,IPCMP2,NPCMP2,NSTROP
+   4         C     / 1/           800   /SDR2DE/KSDRDE
+   5         C     / 3/           128   /SDR2X2/DUMM,OES1L,OEF1L
+   6         C     / 4/  U        152   /SDR2X4/DUMMY,IVEC,IVECN,LDTEMP
+   7         C     / 9/ ?U       2852   /SDR2X7/ELID,KSIL,IORDER,TSUB0,Z1O,Z2O,IPID,IDUMAL,PH1RST
+   8         C     /31/ MU       1228   /SDR2X8/EXTRNL,IGRID,IDR,INDXG2,THIKNS,Z12,DELTA,DELTAT,TDELTA,G2,U,STEMPD,EPSLN,EPSLNM,EPSLNT,VXVY,EPSCSI,EPSUSI,QVECI,EPSCMI,EPSUMI,TES,UES,VES,UEM,G2ALFB,GDUM,DETG2,T3OV12,OFFSET,TBAR
+   9         C     / 3/ MU         12   /TMPDAT/TEMPER,TEMPP1,TEMPP2
+  10         C     / 1/  U          4   /ZZZZZZ/DISP
+  11          R    ( 1) ?U E        3   ALFAB(3)
+  12          R    ( 1)  U E        3   ALFAM(3)
+  13         fI    ( 2)  UXE            ANDF
+     (I4V,I4E)
+  14    1   1 R    ( 1)C   E        2   APP(2)
+  15          R         ?? E            AVGTHK
+  16          L         MU E            BENDNG
+  17          I        I U E            CENTER
+  18          L         M  E            COMPOS
+  19    1   4 I        C U E            COMPS
+  20    8   7 R    ( 1)C?? E       39   DELTA(39)
+  21    8   8 R    ( 1)CMU E        6   DELTAT(6)
+  22    8  28 R        C?? E            DETG2
+  23          I            E            DEVICE
+  24   10   1 R    ( 1)C U E        1   DISP(1)
+  25    5   1 R    ( 1)C   E       30   DUMM(30)
+  26    6   1 R    ( 1)C   E       35   DUMMY(35)
+  27    7   1 I        C?? E            ELID
+  28    8  20 R    ( 2)CMU E       24   EPSCMI(6,4)
+  29    8  17 R    ( 2)CMU E       24   EPSCSI(6,4)
+  30    8  13 R    ( 1)C?U E        8   EPSLN(8)
+  31    8  14 R    ( 1)CM? E        6   EPSLNM(6)
+  32    8  15 R    ( 1)CMU E        6   EPSLNT(6)
+  33    8  21 R    ( 2)CMU E       24   EPSUMI(6,4)
+  34    8  18 R    ( 2)CMU E       24   EPSUSI(6,4)
+  35    8   1 I    ( 1)CMU E        6   EXTRNL(6)
+  36          I          U E            FLAG
+  37    2   3 L        CMU E            FORREQ
+  38          R    ( 2) ?U E       36   G(6,6)
+  39    8  10 R    ( 2)CMU E        9   G2(3,3)
+  40    8  26 R    ( 2)C?? E       12   G2ALFB(3,4)
+  41    8  27 R        C?? E            GDUM
+  42         s     ( 9)  U              GMMATS
+     (R4A,I4E,I4E,I4E,R4A,I4E,I4E,I4E,R4A)
+  43          R    ( 1)  U E        3   GPTH(3)
+  44    2   5 L        CMU E            GRIDS
+  45    2   8 L        CMU E            GRIDSS
+  46          I         MU E            I
+  47          I         MU E            ICOUNT
+  48          I         MU E            IDELT
+  49    8   3 I    ( 1)CM? E        3   IDR(3)
+  50    1   3 I    ( 1)C   E        2   IDUM(2)
+  51    7   8 I        C   E            IDUMAL
+  52          I         MU E            IEPS
+  53          I         MU E            IET
+  54          I         MU E            IG2
+  55    8   2 I    ( 1)CM? E        4   IGRID(4)
+  56    8   4 I    ( 2)C?? E        9   INDXG2(3,3)
+  57          I         MU E            INPL
+  58          I         MU E            INPLAN
+  59         s     ( 8)  U              INVERS
+     (I4E,R4A,I4E,R4V,I4E,R4V,I4V,I4A)
+  60    7   3 I    ( 1)C U E        3   IORDER(3)
+  61    3   1 I        C   E            IPCMP
+  62    3   3 I        C   E            IPCMP1
+  63    3   5 I        C   E            IPCMP2
+  64    7   7 I        C?U E            IPID
+  65          I         MU E            ISH
+  66          I         ?? E            ISNGG2
+  67          I        I U E            ISTART
+  68          I         MU E            ITMP
+  69    6   2 I        C U E            IVEC
+  70    6   3 I        C   E            IVECN
+  71          I          U E            IZ1O
+  72          I          U E            IZ2O
+  73          I         MU E            JDELT
+  74          I         MU E            JG2
+  75          I         MU E            K
+  76          I         MU E            KDELT
+  77          I          U E            KFORC
+  78          I         MU E            KPOINT
+  79    4   1 I    ( 1)C   E      200   KSDRDE(200)
+  80    7   2 I    ( 1)C U E        3   KSIL(3)
+  81          I          U E            KSTRN
+  82          I          U E            KSTRS
+  83    2   7 L        CMU E            LAYER
+  84    2  10 L        CMU E            LAYERS
+  85          I         MU E            LDELT
+  86    6   4 I        C U E            LDTEMP
+  87          I          U E            MOMINR
+  88          I        I U E            NBLNK
+  89          I         MU E            NDOF
+  90          I         MU E            NDOF8
+  91          I            E            NEPSOP
+  92          I         MU E            NNODE
+  93    3   2 I        C U E            NPCMP
+  94    3   4 I        C U E            NPCMP1
+  95    3   6 I        C U E            NPCMP2
+  96    3   7 I        C?U E            NSTROP
+  97    5   3 I        C   E            OEF1L
+  98          I            E            OES1AL
+  99    5   2 I        C   E            OES1L
+ 100    8  30 R        CM? E            OFFSET
+ 101    1   6 L        C U E            OSTRAI
+ 102    7   9 R    ( 1)C?U E      701   PH1RST(701)
+ 103    8  19 R    ( 2)C?? E        8   QVECI(2,4)
+ 104         s     ( 8)  U              SHFORS
+     (I4E,I4V,I4A,R4A,R4A,R4A,R4A,I4A)
+ 105         s     ( 5)  U              SHLSTS
+     (I4V,I4V,R4V,R4A,R4A)
+ 106         s     ( 7)  U              SHSTNS
+     (I4E,I4V,I4A,R4A,R4A,L4V,I4A)
+ 107         s     (12)  U              SHSTSS
+     (I4E,I4V,I4A,R4A,R4A,R4A,R4A,R4A,R4V,R4A,L4V,I4A)
+ 108         s     ( 3)  U              SHSTTS
+     (R4A,R4A,R4A)
+ 109         s     ( 3)  U              SHXTRS
+     (I4E,I4V,R4L)
+ 110    1   5 R    ( 1)C   E        4   SKP(4)
+ 111    1   2 R        C   E            SORT2
+ 112          R    ( 1) ?U E        8   STEMP(8)
+ 113    8  12 R    ( 1)CM? E        3   STEMPD(3)
+ 114    2   2 L        CMU E            STNREQ
+ 115    2   4 L        CM  E            STRCUR
+ 116         S                    169   STRI32
+ 117    2   1 L        CMU E            STSREQ
+ 118    8  29 R        CMU E            T3OV12
+ 119    8  31 R        CMU E            TBAR
+ 120    8   9 R    ( 1)CM? E        6   TDELTA(6)
+ 121    9   1 L        CMU E            TEMPER
+ 122    9   2 L        CMU E            TEMPP1
+ 123    9   3 L        CMU E            TEMPP2
+ 124    8  22 R    ( 1)CM? E        9   TES(9)
+ 125    8   5 R    ( 1)CMU E        4   THIKNS(4)
+ 126         s     ( 4)  U              TLDRS
+     (R4V,I4E,R4L,R4A)
+ 127          R         MU E            TPRIME
+ 128    7   4 R        C U E            TSUB0
+ 129    8  11 R    ( 1)C?? E       36   U(36)
+ 130    8  25 R    ( 1)CM? E        9   UEM(9)
+ 131    8  23 R    ( 1)C?? E        9   UES(9)
+ 132    8  24 R    ( 1)C?? E        4   VES(4)
+ 133    2   6 L        CM  E            VONMS
+ 134    2   9 L        CM  E            VONMSS
+ 135    8  16 R    ( 1)C?? E        2   VXVY(2)
+ 136    8   6 R    ( 2)CM? E        8   Z12(2,4)
+ 137    7   5 R        C U E            Z1O
+ 138    7   6 R        C U E            Z2O
+**-- END OF SYMBOL TABLE

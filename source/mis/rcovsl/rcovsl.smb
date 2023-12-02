@@ -1,0 +1,95 @@
+**++ Symbol table for subprogram RCOVSL in file mis/rcovsl.f90
+     produced by SPAG     8.01RF-40 at 14:46:54 on  2 Dec 2023
+   0         X             K             mis/rcovsl.f90,0000002,0000178
+   1         C     /10/ MU        136   /MPYADX/PMX,FMX,CMX,SLMX,MCORE,T,SIGNPF,SIGNC,PREC,SCR
+   2         C     / 6/ ??         24   /NAMES/RD,RDREW,WRT,WRTREW,REW,NOREW
+   3         C     / 5/ MU         20   /PACKX/ITYPP,OTYPP,IROWP,NROWP,INCP
+   4         C     / 2/  U          8   /SYSTEM/SYSBUF,NOUT
+   5   51   4 I        A?U E            AMAT
+   6          I         MU E            BUF1
+   7         s     ( 2)  U              CLOSE
+     (I4V,I4V)
+   8    1   3 I    ( 1)CM  E        7   CMX(7)
+   9   51  11 L        A U E            FIRST
+  10    1   2 I    ( 1)CM? E        7   FMX(7)
+  11          I    ( 1) ?? E        2   FSS(2)
+  12         s     ( 3)  U              GOPEN
+     (I4V,R4L,I4V)
+  13          I         MU E            I
+  14          I    ( 1) ?U E        3   IBUF(3)
+  15          I         MU E            ICOL
+  16          I         MU E            IFACT
+  17   51   3 I        A U E            IN
+  18    3   5 I        CM  E            INCP
+  19          I         MU E            IP
+  20    3   3 I        CM  E            IROWP
+  21   51   2 I        A?U E            ITEM
+  22          I         M? E            ITM
+  23    3   1 I        CM  E            ITYPP
+  24   51   9 I    ( 1)A?U E            IZ(1)
+  25          I         MU E            J
+  26   51  10 I        A U E            LCORE
+  27         s     ( 5)  U              MAKMCB
+     (I4A,I4V,I4V,I4E,I4V)
+  28    1   5 I        CM  E            MCORE
+  29         s     ( 3)  U              MESAGE
+     (I4E,I4E,I4A)
+  30         s     ( 3)  U              MPYAD
+     (R4A,R4A,R4A)
+  31         s     ( 5)  U              MTRXI
+     (I4V,I4A,I4V,R4L,I4V)
+  32          I         MU E            N
+  33   51   1 I    ( 1)A?? E            NAME(2)
+  34          I         M? E            NB
+  35          I         MU E            NCOL
+  36          I         MU E            NFACT
+  37          I         ?U E            NL
+  38    2   6 I        C   E            NOREW
+  39    4   2 I        C   E            NOUT
+  40          I         MU E            NR
+  41          I         MU E            NROW
+  42    3   4 I        CMU E            NROWP
+  43          I         MU E            NRS
+  44          I         MU E            NST
+  45    3   2 I        CM  E            OTYPP
+  46   51   7 I        AM? E            OUT
+  47         s     ( 3)  U              PACK
+     (R4L,I4V,I4A)
+  48    1   1 I    ( 1)CMU E        7   PMX(7)
+  49    1   9 I        CM  E            PREC
+  50          I         ?U E            RC
+  51         S     (12) MU        128   RCOVSL(NAME,ITEM,IN,AMAT,SCR2,SCR3,OUT,Z,IZ,LCORE,FIRST,RFNO)
+  52    2   1 I        C   E            RD
+  53    2   2 I        C   E            RDREW
+  54         s     ( 1)  U              RDTRL
+     (I4A)
+  55    2   5 I        C?? E            REW
+  56   51  12 I        A U E            RFNO
+  57    1  10 I        CM  E            SCR
+  58   51   5 I        A?U E            SCR2
+  59   51   6 I        A U E            SCR3
+  60         s     ( 4)  U              SFETCH
+     (I4A,I4V,I4V,I4V)
+  61    1   8 I        C   E            SIGNC
+  62    1   7 I        CM  E            SIGNPF
+  63         s     ( 1)  U              SJUMP
+     (I4V)
+  64    1   4 I    ( 1)C?? E        7   SLMX(7)
+  65         s     ( 3)  U              SMSG
+     (I4E,I4V,I4A)
+  66          I        I?U E            SOLN
+  67          I        I?? E            SRD
+  68          I    ( 1)I?? E        2   SUBR(2)
+  69         s     ( 4)  U              SUREAD
+     (I4A,I4E,I4V,I4V)
+     (I4V,   ,   ,   )
+     (R4L,   ,   ,   )
+  70    4   1 I        C U E            SYSBUF
+  71    1   6 I        CM  E            T
+  72          I         MU E            TYPE
+  73    2   3 I        C   E            WRT
+  74    2   4 I        C?? E            WRTREW
+  75         s     ( 1)  U              WRTTRL
+     (I4A)
+  76   51   8 R    ( 1)AMU E            Z(1)
+**-- END OF SYMBOL TABLE

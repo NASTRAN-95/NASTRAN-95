@@ -1,0 +1,36 @@
+**++ Symbol table for subprogram SFAREA in file mis/sfarea.f90
+     produced by SPAG     8.01RF-40 at 14:46:47 on  2 Dec 2023
+   0         X             K             mis/sfarea.f90,0000002,0000204
+   1         C     / 3/  U         72   /BLANK/DUMMY,VOLUME,SURFAC
+   2          R    ( 1) MU E        6   A(6)
+   3         fR    ( 4)  U E            AREA
+     (R4A,I4E,I4E,I4E)
+   4    1   1 R    ( 1)C   E       16   DUMMY(16)
+   5   21   3 R    ( 1)AMU E            G(1)
+   6          I         MU E            I
+   7          I         MU E            J
+   8          I         MU E            JJ
+   9          I    ( 1)I?? E        6   JX(6)
+  10          I         MU E            K
+  11          I         MU E            KK
+  12          I    ( 1)I U E       12   KX(12)
+  13          I         MU E            L
+  14          I         MU E            M
+  15         s     ( 3)  U              MESAGE
+     (I4E,I4E,I4A)
+  16         I?    ( 2)  U I            MOD
+  17          I         MU E            N
+  18          I         MU E            NAREA
+  19   21   1 I        AMU E            NGPT
+  20          R        I U E            S2D8
+  21         S     ( 3) MU        101   SFAREA(NGPT,V,G)
+  22          I    ( 1)I?? E        2   SUB(2)
+  23    1   3 R        C U E            SURFAC
+  24          R        I U E            TETRA
+  25          R        I U E            TRIM6
+  26          R        I U E            TRPL1
+  27          R        I U E            TRSHL
+  28          I    ( 1)I U E        6   TYPE(6)
+  29   21   2 R    ( 1)AMU E            V(1)
+  30    1   2 R        C U E            VOLUME
+**-- END OF SYMBOL TABLE

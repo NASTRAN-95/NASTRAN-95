@@ -1,0 +1,218 @@
+**++ Symbol table for subprogram LODAPP in file mis/lodapp.f90
+     produced by SPAG     7.61RG-40 at 01:00:00 on 21 Mar 2022
+   0         X             K             mis/lodapp.f90,0000002,0000622
+   1         C     / 1/ MU         12   /BLANK/BUF
+   2         C     /17/ ?U         68   /NAMES/IRD,IRDREW,IWRT,IWRTRW,IREW,INOREW,IEFNRW,IRSP,IRDP,ICSP,ICDP,ISQURE,IRECT,IDIAG,IUPPER,ILOWER,ISYM
+   3         C     / 5/ M          20   /PACKX/ITYPIN,ITYPOT,IFIRST,ILAST,INCR
+   4         C     / 7/ MU        148   /PARMEG/MCBK,MCBK11,MCBK21,MCBK12,MCBK22,LCORE,IRULE
+   5         C     / 6/ M         140   /SOF/DITDUM,IODUM,MDIDUM,NXTDUM,DITUP,MDIUP
+   6         C     / 2/  U          8   /SYSTEM/ISBUFF,LP
+   7         C     / 4/  U        102   /XMSSG/UFM,UWM,UIM,SFM
+   8         C     / 1/ M?          4   /ZZZZZZ/RZ
+   9          R    ( 1) ?? E     4000   ADUMP(4000)
+  10         fI    ( 2)  UXE            ANDF
+     (I4E,I4E)
+  11          R        I U E            BLNK
+  12    1   1 I    ( 1)CMU E        3   BUF(3)
+  13         s     ( 4)  U              BUG
+     (I4L,I4E,L4V,I4E)
+  14         s     ( 2)  U              CLOSE
+     (I4V,I4V)
+  15         s     ( 3)  U              DELETE
+     (I4A,I4V,I4V)
+  16    5   1 R    ( 1)C   E        6   DITDUM(6)
+  17    5   5 L        C   E            DITUP
+  18         s     ( 3)  U              DMPFIL
+     (I4V,R4A,I4E)
+  19         s     ( 2)  U              FDSUB
+     (I4A,I4V)
+  20         s     ( 2)  U              FMDI
+     (I4V,I4V)
+  21         s     ( 2)  U              FNDLVL
+     (I4A,I4A)
+  22         s     ( 3)  U              GOPEN
+     (I4V,I4L,I4V)
+  23          I         MU E            I
+  24          I         MU E            IB1
+  25          I         MU E            IB2
+  26          I         MU E            IB3
+  27          I         MU E            IBLK
+  28          I         MU E            IBUF1
+  29    2  11 I        C   E            ICDP
+  30          I         M? E            ICHK
+  31          I         MU E            ICORE
+  32          I    ( 1) M? E        1   ICORX(1)
+  33    2  10 I        C   E            ICSP
+  34    2  14 I        C   E            IDIAG
+  35          I         MU E            IDRC1
+  36          I         MU E            IDRC2
+  37          I         MU E            IDRY
+  38          I         M? E            IDUMP
+  39    2   7 I        C   E            IEFNRW
+  40    3   3 I        CM  E            IFIRST
+  41          I         MU E            IGO
+  42          I         MU E            II
+  43    3   4 I        CM  E            ILAST
+  44          I         MU E            ILOOP
+  45    2  16 I        C   E            ILOWER
+  46          I         ?U E            IMDI
+  47          I         MU E            IMERGN
+  48    3   5 I        CM  E            INCR
+  49          I         ?? E            IND
+  50    2   6 I        C   E            INOREW
+  51    5   2 I    ( 1)C   E        8   IODUM(8)
+  52          I        I U E            IPAPP
+  53          I        I U E            IPOAP
+  54          I         MU E            IPS
+  55    2   1 I        C   E            IRD
+  56    2   9 I        C   E            IRDP
+  57    2   2 I        C   E            IRDREW
+  58    2  13 I        C U E            IRECT
+  59    2   5 I        C?? E            IREW
+  60    2   8 I        C U E            IRSP
+  61    4   7 I        CM  E            IRULE
+  62          I         M? E            IRW
+  63    6   1 I        C U E            ISBUFF
+  64          I        I U E            ISCR1
+  65          I        I U E            ISCR2
+  66          I        I U E            ISCR3
+  67          I        I U E            ISCR4
+  68          I        I?U E            ISCR5
+  69          I        I?U E            ISCR6
+  70          I        I?U E            ISCR7
+  71          I        I?U E            ISCR8
+  72    2  12 I        C   E            ISQURE
+  73          I         MU E            ISS
+  74    2  17 I        C   E            ISYM
+  75         fI    ( 1)  U E            ITCODE
+     (I4V)
+  76          I         MU E            ITEST
+  77          I         ?U E            ITIME1
+  78          I         ?U E            ITIME2
+  79          I         ?U E            ITLOAP
+  80          I         ?U E            ITLODS
+  81          I         MU E            ITUSED
+  82    3   1 I        CM  E            ITYPIN
+  83    3   2 I        CM  E            ITYPOT
+  84          I         MU E            IUAPP
+  85          I         MU E            IUOAP
+  86          I         MU E            IUOVE
+  87    2  15 I        C   E            IUPPER
+  88          I         MU E            IUVEC
+  89    2   3 I        C   E            IWRT
+  90    2   4 I        C?? E            IWRTRW
+  91          I    ( 1) MU E        1   IZ(1)
+  92          I         MU E            K
+  93         fI    ( 1)  U E            KORSZ
+     (I4L)
+  94          I         MU E            L
+  95    4   6 I        CM  E            LCORE
+  96          L         MU E            LLSUB
+  97          L         M  E            LMERG
+  98          I         MU E            LMERGT
+  99          I         MU E            LNEWLT
+ 100         S                    397   LODAPP
+ 101    6   2 I        C U E            LP
+ 102          L         MU E            LPAPP
+ 103          L         MU E            LPOAP
+ 104          L         MU E            LPOVE
+ 105          L         MU E            LPVEC
+ 106          I         MU E            LVECT
+ 107          I         MU E            M
+ 108    4   1 I    ( 1)CM? E        7   MCBK(7)
+ 109    4   2 I    ( 1)CMU E        7   MCBK11(7)
+ 110    4   4 I    ( 1)CMU E        7   MCBK12(7)
+ 111    4   3 I    ( 1)CM  E        7   MCBK21(7)
+ 112    4   5 I    ( 1)CM  E        7   MCBK22(7)
+ 113          I    ( 1) M? E        7   MCBLOC(7)
+ 114    5   3 I    ( 1)C   E        4   MDIDUM(4)
+ 115    5   6 L        CM  E            MDIUP
+ 116         s     ( 3)  U              MERGE
+     (I4L,I4L,I4L)
+ 117         s     ( 3)  U              MESAGE
+     (I4E,I4A,I4E)
+ 118         s     ( 5)  U              MTRXI
+     (I4V,I4A,I4V,I4E,I4V)
+ 119         s     ( 5)  U              MTRXO
+     (I4V,I4A,I4V,I4E,I4V)
+ 120          I         MU E            N
+ 121          I         MU E            NAF
+ 122          I    ( 1) MU E        2   NAME(2)
+ 123          I    ( 1) ?U E        2   NAMELL(2)
+ 124          I         MU E            NAS
+ 125          I         MU E            NBASA
+ 126          I         MU E            NBASN
+ 127          I         MU E            NBASP
+ 128          I         MU E            NCHAVE
+ 129          I         M  E            NCNT
+ 130          I         MU E            NCORE
+ 131          I         MU E            NDEL1
+ 132          I         MU E            NFINI
+ 133          I         MU E            NITEM
+ 134          I         MU E            NIZ
+ 135          I         MU E            NL
+ 136          I         MU E            NLBASA
+ 137          I         MU E            NLBASP
+ 138          I         MU E            NLDSA
+ 139          I         MU E            NLDSP
+ 140          I         MU E            NLOADA
+ 141          I         MU E            NLOADN
+ 142          I         MU E            NLOADP
+ 143          I         MU E            NLOADS
+ 144          I        I?? E            NLOAP
+ 145          I        I?U E            NLODS
+ 146          I         MU E            NLOOP
+ 147          I         MU E            NMERGF
+ 148          I         MU E            NMERGN
+ 149          I         MU E            NMERGS
+ 150          I         MU E            NMRVCF
+ 151          I         MU E            NMRVCN
+ 152          I         MU E            NMRVCS
+ 153          I    ( 1) MU E        2   NN(2)
+ 154          I         MU E            NNEW1
+ 155          I         MU E            NNEWF
+ 156          I         MU E            NNEWS
+ 157          I        I U E            NPAPP
+ 158          I         MU E            NPF
+ 159          I        I U E            NPOAP
+ 160          I        I?? E            NPOVE
+ 161          I    ( 1)I?? E        2   NPROG(2)
+ 162          I         MU E            NPS
+ 163          I        I?? E            NPVEC
+ 164          I         MU E            NS
+ 165          I         MU E            NS1
+ 166          I         MU E            NSTART
+ 167          I         MU E            NSUBS
+ 168          I         MU E            NWDS
+ 169          I         MU E            NWORDS
+ 170    5   4 I    ( 1)C   E       15   NXTDUM(15)
+ 171         s     ( 3)  U              PACK
+     (R4L,I4V,I4L)
+     (I4E,   ,   )
+ 172         s     ( 1)  U              RDTRL
+     (I4L)
+ 173         s     ( 1)  U              RETBLK
+     (I4V)
+ 174         fI    ( 2)  UXE            RSHIFT
+     (I4L,I4E)
+ 175    8   1 R    ( 1)CM? E        1   RZ(1)
+ 176         s     ( 4)  U              SFETCH
+     (I4A,I4V,I4E,I4V)
+ 177    7   4 C*25     C U E            SFM*25
+ 178         s           U              SOFCLS
+ 179         s     ( 3)  U              SOFOPN
+     (I4L,I4L,I4L)
+ 180         s     ( 3)  U              SOFTRL
+     (I4A,I4V,I4L)
+ 181         s     ( 4)  U              SUREAD
+     (I4L,I4E,I4V,I4V)
+ 182         s     ( 3)  U              SUWRT
+     (I4E,I4E,I4E)
+ 183         s     ( 1)  U              TMTOGO
+     (I4V)
+ 184    7   1 C*23     C U E            UFM*23
+ 185    7   3 C*29     C U E            UIM*29
+ 186    7   2 C*25     C   E            UWM*25
+ 187         s     ( 1)  U              WRTTRL
+     (I4L)
+**-- END OF SYMBOL TABLE

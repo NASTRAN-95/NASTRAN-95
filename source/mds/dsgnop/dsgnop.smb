@@ -1,0 +1,25 @@
+**++ Symbol table for subprogram DSGNOP in file mds/dsgnop.f90
+     produced by SPAG     8.01RF-40 at 14:46:33 on  2 Dec 2023
+   0         X             K             mds/dsgnop.f90,0000002,0000024
+   1         S                     16   DSGNOP
+   2         s     ( 3)  U              DSOPEN
+     (?*E,?*V,?*V)
+   3         s           U              DSRLSE
+   4         f?    ( 2)  U I            FCB
+     (I4E,?*V)
+   5         I?    ( 2)  U I            IAND
+   6          ?         MU I            IDSN
+   7          ?         ?U I            IFILEX
+   8          I         MU E            INEXT
+   9          ?         ?U I            IOCODE
+  10          I         M  E            IOP
+  11         I?    ( 2)  U I            IOR
+  12          I         MU E            ITEST
+  13          ?          U I            MASKH2
+  14         f?    ( 2) MU I            MDSFCB
+     (I4E,?*V)
+  15         f?    ( 1)  U I            MDSNAM
+     (?*V)
+  16         I?    ( 2)  U I            MOD
+  17          ?          U I            NBLOCK
+**-- END OF SYMBOL TABLE

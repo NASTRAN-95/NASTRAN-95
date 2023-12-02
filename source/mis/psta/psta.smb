@@ -1,0 +1,83 @@
+**++ Symbol table for subprogram PSTA in file mis/psta.f90
+     produced by SPAG     8.01RF-40 at 14:47:13 on  2 Dec 2023
+   0         X             K             mis/psta.f90,0000002,0000169
+   1         C     / 7/ ?U         52   /AMGMN/MCB,NROW,ND,NE,REFC,EMACH,RFK
+   2         C     / 4/  U         16   /CONDAS/PI,TWOPI,RADG,DEGRA
+   3         C     / 5/ MU         20   /PACKX/ITI,IT0,II,NN,INCR
+   4         C     / 9/  U         36   /PSTONC/NJJ,NMACH,NTHRY,NTHICK,NALPHA,NXIS,NTAUS,NSTRIP,SECLAM
+   5          R    ( 2)IMU E        9   A(3,3)
+   6          R    ( 1) MU E        6   AI(6)
+   7          R    ( 1) MU E        6   AJ(6)
+   8   60   6 R        A?? E            AJJL
+   9   60   4 R    ( 1)A U E            ALPH(1)
+  10          R         MU E            ALPHA
+  11          R         MU E            ALPHA2
+  12          R         MU E            B
+  13   60   2 R    ( 1)A U E            BI(1)
+  14          R         MU E            BREF
+  15   60   3 R    ( 1)A U E            CA(1)
+  16          R         MU E            CBAR1
+  17          R         MU E            CBAR2
+  18          R         MU E            CBAR3
+  19         IX    ( 2)  U I            CMPLX
+  20          R         MU E            CONST
+  21    2   4 R        C U E            DEGRA
+  22   60   1 R    ( 1)A U E            DELTAY(1)
+  23          R         MU E            E1K
+  24          R         MU E            E1KS
+  25          R    ( 1) MU E        6   EK(6)
+  26    1   6 R        C U E            EMACH
+  27          R         MU E            EMS
+  28          R    ( 2) MU E        9   G(3,3)
+  29          R    ( 2) MU E        9   GI(3,3)
+  30          R    ( 2)IMU E        9   H(3,3)
+  31          I         MU E            I
+  32    3   3 I        CMU E            II
+  33    3   5 I        C   E            INCR
+  34          I         MU E            IT
+  35    3   2 I        C   E            IT0
+  36    3   1 I        C   E            ITI
+  37          I         MU E            J
+  38          I         MU E            K
+  39          I         MU E            L
+  40          I         MU E            M1
+  41    1   1 I    ( 1)C?? E        7   MCB(7)
+  42          I         MU E            N
+  43          I         MU E            N2
+  44    4   5 I        C U E            NALPHA
+  45    1   3 I        C   E            ND
+  46    1   4 I        C   E            NE
+  47    4   1 I        C   E            NJJ
+  48    4   2 I        C   E            NMACH
+  49    3   4 I        CMU E            NN
+  50    1   2 I        C U E            NROW
+  51    4   8 I        C U E            NSTRIP
+  52    4   7 I        C U E            NTAUS
+  53    4   4 I        C U E            NTHICK
+  54    4   3 I        C U E            NTHRY
+  55    4   6 I        C U E            NXIS
+  56          R    ( 2) MU E       18   P(3,6)
+  57         s     ( 3)  U              PACK
+     (X8A,R4V,I4A)
+  58          X    ( 1) M? E        3   PC(3)
+  59    2   1 R        C   E            PI
+  60         S     ( 6) ?U        143   PSTA(DELTAY,BI,CA,ALPH,THI,AJJL)
+  61          R    ( 2) MU E        9   Q(3,3)
+  62          R    ( 2) MU E        9   QI(3,3)
+  63    2   3 R        C   E            RADG
+  64    1   5 R        C U E            REFC
+  65          R         MU E            RFC
+  66    1   7 R        C U E            RFK
+  67    4   9 R        C U E            SECLAM
+  68          R         MU E            SECS
+  69         I?    ( 1)  U I            SQRT
+  70          R         MU E            T
+  71          R         MU E            TAU
+  72          R         MU E            TAUH
+  73          R         MU E            TAUT
+  74   60   5 R    ( 1)A U E            THI(13)
+  75          R         MU E            TS
+  76    2   2 R        C   E            TWOPI
+  77          R         MU E            ZETAH
+  78          R         MU E            ZETAM
+**-- END OF SYMBOL TABLE

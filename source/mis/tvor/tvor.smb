@@ -1,0 +1,63 @@
+**++ Symbol table for subprogram TVOR in file mis/tvor.f90
+     produced by SPAG     8.01RF-40 at 14:46:47 on  2 Dec 2023
+   0         X             K             mis/tvor.f90,0000002,0000148
+   1   52  16 R        A?? E            BETA
+   2   52  21 R        AM  E            BIM
+   3   52  20 R        AM  E            BRE
+   4          R         MU E            BS
+   5   52  17 R        A?? E            CBAR
+   6   52  10 R        A?? E            CGR
+   7   52   8 R        A?U E            CGS
+   8          R         M? E            CL
+   9   52   2 R        A U E            CL1
+  10   52   5 R        A U E            CL2
+  11          R         MU E            COEF
+  12          R         MU E            CV
+  13          R         ?U E            DIJ
+  14          R    ( 1) MU E        2   DKC(2)
+  15          R    ( 1) MU E        2   DKI(2)
+  16          R    ( 1) MU E        2   DKO(2)
+  17          R         M? E            DX01
+  18          R         M? E            DX02
+  19          R         MU E            DY0
+  20          R         MU E            DZ0
+  21   52  15 R        A?U E            E
+  22          R         MU E            ECGS
+  23          R         MU E            EE
+  24          R         MU E            EPS
+  25          R         MU E            ESGS
+  26          R         MU E            ETL1
+  27          R         MU E            ETL2
+  28          R         MU E            FB
+  29          R         MU E            FC
+  30         s     (17)  U              FLLD
+     (R4V,R4V,R4V,R4V,R4V,R4V,R4V,R4V,R4V,R4V,R4V,R4V,I4V,R4L,R4L,R4L,R4L)
+  31   52  18 R        A?? E            FMACH
+  32          I         MU E            IB
+  33          I         MU E            IFLLD
+  34          I         MU E            ISNP
+  35          R    ( 1) ?U E        2   KD1(2)
+  36          R    ( 1) ?U E        2   KD2(2)
+  37   52  19 R        A?? E            KR
+  38          I         M? E            L
+  39          R        I U E            PI48
+  40          R         MU E            R2
+  41          R         MU E            R4
+  42   52   9 R        A?? E            SGR
+  43   52   7 R        A?U E            SGS
+  44          R         M? E            SL
+  45   52   1 R        A U E            SL1
+  46   52   4 R        A U E            SL2
+  47         s     (14)  U              SNPDF
+     (R4V,R4V,R4V,R4V,R4V,R4V,R4V,R4V,R4V,R4V,R4V,R4V,R4V,R4V)
+  48          R         MU E            TE
+  49          R         M? E            TL
+  50   52   3 R        A U E            TL1
+  51   52   6 R        A U E            TL2
+  52         S     (21) MU         74   TVOR(SL1,CL1,TL1,SL2,CL2,TL2,SGS,CGS,SGR,CGR,X01,X02,Y0,Z0,E,BETA,CBAR,FMACH,KR,BRE,BIM)
+  53          R         M? E            X0
+  54   52  11 R        A U E            X01
+  55   52  12 R        A U E            X02
+  56   52  13 R        A?U E            Y0
+  57   52  14 R        A?U E            Z0
+**-- END OF SYMBOL TABLE

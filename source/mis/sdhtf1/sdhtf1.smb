@@ -1,0 +1,87 @@
+**++ Symbol table for subprogram SDHTF1 in file mis/sdhtf1.f90
+     produced by SPAG     7.61RG-40 at 01:00:00 on 21 Mar 2022
+   0         X             K             mis/sdhtf1.f90,0000002,0000211
+   1         C     / 1/            20   /CONDAS/CONSTS
+   2         C     / 4/  U         16   /GPTA1/NELS,LAST,INCR,ELEM
+   3         C     / 6/ MU         24   /MATIN/MATID,INFLAG,ELTEMP,DUM,SINTH,COSTH
+   4         C     / 4/ MU        448   /SDR2X4/DUMX,STRSPT,DDRMM,ISOPL8
+   5         C     / 8/ MU       1352   /SDR2X5/EST,ELID,SIL,NQ,NP,NAME,DOMX,DSHPB
+   6         C     / 6/ MU       1200   /SDR2X6/SUB,IMAT,AF,THETA,R,ESTSCR
+   7    6   3 R        CM  E            AF
+   8          R    ( 2) M? E       96   BXYZ(3,32)
+   9          I        I U E            CHBDY
+  10    1   1 R    ( 1)C   E        5   CONSTS(5)
+  11         I?    ( 1)  U I            COS
+  12    3   6 R        CM  E            COSTH
+  13          R         MU E            D
+  14    4   3 R        C   E            DDRMM
+  15          R         ?? E            DETJ
+  16    5   7 R    ( 1)C   E      105   DOMX(105)
+  17          R    ( 2) ?? E       96   DSHP(3,32)
+  18    5   8 R    ( 2)C?? E       96   DSHPB(3,32)
+  19    3   4 R    ( 1)C   E        1   DUM(1)
+  20    4   1 R    ( 1)C   E      109   DUMX(109)
+  21    2   4 I    ( 1)C U E        1   ELEM(1)
+  22    5   2 I        CM? E            ELID
+  23    3   3 R        CMU E            ELTEMP
+  24    5   1 R    ( 1)CM  E      100   EST(100)
+  25    6   6 R    ( 1)C U E      200   ESTSCR(200)
+  26          I         M  E            ESTWDS
+  27          I        I U E            FTUBE
+  28         s     ( 9)  U              GMMATS
+     (R4A,I4V,I4E,I4E,R4A,I4E,I4E,I4E,R4A)
+  29          R    ( 1) MU E       32   GPT(32)
+  30         s     ( 1)  U              HMAT
+     (I4V)
+  31          I         MU E            I
+  32          I         MU E            IA
+  33          I         MU E            IEL
+  34          I         MU E            IG
+  35         s     (10)  U              IHEXSS
+     (I4V,R4A,R4A,R4A,R4V,I4V,R4V,R4V,R4V,R4A)
+  36          I         MU E            ILOC
+  37          I         MU E            IM
+  38    6   2 I        CM  E            IMAT
+  39    2   3 I        C U E            INCR
+  40    3   2 I        CMU E            INFLAG
+  41          I         MU E            IP
+  42          I         MU E            IS
+  43          I         MU E            ISIL
+  44    4   4 I        CM  E            ISOPL8
+  45          I         MU E            ITEMP
+  46          I         MU E            ITH
+  47          I         MU E            ITYPE
+  48          I         MU E            J
+  49    2   2 I        C   E            LAST
+  50    3   1 I        CMU E            MATID
+  51    5   6 I    ( 1)CM  E        2   NAME(2)
+  52    2   1 I        C   E            NELS
+  53          I    ( 1) MU E        2   NEST(2)
+  54          I    ( 1) M  E      100   NESTO(100)
+  55          I    ( 1)  U E      200   NESTSC(200)
+  56    5   5 I        CMU E            NP
+  57    5   4 I        CM  E            NQ
+  58          I        I U E            NUMELT
+  59          R          U E            PI
+  60          I    ( 2)I   E      160   POINT1(8,20)
+  61          I    ( 2)I   E       24   POINT2(8,3)
+  62          I    ( 2)  U E      184   POINTR(8,23)
+  63    6   5 R    ( 2)CM  E       96   R(3,32)
+  64   65   2 L        AM  E            REJECT
+  65         S     ( 2) MU        139   SDHTF1(TYPE,REJECT)
+  66         s           U              SDHTFF
+  67          R    ( 1) ?U E       32   SHP(32)
+  68    5   3 I    ( 1)CM  E       32   SIL(32)
+  69         I?    ( 1)  U I            SIN
+  70    3   5 R        CM  E            SINTH
+  71    4   2 I        CMU E            STRSPT
+  72    6   1 I        CMU E            SUB
+  73    6   4 R        CMU E            THETA
+  74          I        I U E            TUBE
+  75   65   1 I        A U E            TYPE
+  76          I        IMU E            TYPOLD
+  77          R         MU E            X
+  78          R    ( 2) ?? E        9   XJACOB(3,3)
+  79          R         MU E            Y
+  80          R         MU E            Z
+**-- END OF SYMBOL TABLE

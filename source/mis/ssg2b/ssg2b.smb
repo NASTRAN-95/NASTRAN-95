@@ -1,0 +1,57 @@
+**++ Symbol table for subprogram SSG2B in file mis/ssg2b.f90
+     produced by SPAG     8.01RF-40 at 14:47:21 on  2 Dec 2023
+   0         X             K             mis/ssg2b.f90,0000002,0000088
+   1         C     /10/ MU        136   /MPYADX/FILEA,FILEB,FILEC,FILED,NZ,T,I1,I2,PREC,SCR2
+   2         C     / 1/           220   /SYSTEM/KSYSTM
+   3         C     / 5/  U        129   /XMSSG/UFM,UWM,UIM,SFM,SWM
+   4         C     / 1/ ??          4   /ZZZZZZ/CORE
+   5   40   2 I        A U E            CDT
+   6    4   1 I    ( 1)C?? E        1   CORE(1)
+   7          I        I U E            DIAG
+   8    1   1 I    ( 1)CMU E        7   FILEA(7)
+   9    1   2 I    ( 1)CMU E        7   FILEB(7)
+  10    1   3 I    ( 1)CMU E        7   FILEC(7)
+  11    1   4 I    ( 1)CMU E        7   FILED(7)
+  12          I         MU E            I
+  13    1   7 I        CM  E            I1
+  14    1   8 I        CM  E            I2
+  15   40   7 I        A U E            IA1
+  16         II    ( 1)  U I            IABS
+  17          I        I U E            IDENT
+  18          I          U E            IOUTPT
+  19   40   6 I        A U E            IPREC1
+  20          I         MU E            IRC
+  21          I         MU E            J
+  22          I         MU E            K
+  23   40   1 I        A U E            KFS
+  24         fI    ( 1)  U E            KORSZ
+     (I4A)
+  25          I          U E            KPREC1
+  26    2   1 I    ( 1)C   E       55   KSYSTM(55)
+  27         II    ( 2)  U I            MIN0
+  28         s     ( 3)  U              MPYAD
+     (I4A,I4A,I4A)
+  29    1   5 I        CM  E            NZ
+  30   40   3 I        A U E            PABAR
+  31    1   9 I        CM  E            PREC
+  32          I         MU E            PREC1
+  33         s     ( 1)  U              RDTRL
+     (I4A)
+  34          I        I U E            RECT
+  35    1  10 I        CM  E            SCR2
+  36    3   4 C*25     C   E            SFM*25
+  37          I        I U E            SQUARE
+  38   40   4 I        A U E            SR1
+  39   40   8 I        A U E            SR2
+  40         S     ( 8)  U         59   SSG2B(KFS,CDT,PABAR,SR1,T1,IPREC1,IA1,SR2)
+  41    3   5 C*27     C U E            SWM*27
+  42          I        I U E            SYMM
+  43          I            E            SYSBUF
+  44    1   6 I        CMU E            T
+  45   40   5 I        A U E            T1
+  46    3   1 C*23     C   E            UFM*23
+  47    3   3 C*29     C   E            UIM*29
+  48    3   2 C*25     C   E            UWM*25
+  49         s     ( 1)  U              WRTTRL
+     (I4A)
+**-- END OF SYMBOL TABLE

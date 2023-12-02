@@ -1,0 +1,47 @@
+**++ Symbol table for subprogram CFE1MY in file mis/cfe1my.f90
+     produced by SPAG     8.01RF-40 at 14:46:47 on  2 Dec 2023
+   0         X             K             mis/cfe1my.f90,0000002,0000094
+   1         C     /19/ ?U         76   /NAMES/RD,RDREW,WRT,WRTREW,REW,NOREW,EOFNRW,RSP,RDP,CSP,CDP,SQR,RECT,DIAG,LOWTRI,UPRTRI,SYM,ROW,IDENTY
+   2         C     / 3/ MU         24   /ZNTPKX/DA,II,EOL
+   3    5   5 I    ( 1)A?? E            BUF(1)
+   4    1  11 R        C   E            CDP
+   5         S     ( 5) MU         55   CFE1MY(TPOSE,Y,X,FILE,BUF)
+   6         s     ( 2)  U              CLOSE
+     (I4L,R4V)
+   7    1  10 R        C?? E            CSP
+   8    2   1 R    ( 1)C U E        4   DA(4)
+   9    1  14 I        C U E            DIAG
+  10    1   7 R        C   E            EOFNRW
+  11    2   3 I        C U E            EOL
+  12    5   4 I    ( 1)A?U E            FILE(7)
+  13         s     ( 3)  U              GOPEN
+     (I4L,I4L,R4V)
+  14          I         MU E            I
+  15    1  19 I        C U E            IDENTY
+  16    2   2 I        CMU E            II
+  17         s     ( 5)  U              INTPK
+     (ALT,I4L,I4E,R4V,I4E)
+  18          I         MU E            J
+  19          I         MU E            JJ
+  20    1  15 I        C   E            LOWTRI
+  21          I         MU E            NCOL2
+  22    1   6 I        C   E            NOREW
+  23    1   1 R        C   E            RD
+  24    1   9 R        C   E            RDP
+  25    1   2 R        C?? E            RDREW
+  26    1  13 R        C   E            RECT
+  27    1   5 R        C?? E            REW
+  28    1  18 R        C   E            ROW
+  29    1   8 R        C   E            RSP
+  30         s     ( 2)  U              SKPREC
+     (I4L,I4E)
+  31    1  12 R        C   E            SQR
+  32    1  17 R        C   E            SYM
+  33    5   1 L    ( 1)A U E            TPOSE(1)
+  34    1  16 R        C   E            UPRTRI
+  35    1   3 R        C   E            WRT
+  36    1   4 R        C   E            WRTREW
+  37    5   3 R    ( 1)AMU E            X(1)
+  38    5   2 R    ( 1)A U E            Y(1)
+  39         s           U              ZNTPKI
+**-- END OF SYMBOL TABLE

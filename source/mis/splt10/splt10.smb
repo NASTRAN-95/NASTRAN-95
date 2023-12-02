@@ -1,0 +1,14 @@
+**++ Symbol table for subprogram SPLT10 in file mis/splt10.f90
+     produced by SPAG     8.01RF-40 at 14:46:41 on  2 Dec 2023
+   0         X             K             mis/splt10.f90,0000002,0000032
+   1    9   2 I    ( 1)AMU E            COMPS(9)
+   2          I         MU E            I
+   3          I         MU E            IC
+   4    9   1 I        AMU E            ICOMP
+   5          I         MU E            IX
+   6          I         MU E            JX
+   7    9   3 I        AMU E            NC
+   8         s     ( 6)  U              SORT
+     (I4E,I4E,I4E,I4E,I4A,I4V)
+   9         S     ( 3) MU         23   SPLT10(ICOMP,COMPS,NC)
+**-- END OF SYMBOL TABLE

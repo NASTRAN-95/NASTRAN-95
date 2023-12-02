@@ -1,0 +1,43 @@
+**++ Symbol table for subprogram SCONE3 in file mis/scone3.f90
+     produced by SPAG     8.01RF-40 at 14:47:06 on  2 Dec 2023
+   0         X             K             mis/scone3.f90,0000002,0000080
+   1         C     / 6/ MU        900   /SDR2X7/DUM,III,ZOFF,DUM2,STRESS,FORCE
+   2         C     /21/ MU        648   /SDR2X8/VEC,SUM,SIG,SIG1,SIG2,SIG12,TEMP,DELTA,THETA,NPOINT,ZOVERI,IPT,BLOCK,ELHAR,ELEMID,HARM,N,SINPHI,CONPHI,NPHI,NANGLE
+   3         I?    ( 1)  U I            ABS
+   4   26   1 L        AMU E            AGAIN
+   5         I?    ( 2)  U I            ATAN2
+   6    2  13 R    ( 2)C U E      126   BLOCK(9,14)
+   7    2  19 R        C   E            CONPHI
+   8    2   8 R        CMU E            DELTA
+   9    1   1 R    ( 1)C   E        5   DUM(5)
+  10    1   4 R    ( 1)C   E       92   DUM2(92)
+  11    2  15 I        C U E            ELEMID
+  12    2  14 R        C   E            ELHAR
+  13    1   6 R    ( 1)CM  E       25   FORCE(25)
+  14    2  16 R        C   E            HARM
+  15          I         MU E            I
+  16          I    ( 2)  U E      126   IBLOCK(9,14)
+  17          I    ( 1) M  E       25   IFORCE(25)
+  18    1   2 R        C U E            III
+  19    2  12 I        CMU E            IPT
+  20          I    ( 1) M  E      100   ISTRES(100)
+  21          I         MU E            J
+  22    2  17 I        C   E            N
+  23    2  21 I        CMU E            NANGLE
+  24    2  20 I        C   E            NPHI
+  25    2  10 I        C   E            NPOINT
+  26         S     ( 1) MU         48   SCONE3(AGAIN)
+  27    2   3 R    ( 1)CMU E        3   SIG(3)
+  28    2   4 R        CMU E            SIG1
+  29    2   6 R        CMU E            SIG12
+  30    2   5 R        CMU E            SIG2
+  31    2  18 R        C   E            SINPHI
+  32         I?    ( 1)  U I            SQRT
+  33    1   5 R    ( 1)CM  E      100   STRESS(100)
+  34    2   2 R    ( 1)C   E        8   SUM(8)
+  35    2   7 R        CMU E            TEMP
+  36    2   9 R        CMU E            THETA
+  37    2   1 R    ( 1)C   E        8   VEC(8)
+  38    1   3 R    ( 1)C U E        2   ZOFF(2)
+  39    2  11 R        CMU E            ZOVERI
+**-- END OF SYMBOL TABLE

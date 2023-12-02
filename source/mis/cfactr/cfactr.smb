@@ -1,0 +1,61 @@
+**++ Symbol table for subprogram CFACTR in file mis/cfactr.f90
+     produced by SPAG     8.01RF-40 at 14:46:53 on  2 Dec 2023
+   0         X             K             mis/cfactr.f90,0000002,0000079
+   1         C     /12/ M?        136   /CDCMPX/FA,FL,FU,SR1,SR2,SR3,DET,POWR,NX,MIND,IB,IBBAR
+   2         C     / 6/            96   /SDCCSP/JFA,JFL,JFC,J1FIL,J2FIL,JX
+   3         C     /10/ M?        132   /SFACT/MFA,MFL,MFC,M1FIL,M2FIL,MXX,D,M3FIL,D1,ICHOL
+   4         C     / 1/ ??          4   /ZZZZZZ/IZ
+   5    7   1 I        A?U E            A
+   6         s     ( 4)  U              CDCOMP
+     (ALT,I4A,I4A,I4A)
+   7         S     ( 7) MU         43   CFACTR(A,LL,UL,SCR1,SCR2,SCR3,IOPT)
+   8    3   7 R    ( 1)C   E        5   D(5)
+   9    3   9 R    ( 1)C   E        2   D1(2)
+  10    1   7 D    ( 1)C   E        2   DET(2)
+  11    1   1 I    ( 1)CM  E        7   FA(7)
+  12    1   2 I    ( 1)CM? E        7   FL(7)
+  13    1   3 I    ( 1)CM? E        7   FU(7)
+  14          I         MU E            I
+  15    1  11 I        C   E            IB
+  16    1  12 I        CM  E            IBBAR
+  17    3  10 I        CM  E            ICHOL
+  18    7   7 I        AM  E            IOPT
+  19    4   1 I    ( 1)C?? E        1   IZ(1)
+  20    2   4 I        C   E            J1FIL
+  21    2   5 I        C   E            J2FIL
+  22    2   1 I    ( 1)C   E        7   JFA(7)
+  23    2   3 I    ( 1)C   E        7   JFC(7)
+  24    2   2 I    ( 1)C   E        7   JFL(7)
+  25    2   6 I        C   E            JX
+  26         fI    ( 1)  U E            KORSZ
+     (I4A)
+  27    7   2 I        A U E            LL
+  28    3   4 I        CM  E            M1FIL
+  29    3   5 I        CM  E            M2FIL
+  30    3   8 I        CM  E            M3FIL
+  31          I    ( 1) MU E        7   MCB(7)
+  32         s     ( 3)  U              MESAGE
+     (I4E,I4V,I4A)
+  33    3   1 I    ( 1)CM  E        7   MFA(7)
+  34    3   3 I    ( 1)CM  E        7   MFC(7)
+  35    3   2 I    ( 1)CM? E        7   MFL(7)
+  36    1  10 D        C   E            MIND
+  37    3   6 I        CM  E            MXX
+  38          I    ( 1)I?? E        2   NAME(2)
+  39    1   9 I        CM  E            NX
+  40          I         MU E            NZ
+  41    1   8 R        C   E            POWR
+  42         s     ( 1)  U              RDTRL
+     (I4A)
+  43    7   4 I        A U E            SCR1
+  44    7   5 I        A U E            SCR2
+  45    7   6 I        A U E            SCR3
+  46         s     ( 4)  U              SDCOMP
+     (ALT,I4A,I4A,I4A)
+  47    1   4 I        CM  E            SR1
+  48    1   5 I        CM  E            SR2
+  49    1   6 I        CM  E            SR3
+  50    7   3 I        A U E            UL
+  51         s     ( 1)  U              WRTTRL
+     (I4A)
+**-- END OF SYMBOL TABLE

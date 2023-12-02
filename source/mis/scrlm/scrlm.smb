@@ -1,0 +1,36 @@
+**++ Symbol table for subprogram SCRLM in file mis/scrlm.f90
+     produced by SPAG     8.01RF-40 at 14:47:17 on  2 Dec 2023
+   0         X             K             mis/scrlm.f90,0000002,0000095
+   1   23   7 R        A?U E            ALF1
+   2   23   5 R        A?? E            CONT
+   3   23   3 R    ( 2)A U E            E(2,2)
+   4          R         M  E            EEL
+   5          R         MU E            EL
+   6          R         M  E            ELL
+   7   23   4 R        A U E            H
+   8   23  10 R        A U E            HF
+   9          I         MU E            I
+  10          I         MU E            J
+  11          I         MU E            JJ
+  12          I         MU E            K
+  13          I         MU E            KK
+  14   23   9 R        A U E            LAM1
+  15          R         ?U E            LAM2
+  16          R         ?U E            LAM3
+  17          R         ?U E            LAM4
+  18          I         MU E            LL
+  19   23   8 R        A?? E            R1
+  20   23   6 R        A?? E            RP
+  21          R         MU E            SC1
+  22          R         MU E            SC2
+  23         S     (10) MU         71   SCRLM(SCURL,XXI,E,H,CONT,RP,ALF1,R1,LAM1,HF)
+  24   23   1 R    ( 2)AMU E            SCURL(15,10)
+  25         s     ( 8)  U              SOLVE1
+     (R4V,R4V,R4V,R4V,R4V,R4V,R4V,R4V)
+  26          R         MU E            XX1
+  27          R         MU E            XX2
+  28          R         MU E            XX3
+  29          R         MU E            XX4
+  30          R         MU E            XX5
+  31   23   2 R    ( 1)A U E            XXI(3)
+**-- END OF SYMBOL TABLE

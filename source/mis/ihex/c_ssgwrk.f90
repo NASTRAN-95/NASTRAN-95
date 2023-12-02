@@ -1,0 +1,9 @@
+!*==/home/marcusmae/nasa/nastran/SPAGged/C_SSGWRK.f90  created by SPAG 8.01RF at 14:46 on  2 Dec 2023
+MODULE C_SSGWRK
+   USE ISO_FORTRAN_ENV
+   REAL(REAL64), DIMENSION(3, 32) :: Dshp
+   REAL, DIMENSION(4) :: H
+   REAL(REAL64), DIMENSION(3, 3) :: Jacob
+   REAL(REAL64), DIMENSION(4) :: S
+   REAL(REAL64), DIMENSION(32) :: Shp
+END MODULE C_SSGWRK

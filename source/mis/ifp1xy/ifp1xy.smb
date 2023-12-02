@@ -1,0 +1,188 @@
+**++ Symbol table for subprogram IFP1XY in file mis/ifp1xy.f90
+     produced by SPAG     7.61RG-40 at 01:00:00 on 21 Mar 2022
+   0         X             K             mis/ifp1xy.f90,0000002,0000855
+   1         C     / 4/ MU         64   /IFP1A/DUM3,NWPC,DUMMY,A377
+   2         C     / 3/ MU         12   /IFPX0/LBD,LCC,BITS
+   3         C     / 2/ ??          8   /MACHIN/MACH,IHALF
+   4         C     / 4/  U        344   /SYSTEM/KSYSTM,ILINK,SKP63,INTR
+   5         C     / 2/ ?U          8   /XIFP1/BLANK,BIT64
+   6         C     / 1/  U         23   /XMSSG/UFM
+   7         C     / 1/             4   /ZZZZZZ/COREX
+   8    1   4 I        CMU E            A377
+   9          I         MU E            A777
+  10          I        I U E            ACCE
+  11         fI           XE            ANDF
+  12          I        I U E            AUTO
+  13          I         MU E            BCD
+  14          I         MU E            BINPLT
+  15    5   2 L        C U E            BIT64
+  16    2   3 I    ( 1)CM? E        1   BITS(1)
+  17          I         MU E            BITWRD
+  18    5   1 I        C?U E            BLANK
+  19          I    ( 1) MU E       10   BUF(10)
+  20          I    ( 1) MU E      150   BUFF(150)
+  21          I    ( 1)I U E       16   BWORD(16)
+  22   54   1 I        AMU E            CARD
+  23          I        I U E            CLEA
+  24         fI    ( 1)  UXE            COMPLF
+     (I4E)
+  25          I         MU E            COMPON
+  26          I        I U E            CONT
+  27          L         MU E            CONTIN
+  28    7   1 I    ( 1)C   E        1   COREX(1)
+  29          I    ( 1)    E      771   COREY(771)
+  30          I         MU E            DESTIN
+  31          I        I U E            DISP
+  32    1   1 I    ( 1)C   E        3   DUM3(3)
+  33    1   3 I    ( 1)C   E       11   DUMMY(11)
+  34          I        I U E            ELFO
+  35          I        I U E            ELST
+  36          I        I?? E            EOR
+  37          I        I U E            F
+  38          I        IM? E            FILE
+  39         s     ( 3)  U              FNDPLT
+     (I4V,I4V,I4L)
+  40          I        I U E            FORC
+  41          I        I?? E            FRAM
+  42          I        I U E            G
+  43          I         MU E            I
+  44         II    ( 1)  U I            IABS
+  45          I         MU E            IAT
+  46          I         MU E            ICONT
+  47          I         MU E            ICORE
+  48          I         MU E            ICRQ
+  49          I    ( 1)    E      400   ICSE(400)
+  50          I         MU E            IDCOM
+  51          I        I U E            IDEN
+  52          I        I U E            IEQUAL
+  53         s     ( 1)  U              IFP1D
+     (I4E)
+  54         S     ( 2) MU        633   IFP1XY(CARD,XYCARD)
+  55    3   2 I        C?? E            IHALF
+  56    4   2 I        C U E            ILINK
+  57          I        I U E            ILNK
+  58          I        I U E            IMODEL
+  59          I    ( 1) MU E       20   INCARD(20)
+  60          I        I U E            INTE
+  61    4   4 I        C U E            INTR
+  62          I          U E            IRESRT
+  63          I    ( 1)I U E       26   IWORD(26)
+  64          I         MU E            IWRD
+  65          I         MU E            J
+  66         fI    ( 1)  U E            KORSZ
+     (I4A)
+  67    4   1 I    ( 1)C   E       21   KSYSTM(21)
+  68          I    ( 1)I U E        3   KWORD(3)
+  69          I          U E            L
+  70    2   1 I        C U E            LBD
+  71    2   2 I        C   E            LCC
+  72          I         MU E            LINE
+  73          I        I U E            LOAD
+  74         fI    ( 2)  UXE            LSHIFT
+     (I4V,I4V)
+  75    3   1 I        C   E            MACH
+  76          I         MU E            MODEL
+  77          I    ( 1) M? E        2   MODID(2)
+  78         s     ( 5)  U              MVBITS
+     (I4V,I4E,I4E,I4V,I4E)
+  79          I         MU E            N
+  80          I         MU E            N1
+  81          I         MU E            N2
+  82          I        I U E            NBWORD
+  83          I         MU E            NCURVE
+  84          I        I U E            NIWORD
+  85          I          U E            NLPP
+  86          I         MU E            NMOD
+  87          I        I U E            NO
+  88          I        I?? E            NOEOR
+  89          I         MU E            NOGO
+  90          I        I U E            NONL
+  91          I        I U E            NRWORD
+  92          I         MU E            NSUBS
+  93    1   2 I        C U E            NWPC
+  94          L         MU E            OFBCD
+  95          I        I U E            OLOA
+  96          I        I U E            OPAREN
+  97         fI    ( 2)  UXE            ORF
+     (I4E,I4E)
+  98         s           U              PAGE
+  99          L         MU E            PAIRS
+ 100          I         MU E            PAPLOT
+ 101          I         MU E            PLOT
+ 102          I         MU E            PLOTER
+ 103          I         MU E            PLOTS
+ 104          I        I?? E            PLT1
+ 105          I        I?? E            PLT2
+ 106          I         MU E            PRINT
+ 107          I        I U E            PSDF
+ 108          I         MU E            PUNCH
+ 109          I        I U E            R1
+ 110          I        I U E            R1IP
+ 111          I        I U E            R1RM
+ 112          I        I U E            R2
+ 113          I        I U E            R2IP
+ 114          I        I U E            R2RM
+ 115          I        I U E            R3
+ 116          I        I U E            R3IP
+ 117          I        I U E            R3RM
+ 118          I        I U E            REAL
+ 119          I        I U E            RESP
+ 120         fI    ( 2)  UXE            RSHIFT
+     (I4E,I4E)
+ 121          I    ( 1)I U E       14   RWORD(14)
+ 122          I        I U E            SACC
+ 123          I        I U E            SDIS
+ 124          I         MU E            SDRBIT
+ 125    4   3 I    ( 1)C   E       63   SKP63(63)
+ 126          I        I U E            SLAS
+ 127          L         MU E            SLASH
+ 128         s     ( 6)  U              SORT
+     (I4E,I4E,I4E,I4E,I4L,I4V)
+ 129          I        I U E            SPCF
+ 130          I        I U E            STRE
+ 131          I        I U E            SUBC
+ 132          I    ( 1) MU E      200   SUBCAS(200)
+ 133          I        I U E            SVEL
+ 134          I          U E            SYSBUF
+ 135          I        I U E            T1
+ 136          I        I U E            T1IP
+ 137          I        I U E            T1RM
+ 138          I        I U E            T2
+ 139          I        I U E            T2IP
+ 140          I        I U E            T2RM
+ 141          I        I U E            T3
+ 142          I        I U E            T3IP
+ 143          I        I U E            T3RM
+ 144         fL    ( 1)  U E            TAPBIT
+     (I4V)
+ 145          I        I U E            TCUR
+ 146          I        I U E            THRU
+ 147          I         MU E            TYPE
+ 148    6   1 C*23     C U E            UFM*23
+ 149          I         MU E            VDRBIT
+ 150          I        I U E            VDUM
+ 151          I        I U E            VECT
+ 152          I         MU E            VECTOR
+ 153          I        I U E            VELO
+ 154          I        I U E            VG
+ 155         s     ( 4)  U              WRITE
+     (I4V,I4V,I4E,I4V)
+ 156         s     ( 3)  U              XRCARD
+     (I4A,I4E,I4A)
+ 157          I        I U E            XTIT
+ 158          I         MU E            XTYPE
+ 159          I         MU E            XVECT
+ 160          I        I U E            XY
+ 161   54   2 I    ( 1)A?U E            XYCARD(1)
+ 162          L        IMU E            XYCM
+ 163          I        I U E            XYPA
+ 164          I        I U E            XYPE
+ 165          I        I U E            XYPL
+ 166          I        I U E            XYPR
+ 167          I        I U E            XYPU
+ 168          I        I U E            YBTI
+ 169          I        I U E            YES
+ 170          I        I U E            YTIT
+ 171          I        I U E            YTTI
+ 172          I    ( 1) M? E        1   Z(1)
+**-- END OF SYMBOL TABLE

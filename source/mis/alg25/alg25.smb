@@ -1,0 +1,38 @@
+**++ Symbol table for subprogram ALG25 in file mis/alg25.f90
+     produced by SPAG     8.01RF-40 at 14:46:46 on  2 Dec 2023
+   0         X             K             mis/alg25.f90,0000002,0000095
+   1         I?    ( 1)  U I            ABS
+   2         S     ( 5)  U         75   ALG25(IX,LX,LOG1,X,Y1)
+   3         IR    ( 1)  U I            ALOG10
+   4          R        I U E            BLANK
+   5          R        I U E            CROSS
+   6          R        I U E            DASH
+   7         IR    ( 1)  U I            FLOAT
+   8          I         MU E            I
+   9    2   1 I        A U E            IX
+  10          I         MU E            KLINE
+  11          I         MU E            L
+  12          R    ( 1) MU E      121   LINE(121)
+  13    2   3 I        A U E            LOG1
+  14    2   2 I        A U E            LX
+  15          I         MU E            MX
+  16          I         MU E            MY
+  17          R    ( 1)I U E        1   SYMBOL(1)
+  18    2   4 R    ( 1)A U E            X(1)
+  19          R         MU E            XH
+  20          R        I U E            XI
+  21          R         MU E            XINC
+  22          R         MU E            XL
+  23          R         MU E            XMAX
+  24          R         MU E            XMIN
+  25          R    ( 1) MU E       13   XNUM(13)
+  26          R         MU E            XRANGE
+  27    2   5 R    ( 1)A U E            Y1(1)
+  28          R         MU E            YH
+  29          R         MU E            YINC
+  30          R         MU E            YINC2
+  31          R         MU E            YL
+  32          R         MU E            YMAX
+  33          R         MU E            YMIN
+  34          R         MU E            YNUM
+**-- END OF SYMBOL TABLE

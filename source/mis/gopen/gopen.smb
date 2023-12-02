@@ -1,0 +1,24 @@
+**++ Symbol table for subprogram GOPEN in file mis/gopen.f90
+     produced by SPAG     8.01RF-40 at 14:46:50 on  2 Dec 2023
+   0         X             K             mis/gopen.f90,0000002,0000030
+   1    5   2 R    ( 1)A?? E            BUFFER(1)
+   2          I         M? E            ERR
+   3    5   1 I        A?? E            FILE
+   4         s     ( 2)  U              FNAME
+     (I4V,R4A)
+   5         S     ( 3) ?U         16   GOPEN(FILE,BUFFER,OPTION)
+   6          R    ( 1) ?? E        2   HEADER(2)
+   7          I        I U E            INPNOR
+   8         s     ( 3)  U              MESAGE
+     (I4V,I4V,R4A)
+   9         s     ( 4)  U              OPEN
+     (ALT,I4V,R4A,I4V)
+  10    5   3 I        A?U E            OPTION
+  11          I        I U E            OUTNOR
+  12          I        I U E            OUTREW
+  13         s     ( 7)  U              READ
+     (ALT,ALT,I4V,R4A,I4E,I4E,I4V)
+  14          R    ( 1)I?? E        2   SUBNAM(2)
+  15         s     ( 4)  U              WRITE
+     (I4V,R4A,I4E,I4E)
+**-- END OF SYMBOL TABLE

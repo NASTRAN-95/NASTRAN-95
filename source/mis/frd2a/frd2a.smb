@@ -1,0 +1,61 @@
+**++ Symbol table for subprogram FRD2A in file mis/frd2a.f90
+     produced by SPAG     8.01RF-40 at 14:47:19 on  2 Dec 2023
+   0         X             K             mis/frd2a.f90,0000002,0000065
+   1         C     / 5/ MU         20   /PACKX/ITI,ITO,II,NN,INCR
+   2         C     / 1/  U          4   /SYSTEM/SYSBUF
+   3         C     / 4/ MU         16   /UNPAKX/IOUT,INN,NNN,INCR1
+   4         C     / 1/ ??          4   /ZZZZZZ/Z
+   5         s     ( 2)  U              CLOSE
+     (I4V,I4E)
+   6         s     ( 3)  U              DMPFIL
+     (I4E,R4A,I4V)
+   7          R         ?? E            FLAG
+   8         S     ( 5) ?U         47   FRD2A(NQHL,QHR,QHI,IH,NFREQ)
+   9         s     ( 3)  U              GOPEN
+     (I4V,R4L,I4E)
+  10          I         MU E            I
+  11          I         MU E            IBUF1
+  12          I         MU E            IBUF2
+  13    8   4 I        A?U E            IH
+  14    1   3 I        CM  E            II
+  15    1   5 I        CM  E            INCR
+  16    3   4 I        CM  E            INCR1
+  17    3   2 I        CM  E            INN
+  18    3   1 I        CMU E            IOUT
+  19    1   1 I        CMU E            ITI
+  20    1   2 I        CM? E            ITO
+  21          I         MU E            J
+  22         fI    ( 1)  U E            KORSZ
+     (R4A)
+  23         s     ( 5)  U              MAKMCB
+     (I4A,I4V,I4E,I4E,I4E)
+  24          I    ( 1) MU E        7   MCB(7)
+  25    8   5 I        A U E            NFREQ
+  26    1   4 I        CM  E            NN
+  27    3   3 I        CMU E            NNN
+  28    8   1 I        A?U E            NQHL
+  29          I         MU E            NWC
+  30          I         MU E            NZ
+  31         s     ( 4)  U              OPEN
+     (ALT,I4V,R4L,I4E)
+  32         s     ( 3)  U              PACK
+     (R4L,I4V,I4A)
+  33    8   3 I        A?U E            QHI
+  34    8   2 I        A?? E            QHR
+  35         s     ( 1)  U              RDTRL
+     (I4A)
+  36         s     ( 7)  U              READ
+     (ALT,ALT,I4V,R4L,I4E,I4E,R4V)
+  37         s     ( 2)  U              SKPREC
+     (I4V,I4E)
+  38    2   1 I        C U E            SYSBUF
+  39          I    ( 1) ?? E        7   THI(7)
+  40          I    ( 1) M? E        7   THR(7)
+  41         s     ( 3)  U              UNPACK
+     (ALT,I4V,R4L)
+  42         s     ( 1)  U              WRTTRL
+     (I4A)
+  43    4   1 R    ( 1)C?? E        1   Z(1)
+  44         s     ( 2)  U              ZEROC
+     (R4A,I4E)
+**-- END OF SYMBOL TABLE

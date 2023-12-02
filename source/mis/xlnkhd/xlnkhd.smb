@@ -1,0 +1,123 @@
+**++ Symbol table for subprogram XLNKHD in file mis/xlnkhd.f90
+     produced by SPAG     8.01RF-40 at 14:46:35 on  2 Dec 2023
+   0         X             K             mis/xlnkhd.f90,0000002,0000116
+   1         C     / 1/  U          4   /AUTOHD/IHEAD
+   2         C     / 2/  U        328   /SYSTEM/ISYS,CPFLG
+   3         C     / 3/ MU         12   /XGPI2/LMPL,MPLPNT,MPL
+   4         C     /15/ MU         60   /XGPI4/IRTURN,INSERT,ISEQN,DMPCNT,IDMPNT,DMPPNT,BCDCNT,LENGTH,ICRDTP,ICHAR,NEWCRD,MODIDX,LDMAP,ISAVDW,DMAP
+   5         C     /11/ MU         48   /XGPI5/IAPP,START,ALTER,SOL,SUBSET,IFLAG,IESTIM,ICFTOP,ICFPNT,LCTLFL,ICTLFL
+   6         C     / 7/  U         44   /XGPI6/MEDTP,FNMTP,CNMTP,MEDPNT,LMED,DUMMY,IFIRST
+   7         C     /31/ ?U        124   /XGPIC/ICOLD,ISLSH,IEQUL,NBLANK,NXEQUI,NDIAG,NSOL,NDMAP,NESTM1,NESTM2,NEXIT,NBEGIN,NEND,NJUMP,NCOND,NREPT,NTIME,NSAVE,NOUTPT,NCHKPT,NPURGE,NEQUIV,NCPW,NBPC,NWPC,MASKHI,MASKLO,ISGNON,NOSGN,IALLON,MASKS
+   8         C     / 6/  U         24   /XGPID/ICST,IUNST,IMST,IHAPP,IDSAPP,IDMAPP
+   9         C     / 4/  U         40   /XMDMSK/NMSKCD,NMSKFL,NMSKRF,MEDMSK
+  10         C     / 2/ MU         20   /XOLDPT/XX,SEQNO
+  11         C     / 1/             4   /ZZZZZZ/CORE
+  12    5   3 I    ( 1)C   E        2   ALTER(2)
+  13         GI    ( 2)  U E            AND
+  14         fI    ( 2)  UXE            ANDF
+     (I4V,I4V)
+  15    4   7 I        C   E            BCDCNT
+  16    6   3 I        C   E            CNMTP
+  17   11   1 I    ( 1)C   E        1   CORE(1)
+  18    2   2 I        C U E            CPFLG
+  19    4  15 I    ( 1)C U E        1   DMAP(1)
+  20    4   4 I        C U E            DMPCNT
+  21    4   6 I        C U E            DMPPNT
+  22    6   6 I    ( 1)C   E        5   DUMMY(5)
+  23    6   2 I        C   E            FNMTP
+  24          I         MU E            I
+  25    7  30 I        C   E            IALLON
+  26    5   1 I        C   E            IAPP
+  27    5   9 I        C   E            ICFPNT
+  28    5   8 I        C   E            ICFTOP
+  29    4  10 I        C   E            ICHAR
+  30    7   1 I        C   E            ICOLD
+  31    4   9 I        C   E            ICRDTP
+  32    8   1 I        C U E            ICST
+  33    5  11 I    ( 1)C   E        1   ICTLFL(1)
+  34    8   6 I        C   E            IDMAPP
+  35    4   5 I        C   E            IDMPNT
+  36    8   5 I        C   E            IDSAPP
+  37    7   3 I        C   E            IEQUL
+  38    5   7 I        C   E            IESTIM
+  39    6   7 I        C U E            IFIRST
+  40    5   6 I        CMU E            IFLAG
+  41    8   4 I        C   E            IHAPP
+  42    1   1 I        C U E            IHEAD
+  43    8   3 I        C U E            IMST
+  44    4   2 I        C U E            INSERT
+  45    4   1 I        C   E            IRTURN
+  46    4  14 I        C   E            ISAVDW
+  47    4   3 I        CMU E            ISEQN
+  48    7  28 I        C U E            ISGNON
+  49    7   2 I        C   E            ISLSH
+  50    2   1 I    ( 1)C   E       81   ISYS(81)
+  51    8   2 I        C   E            IUNST
+  52          I         MU E            J
+  53          I         MU E            K
+  54    5  10 I        C   E            LCTLFL
+  55    4  13 I        C   E            LDMAP
+  56    4   8 I        C   E            LENGTH
+  57    6   5 I        C   E            LMED
+  58    3   1 I        C   E            LMPL
+  59          I            E            LOSCAR
+  60         fI    ( 2)  UXE            LSHIFT
+     (I4V,I4E)
+  61    7  26 I        C?? E            MASKHI
+  62    7  27 I        C U E            MASKLO
+  63    7  31 I    ( 1)C   E        1   MASKS(1)
+  64          I    ( 1)  U E        1   MED(1)
+  65    9   4 I    ( 1)C U E        7   MEDMSK(7)
+  66    6   4 I        C U E            MEDPNT
+  67    6   1 I        C U E            MEDTP
+  68    4  12 I        C?? E            MODIDX
+  69    3   3 I    ( 1)C U E        1   MPL(1)
+  70          I         MU E            MPLER
+  71    3   2 I        CMU E            MPLPNT
+  72    7  12 I        C   E            NBEGIN
+  73    7   4 I        C   E            NBLANK
+  74    7  24 I        C   E            NBPC
+  75    7  20 I        C   E            NCHKPT
+  76    7  15 I        C   E            NCOND
+  77    7  23 I        C   E            NCPW
+  78    7   6 I        C   E            NDIAG
+  79    7   8 I        C   E            NDMAP
+  80    7  13 I        C   E            NEND
+  81    7  22 I        C   E            NEQUIV
+  82    7   9 I        C   E            NESTM1
+  83    7  10 I        C   E            NESTM2
+  84    4  11 I        C   E            NEWCRD
+  85    7  11 I        C   E            NEXIT
+  86    7  14 I        C   E            NJUMP
+  87    9   1 I        C   E            NMSKCD
+  88    9   2 I        C   E            NMSKFL
+  89    9   3 I        C   E            NMSKRF
+  90    7  29 I        C U E            NOSGN
+  91    7  19 I        C   E            NOUTPT
+  92    7  21 I        C   E            NPURGE
+  93    7  16 I        C   E            NREPT
+  94    7  18 I        C   E            NSAVE
+  95    7   7 I        C   E            NSOL
+  96    7  17 I        C   E            NTIME
+  97    7  25 I        C   E            NWPC
+  98    7   5 I        C   E            NXEQUI
+  99         GI    ( 2)  U E            OR
+ 100         fI    ( 2)  UXE            ORF
+     (I4V,I4V)
+ 101          I    ( 1)    E        5   OS(5)
+ 102          I         MU E            OSBOT
+ 103          I    ( 1) MU E        1   OSCAR(1)
+ 104          I         MU E            OSPNT
+ 105          I         MU E            OSPRC
+ 106         fI    ( 2)  UXE            RSHIFT
+     (I4V,I4E)
+ 107   10   2 I        CMU E            SEQNO
+ 108    5   4 I        C   E            SOL
+ 109    5   2 I        C U E            START
+ 110    5   5 I        C   E            SUBSET
+ 111          I        I U E            XCHK
+ 112         s     ( 4)  U              XGPIMW
+     (I4V,I4E,I4E,I4E)
+ 113         S                     48   XLNKHD
+ 114   10   1 I    ( 1)C   E        4   XX(4)
+**-- END OF SYMBOL TABLE

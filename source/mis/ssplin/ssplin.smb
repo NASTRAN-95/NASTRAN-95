@@ -1,0 +1,68 @@
+**++ Symbol table for subprogram SSPLIN in file mis/ssplin.f90
+     produced by SPAG     8.01RF-40 at 14:47:00 on  2 Dec 2023
+   0         X             K             mis/ssplin.f90,0000002,0000212
+   1         IR    ( 1)  U I            ALOG
+   2          R         MU E            ALT1
+   3          R         MU E            ALT2
+   4          R         MU E            ALT3
+   5          R         MU E            ALT4
+   6          R         ?? E            DET
+   7   50   9 R        A U E            DZ
+   8          R         MU E            EX
+   9          R         MU E            EY
+  10         IR    ( 1)  U I            FLOAT
+  11   50  10 R    ( 1)AM? E            G(1)
+  12         s     ( 9)  U              GMMATS
+     (R4L,I4V,I4V,I4E,R4L,I4V,I4V,I4E,R4L)
+  13          I         MU E            I
+  14          I         MU E            IA
+  15          I         MU E            IB
+  16          I         MU E            IC
+  17          I         MU E            IG
+  18          I         MU E            II
+  19          I         MU E            IK
+  20          L         MU E            IKD
+  21          L         MU E            IKT
+  22          I         MU E            INR
+  23         s     ( 8)  U              INVERS
+     (I4V,R4L,I4V,R4L,I4V,R4V,I4V,R4L)
+  24          I         MU E            IS
+  25   50  12 I        AMU E            ISNG
+  26          I         MU E            J
+  27          I         MU E            JJ
+  28          I         MU E            K
+  29   50   7 I        A U E            KD
+  30          I         MU E            KK
+  31   50   8 I        A U E            KT
+  32   50   5 I        A U E            KX
+  33   50   6 I        A U E            KY
+  34          L         MU E            LONE
+  35          L         MU E            LX
+  36          L         MU E            LY
+  37         II    ( 2)  U I            MAX0
+  38         s     ( 3)  U              MESAGE
+     (I4E,I4E,I4A)
+  39          I         MU E            MP
+  40          I         MU E            N
+  41          I    ( 1)I?? E        2   NAME(2)
+  42          I         MU E            NB
+  43          I         M? E            NC
+  44   50  11 I        A U E            NCORE
+  45   50   3 I        A U E            ND
+  46          I         MU E            NEEDED
+  47   50   1 I        A?U E            NI
+  48          I         MU E            NR
+  49          I         MU E            NT
+  50         S     (12) MU        166   SSPLIN(NI,XYI,ND,XYD,KX,KY,KD,KT,DZ,G,NCORE,ISNG)
+  51          R         MU E            SUM
+  52          R         MU E            T1
+  53          R         MU E            T2
+  54          R         MU E            T3
+  55          R         MU E            T4
+  56          R         MU E            XM
+  57          R         MU E            XP
+  58   50   4 R    ( 1)A U E            XYD(1)
+  59   50   2 R    ( 1)A U E            XYI(1)
+  60          R         MU E            YM
+  61          R         MU E            YP
+**-- END OF SYMBOL TABLE

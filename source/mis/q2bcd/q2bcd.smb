@@ -1,0 +1,31 @@
+**++ Symbol table for subprogram Q2BCD in file mis/q2bcd.f90
+     produced by SPAG     8.01RF-40 at 14:46:55 on  2 Dec 2023
+   0         X             K             mis/q2bcd.f90,0000002,0000112
+   1          D    ( 1) MU E        3   D12(3)
+   2          D    ( 1) M? E        3   D13(3)
+   3          D    ( 1) M? E        3   D24(3)
+   4         fD    ( 2)  U E            DADOTB
+     (R8A,R8A)
+   5         s     ( 3)  U              DAXB
+     (R8A,R8A,R8A)
+   6         ID    ( 1)  U I            DSQRT
+   7   22   1 R    ( 1)A U E            EST(1)
+   8   22   4 D    ( 2)AMU E            ET(3,3)
+   9          D    ( 1) MU E        3   G1(3)
+  10          D    ( 1) MU E        3   G2(3)
+  11          D    ( 1) MU E        3   G3(3)
+  12          D    ( 1) MU E        3   G4(3)
+  13          D    ( 1) M  E        3   G5(3)
+  14         s     ( 9)  U              GMMATD
+     (R8A,I4E,I4E,I4E,R8A,I4E,I4E,I4E,R8L)
+  15          D    ( 2)  U E       15   GRID(3,5)
+  16          I         MU E            I
+  17          D         MU E            IAREA
+  18   22   5 I        AM  E            IERROR
+  19          D         MU E            ITWOH
+  20          D         MU E            MAG
+  21   22   2 L        AM  E            PLANAR
+  22         S     ( 5) MU         56   Q2BCD(EST,PLANAR,RMAT,ET,IERROR)
+  23   22   3 D    ( 2)AMU E            RMAT(3,5)
+  24          D    ( 1) MU E        3   VEC(3)
+**-- END OF SYMBOL TABLE

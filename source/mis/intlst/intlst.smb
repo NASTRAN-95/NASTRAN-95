@@ -1,0 +1,15 @@
+**++ Symbol table for subprogram INTLST in file mis/intlst.f90
+     produced by SPAG     8.01RF-40 at 14:46:53 on  2 Dec 2023
+   0         X             K             mis/intlst.f90,0000002,0000026
+   1          I         MU E            I
+   2         II    ( 1)  U I            IABS
+   3         S     ( 5) MU         14   INTLST(LIST,N,SIGN,N1,N2)
+   4         II    ( 2)  U I            ISIGN
+   5    3   1 I    ( 1)A U E            LIST(1)
+   6    3   2 I        AMU E            N
+   7    3   4 I        AMU E            N1
+   8    3   5 I        AMU E            N2
+   9    3   3 I        AM  E            SIGN
+  10          I        I U E            THRU
+  11          I        I U E            TO
+**-- END OF SYMBOL TABLE

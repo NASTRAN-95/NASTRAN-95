@@ -1,0 +1,133 @@
+**++ Symbol table for subprogram RCOVO in file mis/rcovo.f90
+     produced by SPAG     8.01RF-40 at 14:47:09 on  2 Dec 2023
+   0         X             K             mis/rcovo.f90,0000002,0000466
+   1         C     /12/ MU         88   /BLANK/DRY,LOOP,STEP,FSS,RFNO,NEIGV,LUI,UINMS,NOSORT,UTHRES,PTHRES,QTHRES
+   2         C     / 7/ ??         28   /NAMES/RD,RDREW,WRT,WRTREW,REW,NOREW,EOFNRW
+   3         C     /12/ MU         56   /RCOVCM/MRECVR,UA,PA,QA,IOPT,RSS,ENERGY,UIMPRO,RANG,IREQ,LREQ,LBASIC
+   4         C     / 9/ MU         36   /RCOVCR/ICORE,LCORE,BUF1,BUF2,BUF3,BUF4,SOF1,SOF2,SOF3
+   5         C     / 2/  U          8   /SYSTEM/SYSBUF,NOUT
+   6         C     / 5/  U        129   /XMSSG/UFM,UWM,UIM,SFM,SWM
+   7         C     / 1/ ?U          4   /ZZZZZZ/Z
+   8          I        I U E            ALL
+   9         fI    ( 2)  UXE            ANDF
+     (I4L,I4V)
+  10          L         MU E            BASIC
+  11          I    ( 1) MU E        1   BUF(1)
+  12    4   3 I        CMU E            BUF1
+  13    4   4 R        C   E            BUF2
+  14    4   5 R        C   E            BUF3
+  15    4   6 R        C   E            BUF4
+  16          I        I?? E            CASESS
+  17         s     ( 2)  U              CLOSE
+     (I4V,I4V)
+  18          I    ( 1)I U E       13   COMDS(13)
+  19    1   1 R        C   E            DRY
+  20    3   7 I        CM  E            ENERGY
+  21    2   7 R        C   E            EOFNRW
+  22          I        I?? E            EQSS
+  23         s     ( 2)  U              FDSUB
+     (I4L,I4V)
+  24         s     ( 2)  U              FMDI
+     (I4V,I4V)
+  25         s     ( 4)  U              FREAD
+     (I4V,I4A,I4E,I4E)
+  26          I        I U E            FREQ
+  27    1   4 I    ( 1)C U E        2   FSS(2)
+  28         s     ( 2)  U              FWDREC
+     (ALT,I4V)
+  29         s     ( 3)  U              GOPEN
+     (I4V,I4L,I4V)
+  30          I         MU E            I
+  31          I         MU E            I1
+  32          I         MU E            I2
+  33    4   1 I        CMU E            ICORE
+  34          I         ?U E            IDIT
+  35          I         MU E            ILOC
+  36          I         ?U E            IMDI
+  37    3   5 I        CM  E            IOPT
+  38          I         MU E            IRANGE
+  39    3  10 I        CMU E            IREQ
+  40          I         MU E            ISET
+  41         fI    ( 1)  U E            KORSZ
+     (I4L)
+  42    3  12 I        CMU E            LBASIC
+  43    4   2 I        CMU E            LCORE
+  44          I        I U E            LL
+  45    1   2 I        CMU E            LOOP
+  46    3  11 I        CMU E            LREQ
+  47         fI    ( 2)  UXE            LSHIFT
+     (I4E,I4E)
+  48    1   7 I        C   E            LUI
+  49          I         M? E            MASKLL
+  50         s     ( 3)  U              MESAGE
+     (I4V,I4V,I4A)
+  51         I?    ( 2)  U I            MOD
+  52          I        I U E            MODE
+  53          I        I U E            MRECOV
+  54    3   1 L        CM  E            MRECVR
+  55          I         M? E            N
+  56          I         MU E            NBS
+  57          I        I U E            NCOMDS
+  58    1   6 I        C   E            NEIGV
+  59          I        I U E            NONE
+  60    2   6 I        C   E            NOREW
+  61    1   9 I        C   E            NOSORT
+  62    5   2 I        C U E            NOUT
+  63          I         MU E            NP
+  64          I         MU E            NREQ
+  65          I         MU E            NSS1
+  66          I         MU E            NSS2
+  67          I         ?U E            NWDS
+  68    3   3 R        C   E            PA
+  69          I        I U E            PRINT
+  70    1  11 R        C   E            PTHRES
+  71    3   4 R        C   E            QA
+  72    1  12 R        C   E            QTHRES
+  73    3   9 R    ( 1)CM  E        2   RANG(2)
+  74          R    ( 1) M  E        1   RBUF(1)
+  75          I         MU E            RC
+  76         S                    266   RCOVO
+  77    2   1 I        C   E            RD
+  78    2   2 I        C?? E            RDREW
+  79         s     ( 7)  U              READ
+     (ALT,ALT,I4V,I4A,I4E,I4E,I4V)
+  80          I    ( 1) ?U E        3   REC(3)
+  81          I        I U E            RECOVR
+  82    2   5 I        C?? E            REW
+  83    1   5 I        C U E            RFNO
+  84          R    ( 1)  U E        3   RREC(3)
+  85          R         M  E            RSET
+  86    3   6 I    ( 1)CMU E        2   RSS(2)
+  87          I        I U E            SAVE
+  88         s     ( 4)  U              SFETCH
+     (I4A,I4V,I4V,I4V)
+  89    6   4 C*25     C   E            SFM*25
+  90         s     ( 3)  U              SMSG
+     (I4E,I4V,I4A)
+  91    4   7 I        CMU E            SOF1
+  92    4   8 I        CMU E            SOF2
+  93    4   9 I        CMU E            SOF3
+  94         s           U              SOFCLS
+  95         s     ( 3)  U              SOFOPN
+     (I4L,I4L,I4L)
+  96          I        I?? E            SRD
+  97    1   3 I        C U E            STEP
+  98          I        I U E            SUBC
+  99          I    ( 1)I?? E        2   SUBNAM(2)
+ 100          I        I U E            SUBS
+ 101         s     ( 4)  U              SUREAD
+     (I4L,I4V,I4V,I4V)
+ 102    6   5 C*27     C U E            SWM*27
+ 103    5   1 I        C U E            SYSBUF
+ 104          I        I U E            TIME
+ 105    3   2 R        C   E            UA
+ 106    6   1 C*23     C   E            UFM*23
+ 107    6   3 C*29     C   E            UIM*29
+ 108    3   8 I        CM  E            UIMPRO
+ 109    1   8 R    ( 2)C   E       10   UINMS(2,5)
+ 110    1  10 R        C   E            UTHRES
+ 111    6   2 C*25     C U E            UWM*25
+ 112    2   3 I        C   E            WRT
+ 113    2   4 I        C   E            WRTREW
+ 114    7   1 I    ( 1)C?U E        1   Z(1)
+**-- END OF SYMBOL TABLE

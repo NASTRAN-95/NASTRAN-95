@@ -1,0 +1,36 @@
+**++ Symbol table for subprogram BUG in file mis/bug.f90
+     produced by SPAG     7.61RG-40 at 01:00:00 on 21 Mar 2022
+   0         X             K             mis/bug.f90,0000002,0000077
+   1         C     / 2/  U          8   /SYSTEM/IBUF,NOUT
+   2          C*4  ( 1) MU E       28   A(28)*4
+   3         s     ( 3)  U              A42K8
+     (R4L,R4L,C8L)
+   4          C*8  ( 1) MU E       14   B(14)*8
+   5          C*4      I U E            BLANK*4
+   6    7   3 R    ( 1)A?? E            BUF(1)
+   7         S     ( 4) ?U         44   BUG(NAME,LOC,BUF,NWDS)
+   8         E     ( 4)                 BUG1(NAME,LOC,BUF,NWDS)
+   9          C*8      I U E            ERR*8
+  10         s     ( 3)  U              FP2K8
+     (ALT,R4L,C8L)
+  11          I         MU E            I
+  12    1   1 I        C   E            IBUF
+  13         s     ( 3)  U              INT2K8
+     (ALT,I4V,C*L)
+     (   ,R4L,   )
+  14          I         MU E            J
+  15          I         MU E            L
+  16          I        I U E            LIMIT
+  17          I        IMU E            LINE
+  18    7   2 I        A?? E            LOC
+  19    7   1 R    ( 1)A?? E            NAME(3)
+  20    1   2 I        C U E            NOUT
+  21         fI    ( 1)  U E            NUMTYP
+     (R4L)
+  22    7   4 I        A U E            NWDS
+  23          I        I U E            NWPL
+  24         s     ( 2)  U              SSWTCH
+     (I4E,I4V)
+  25          C*4      I U E            XLOC*4
+  26          C*8      I U E            ZERO*8
+**-- END OF SYMBOL TABLE

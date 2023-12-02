@@ -1,0 +1,60 @@
+**++ Symbol table for subprogram PLOAPF in file mis/ploapf.f90
+     produced by SPAG     8.01RF-40 at 14:47:02 on  2 Dec 2023
+   0         X             K             mis/ploapf.f90,0000002,0000203
+   1         C     / 2/  U          8   /MATOUT/E,G
+   2          R         MU E            A
+   3          R         MU E            AEL
+   4          R         MU E            BETA
+   5    1   1 R        C U E            E
+   6   50   1 R    ( 1)A U E            ECPT(33)
+   7          R         MU E            EI1
+   8          R         MU E            EI2
+   9          R         MU E            FJ
+  10    1   2 R        C U E            G
+  11          R         MU E            GAK
+  12          R         MU E            GJL
+  13          I         MU E            I
+  14          R         MU E            I1
+  15          R         MU E            I12
+  16          R         MU E            I2
+  17   50   2 I    ( 1)A U E            IECPT(9)
+  18          I         MU E            II
+  19          I         MU E            IJ
+  20          I         MU E            IL
+  21          I         MU E            ILL
+  22          I         MU E            IP
+  23          I         MU E            IP12
+  24          I    ( 1) MU E       10   IPIN(10)
+  25          I         MU E            J
+  26          I         MU E            J12
+  27          I         MU E            JI
+  28          I         MU E            JLL
+  29          I         MU E            K
+  30          R         MU E            K1
+  31          R         MU E            K2
+  32          I         MU E            KA
+  33          I         MU E            KB
+  34          R    ( 1) MU E      144   KE(144)
+  35          R    ( 1) MU E      144   KEP(144)
+  36   50   3 R        A U E            L
+  37          R         MU E            L2
+  38          R         MU E            L2B3
+  39          R         MU E            L2B6
+  40          R         MU E            L3
+  41          R         MU E            LB
+  42          I         MU E            LL
+  43          R         MU E            LR1
+  44          R         MU E            LR2
+  45         I?    ( 2)  U I            MOD
+  46   50   4 R    ( 1)AMU E            PA(1)
+  47   50   5 R    ( 1)AMU E            PB(1)
+  48          R    ( 1) MU E       12   PE(12)
+  49          R    ( 1) MU E       12   PEP(12)
+  50         S     ( 5) MU        171   PLOAPF(ECPT,IECPT,L,PA,PB)
+  51          R         MU E            R1
+  52          R         MU E            R2
+  53          R         MU E            SK1
+  54          R         MU E            SK2
+  55          R         MU E            SK3
+  56          R         MU E            SK4
+**-- END OF SYMBOL TABLE

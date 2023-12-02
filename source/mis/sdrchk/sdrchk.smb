@@ -1,0 +1,18 @@
+**++ Symbol table for subprogram SDRCHK in file mis/sdrchk.f90
+     produced by SPAG     8.01RF-40 at 14:47:01 on  2 Dec 2023
+   0         X             K             mis/sdrchk.f90,0000002,0000026
+   1         C     / 3/  U         28   /SDR2X9/NCHK,TWOTOP,FNCHK
+   2         I?    ( 1)  U I            ABS
+   3         IR    ( 1)  U I            ALOG10
+   4   13   2 R    ( 1)AMU E            CFRVEC(Lvec)
+   5    1   3 R        C U E            FNCHK
+   6   13   1 R    ( 1)A U E            FORVEC(Lvec)
+   7          I         MU E            I
+   8   13   4 I        AMU E            KONT
+   9   13   3 I        A U E         Z  LVEC
+  10    1   1 I    ( 1)C   E        5   NCHK(5)
+  11          R         MU E            R
+  12          R         MU E            RJ
+  13         S     ( 4) MU         10   SDRCHK(FORVEC,CFRVEC,LVEC,KONT)
+  14    1   2 R        C U E            TWOTOP
+**-- END OF SYMBOL TABLE

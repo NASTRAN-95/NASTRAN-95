@@ -1,0 +1,146 @@
+**++ Symbol table for subprogram DPD4 in file mis/dpd4.f90
+     produced by SPAG     8.01RF-40 at 14:47:09 on  2 Dec 2023
+   0         X             K             mis/dpd4.f90,0000002,0000442
+   1         C     /16/  U         64   /BITPOS/UM,UO,UR,USG,USB,UL,UA,UF,US,UN,UG,UE,UP,UNE,UFE,UD
+   2         C     / 9/ MU         36   /BLANK/LUSET,LUSETD,NOTFL,NODLT,NOPSDL,NOFRL,NONLFT,NOTRL,NOEED
+   3         C     /47/ MU        568   /DPDCOM/DPOOL,GPL,SIL,USET,GPLD,SILD,USETD,DLT,FRL,NLFT,TFL,TRL,PSDL,EED,SCR1,SCR2,SCR3,SCR4,BUF,BUF1,BUF2,BUF3,BUF4,EPOINT,SEQEP,L,KN,NEQDYN,LOADS,DLOAD,FREQ1,FREQ,NOLIN,NOGO,MSG,TIC,TSTEP,TF,PSD,EIGR,EIGB,EIGC,MCB,NAM,EQDYN,SDT,INEQ
+   4         C     / 5/ ??         20   /NAMES/RD,RDREW,WRT,WRTREW,CLSREW
+   5         C     / 1/  U        128   /TWO/TWO
+   6         C     / 1/ MU          4   /ZZZZZZ/Z
+   7         fI    ( 2)  UXE            ANDF
+     (I4L,I4V)
+   8    3  19 I    ( 1)CMU E       24   BUF(24)
+   9    3  20 I        C?U E            BUF1
+  10    3  21 I        C U E            BUF2
+  11    3  22 I        C U E            BUF3
+  12    3  23 I        C   E            BUF4
+  14         s     ( 2)  U              CLOSE
+     (I4V,R4V)
+  15    4   5 R        C?? E            CLSREW
+  16    3  30 I    ( 1)C   E        2   DLOAD(2)
+  17    3   8 I        C   E            DLT
+  18         S                    321   DPD4
+  19         s           U              DPDAA
+  20    3   1 I        C?? E            DPOOL
+  21    3  14 I        C   E            EED
+  22    3  41 I    ( 1)C   E        2   EIGB(2)
+  23    3  42 I    ( 1)C   E        2   EIGC(2)
+  24    3  40 I    ( 1)C   E        2   EIGR(2)
+  25    3  24 I    ( 1)C   E        2   EPOINT(2)
+  26    3  45 I        C   E            EQDYN
+  27          I         M? E            FILE
+  28          I         ?? E            FLAG
+  29         s     ( 2)  U              FNAME
+     (I4V,I4A)
+  30    3  32 I    ( 1)C   E        2   FREQ(2)
+  31    3  31 I    ( 1)C   E        2   FREQ1(2)
+  32    3   9 I        C   E            FRL
+  33         s     ( 2)  U              FWDREC
+     (ALT,I4V)
+  34    3   2 I        C   E            GPL
+  35    3   5 I        C   E            GPLD
+  36          I         MU E            I
+  37          I         MU E            ID
+  38          I         MU E            II
+  39          I         MU E            III
+  40          I         MU E            INCORE
+  41    3  47 I        CM  E            INEQ
+  42          I         MU E            INOLIN
+  43          I         MU E            IPOINT
+  44          I         MU E            ISET
+  45          I         MU E            ITIC
+  46          I         MU E            IUSETD
+  47          I         MU E            J
+  48          I         MU E            K
+  49          I         MU E            K1
+  50          I         MU E            K2
+  51          I         MU E            KK
+  52          I         MU E            KKK
+  53    3  27 I        C   E            KN
+  54          I         MU E            KSET
+  55    3  26 I        CMU E            L
+  56    3  29 I    ( 1)C   E       32   LOADS(32)
+  57         s     ( 4)  U              LOCATE
+     (ALT,I4L,I4A,I4V)
+  58    2   1 I        C   E            LUSET
+  59    2   2 I        C   E            LUSETD
+  60    3  43 I    ( 1)CM? E        7   MCB(7)
+  61         s     ( 3)  U              MESAGE
+     (I4E,I4E,I4A)
+  62    3  35 I    ( 1)CM  E        3   MSG(3)
+  63          I         M? E            MSKUD
+  64          I         M? E            MSKUE
+  65          I         MU E            N
+  66    3  44 I    ( 1)C?? E        2   NAM(2)
+  67    3  28 I        C U E            NEQDYN
+  69    3  10 I        C?U E            NLFT
+  70          I         MU E            NN
+  71          I         MU E            NNOLIN
+  72    2   4 I        C   E            NODLT
+  73    2   9 I        C   E            NOEED
+  74    2   6 I        C   E            NOFRL
+  75    3  34 I        CM  E            NOGO
+  76    3  33 I    ( 1)C?U E       21   NOLIN(21)
+  77          I        I U E            NOLINR
+  78    2   7 I        CMU E            NONLFT
+  79    2   5 I        C   E            NOPSDL
+  80    2   3 I        C   E            NOTFL
+  81          I         MU E            NOTIC
+  82    2   8 I        CM  E            NOTRL
+  83          I         MU E            NOTSTP
+  84          I         MU E            NSET
+  85          I         MU E            NUSETD
+  86          I         M? E            NWDIN
+  87         s     ( 4)  U              OPEN
+     (ALT,I4V,I4L,R4V)
+  88         s     ( 3)  U              PRELOC
+     (ALT,I4L,I4V)
+  89    3  39 I    ( 1)C   E        2   PSD(2)
+  90    3  13 I        C   E            PSDL
+  91    4   1 R        C   E            RD
+  92    4   2 R        C?? E            RDREW
+  93         s     ( 7)  U              READ
+     (ALT,ALT,I4V,I4A,I4E,I4E,I4V)
+  94    3  15 I        C?U E            SCR1
+  95    3  16 I        C   E            SCR2
+  96    3  17 I        C   E            SCR3
+  97    3  18 I        C   E            SCR4
+  98    3  46 I        C   E            SDT
+  99    3  25 I    ( 1)C   E        2   SEQEP(2)
+ 100    3   3 I        C   E            SIL
+ 101    3   6 I        C   E            SILD
+ 102         s     ( 6)  U              SORT
+     (I4E,I4E,I4E,I4E,I4L,I4V)
+ 103    3  38 I    ( 1)C   E        2   TF(2)
+ 104    3  11 I        C   E            TFL
+ 105    3  36 I    ( 1)C?? E        2   TIC(2)
+ 106    3  12 I        C?U E            TRL
+ 107    3  37 I    ( 1)C?? E        2   TSTEP(2)
+ 108    5   1 I    ( 1)C U E       32   TWO(32)
+ 109    1   7 R        C   E            UA
+ 110    1  16 I        C U E            UD
+ 111    1  12 I        C U E            UE
+ 112    1   8 R        C   E            UF
+ 113    1  15 R        C   E            UFE
+ 114    1  11 R        C   E            UG
+ 115    1   6 R        C   E            UL
+ 116    1   1 R        C   E            UM
+ 117    1  10 R        C   E            UN
+ 118    1  14 R        C   E            UNE
+ 119    1   2 R        C   E            UO
+ 120    1  13 R        C   E            UP
+ 121    1   3 R        C   E            UR
+ 122    1   9 R        C   E            US
+ 123    1   5 R        C   E            USB
+ 124    3   4 I        C   E            USET
+ 125    3   7 I        C?U E            USETD
+ 126    1   4 R        C   E            USG
+ 127         s     ( 4)  U              WRITE
+     (I4V,I4A,I4E,I4E)
+     (   ,I4E,   ,   )
+ 128    4   3 R        C   E            WRT
+ 129    4   4 R        C?? E            WRTREW
+ 130         s     ( 1)  U              WRTTRL
+     (I4A)
+ 131    6   1 I    ( 1)CMU E        1   Z(1)
+**-- END OF SYMBOL TABLE

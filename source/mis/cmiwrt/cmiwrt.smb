@@ -1,0 +1,48 @@
+**++ Symbol table for subprogram CMIWRT in file mis/cmiwrt.f90
+     produced by SPAG     8.01RF-40 at 14:46:59 on  2 Dec 2023
+   0         X             K             mis/cmiwrt.f90,0000002,0000234
+   1         C     / 2/ M         768   /OUTPUT/ITITL,IHEAD
+   2         C     / 6/ MU         48   /SYSTEM/XXX,OUTT,JUNK1,NLPP,JUNK2,NLINE
+   3    6   6 R    ( 1)A U E            A(1)
+   4         fI    ( 2)  UXE            ANDF
+     (I4L,I4E)
+   5         s     ( 2)  U              BITPAT
+     (I4V,I4L)
+   6         S     ( 7) ?U        151   CMIWRT(ICODE,NAME1,NAME2,LOC,NW,A,IZ)
+   7          I         MU E            I
+   8          I         MU E            I1
+   9          I         MU E            I2
+  10          I    ( 1) ?U E       32   IBITS(32)
+  11    6   1 I        A U E            ICODE
+  12          I         M? E            ICOMP
+  13          I         MU E            IFIN
+  14          I    ( 1)I U E       96   IH1(96)
+  15          I    ( 1)I U E       96   IH2(96)
+  16          I    ( 1)I U E       96   IH3(96)
+  17          I    ( 1)I U E       96   IH4(96)
+  18          I    ( 1)I U E       96   IH5(96)
+  19          I    ( 1)I U E       96   IH6(96)
+  20    1   2 I    ( 1)CM  E       96   IHEAD(96)
+  21          I         MU E            IP
+  22          I    ( 1) MU E        6   IPL(6)
+  23          I         MU E            IST
+  24          I         MU E            IST1
+  25    1   1 I    ( 1)C   E       96   ITITL(96)
+  26    6   7 I    ( 1)A?U E            IZ(1)
+  27          I         MU E            J
+  28    2   3 I    ( 1)C   E        6   JUNK1(6)
+  29    2   5 I    ( 1)C   E        2   JUNK2(2)
+  30          I         M? E            KCODE
+  31          I         MU E            KK
+  32          I        I U E            LOAP
+  33    6   4 I        A U E            LOC
+  34    6   2 I    ( 1)A U E            NAME1(2)
+  35    6   3 I    ( 1)A U E            NAME2(2)
+  36          I         MU E            NL
+  37    2   6 I        CMU E            NLINE
+  38    2   4 I        C U E            NLPP
+  39    6   5 I        A U E            NW
+  40    2   2 I        C U E            OUTT
+  41         s           U              PAGE
+  42    2   1 R        C   E            XXX
+**-- END OF SYMBOL TABLE

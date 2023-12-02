@@ -1,0 +1,99 @@
+**++ Symbol table for subprogram KTETRA in file mis/ktetra.f90
+     produced by SPAG     8.01RF-40 at 14:46:38 on  2 Dec 2023
+   0         X             K             mis/ktetra.f90,0000002,0000400
+   1         C     / 3/  U         72   /BLANK/SKIP,VOLUME,SURFAC
+   2         C     / 1/  U         28   /HMTOUT/MATBUF
+   3         C     / 1/  U          4   /HYDROE/HYDRO
+   4         C     / 3/ MU         12   /MATIN/MATID,INFLAG,ELTEMP
+   5         C     /10/  U         40   /MATOUT/E,GG,NU,RHO,ALPHA,TSUB0,GSUBE,SIGT,SIGC,SIGS
+   6         C     / 5/ MU         84   /SMA1CL/IOPT4,K4GGSW,NPVT,ISKP,NOGOO
+   7         C     /14/ MU       1768   /SMA1DP/C,G,H,TEMP,T,CT,GCT,KIJ,HDETER,TEMP1,NGPT,DIREC,KOUNT,TVOL
+   8         C     / 1/ MU        400   /SMA1ET/ECPT
+   9         C     / 1/  U          4   /SMA1HT/HEAT
+  10         C     / 5/ ??        144   /SMA1IO/DUM1,IFKGG,DUM2,IF4GG,DUM3
+  11         C     / 3/  U         12   /SYSTEM/SYSBUF,OUT,NOGO
+  12         C     / 1/  U         23   /XMSSG/UFM
+  13    5   5 R        C   E            ALPHA
+  14    7   1 D    ( 1)CMU E       72   C(72)
+  15    7   6 D    ( 1)C?? E       18   CT(18)
+  16         ID    ( 1)  U I            DABS
+  17         ID    ( 1)  U I            DBLE
+  18    7  12 I        CMU E            DIREC
+  19          R         ?? E            DUM
+  20   10   1 R    ( 1)C   E       10   DUM1(10)
+  21   10   3 R    ( 1)C   E        1   DUM2(1)
+  22   10   5 R    ( 1)C   E       23   DUM3(23)
+  23    5   1 R        C U E            E
+  24    8   1 R    ( 1)CMU E      100   ECPT(100)
+  25          I    ( 2)I?? E        8   EL(2,4)
+  26    4   3 R        CM  E            ELTEMP
+  27    7   2 D    ( 1)CMU E       36   G(36)
+  28    7   7 D    ( 1)CMU E       18   GCT(18)
+  29    5   2 R        C U E            GG
+  30         s     ( 9)  U              GMMATD
+     (R8L,I4E,I4E,I4E,R8L,I4E,I4E,I4E,R8L)
+  31    5   7 R        C U E            GSUBE
+  32    7   3 D    ( 1)CMU E       16   H(16)
+  33    7   9 D        CMU E            HDETER
+  34    9   1 L        C U E            HEAT
+  35         s     ( 1)  U              HMAT
+     (I4A)
+  36    3   1 L        C U E            HYDRO
+  37          I         MU E            I
+  38         II    ( 1)  U I            IABS
+  39          I        IMU E            IDFLAG
+  40          I         MU E            IDLH
+  41   10   4 I        C?? E            IF4GG
+  42   10   2 I        C?? E            IFKGG
+  43          I         MU E            IHCOL
+  44    4   2 I        CM  E            INFLAG
+  45         s     ( 8)  U              INVERD
+     (I4E,R8L,I4E,R4V,I4E,R8V,I4V,R8L)
+  46   56   1 I        AMU E            IOPT
+  47    6   1 I        C U E            IOPT4
+  48          I         MU E            ISING
+  49    6   4 I    ( 1)C   E       17   ISKP(17)
+  50          I         MU E            J
+  51   56   2 I        A U E            JTYPE
+  52    6   2 I        C   E            K4GGSW
+  53          I         MU E            KA
+  54    7   8 D    ( 1)CM? E       36   KIJ(36)
+  55    7  13 I        CMU E            KOUNT
+  56         S     ( 2) MU        232   KTETRA(IOPT,JTYPE)
+  57         s     ( 1)  U              MAT
+     (I4L)
+  58    2   1 R    ( 1)C U E        7   MATBUF(7)
+  59    4   1 I        CMU E            MATID
+  60         s     ( 3)  U              MESAGE
+     (I4E,I4E,R4L)
+  61          I    ( 1) MU E        4   NECPT(4)
+  62    7  11 I        CMU E            NGPT
+  63   11   3 L        C   E            NOGO
+  64    6   5 I        CM  E            NOGOO
+  65          I         MU E            NPOINT
+  66    6   3 I        C?U E            NPVT
+  67    5   3 R        C U E            NU
+  68   11   2 I        C U E            OUT
+  69    5   4 R        C U E            RHO
+  70          I        I?? E            SCR4
+  71    5   9 R        C   E            SIGC
+  72    5  10 R        C   E            SIGS
+  73    5   8 R        C   E            SIGT
+  74    1   1 R    ( 1)C   E       16   SKIP(16)
+  75         s     ( 5)  U              SMA1B
+     (R8L,I4L,I4E,I4V,R8E)
+  76    1   3 R        C U E            SURFAC
+  77   11   1 R        C   E            SYSBUF
+  78    7   5 D    ( 1)C?U E        9   T(9)
+  79    7   4 D    ( 1)CM? E       12   TEMP(12)
+  80    7  10 D        CMU E            TEMP1
+  81         s     ( 2)  U              TRANSD
+     (I4L,R8A)
+  82    5   6 R        C   E            TSUB0
+  83    7  14 R        CMU E            TVOL
+  84   12   1 C*23     C U E            UFM*23
+  85    1   2 R        C U E            VOLUME
+  86         s     ( 4)  U              WRITE
+     (I4V,I4L,I4E,I4E)
+     (   ,R4L,   ,   )
+**-- END OF SYMBOL TABLE

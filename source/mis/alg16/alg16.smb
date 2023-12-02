@@ -1,0 +1,38 @@
+**++ Symbol table for subprogram ALG16 in file mis/alg16.f90
+     produced by SPAG     8.01RF-40 at 14:46:43 on  2 Dec 2023
+   0         X             K             mis/alg16.f90,0000002,0000113
+   1         I?    ( 1)  U I            ABS
+   2         S     ( 6)  U         92   ALG16(IX,LOG1,X1,Y1,X2,Y2)
+   3         IR    ( 1)  U I            ALOG10
+   4          R        I U E            BLANK
+   5          R        I U E            CROSS
+   6          R        I U E            DASH
+   7          I         MU E            I
+   8    2   1 I        A U E            IX
+   9          I         MU E            KLINE
+  10          I         MU E            L
+  11          R    ( 1) MU E      121   LINE(121)
+  12    2   2 I        A U E            LOG1
+  13          I         MU E            MX
+  14          I         MU E            MY
+  15          R        I U E            SYMBOL
+  16    2   3 R    ( 1)A U E            X1(1)
+  17    2   5 R    ( 1)A U E            X2(1)
+  18          R         MU E            XH
+  19          R        I U E            XI
+  20          R         MU E            XINC
+  21          R         MU E            XL
+  22          R         MU E            XMAX
+  23          R         MU E            XMIN
+  24          R    ( 1) MU E       13   XNUM(13)
+  25          R         MU E            XRANGE
+  26    2   4 R    ( 1)A U E            Y1(1)
+  27    2   6 R    ( 1)A U E            Y2(1)
+  28          R         MU E            YH
+  29          R         MU E            YINC
+  30          R         MU E            YINC2
+  31          R         MU E            YL
+  32          R         MU E            YMAX
+  33          R         MU E            YMIN
+  34          R         MU E            YNUM
+**-- END OF SYMBOL TABLE

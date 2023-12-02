@@ -1,0 +1,319 @@
+**++ Symbol table for subprogram XSEM00 in file mis/xsem00.f90
+     produced by SPAG     7.61RG-40 at 01:00:00 on 21 Mar 2022
+   0         X             K             mis/xsem00.f90,0000002,0000861
+   1         C     / 1/ M         400   /BLANK/PARAM
+   2         C     / 1/  U          4   /MACHIN/MACH
+   3         C     / 1/  U          4   /MSGX/NMSG
+   4         C     / 1/ MU        800   /OSCENT/INOSCR
+   5         C     / 4/ ?U         72   /SEM/MASK,MASK2,MASK3,LINKNM
+   6         C     / 9/ MU        380   /SYSTEM/SYSBUF,XX,LINKNO,XXX,NBPC,NBPW,NCPW,XXXX,ISPERLNK
+   7         C     / 1/ M           8   /XFIST/FIST
+   8         C     / 3/            12   /XLINK/LXLINK,MAXLNK,MXLINK
+   9         C     / 1/  U          4   /XPFIST/FSTRST
+  10         C     / 1/  U          4   /XVPS/VPS
+  11         C     / 1/ ??          4   /ZZZZZZ/DATABF
+  12         s           U              ADR
+  13         s           U              ALG
+  14         s           U              AMG
+  15         s           U              AMP
+  16         fI    ( 2)  U E            ANDF
+     (I4L,I4V)
+  17         s           U              ANISOP
+  18         s           U              APD
+  19         s           U              APDB
+  20         s           U              BMG
+  21         s           U              BTSTRP
+  22         s           U              CASE
+  23         s           U              CASEGE
+  24         s           U              CEAD
+  25         s     ( 2)  U              CLOSE
+     (I4V,I4E)
+  26         s           U              CMRD2
+  27         s           U              COMB1
+  28         s           U              COMB2
+  29         s           U              COMUGV
+  30         s     ( 3)  U              CONMSG
+     (I4A,I4E,I4E)
+  31         s           U              COPY
+  32         s           U              CURV
+  33         s           U              CYCT1
+  34         s           U              CYCT2
+  35         s           U              DADD
+  36         s           U              DADD5
+  37   11   1 I    ( 1)C?? E        1   DATABF(1)
+  38         s           U              DBASE
+  39         s           U              DDAMAT
+  40         s           U              DDAMPG
+  41         s           U              DDCMPS
+  42         s           U              DDCOMP
+  43         s           U              DDR
+  44         s           U              DDR1
+  45         s           U              DDR2
+  46         s           U              DDRMM
+  47         s           U              DESVEL
+  48         s           U              DFBS
+  49         s           U              DIAGON
+  50         s           U              DMPYAD
+  51         s           U              DPD
+  52         s           U              DPLOT
+  53         s           U              DPLTST
+  54         s           U              DSCHK
+  55         s           U              DSMG1
+  56         s           U              DSMG2
+  57         s           U              DTRANP
+  58         s           U              DUMERG
+  59         s           U              DUMOD1
+  60         s           U              DUMOD2
+  61         s           U              DUMOD3
+  62         s           U              DUMOD4
+  63         s           U              DUMOD5
+  64         s           U              DUPART
+  65         s           U              EMA
+  66         s           U              EMA1
+  67         s           U              EMFLD
+  68         s           U              EMG
+  69         s           U              EQMCK
+  70          I    ( 1)I U E        2   EQUIV(2)
+  71          I         ?? E            ERRFLG
+  72          I         MU E            ERROR_ID
+  73         s           U              EXIO
+  74          I        I U E            EXIT
+  75         s           U              FA1
+  76         s           U              FA2
+  77    7   1 I    ( 1)CM  E        2   FIST(2)
+  78          I         MU E            FISTNM
+  79         s           U              FLBMG
+  80         s           U              FRLG
+  81         s           U              FRRD
+  82         s           U              FRRD2
+  83    9   1 I        C U E            FSTRST
+  84          C*80      ?U E            FT05*80
+  85          C*80      ?U E            FT06*80
+  86         s           U              FVRST1
+  87         s           U              FVRST2
+  88         s           U              GENCOS
+  89         s           U              GENPAR
+  90         s     ( 2)  U              GETENV
+     (C*E,C+V)
+  91         s           U              GFSMA
+  92         s           U              GI
+  93         s           U              GINOFL
+  94         s           U              GKAD
+  95         s           U              GKAM
+  96         s     ( 3)  U              GNFIST
+     (I4A,I4V,I4V)
+  97         s           U              GP1
+  98         s           U              GP2
+  99         s           U              GP3
+ 100         s           U              GP4
+ 101         s           U              GPCYC
+ 102         s           U              GPFDR
+ 103         s           U              GPSTGN
+ 104         s           U              GPWG
+ 105         s           U              GUST
+ 106          I         MU E            I
+ 107          I        I U E            IBLNK
+ 108          I         MU E            IBUF1
+ 109          I         MU E            IDIN
+ 110          I         MU E            IERR
+ 111          I         MU E            IFILE
+ 112         s           U              IFT
+ 113          I         MU E            II
+ 114          C*80      MU E            INFILE*80
+ 115    4   1 I    ( 1)CMU E      200   INOSCR(200)
+ 116         s           U              INPTT1
+ 117         s           U              INPTT2
+ 118         s           U              INPTT3
+ 119         s           U              INPTT4
+ 120         s           U              INPTT5
+ 121         s           U              INPUT
+ 122          I         M  E            IPLOT
+ 123    6   9 I        CM  E            ISPERLNK
+ 124          I            E            ITMBGN
+ 125          I         MU E            J
+ 126          I         MU E            J1
+ 127          I         MU E            J2
+ 128          I         MU E            J3
+ 129          I         MU E            J5
+ 130         fI    ( 4)  U E            KHRFN1
+     (I4L,I4E,I4L,I4E)
+ 131          I         MU E            KODE
+ 132         fI    ( 1)  U E            KORSZ
+     (I4A)
+ 133          I         M  E            KSCR
+ 134          I         ?U E            KTIME
+ 135          I         MU E            L
+ 136         s           U              LAMX
+ 137          I         ?? E            LDIAG
+ 138    5   4 I    ( 1)C U E       15   LINKNM(15)
+ 139    6   3 I        CM  E            LINKNO
+ 140          I         MU E            LL
+ 141         s           U              LODAPP
+ 142         fI    ( 2)  U E            LSHIFT
+     (I4E,I4E)
+ 143          L         M  E            LVAX
+ 144    8   1 I        C   E            LXLINK
+ 145    2   1 I        C U E            MACH
+ 146         s           U              MAGBDY
+ 147    5   1 I        C?? E            MASK
+ 148    5   2 I        C   E            MASK2
+ 149    5   3 I        C?? E            MASK3
+ 150         s           U              MATGEN
+ 151         s           U              MATGPR
+ 152         s           U              MATPRN
+ 153    8   2 I        C   E            MAXLNK
+ 154         s           U              MCE1
+ 155         s           U              MCE2
+ 156         s           U              MERGE1
+ 157         s     ( 3)  U              MESAGE
+     (I4E,I4E,I4A)
+ 158          I         MU E            MM
+ 159         s           U              MODA
+ 160         s           U              MODACC
+ 161         s           U              MODB
+ 162         s           U              MODC
+ 163          I         MU E            MODNO
+ 164          I        IMU E            MODX
+ 165         s           U              MPY3
+ 166         s           U              MRED1
+ 167         s           U              MRED2
+ 168         s           U              MSGWRT
+ 169         s           U              MTRXIN
+ 170    8   3 I    ( 1)C   E        1   MXLINK(1)
+ 171    6   5 I        C U E            NBPC
+ 172    6   6 I        C U E            NBPW
+ 173    6   7 I        C   E            NCPW
+ 174          I          U E            NIN
+ 175    3   1 I        C U E            NMSG
+ 176         s           U              NORMAL
+ 177          I          U E            NOUT
+ 178         s           U              NRLSUM
+ 179          I    ( 1)I?? E       10   NUMBR(10)
+ 180         s           U              OFP
+ 181         s           U              OLPLOT
+ 182         s     ( 4)  U              OPEN
+     (ALT,I4V,I4L,I4E)
+ 183          I         MU E            OPNTR
+ 184         s           U              OPTPR1
+ 185         s           U              OPTPR2
+ 186         s           U              OUTPT
+ 187         s           U              OUTPT1
+ 188         s           U              OUTPT2
+ 189         s           U              OUTPT3
+ 190         s           U              OUTPT4
+ 191         s           U              OUTPT5
+ 192          C*80      MU E            OUTPUT*80
+ 193    1   1 I    ( 1)CM  E      100   PARAM(100)
+ 194         s           U              PARAML
+ 195          I         MU E            PARML
+ 196          I         MU E            PARMN
+ 197         s           U              PARTN1
+ 198         s           U              PEXIT
+ 199         s           U              PLA1
+ 200         s           U              PLA2
+ 201         s           U              PLA3
+ 202         s           U              PLA4
+ 203          I         MU E            PLOTF
+ 204         s           U              PLTMRG
+ 205         s           U              PLTTRA
+ 206          I        I?? E            POOL
+ 207          C*80      ?U E            PROJ*80
+ 208         s           U              PROLAT
+ 209         s           U              PROMPT
+ 210         s           U              PRTINT
+ 211         s           U              PRTMSG
+ 212         s           U              PRTPRM
+ 213         s           U              PTHBDY
+ 214          I    ( 1)I U E        2   PURGE(2)
+ 215         s           U              QPARAM
+ 216         s           U              QPARMD
+ 217         s           U              QPARMR
+ 218         s           U              RANDOM
+ 219         s           U              RBMG1
+ 220         s           U              RBMG2
+ 221         s           U              RBMG3
+ 222         s           U              RBMG4
+ 223         s           U              RCOVR
+ 224         s           U              RCOVR3
+ 225         s     ( 7)  U              READ
+     (ALT,ALT,I4V,I4A,I4E,I4E,I4V)
+ 226         s           U              REDUCE
+ 227         s           U              REIG
+ 228         s           U              RMG
+ 229         fI    ( 2)  U E            RSHIFT
+     (I4L,I4E)
+ 230         s           U              SCALAR
+ 231         s           U              SCAN
+ 232         s           U              SCE1
+ 233          I    ( 1)IMU E        3   SCRTCH(3)
+ 234         s           U              SDR1
+ 235         s           U              SDR2
+ 236         s           U              SDR3
+ 237         s           U              SDRHT
+ 238         s           U              SEEMAT
+ 239         s     ( 1)  U              SEMINT
+     (I4E)
+ 240         s           U              SETVAL
+ 241         s           U              SGEN
+ 242         s           U              SMA1
+ 243         s           U              SMA2
+ 244         s           U              SMA3
+ 245         s           U              SMP1
+ 246         s           U              SMP2
+ 247         s           U              SMPYAD
+ 248         s           U              SOFI
+ 249         s           U              SOFO
+ 250         s           U              SOFUT
+ 251         s           U              SOLVE
+ 252         s           U              SSG1
+ 253         s           U              SSG2
+ 254         s           U              SSG3
+ 255         s           U              SSG4
+ 256         s           U              SSGHT
+ 257         s     ( 2)  U              SSWTCH
+     (I4E,I4V)
+ 258          I    ( 1)I?? E        2   SUBNAM(2)
+ 259         s           U              SUBPH1
+ 260         s           U              SWITCH
+ 261    6   1 I        C U E            SYSBUF
+ 262         s           U              TA1
+ 263         s           U              TABFMT
+ 264         s           U              TABPCH
+ 265         s           U              TABPT
+ 266         s     ( 1)  U              TDATE
+     (R4L)
+ 267         s           U              TIMTST
+ 268         s     ( 1)  U              TMTOGO
+     (I4V)
+ 269         s           U              TRAIL
+ 270         s           U              TRD
+ 271         s           U              TRHT
+ 272         I?    ( 1)  U I            TRIM
+ 273         s           U              TRLG
+ 274          I         MU E            TYPECD
+ 275         s           U              VARIAN
+ 276         s           U              VDR
+ 277         s           U              VEC
+ 278          I         MU E            VPARML
+ 279   10   1 I    ( 1)C U E        1   VPS(1)
+ 280          I         MU E            VPSX
+ 281          I    ( 1)IMU E        4   WORDB(4)
+ 282          C*4       M  E            WORDC*4
+ 283          I    ( 1)I U E        2   WORDE(2)
+ 284         s           U              XCEI
+ 285         s           U              XCHK
+ 286          I        I U E            XEQU
+ 287         s           U              XEQUIV
+ 288          I        I U E            XPUR
+ 289         s           U              XPURGE
+ 290          I        I U E            XSAV
+ 291         s           U              XSAVE
+ 292         S                    712   XSEM00
+ 293    6   2 R    ( 1)C?? E       20   XX(20)
+ 294    6   4 R    ( 1)C   E       16   XXX(16)
+ 295    6   8 R    ( 1)C   E       53   XXXX(53)
+ 296         s           U              XYPLOT
+ 297         s           U              XYPRPT
+ 298         s           U              XYTRAN
+ 299          I        I U E            YCHK
+**-- END OF SYMBOL TABLE

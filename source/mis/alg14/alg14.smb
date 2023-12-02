@@ -1,0 +1,25 @@
+**++ Symbol table for subprogram ALG14 in file mis/alg14.f90
+     produced by SPAG     8.01RF-40 at 14:46:47 on  2 Dec 2023
+   0         X             K             mis/alg14.f90,0000002,0000092
+   1          R    ( 1) MU E       65   A(65)
+   2         S     ( 8) MU         73   ALG14(XDATA,YDATA,NDATA,XIN,YOUT,YPRIME,NXY,NWOT)
+   3          R    ( 1) MU E       65   B(65)
+   4          R    ( 1) MU E       65   D(65)
+   5          R         MU E            DX
+   6          R         MU E            E1
+   7          R         MU E            E2
+   8          I         MU E            I
+   9          I         MU E            II
+  10          I         MU E            J
+  11          R    ( 1) MU E       65   M(65)
+  12          I         MU E            N
+  13    2   3 I        A U E            NDATA
+  14    2   8 I        A U E            NWOT
+  15    2   7 I        A U E            NXY
+  16    2   1 R    ( 1)A U E            XDATA(2)
+  17    2   4 R    ( 1)A U E            XIN(1)
+  18          R         MU E            YDASH
+  19    2   2 R    ( 1)A U E            YDATA(2)
+  20    2   5 R    ( 1)AM  E            YOUT(1)
+  21    2   6 R    ( 1)AM  E            YPRIME(1)
+**-- END OF SYMBOL TABLE

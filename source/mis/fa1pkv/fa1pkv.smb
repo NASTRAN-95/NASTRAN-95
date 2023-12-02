@@ -1,0 +1,51 @@
+**++ Symbol table for subprogram FA1PKV in file mis/fa1pkv.f90
+     produced by SPAG     8.01RF-40 at 14:46:59 on  2 Dec 2023
+   0         X             K             mis/fa1pkv.f90,0000002,0000088
+   1         C     / 6/ MU         48   /SYSTEM/SYSBUF,NOUT,SPACE,NLPP,X,LINES
+   2   14   3 R    ( 1)A U E            AMB(1)
+   3   14   2 R    ( 1)A U E            AMK(1)
+   4   14   1 X    ( 1)AMU E            AZ(1)
+   5   14   7 R        A U E            BREF
+   6          X         MU E            CEIG
+   7         s     ( 2)  U              CLOSE
+     (I4V,I4E)
+   8   14   6 R    ( 1)A?U E            CZ(1)
+   9          R    ( 1) M  E        2   E(2)
+  10   14   5 R    ( 1)A U E            E1(5)
+  11         s     ( 7)  U              EGNVCT
+     (X8A,R4L,X8V,R4L,R4L,R4L,I4V)
+  12          X          U E            EIGEN
+  13          X         M? E            EIGZ
+  14         S     (10) MU         55   FA1PKV(AZ,AMK,AMB,N,E1,CZ,BREF,PI,VEL,IBUF)
+  15          I         MU E            I
+  16   14  10 I    ( 1)A?? E            IBUF(1)
+  17          I        IMU E            IPASS
+  18          I        I?U E            ISCR
+  19          I    ( 1) M? E        6   IV(6)
+  20          I         MU E            J
+  21          I         MU E            K
+  22    1   6 I        CMU E            LINES
+  23   14   4 I        A?U E            N
+  24          I         MU E            N2
+  25          I         MU E            NA
+  26          I         MU E            NB
+  27          I         MU E            NC
+  28          I         MU E            ND
+  29    1   4 I        C U E            NLPP
+  30    1   2 I        C U E            NOUT
+  31         s     ( 4)  U              OPEN
+     (ALT,I4V,I4A,I4E)
+  32         s           U              PAGE1
+  33   14   8 R        A   E            PI
+  34    1   3 R    ( 1)C   E        6   SPACE(6)
+  35    1   1 R        C   E            SYSBUF
+  36          I    ( 1) M? E        7   TRL(7)
+  37          R    ( 1) M  E        6   V(6)
+  38   14   9 R        A U E            VEL
+  39         s     ( 4)  U              WRITE
+     (I4V,I4A,I4E,I4E)
+     (   ,R4L,   ,   )
+  40         s     ( 1)  U              WRTTRL
+     (I4A)
+  41    1   5 R    ( 1)C   E        2   X(2)
+**-- END OF SYMBOL TABLE

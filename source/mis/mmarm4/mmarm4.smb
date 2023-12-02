@@ -1,0 +1,45 @@
+**++ Symbol table for subprogram MMARM4 in file mis/mmarm4.f90
+     produced by SPAG     7.61RG-40 at 01:00:00 on 21 Mar 2022
+   0         X             K             mis/mmarm4.f90,0000002,0000139
+   1         C     / 2/             8   /SYSTEM/IBFSIZ,IWR
+   2         C     / 1/  U          4   /ZZZZZZ/RXL
+   3         s     ( 4)  U              DSCPOS
+     (?*V,I4V,I4V,I4V)
+   4          D    ( 1)  U E        1   DXL(1)
+   5         s     ( 1)  U              ENDGET
+     (I4A)
+   6         s     ( 2)  U              GETSTR
+     (ALT,I4A)
+   7          I         MU E            I
+   8    1   1 I        C   E            IBFSIZ
+   9          I    ( 1) MU E       15   IBLK(15)
+  10          I         ?U E            ICBLK
+  11          I         ?U E            ICBP
+  12          I         ?U E            ICLR
+  13          I         MU E            ICOL
+  14          I         MU E            II
+  15          I         MU E            INDEX
+  16          ?          U I            IRCOL1
+  17          ?         MU I            IRCOLN
+  18          ?         ?U I            IRFILE
+  19         G?    ( 1) M  I            IRPOS
+  20          ?         MU I            ITYPE
+  21    1   2 I        C   E            IWR
+  22          I         MU E            JROW
+  23          ?         M  I            LASINDM
+  24          ?         MU I            LASMEM
+  25          I         MU E            MEM
+  26          I         MU E            MEM1
+  27   30   3 I        A U E            MEMPCOL
+  28         s     ( 3)  U              MESAGE
+     (I4E,I4E,I4A)
+  29          I         MU E            MINDEX
+  30         S     ( 3) MU         70   MMARM4(ZI,ZD,MEMPCOL)
+  31          I    ( 1)I?? E        2   MODULE(2)
+  32          I         MU E            NTMS
+  33          I         MU E            NTMS2
+  34    2   1 R    ( 1)C U E        1   RXL(1)
+  35          ?          U I            SIGN
+  36   30   2 D    ( 1)AM  E            ZD(1)
+  37   30   1 I    ( 1)AM  E            ZI(1)
+**-- END OF SYMBOL TABLE

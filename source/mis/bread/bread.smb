@@ -1,0 +1,115 @@
+**++ Symbol table for subprogram BREAD in file mis/bread.f90
+     produced by SPAG     8.01RF-40 at 14:47:17 on  2 Dec 2023
+   0         X             K             mis/bread.f90,0000002,0000410
+   1         C     / 2/  U          8   /BANDA/IBUF1,NOMPC
+   2         C     / 6/ MU         28   /BANDB/NBITIN,KORE,IFL,NGRID,IPNW,KDIM
+   3         C     / 4/ MU         36   /BANDD/DUM6,NEL,NEQ,NEQR
+   4         C     / 1/  U         40   /BANDS/NN
+   5         C     / 4/ ?U         16   /GEOMX/GEOM1,GEOM2,GEOM4,SCR1
+   6         C     / 4/ MU         16   /GPTA1/NE,LAST,INCR,KE
+   7         C     / 5/ ??         20   /NAMES/RD,RDREW,WRT,WRTREW,REW
+   8         C     / 4/  U        216   /SYSTEM/IBUF,NOUT,DUM43,KDUM
+   9         C     / 2/  U         48   /XMSSG/UFM,UWM
+  10         C     / 1/ MU          4   /ZZZZZZ/Z
+  11         S     ( 5) MU        302   BREAD(IG,INV,II3,NORIG,KG)
+  12          I        I U E            CHBDY
+  13         s     ( 2)  U              CLOSE
+     (I4V,I4V)
+  14          I        I U E            CRBAR
+  15          I        I U E            CRBE1
+  16          I        I U E            CRBE2
+  17          I        I U E            CRBE3
+  18          I        I U E            CRIGD1
+  19          I        I U E            CRIGD2
+  20          I        I U E            CRIGD3
+  21          I        I U E            CRIGDR
+  22          I        I U E            CRROD
+  23          I        I U E            CRSPLN
+  24          I        I U E            CRTRPT
+  25          L        I U E            DEBUG
+  26    8   3 I    ( 1)C   E       43   DUM43(43)
+  27    3   1 I    ( 1)C   E        6   DUM6(6)
+  28          I        I U E            GENEL
+  29    5   1 I        C   E            GEOM1
+  30    5   2 I        C?U E            GEOM2
+  31    5   3 I        C?U E            GEOM4
+  32          I         MU E            I
+  33    8   1 I        C U E            IBUF
+  34    1   1 I        C U E            IBUF1
+  35          I         MU E            IBUF2
+  36          I         MU E            IELEM
+  37          I         M? E            IFILE
+  38    2   3 I        C   E            IFL
+  39   11   1 I    ( 1)A?? E            IG(1)
+  40   11   3 I        A?U E         Z  II3
+  41    6   3 I        C U E            INCR
+  42   11   2 I    ( 2)A?U E            INV(Ii3,1)
+  43    2   5 I    ( 1)C   E        2   IPNW(2)
+  44          I         MU E            IRTN
+  45          I    ( 1) MU E        3   IZ(3)
+  46          I         MU E            IZ2
+  47          I         MU E            J
+  48          I         MU E            K
+  49    2   6 I        C U E            KDIM
+  50          I         MU E            KDIM4
+  51    8   4 I    ( 1)C U E        9   KDUM(9)
+  52    6   4 I    ( 1)CMU E        1   KE(1)
+  53   11   5 I    ( 1)AMU E            KG(7)
+  54          I         MU E            KGPV
+  55    2   2 I        C   E            KORE
+  56          I         MU E            L
+  57    6   2 I        C U E            LAST
+  58         s     ( 4)  U              LOCATE
+     (ALT,I4L,I4A,I4V)
+  59          I         MU E            M
+  60          I        I U E            MAXMPC
+  61         s     ( 3)  U              MESAGE
+     (I4E,I4E,I4A)
+     (   ,   ,I4E)
+  62          I        I U E            MPC
+  63          I        I U E            MSET
+  64    2   1 I        C   E            NBITIN
+  65          I         MU E            NCON
+  66    6   1 I        C   E            NE
+  67    3   2 I        CMU E            NEL
+  68    3   3 I        CMU E            NEQ
+  69    3   4 I        CMU E            NEQR
+  70          I         MU E            NGPT1
+  71          I         MU E            NGPT2
+  72          I         MU E            NGPTS
+  73    2   4 I        CMU E            NGRID
+  74    4   1 I    ( 1)C U E       10   NN(10)
+  75    1   2 I        C U E            NOMPC
+  76   11   4 I    ( 1)A?? E            NORIG(1)
+  77    8   2 I        C U E            NOUT
+  78          I         MU E            NTOT
+  79          I         M? E            NWDS
+  80         s     ( 4)  U              OPEN
+     (ALT,I4V,I4L,I4V)
+  81          I        I U E            PLOTEL
+  82         s     ( 3)  U              PRELOC
+     (ALT,I4L,I4V)
+  83    7   1 I        C   E            RD
+  84    7   2 I        C   E            RDREW
+  85         s     ( 1)  U              RDTRL
+     (I4L)
+  86         s     ( 7)  U              READ
+     (ALT,ALT,I4V,I4A,I4E,I4E,I4V)
+     (   ,   ,   ,I4E,   ,   ,   )
+  87    7   5 I        C?? E            REW
+  88          I         MU E            SCALAR
+  89         s     ( 5)  U              SCAT
+     (I4L,I4V,I4A,I4V,I4A)
+  90    5   4 I        C?U E            SCR1
+  91         s     ( 4)  U              SETIG
+     (I4L,I4L,I4A,I4A)
+  92          I    ( 1)I?? E        2   SUB(2)
+  93    9   1 C*23     C U E            UFM*23
+  94    9   2 C*25     C U E            UWM*25
+  95         s     ( 4)  U              WRITE
+     (I4V,I4A,I4E,I4E)
+  96    7   3 I        C   E            WRT
+  97    7   4 I        C?? E            WRTREW
+  98          I    ( 1) MU E        3   XXX(3)
+  99   10   1 I    ( 1)CMU E        1   Z(1)
+**-- END OF SYMBOL TABLE

@@ -1,0 +1,25 @@
+**++ Symbol table for subprogram DBMSTF in file mds/dbmstf.f90
+     produced by SPAG     7.61RG-40 at 01:00:00 on 21 Mar 2022
+   0         X             K             mds/dbmstf.f90,0000002,0000026
+   1         C     / 1/  U          4   /LOGOUT/LOUT
+   2         C     / 2/  U          8   /SYSTEM/ISYSBF,IWR
+   3         S                      6   DBMSTF
+   4          I         MU E            IBLKSZ
+   5          ?          U I            IDBDIR
+   6          ?          U I            IDBLEN
+   7          I         MU E            IMEMNU
+   8          I         MU E            IPERC1
+   9    2   1 I        C U E            ISYSBF
+  10    2   2 I        C   E            IWR
+  11          ?          U I            LENALC
+  12          ?          U I            LENOPC
+  13    1   1 I        C U E            LOUT
+  14          ?          U I            MAXALC
+  15          ?          U I            MAXBLK
+  16          ?          U I            MAXDSK
+  17          ?          U I            NUMCLS
+  18          ?          U I            NUMOPN
+  19          ?          U I            NUMREA
+  20          ?          U I            NUMWRI
+  21          R         MU E            PERC1
+**-- END OF SYMBOL TABLE

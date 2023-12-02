@@ -1,0 +1,137 @@
+**++ Symbol table for subprogram SUBPB in file mis/subpb.f90
+     produced by SPAG     8.01RF-40 at 14:46:46 on  2 Dec 2023
+   0         X             K             mis/subpb.f90,0000002,0000226
+   1         C     / 7/ ?U         52   /AMGMN/MCB,NROW,ND,NE,REFC,FMACH,KR
+   2  109  23 R    ( 1)A U E            ARB(1)
+   3  109  20 R    ( 1)A U E            AVR(1)
+   4          R         MU E            AX
+   5          R         M? E            AX1
+   6          R         M? E            AX2
+   7          R         MU E            AY
+   8          R         M? E            AY1
+   9          R         M? E            AY1I
+  10          R         M? E            AY2
+  11          R         M? E            AY2I
+  12          R         MU E            AYI
+  13          R         MU E            AZ
+  14          R         M? E            AZ1
+  15          R         M? E            AZ1I
+  16          R         M? E            AZ2
+  17          R         M? E            AZ2I
+  18          R         MU E            AZI
+  19          R         M? E            BETA
+  20  109  15 R    ( 1)A U E            CG(1)
+  21  109   6 R        A?? E            CGR
+  22          R         MU E            CGS
+  23          R         M? E            CL
+  24         IX    ( 2)  U I            CMPLX
+  25          R         M? E            CV
+  26          R         M? E            DA
+  27          R         M? E            DAR
+  28          R         M? E            DCGAM
+  29          R         ?U E            DCGAMI
+  30          R         M? E            DCL
+  31          R         M? E            DEE
+  32          R         ?U E            DEEI
+  33          R         M? E            DEEI2
+  34          R         MU E            DELI
+  35          R         MU E            DELII
+  36          R         MU E            DELIS
+  37          R         MU E            DELR
+  38          R         MU E            DELRI
+  39          R         MU E            DELRS
+  40  109  11 R    ( 1)A U E            DELX(1)
+  41          R         M? E            DELY
+  42          R         M? E            DETA
+  43          R         ?U E            DETAI
+  44          R         MU E            DIJ
+  45          R         MU E            DIJI
+  46          R         MU E            DIJS
+  47          R         ?? E            DMUY
+  48          R         ?? E            DMUZ
+  49          X         MU E            DP
+  50          X         MU E            DPLL
+  51          X         MU E            DPLR
+  52          X         MU E            DPUL
+  53          X         MU E            DPUR
+  54          R         M? E            DSGAM
+  55          R         ?U E            DSGAMI
+  56          R         M? E            DSL
+  57          R         MU E            DSQRTL
+  58          R         MU E            DTL
+  59          R         ?U E            DTLAMI
+  60          R         MU E            DXI
+  61          R         MU E            DXLE
+  62          R         MU E            DXS
+  63          R         MU E            DXTE
+  64          R         M? E            DYB
+  65          R         M? E            DZB
+  66          R         M? E            DZETA
+  67          R         ?U E            DZETAI
+  68  109  12 R    ( 1)A U E            EE(1)
+  69          R         MU E            EPS
+  70          R         MU E            ES
+  71          R         M? E            FL
+  72          R         MU E            FLND
+  73          R         MU E            FLNE
+  74         IR    ( 1)  U I            FLOAT
+  75    1   6 R        C U E            FMACH
+  76  109   1 I        A U E            I
+  77          I         MU E            IGO
+  78         s     (20)  U              INCRO
+     (R4V,R4V,R4V,R4V,R4V,R4V,R4V,R4V,R4V,R4V,R4V,R4V,R4V,R4V,R4V,R4V,R4V,R4V
+     ,R4V,R4V)
+  79          I         MU E            INFL
+  80          I         MU E            IOUTFL
+  81  109   4 I        A U E            J
+  82    1   7 R        C?U E            KR
+  83  109   2 I        A U E            L
+  84  109   3 I        A U E            LS
+  85          R         MU E            M
+  86    1   1 I    ( 1)C   E        7   MCB(7)
+  87          I         MU E            NA
+  88          I         MU E            NA1
+  89          I         MU E            NA2
+  90  109  18 I    ( 1)A U E            NAS(1)
+  91  109  19 I    ( 1)A U E            NASB(1)
+  92  109  27 I        A U E            NB
+  93    1   3 I        C U E            ND
+  94    1   4 I        C U E            NE
+  95          I         MU E            NOAS
+  96          I         MU E            NOB
+  97          I         M  E            NOBI
+  98    1   2 I        C   E            NROW
+  99    1   5 R        C U E            REFC
+ 100          R         M? E            SDELX
+ 101  109  14 R    ( 1)A U E            SG(1)
+ 102  109   5 R        A?? E            SGR
+ 103          R         MU E            SGS
+ 104          R         MU E            SL
+ 105         s     (14)  U              SNPDF
+     (R4V,R4V,R4V,R4V,R4V,R4V,R4V,R4V,R4V,R4V,R4V,R4V,R4V,R4V)
+ 106         I?    ( 1)  U I            SQRT
+ 107          R         MU E            SQTL
+ 108         s     (21)  U              SUBI
+     (R4V,R4V,R4V,R4V,R4V,R4V,R4V,R4V,R4V,R4V,R4V,R4V,R4V,R4V,R4V,R4V,R4V,R4V
+     ,R4V,I4V,I4V)
+ 109         S     (27) MU        177   SUBPB(I,L,LS,J,SGR,CGR,YREC,ZREC,SUM,XIC,DELX,EE,XLAM,SG,CG,YS,ZS,NAS,NASB,AVR,ZB,YB,ARB,XLE,XTE,X,NB)
+ 110  109   9 X        AM  E            SUM
+ 111          R         MU E            TL
+ 112  109  26 R    ( 1)A U E            X(1)
+ 113          R         MU E            X0
+ 114          R         M? E            X0I
+ 115  109  10 R    ( 1)A U E            XIC(1)
+ 116  109  13 R    ( 1)A U E            XLAM(1)
+ 117  109  24 R    ( 1)A U E            XLE(1)
+ 118  109  25 R    ( 1)A U E            XTE(1)
+ 119          R         MU E            Y0
+ 120          R         MU E            Y0I
+ 121  109  22 R    ( 1)A U E            YB(1)
+ 122  109   7 R        A U E            YREC
+ 123  109  16 R    ( 1)A U E            YS(1)
+ 124          R         MU E            Z0
+ 125          R         MU E            Z0I
+ 126  109  21 R    ( 1)A U E            ZB(1)
+ 127  109   8 R        A U E            ZREC
+ 128  109  17 R    ( 1)A U E            ZS(1)
+**-- END OF SYMBOL TABLE

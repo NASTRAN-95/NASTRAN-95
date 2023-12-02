@@ -1,0 +1,61 @@
+**++ Symbol table for subprogram FNDPNT in file mis/fndpnt.f90
+     produced by SPAG     8.01RF-40 at 14:46:46 on  2 Dec 2023
+   0         X             K             mis/fndpnt.f90,0000002,0000139
+   1         C     / 3/  U         20   /FPT/DUM,NROW1,LCORE
+   2         C     /13/ MU         56   /LOADX/I1,BGPDT,OLD,CSTM,SIL,ISIL,I2,MPT,GPTT,EDT,IMPT,IGPTT,IED
+   3         C     / 2/  U          8   /SYSTEM/IBUF,NOUT
+   4         C     / 1/ MU          4   /ZZZZZZ/CORE
+   5          R    ( 1) ?U E        3   ARRY(3)
+   6         s     ( 1)  U              BCKREC
+     (I4V)
+   7    2   2 I        C?U E            BGPDT
+   8    4   1 R    ( 1)CMU E        1   CORE(1)
+   9    2   4 R        C   E            CSTM
+  10          R        AM  E            DELTA
+  11    1   1 R    ( 1)C   E        3   DUM(3)
+  12    2  10 I        C?U E            EDT
+  13         E     ( 3)                 FEDT(IED1,DELTA,IDEF)
+  14         E     ( 1)                 FEDTED(IDEF)
+  15         E     ( 1)                 FEDTST(IDEF)
+  16          R         ?? E            FLAG
+  17         S     ( 2) MU         83   FNDPNT(IARY,ID)
+  18         E     ( 1)                 FNDSIL(IP)
+  19    2   9 R        C   E            GPTT
+  20          I         MU E            I
+  21    2   1 I    ( 1)C   E        2   I1(2)
+  22    2   7 I        C   E            I2
+  23   17   1 I    ( 1)AM  E            IARY(4)
+  24    3   1 I        C   E            IBUF
+  25          I    ( 1) MU E        1   ICORE(1)
+  26          I         MU E            ICP
+  27   17   2 I        A U E            ID
+  28          I        A?U E            IDEF
+  29    2  13 I        C   E            IED
+  30          I        A U E            IED1
+  31          I    ( 1)IM? E        2   IEDT(2)
+  32          I         ?U E            IF
+  33          I    ( 1)I?? E        2   IFED(2)
+  34          I         MU E            IFOUND
+  35    2  12 I        C   E            IGPTT
+  36    2  11 I        C   E            IMPT
+  37          I        AMU E            IP
+  38          I         M? E            IPM
+  39          I    ( 1)  U E        3   IRY(3)
+  40          I    ( 1) ?U E        4   ISAVE(4)
+  41    2   6 I        CMU E            ISIL
+  42          I         MU E            K
+  43    1   3 I        C U E            LCORE
+  44         s     ( 3)  U              MESAGE
+     (I4E,I4E,I4A)
+     (   ,   ,I4E)
+  45    2   8 I        C   E            MPT
+  46          I    ( 1)I?? E        2   NAME(2)
+  47    3   2 I        C U E            NOUT
+  48    1   2 I        C U E            NROW1
+  49          I         MU E            NS
+  50    2   3 I        CMU E            OLD
+  51         s     ( 7)  U              READ
+     (ALT,ALT,I4V,I4V,I4E,I4E,R4V)
+     (   ,   ,   ,R4L,   ,   ,   )
+  52    2   5 I        C?U E            SIL
+**-- END OF SYMBOL TABLE

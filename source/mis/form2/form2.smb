@@ -1,0 +1,16 @@
+**++ Symbol table for subprogram FORM2 in file mis/form2.f90
+     produced by SPAG     8.01RF-40 at 14:47:10 on  2 Dec 2023
+   0         X             K             mis/form2.f90,0000002,0000020
+   1         C     / 3/ ??         84   /TRDXX/IFILK,IFILM,IFILB
+   2         S     ( 5) ??          3   FORM2(UDDIP1,UDIPRM,UIPRM,PIPRM,IBUF)
+   3    2   5 I    ( 1)A?? E            IBUF(1)
+   4    1   3 I    ( 1)C?? E        7   IFILB(7)
+   5    1   1 I    ( 1)C?? E        7   IFILK(7)
+   6    1   2 I    ( 1)C?? E        7   IFILM(7)
+   7         s     ( 4)  U              MATVEC
+     (R4L,R4L,I4L,I4A)
+   8    2   4 R    ( 1)A?? E            PIPRM(1)
+   9    2   1 R    ( 1)A?? E            UDDIP1(1)
+  10    2   2 R    ( 1)A?? E            UDIPRM(1)
+  11    2   3 R    ( 1)A?? E            UIPRM(1)
+**-- END OF SYMBOL TABLE

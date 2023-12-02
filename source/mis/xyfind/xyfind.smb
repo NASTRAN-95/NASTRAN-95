@@ -1,0 +1,50 @@
+**++ Symbol table for subprogram XYFIND in file mis/xyfind.f90
+     produced by SPAG     8.01RF-40 at 14:46:45 on  2 Dec 2023
+   0         X             K             mis/xyfind.f90,0000002,0000103
+   1         C     /28/ MU       3200   /XYWORK/FILE,TCURVE,NTOPS,PRINT,IFILE,XAXIS,NBOTS,PLOT,VECTOR,YAXIS,VECID,PUNCH,MAJOR,YTAXIS,SUBC,CENTER,RANDOM,YBAXIS,IDIN,BUF,IVALUE,IAT,IDOUT,OUTOPN,STEPS,NAT,PAPLOT,KNT
+   2         C     / 1/  U          4   /ZZZZZZ/Z
+   3    1  20 R    ( 1)C   E      100   BUF(100)
+   4    1  16 R        C   E            CENTER
+   5          I        I?? E            EOR
+   6    1   1 I        C U E            FILE
+   7          I         ?? E            FLAG
+   8         s     ( 2)  U              FWDREC
+     (ALT,I4V)
+   9    1  22 I        C   E            IAT
+  10    1  19 I    ( 1)C?U E      153   IDIN(153)
+  11    1  23 I    ( 1)C   E      300   IDOUT(300)
+  12   39   2 I        AMU E            IDZ
+  13    1   5 I        C?? E            IFILE
+  14          I         MU E            ISAV
+  15          I         MU E            ITEMP
+  16    1  21 I    ( 1)C   E       60   IVALUE(60)
+  17          I         MU E            K
+  18    1  28 I        C U E            KNT
+  19   39   1 I    ( 1)A   E            MAJID(11)
+  20    1  13 I        C U E            MAJOR
+  21    1  26 I        C   E            NAT
+  22    1   7 I        C   E            NBOTS
+  23    1   3 I        C   E            NTOPS
+  24    1  24 R        C   E            OUTOPN
+  25    1  27 R        C   E            PAPLOT
+  26    1   8 R        C   E            PLOT
+  27    1   4 R        C   E            PRINT
+  28    1  12 R        C   E            PUNCH
+  29    1  17 L        C U E            RANDOM
+  30         s     ( 7)  U              READ
+     (ALT,ALT,I4V,I4L,I4E,I4E,I4V)
+  31          L         MU E            RETRY
+  32         s     ( 1)  U              REWIND
+     (I4V)
+  33    1  25 R        C   E            STEPS
+  34    1  15 I    ( 1)CMU E        5   SUBC(5)
+  35    1   2 R    ( 1)C   E       32   TCURVE(32)
+  36    1  11 I    ( 1)CM  E        5   VECID(5)
+  37    1   9 I        C U E            VECTOR
+  38    1   6 R    ( 1)C   E       32   XAXIS(32)
+  39         S     ( 2) MU         60   XYFIND(MAJID,IDZ)
+  40    1  10 R    ( 1)C   E       32   YAXIS(32)
+  41    1  18 R    ( 1)C   E       32   YBAXIS(32)
+  42    1  14 R    ( 1)C   E       32   YTAXIS(32)
+  43    2   1 I    ( 1)C U E        1   Z(1)
+**-- END OF SYMBOL TABLE

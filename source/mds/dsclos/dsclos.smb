@@ -1,0 +1,7 @@
+**++ Symbol table for subprogram DSCLOS in file mds/dsclos.f90
+     produced by SPAG     8.01RF-40 at 14:46:34 on  2 Dec 2023
+   0         X             K             mds/dsclos.f90,0000002,0000009
+   1         S     ( 1)  U          2   DSCLOS(IUNIT)
+   2    1   1 I        A U E            IUNIT
+   3          ?         MU I            NUMCLS
+**-- END OF SYMBOL TABLE

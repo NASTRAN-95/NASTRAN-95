@@ -1,0 +1,210 @@
+**++ Symbol table for subprogram VDRB in file mis/vdrb.f90
+     produced by SPAG     8.01RF-40 at 14:47:06 on  2 Dec 2023
+   0         X             K             mis/vdrb.f90,0000002,0000833
+   1         C     /16/  U         64   /BITPOS/UM,UO,UR,USG,USB,UL,UA,UF,US,UN,UG,UE,UP,UNE,UFE,UD
+   2         C     / 6/ MU         32   /BLANK/APP,FORM,SORT2,OUTPUT,SDR2,IMODE
+   3         C     / 1/            20   /CONDAS/CONSTS
+   4         C     / 5/ ??         20   /NAMES/RD,RDREW,WRT,WRTREW,CLSREW
+   5         C     / 6/  U        152   /SYSTEM/SYSBUF,XX,DATE,TIME,DUM19,AXIF
+   6         C     / 1/  U        128   /TWO/TWO
+   7         C     / 4/ M          16   /UNPAKX/QTYPE2,I2,J2,INCR2
+   8         C     /41/ MU        404   /VDRCOM/VDRCOM,IDISP,IVEL,IACC,ISPCF,ILOADS,ISTR,IELF,IADISP,IAVEL,IAACC,IPNL,ITTL,ILSYM,IFROUT,IDLOAD,CASECC,EQDYN,USETD,INFILE,OEIGS,PP,XYCDB,PNL,OUTFLE,OPNL1,SCR1,SCR2,BUF1,BUF2,BUF3,NAM,BUF,MASKS,CEI,FRQ,TRN,DIRECT,XSET0,VDRREQ,MODAL
+   9         C     / 1/ MU          4   /ZZZZZZ/Z
+  10         I?    ( 1)  U I            ABS
+  11         fI    ( 2)  UXE            ANDF
+     (I4V,I4E)
+  12    2   1 I    ( 1)C U E        2   APP(2)
+  13         I?    ( 2)  U I            ATAN2
+  14    5   6 I        C U E            AXIF
+  15          I         MU E            BRANCH
+  16    8  33 I    ( 1)CMU E       50   BUF(50)
+  17    8  29 I        C?U E            BUF1
+  18    8  30 I        C U E            BUF2
+  19    8  31 I        C U E            BUF3
+  20          R    ( 1) MU E       50   BUFR(50)
+  21    8  17 I        C?? E            CASECC
+  22    8  35 I    ( 1)C U E        2   CEI(2)
+  23         s     ( 2)  U              CLOSE
+     (I4V,R4V)
+  24    4   5 R        C?? E            CLSREW
+  25          R         ?? E            CLSRRW
+  26          I         M? E            CODE
+  27    3   1 R    ( 1)C   E        5   CONSTS(5)
+  28    5   3 I    ( 1)C U E        3   DATE(3)
+  29          I         MU E            DEST
+  30          R         MU E            DIFF
+  31          R         MU E            DIFF1
+  32    8  38 I    ( 1)C U E        2   DIRECT(2)
+  33    5   5 R    ( 1)C   E       19   DUM19(19)
+  34          I         MU E            EOF
+  35    8  18 I        C?U E            EQDYN
+  36          I         M? E            FILE
+  37          I         ?? E            FLAG
+  38         s     ( 2)  U              FNAME
+     (I4V,I4A)
+  39    2   2 I    ( 1)C U E        2   FORM(2)
+  40          I         MU E            FORMAT
+  41    8  36 I    ( 1)C U E        2   FRQ(2)
+  42          I         MU E            FSETNO
+  43         s     ( 2)  U              FWDREC
+     (ALT,I4V)
+  44         s     ( 3)  U              GOPEN
+     (I4V,I4L,I4E)
+  45          I         MU E            GPTYPE
+  46          I         MU E            I
+  47    7   2 I        CM  E            I2
+  48    8  11 I        C U E            IAACC
+  49         II    ( 1)  U I            IABS
+  50    8   4 I        C U E            IACC
+  51    8   9 I        C U E            IADISP
+  52    8  10 I        C U E            IAVEL
+  53          I         MU E            ICC
+  54          I         MU E            ID
+  55    8   2 I        C U E            IDISP
+  56    8  16 I        C U E            IDLOAD
+  57    8   8 I        C U E            IELF
+  58          I        I U E            IESE
+  59    8  15 I        C U E            IFROUT
+  60          I        I U E            IGPF
+  61          I         MU E            ILIST
+  62    8   6 I        C U E            ILOADS
+  63    8  14 I        C U E            ILSYM
+  64    2   6 I        C U E            IMODE
+  65          I         MU E            INCORE
+  66    7   4 I        CM  E            INCR2
+  67  179   1 I        A?U E            INFIL
+  68    8  20 I        C   E            INFILE
+  69    8  12 I        C U E            IPNL
+  70          I        I U E            IREIG
+  71          I         MU E            IREQ
+  72  179   3 I        A U E            IREQQ
+  73          I         MU E            IREQX
+  74          I         MU E            ISET
+  75          I         MU E            ISETF
+  76          I         MU E            ISETNF
+  77          I         MU E            ISETNO
+  78    8   5 I        C U E            ISPCF
+  79    8   7 I        C U E            ISTR
+  80          I         MU E            ITEMP
+  81    8  13 I        C U E            ITTL
+  82          I         MU E            IUSETD
+  83          I         MU E            IVEC
+  84          I         MU E            IVECN
+  85    8   3 I        C U E            IVEL
+  86          I         MU E            IX
+  87          I         MU E            IXSET
+  88          I         MU E            IXSETN
+  89          I         MU E            J
+  90    7   3 I        CM  E            J2
+  91          I         MU E            JCOUNT
+  92          I         MU E            JHARM
+  93          I         MU E            JLIST
+  94          I         MU E            K
+  95          I         MU E            KCOUNT
+  96          I         MU E            KFRQ
+  97          I         MU E            KHI
+  98          I         MU E            KLO
+  99          I         MU E            KN
+ 100          I         MU E            KTYPE
+ 101          I         M  E            KTYPEX
+ 102          I         MU E            KWDS
+ 103          I         MU E            KX
+ 104          I         MU E            L
+ 105          I         MU E            M
+ 106          I         M? E            M8
+ 107    8  34 I    ( 1)C?U E        6   MASKS(6)
+ 108          I    ( 1) MU E        7   MCB(7)
+ 109         s     ( 3)  U              MESAGE
+     (I4E,I4E,I4A)
+     (   ,   ,I4E)
+ 110         I?    ( 2)  U I            MOD
+ 111    8  41 I    ( 1)C U E        2   MODAL(2)
+ 112          I         M? E            MSKUD
+ 113          I         M? E            MSKUE
+ 114          I         MU E            N
+ 115    8  32 I    ( 1)C?? E        2   NAM(2)
+ 116          I         MU E            NBREP
+ 117          I         MU E            NBRMOD
+ 118          I         ?U E            NCC
+ 119          I         M? E            NCORE
+ 120          I         ?U E            NEQD
+ 121          I         MU E            NEQDYN
+ 122          I         MU E            NLIST
+ 123          I         MU E            NROWS
+ 124          I         MU E            NSET
+ 125          I         MU E            NSETF
+ 126          I         MU E            NUSETD
+ 127          I         MU E            NVECTS
+ 128          I         MU E            NWDS
+ 129          I         MU E            NXSET
+ 130    8  21 I        C?U E            OEIGS
+ 131          I         MU E            OHARMS
+ 132          R         MU E            OMEGA
+ 133         s     ( 4)  U              OPEN
+     (ALT,I4V,I4L,R4V)
+ 134    8  26 R        C   E            OPNL1
+ 135  179   2 I        A?U E            OUTFL
+ 136    8  25 R        C   E            OUTFLE
+ 137    2   4 I        CM  E            OUTPUT
+ 138    8  24 R        C   E            PNL
+ 139    8  22 I        C?U E            PP
+ 140    7   1 I        CM  E            QTYPE2
+ 141          R          U E            RADDEG
+ 142    4   1 R        C   E            RD
+ 143    4   2 R        C?? E            RDREW
+ 144         s     ( 1)  U              RDTRL
+     (I4A)
+ 145         s     ( 7)  U              READ
+     (ALT,ALT,I4V,I4A,I4E,I4E,I4V)
+ 146          R         MU E            REDNER
+ 147          I         MU E            RET
+ 148          I         MU E            RETX
+ 149    8  27 R        C   E            SCR1
+ 150    8  28 R        C   E            SCR2
+ 151    2   5 I        CM  E            SDR2
+ 152          I         MU E            SETNO
+ 153          I         MU E            SILD
+ 154    2   3 I        CM  E            SORT2
+ 155         I?    ( 1)  U I            SQRT
+ 156    5   1 I        C   E            SYSBUF
+ 157    5   4 I        C U E            TIME
+ 158    8  37 I    ( 1)C U E        2   TRN(2)
+ 159    6   1 I    ( 1)C U E       32   TWO(32)
+ 160          R          U E            TWOPI
+ 161    1   7 R        C   E            UA
+ 162    1  16 I        C U E            UD
+ 163    1  12 I        C U E            UE
+ 164    1   8 R        C   E            UF
+ 165    1  15 R        C   E            UFE
+ 166    1  11 R        C   E            UG
+ 167    1   6 R        C   E            UL
+ 168    1   1 R        C   E            UM
+ 169    1  10 R        C   E            UN
+ 170    1  14 R        C   E            UNE
+ 171         s     ( 3)  U              UNPACK
+     (ALT,I4V,I4L)
+ 172    1   2 R        C   E            UO
+ 173    1  13 R        C   E            UP
+ 174    1   3 R        C   E            UR
+ 175    1   9 R        C   E            US
+ 176    1   5 R        C   E            USB
+ 177    8  19 I        C?U E            USETD
+ 178    1   4 R        C   E            USG
+ 179         S     ( 3) ?U        624   VDRB(INFIL,OUTFL,IREQQ)
+ 180    8   1 I    ( 1)C   E        1   VDRCOM(1)
+ 181    8  40 I        C   E            VDRREQ
+ 182          I         MU E            WORD
+ 183         s     ( 4)  U              WRITE
+     (I4V,I4A,I4E,I4E)
+     (   ,I4E,   ,   )
+ 184    4   3 R        C   E            WRT
+ 185    4   4 R        C?? E            WRTREW
+ 186         s     ( 1)  U              WRTTRL
+     (I4A)
+ 187    8  39 I        C U E            XSET0
+ 188          I         MU E            XSETNO
+ 189    5   2 R    ( 1)C   E       13   XX(13)
+ 190    8  23 R        C   E            XYCDB
+ 191    9   1 I    ( 1)CMU E        1   Z(1)
+ 192          R    ( 1) MU E        1   ZZ(1)
+**-- END OF SYMBOL TABLE

@@ -1,0 +1,21 @@
+**++ Symbol table for subprogram ALG17 in file mis/alg17.f90
+     produced by SPAG     8.01RF-40 at 14:46:47 on  2 Dec 2023
+   0         X             K             mis/alg17.f90,0000002,0000044
+   1         S     ( 6)  U         34   ALG17(ISTAK,PLTSZE,ITRIG,TITLE,IKDUM,IFPLOT)
+   2          R         MU E            BAL
+   3    1   6 I        A   E            IFPLOT
+   4    1   5 I        A U E            IKDUM
+   5    1   1 I        A U E            ISTAK
+   6    1   3 I        A U E            ITRIG
+   7    1   2 R        A U E            PLTSZE
+   8          R         M  E            PLTTIT
+   9    1   4 R    ( 1)A   E            TITLE(18)
+  10          R         MU E            XBACK1
+  11          R         M  E            XBACK2
+  12          R         MU E            XLEN1
+  13          R         M  E            XLEN2
+  14          R         MU E            YBACK1
+  15          R         M  E            YBACK2
+  16          R         MU E            YLEN1
+  17          R         M  E            YLEN2
+**-- END OF SYMBOL TABLE

@@ -1,0 +1,14 @@
+**++ Symbol table for subprogram EMGSOC in file mds/emgsoc.f90
+     produced by SPAG     7.61RG-40 at 01:00:00 on 21 Mar 2022
+   0         X             K             mds/emgsoc.f90,0000002,0000028
+   1         C     / 1/  U          4   /MACHIN/MACH
+   2         C     / 1/ ??          4   /ZZEMGX/IXXX
+   3         S     ( 3) M           3   EMGSOC(ICORE,NCORE,HEAT)
+   4    3   3 R        A   E            HEAT
+   5    3   1 I        AM  E            ICORE
+   6    2   1 I        C?? E            IXXX
+   7         fI    ( 1)  U E            KORSZ
+     (I4V)
+   8    1   1 I        C U E            MACH
+   9    3   2 I        AM  E            NCORE
+**-- END OF SYMBOL TABLE

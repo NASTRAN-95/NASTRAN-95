@@ -1,0 +1,26 @@
+**++ Symbol table for subprogram RZINTD in file mis/rzintd.f90
+     produced by SPAG     8.01RF-40 at 14:47:15 on  2 Dec 2023
+   0         X             K             mis/rzintd.f90,0000002,0000036
+   1         ID    ( 1)  U I            DABS
+   2          D         MU E            DETJ
+   3          D         MU E            DRDETA
+   4          D         MU E            DRDXI
+   5          D         MU E            DZDETA
+   6          D         MU E            DZDXI
+   7          D    ( 1) MU E        3   H(3)
+   8          I         MU E            III
+   9   18   1 I        A U E            IP
+  10   18   2 I        A U E            IQ
+  11          I         MU E            JJJ
+  12   18   5 I        A U E            NGRIDS
+  13          I         MU E            NPT
+  14          D    ( 1) MU E        3   PT(3)
+  15   18   3 D    ( 1)A U E            R(4)
+  16          D         MU E            RR
+  17          D         MU E            RRP
+  18         FD    ( 5) MU E       26   RZINTD(IP,IQ,R,Z,NGRIDS)
+  19          D         MU E            XINT
+  20   18   4 D    ( 1)A U E            Z(4)
+  21          D         MU E            ZZ
+  22          D         MU E            ZZQ
+**-- END OF SYMBOL TABLE

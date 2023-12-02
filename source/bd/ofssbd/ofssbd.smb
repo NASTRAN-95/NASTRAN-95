@@ -1,0 +1,7 @@
+**++ Symbol table for subprogram OFSSBD in file bd/ofssbd.f90
+     produced by SPAG     8.01RF-40 at 14:46:31 on  2 Dec 2023
+   0         X             K             bd/ofssbd.f90,0000002,0000011
+   1         C     / 1/D          120   /OFSS1/C1
+   2    1   1 I    ( 1)D   E       30   C1(30)
+   3         B                          OFSSBD
+**-- END OF SYMBOL TABLE

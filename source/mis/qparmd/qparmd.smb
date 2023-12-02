@@ -1,0 +1,74 @@
+**++ Symbol table for subprogram QPARMD in file mis/qparmd.f90
+     produced by SPAG     8.01RF-40 at 14:47:09 on  2 Dec 2023
+   0         X             K             mis/qparmd.f90,0000002,0000551
+   1         C     / 8/ MU         84   /BLANK/OP,OUTD,IND1,IND2,OUTC,INC1,INC2,FLAG
+   2         C     / 8/  U         32   /ILXXD/IL1,IL2,IL3,IL4,IL5,IL6,IL7,IL8
+   3         C     / 5/ MU        148   /SYSTEM/IBUF,NOUT,NOGO,DUMMY,KSYS37
+   4         C     / 3/  U         77   /XMSSG/UFM,UWM,UIM
+   5         C     / 1/ MU          4   /XVPS/VPS
+   6          I        I U E            BLNK
+   7         ID    ( 1)  U I            DABS
+   8         ID    ( 2)  U I            DATAN2
+   9         ID    ( 1)  U I            DCOS
+  10          D         MU E            DENOM
+  11         ID    ( 1)  U I            DEXP
+  12         ID    ( 1)  U I            DLOG
+  13         ID    ( 1)  U I            DLOG10
+  14         ID    ( 1)  U I            DSIN
+  15         ID    ( 1)  U I            DSQRT
+  16         ID    ( 1)  U I            DTAN
+  17    3   4 R    ( 1)C   E       33   DUMMY(33)
+  18    1   8 I        CMU E            FLAG
+  19         s     ( 2)  U              FNDPAR
+     (I4E,I4L)
+  20          I         MU E            I
+  21    3   1 I        C   E            IBUF
+  22          I         MU E            IERR
+  23          I        IM? E            IFIRST
+  24          I         MU E            IFLAG
+  25          I    ( 1) ?? E        8   IL(8)
+  26    2   1 I        C   E            IL1
+  27    2   2 I        C U E            IL2
+  28    2   3 I        C U E            IL3
+  29    2   4 I        C U E            IL4
+  30    2   5 I        C U E            IL5
+  31    2   6 I        C U E            IL6
+  32    2   7 I        C U E            IL7
+  33    2   8 I        C U E            IL8
+  34          I    ( 1)I U E        8   ILX(8)
+  35    1   6 D    ( 1)C U E        2   INC1(2)
+  36    1   7 D    ( 1)C U E        2   INC2(2)
+  37    1   3 D        CMU E            IND1
+  38    1   4 D        CMU E            IND2
+  39          I         MU E            IOP
+  40          I         MU E            IRTN3
+  41          I         MU E            IRTN4
+  42          I         MU E            IRTN6
+  43          I    ( 1) MU E        1   IVPS(1)
+  44          I         MU E            J
+  45    3   5 I        CMU E            KSYS37
+  46         s     ( 3)  U              MESAGE
+     (I4E,I4E,I4A)
+  47          I    ( 1)IMU E        2   NAM(2)
+  48          I    ( 1)I?? E        2   NAME(2)
+  49    3   3 I        CM  E            NOGO
+  50    3   2 I        C U E            NOUT
+  51    1   1 I    ( 1)C U E        2   OP(2)
+  52          I    ( 1)I U E       50   OPCODE(50)
+  53    1   5 D    ( 1)CMU E        2   OUTC(2)
+  54    1   2 D        CMU E            OUTD
+  55         s     ( 1)  U              PAGE2
+     (I4V)
+  56          R        I U E            PARM
+  57         s           U              PEXIT
+  58          L         MU E            PRT
+  59         S                    315   QPARMD
+  60         s     ( 2)  U              SSWTCH
+     (I4E,I4V)
+  61          R    ( 1) MU E        2   TEMP(2)
+  62          D         MU E            TEMPD
+  63    4   1 C*23     C   E            UFM*23
+  64    4   3 C*29     C U E            UIM*29
+  65    4   2 C*25     C U E            UWM*25
+  66    5   1 R    ( 1)CMU E        1   VPS(1)
+**-- END OF SYMBOL TABLE

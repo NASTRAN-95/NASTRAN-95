@@ -1,0 +1,11 @@
+!*==/home/marcusmae/nasa/nastran/SPAGged/C_IFPDTA.f90  created by SPAG 8.01RF at 14:46 on  2 Dec 2023
+MODULE C_IFPDTA
+   REAL, DIMENSION(52) :: D1
+   REAL, DIMENSION(3) :: D2
+   REAL, DIMENSION(6) :: D3
+   REAL, DIMENSION(18) :: D4
+   INTEGER, DIMENSION(2) :: Id
+   INTEGER :: Kn, Knt, Nopen
+   INTEGER, DIMENSION(50) :: M, Mf
+   INTEGER, DIMENSION(35) :: M1, M1f
+END MODULE C_IFPDTA

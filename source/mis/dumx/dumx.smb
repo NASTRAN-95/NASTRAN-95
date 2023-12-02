@@ -1,0 +1,25 @@
+**++ Symbol table for subprogram DUMX in file mis/dumx.f90
+     produced by SPAG     8.01RF-40 at 14:46:54 on  2 Dec 2023
+   0         X             K             mis/dumx.f90,0000002,0000088
+   1         C     / 2/  U          8   /SYSTEM/IBUF,NOUT
+   2         C     / 2/  U         48   /XMSSG/UFM,UWM
+   3         E     ( 1)                 DUM1(ICORE)
+   4         E     ( 1)                 DUM2(ICORE)
+   5         E     ( 1)                 DUM3(ICORE)
+   6         E     ( 1)                 DUM4(ICORE)
+   7         E     ( 1)                 DUM5(ICORE)
+   8         E     ( 1)                 DUM6(ICORE)
+   9         E     ( 1)                 DUM7(ICORE)
+  10         E     ( 1)                 DUM8(ICORE)
+  11         E     ( 1)                 DUM9(ICORE)
+  12         S                     23   DUMX
+  13    1   1 I        C   E            IBUF
+  14          I        A   E            ICORE
+  15          I    ( 1)IMU E        9   II(9)
+  16          I         MU E            J
+  17          I        I U E            JJ
+  18          I    ( 1)I U E        9   KK(9)
+  19    1   2 I        C U E            NOUT
+  20    2   1 C*23     C   E            UFM*23
+  21    2   2 C*25     C U E            UWM*25
+**-- END OF SYMBOL TABLE

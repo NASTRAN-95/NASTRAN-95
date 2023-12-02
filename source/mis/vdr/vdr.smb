@@ -1,0 +1,64 @@
+**++ Symbol table for subprogram VDR in file mis/vdr.f90
+     produced by SPAG     8.01RF-40 at 14:46:47 on  2 Dec 2023
+   0         X             K             mis/vdr.f90,0000002,0000053
+   1         C     / 6/ MU         32   /BLANK/APP,FORM,SORT2,OUTPUT,SDR2,IMODE
+   2         C     / 2/  U        276   /SYSTEM/DUMI,SSCELL
+   3         C     /41/ MU        404   /VDRCOM/VDRCOM,IDISP,IVEL,IACC,ISPCF,ILOADS,ISTR,IELF,IADISP,IAVEL,IAACC,IPNL,ITTL,ILSYM,IFROUT,IDLOAD,CASECC,EQDYN,USETD,INFILE,OEIGS,PP,XYCDB,PNL,OUTFLE,OPNL1,SCR1,SCR2,BUF1,BUF2,BUF3,NAM,BUF,MASKS,CEI,FRQ,TRN,DIRECT,XSET0,VDRREQ,MODAL
+   4    1   1 I    ( 1)C U E        2   APP(2)
+   5    3  33 I    ( 1)CM  E       50   BUF(50)
+   6    3  29 R        C   E            BUF1
+   7    3  30 R        C   E            BUF2
+   8    3  31 R        C   E            BUF3
+   9    3  17 I        CM  E            CASECC
+  10    3  35 R    ( 1)C   E        2   CEI(2)
+  11    3  38 R    ( 1)C   E        2   DIRECT(2)
+  12    2   1 R    ( 1)C   E       68   DUMI(68)
+  13    3  18 R        C   E            EQDYN
+  14    1   2 R    ( 1)C   E        2   FORM(2)
+  15    3  36 R    ( 1)C   E        2   FRQ(2)
+  16          I         MU E            I
+  17    3  11 I        C   E            IAACC
+  18    3   4 I        C   E            IACC
+  19    3   9 I        C?? E            IADISP
+  20    3  10 I        C   E            IAVEL
+  21    3   2 I        C   E            IDISP
+  22    3  16 I        C   E            IDLOAD
+  23    3   8 I        C   E            IELF
+  24    3  15 I        C   E            IFROUT
+  25    3   6 I        C   E            ILOADS
+  26    3  14 I        C   E            ILSYM
+  27    1   6 I        C   E            IMODE
+  28    3  20 I        C?U E            INFILE
+  29    3  12 I        C?? E            IPNL
+  30    3   5 I        C   E            ISPCF
+  31    3   7 I        C   E            ISTR
+  32    3  13 I        C   E            ITTL
+  33    3   3 I        C   E            IVEL
+  34    3  34 I    ( 1)C   E        6   MASKS(6)
+  35          I    ( 1) MU E        7   MCB(7)
+  36    3  41 I    ( 1)C   E        2   MODAL(2)
+  37    3  32 I    ( 1)C   E        2   NAM(2)
+  38    3  21 R        C   E            OEIGS
+  39    3  26 I        C?? E            OPNL1
+  40    3  25 I        C?? E            OUTFLE
+  41    1   4 I        CM  E            OUTPUT
+  42    3  24 I        C?U E            PNL
+  43    3  22 R        C   E            PP
+  44         s     ( 1)  U              RDTRL
+     (I4A)
+  45    3  27 R        C   E            SCR1
+  46    3  28 R        C   E            SCR2
+  47    1   5 I        CM  E            SDR2
+  48    1   3 I        CM  E            SORT2
+  49    2   2 I        C U E            SSCELL
+  50    3  37 I    ( 1)C U E        2   TRN(2)
+  51    3  19 R        C   E            USETD
+  52         S                     17   VDR
+  53         s           U              VDRA
+  54         s     ( 3)  U              VDRB
+     (I4V,I4V,I4V)
+  55    3   1 R        C   E            VDRCOM
+  56    3  40 I        C U E            VDRREQ
+  57    3  39 R        C   E            XSET0
+  58    3  23 R        C   E            XYCDB
+**-- END OF SYMBOL TABLE

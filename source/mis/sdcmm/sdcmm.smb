@@ -1,0 +1,65 @@
+**++ Symbol table for subprogram SDCMM in file mis/sdcmm.f90
+     produced by SPAG     8.01RF-40 at 14:46:41 on  2 Dec 2023
+   0         X             K             mis/sdcmm.f90,0000002,0000176
+   1         C     / 4/ ??         24   /NAMES/KRD2,KRR0,SKPN,KCL2
+   2         C     / 4/ ?U         20   /SDCQ/NERR,NOGLEV,BUF,FILMSG
+   3         C     / 1/           276   /SYSTEM/KSYSTM
+   4         C     / 2/  U         48   /XMSSG/UFM,UWM
+   5    2   3 I        C?U E            BUF
+   6          I         MU E            BUF2
+   7         s     ( 2)  U              CLOSE
+     (I4V,I4V)
+   8          C*4  ( 1)  U E        6   CTYP(6)*4
+   9          I    ( 1)I U E       14   ERR(14)
+  10          I    ( 1)I U E        8   EXIT(8)
+  11    2   4 I        C?? E            FILMSG
+  12         s     ( 4)  U              FREAD
+     (I4V,I4A,I4E,I4E)
+  13          I    ( 1) MU E        4   GPID(4)
+  14   44   6 I        A?? E            GPL
+  15          I         MU E            I
+  16          I        I U E            IBLK
+  17          I    ( 1) MU E        3   IN(3)
+  18          I    ( 1)I U E        4   INER(4)
+  19          I          U E            IOUT
+  20          I         MU E            IRET
+  21          I          U E            ISUBST
+  22          I         MU E            J
+  23          I         MU E            K
+  24    1   4 I        C?? E            KCL2
+  25    1   1 I        C   E            KRD2
+  26    1   2 I        C?? E            KRR0
+  27    3   1 I    ( 1)C   E       69   KSYSTM(69)
+  28          I         MU E            L
+  29   44   4 I        A U E            MATRIX
+  30         s     ( 3)  U              MESAGE
+     (I4E,I4V,I4A)
+  31   44   2 I        A?? E            MSET
+  32   44   3 I        A?U E            MSZE
+  33         s     ( 9)  U              MXCID
+     (ALT,I4A,I4V,I4V,I4V,I4V,I4V,I4V,I4V)
+  34         s     ( 8)  U              MXCIDS
+     (ALT,I4A,I4V,I4V,I4V,I4V,I4V,I4A)
+  35          I    ( 1) MU E        7   N(7)
+  36          I    ( 1)I?? E        2   NAME(2)
+  37          I          U E            NBUFSZ
+  38    2   1 I    ( 1)C   E        2   NERR(2)
+  39    2   2 I        C U E            NOGLEV
+  40          I         MU E            NSTART
+  41          I         MU E            NWDS
+  42         s     ( 4)  U              OPEN
+     (ALT,I4V,I4L,I4V)
+  43         s     ( 1)  U              PAGE2
+     (I4E)
+  44         S     ( 8) ?U         75   SDCMM(Z,MSET,MSZE,MATRIX,USET,GPL,SIL,SUBNAM)
+  45   44   7 I        A?? E            SIL
+  46    1   3 R    ( 1)C   E        3   SKPN(3)
+  47   44   8 I    ( 1)A?? E            SUBNAM(2)
+  48          I    ( 1) M  E        6   TYP(6)
+  49    4   1 C*23     C   E            UFM*23
+  50   44   5 I        A?? E            USET
+  51    4   2 C*25     C U E            UWM*25
+  52          R    ( 1)  U E        4   XGPID(4)
+  53          R    ( 1)  U E        3   XIN(3)
+  54   44   1 I    ( 1)A?U E            Z(1)
+**-- END OF SYMBOL TABLE

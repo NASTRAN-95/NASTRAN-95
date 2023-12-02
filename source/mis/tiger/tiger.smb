@@ -1,0 +1,82 @@
+**++ Symbol table for subprogram TIGER in file mis/tiger.f90
+     produced by SPAG     8.01RF-40 at 14:46:55 on  2 Dec 2023
+   0         X             K             mis/tiger.f90,0000002,0000145
+   1         C     / 3/  U         12   /BANDA/IBUF1,NOMPC,NODEP
+   2         C     / 2/  U         28   /BANDB/DUM6B,KDIM
+   3         C     / 3/ MU         36   /BANDD/DUM,NEQ,NEQR
+   4         C     / 7/ MU         40   /BANDS/NN,MM,DUM2S,MAXGRD,MAXDEG,DUM3S,NEDGE
+   5         C     / 2/ ??         16   /GEOMX/GDUM,SCR1
+   6         C     / 4/ ??         20   /NAMES/RD,RDREW,NDUM,REW
+   7         C     / 2/  U          8   /SYSTEM/IBUF,NOUT
+   8         C     / 1/ ??          4   /ZZZZZZ/IZ
+   9         s     ( 4)  U              BPACK
+     (I4A,I4V,I4E,I4E)
+  10         s     ( 4)  U              BUNPAK
+     (I4A,I4V,I4V,I4A)
+  11         fI    ( 3)  U E            BUNPK
+     (I4A,I4V,I4E)
+  12         s     ( 2)  U              CLOSE
+     (I4V,I4V)
+  13    3   1 R    ( 1)C   E        7   DUM(7)
+  14    4   3 R    ( 1)C   E        2   DUM2S(2)
+  15    4   6 R    ( 1)C   E        3   DUM3S(3)
+  16    2   1 R    ( 1)C   E        6   DUM6B(6)
+  17    5   1 R    ( 1)C   E        3   GDUM(3)
+  18          I         MU E            I
+  19    7   1 I        C   E            IBUF
+  20    1   1 I        C U E            IBUF1
+  21   68   1 I    ( 1)A?? E            IG(1)
+  22          I         MU E            IGRID
+  23          I         MU E            II
+  24   68   4 I        A?U E         Z  II3
+  25   68   3 I    ( 2)A?? E            INV(Ii3,1)
+  26          I         M? E            IS
+  27    8   1 I    ( 1)C?? E        1   IZ(1)
+  28          I         MU E            J
+  29          I         MU E            J2
+  30   68   7 I    ( 1)A?U E            JG(1)
+  31          I         MU E            JJ
+  32          I         MU E            K
+  33    2   2 I        C U E            KDIM
+  34          I         MU E            KDIM4
+  35   68   6 I    ( 1)A?U E            KG(1)
+  36          I         MU E            KK
+  37          I         MU E            L
+  38   68   2 I    ( 1)AMU E            LIST(1)
+  39          I         MU E            M
+  40    4   5 I        C?U E            MAXDEG
+  41    4   4 I        C   E            MAXGRD
+  42         s     ( 3)  U              MESAGE
+     (I4V,I4V,R4A)
+  43    4   2 I        C?U E            MM
+  44          I         MU E            MM1
+  45         I?    ( 2)  U I            MOD
+  46          I         MU E            N
+  47    6   3 I    ( 1)C   E        2   NDUM(2)
+  48    4   7 I        CMU E            NEDGE
+  49    3   2 I        CMU E            NEQ
+  50    3   3 I        CMU E            NEQR
+  51    4   1 I        C U E            NN
+  52    1   3 I        C U E            NODEP
+  53    1   2 I        C   E            NOMPC
+  54   68   5 I    ( 1)A?? E            NORIG(1)
+  55    7   2 I        C U E            NOUT
+  56          I         MU E            NP
+  57          I         MU E            NQ
+  58          I         MU E            NTERM
+  59         s     ( 4)  U              OPEN
+     (ALT,I4V,I4L,I4V)
+  60    6   1 I        C   E            RD
+  61    6   2 I        C?? E            RDREW
+  62         s     ( 7)  U              READ
+     (ALT,ALT,I4V,I4V,I4E,I4E,I4V)
+     (   ,   ,   ,I4A,   ,   ,   )
+  63    6   4 I        C?? E            REW
+  64         s     ( 5)  U              SCAT
+     (I4A,I4V,I4A,I4V,I4A)
+  65    5   2 I        C?? E            SCR1
+  66         s     ( 4)  U              SETIG
+     (I4V,I4L,I4A,I4A)
+  67          R    ( 1)I?? E        2   SUB(2)
+  68         S     ( 7) MU         84   TIGER(IG,LIST,INV,II3,NORIG,KG,JG)
+**-- END OF SYMBOL TABLE

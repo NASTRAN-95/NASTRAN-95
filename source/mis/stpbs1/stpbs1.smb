@@ -1,0 +1,24 @@
+**++ Symbol table for subprogram STPBS1 in file mis/stpbs1.f90
+     produced by SPAG     8.01RF-40 at 14:46:50 on  2 Dec 2023
+   0         X             K             mis/stpbs1.f90,0000002,0000047
+   1          R         MU E            A
+   2         I?    ( 1)  U I            ABS
+   3         IR    ( 1)  U I            ALOG
+   4   13   3 R        AMU E            BJ1
+   5   13   4 R        AM  E            BY1
+   6         I?    ( 1)  U I            COS
+   7          R         MU E            E
+   8         s     ( 3)  U              MESAGE
+     (I4E,I4E,I4A)
+   9          I    ( 1)I?? E        2   NAME(2)
+  10   13   2 I        A U E            NCODE
+  11         I?    ( 1)  U I            SIN
+  12         I?    ( 1)  U I            SQRT
+  13         S     ( 4) MU         31   STPBS1(X,NCODE,BJ1,BY1)
+  14          R         MU E            T
+  15          R         MU E            U
+  16          R         MU E            UW
+  17          R         MU E            W
+  18   13   1 R        A U E            X
+  19          R         MU E            Z
+**-- END OF SYMBOL TABLE

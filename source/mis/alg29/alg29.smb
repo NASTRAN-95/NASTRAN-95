@@ -1,0 +1,13 @@
+**++ Symbol table for subprogram ALG29 in file mis/alg29.f90
+     produced by SPAG     8.01RF-40 at 14:46:37 on  2 Dec 2023
+   0         X             K             mis/alg29.f90,0000002,0000021
+   1         S     ( 4) MU         11   ALG29(Y,X,FXY,N)
+   2    1   3 R    ( 1)AMU E            FXY(3)
+   3          I         MU E            J
+   4    1   4 I        A U E            N
+   5          I         MU E            N2
+   6    1   2 R    ( 1)A U E            X(3)
+   7          R         MU E            X1
+   8          R         MU E            X2
+   9    1   1 R    ( 1)A U E            Y(3)
+**-- END OF SYMBOL TABLE

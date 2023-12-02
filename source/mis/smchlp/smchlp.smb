@@ -1,0 +1,61 @@
+**++ Symbol table for subprogram SMCHLP in file mis/smchlp.f90
+     produced by SPAG     7.61RG-40 at 01:00:00 on 21 Mar 2022
+   0         X             K             mis/smchlp.f90,0000004,0000030
+   1          ?          U I            CHLSKY
+   2          ?          U I            IBUF1
+   3          ?          U I            IBUF2
+   4          ?          U I            IDBASE
+   5          ?          U I            IDBMAX
+   6          ?          U I            IERROR
+   7          ?          U I            IIL
+   8          ?          U I            INDEXV
+   9          ?          U I            IOL
+  10          ?          U I            IOLOOP
+  11          ?          U I            IROW1
+  12          ?          U I            IROWN
+  13          ?          U I            ISCR1
+  14          ?          U I            ISKIP
+  15          ?          U I            ISPILL
+  16          ?          U I            ISPREC
+  17          ?          U I            ISYSBF
+  18          ?          U I            IVWRDS
+  19          ?          U I            JRIDX
+  20          ?          U I            JRIDXN
+  21          ?          U I            JROW
+  22          ?          U I            JROWN
+  23          ?          U I            JROWS
+  24          ?          U I            JVIDX
+  25          ?          U I            KCOL
+  26          ?          U I            KFRCOL
+  27          ?          U I            KLSCOL
+  28          ?          U I            KLSROW
+  29          ?          U I            KRIDX
+  30          ?          U I            KRIDXN
+  31          ?          U I            KROW
+  32          ?          U I            KROWN
+  33          ?          U I            KROWS
+  34          ?          U I            KTYPE
+  35          ?          U I            LASCOL
+  36          ?          U I            LCORE
+  37          ?          U I            LLL
+  38          ?          U I            MAXINLOP
+  39          ?          U I            MAXNAC
+  40          ?          U I            MAXNCOL
+  41          ?          U I            MBLK
+  42          ?          U I            MCB
+  43          ?          U I            MEMCOL1
+  44          ?          U I            MEMCOLN
+  45          ?          U I            MEMFRE
+  46          ?          U I            MEMLAS
+  47          ?          U I            MEMLCK
+  48          ?          U I            MINDD
+  49          ?          U I            MOBLK
+  50          ?          U I            NBANDW
+  51          ?          U I            NCOL
+  52          ?          U I            NOUT
+  53          ?          U I            NSPILL
+  54          ?          U I            NVTERM
+  55          ?          U I            OPNSCR
+  56          ?          U I            POWER
+  57         S                      5   SMCHLP
+**-- END OF SYMBOL TABLE

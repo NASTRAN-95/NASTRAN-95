@@ -1,0 +1,40 @@
+**++ Symbol table for subprogram DKI in file mis/dki.f90
+     produced by SPAG     8.01RF-40 at 14:47:20 on  2 Dec 2023
+   0         X             K             mis/dki.f90,0000002,0000076
+   1          D         MU E            ABS1
+   2          D         MU E            AI
+   3          D         MU E            AKKL
+   4          D         MU E            AKMN
+   5          D         MU E            AMKL
+   6          D         MU E            AMM
+   7          D         MU E            AMMN
+   8          D         MU E            ARR
+   9         ID    ( 1)  U I            DABS
+  10         fD    ( 6)  U E            DK100
+     (I4V,R8V,R8V,I4V,I4E,R8A)
+  11         fD    ( 4)  U E            DK211
+     (I4V,R8V,R8V,R8A)
+  12         fD    ( 6)  U E            DK89
+     (I4V,R8V,R8V,I4V,I4E,R8A)
+  13         FD    (10) MU E       62   DKI(I,J,K,L,M,N,IP,IQ,R,Z)
+  14         fD    ( 8)  U E            DKINT
+     (I4V,I4V,R8V,R8V,I4V,I4V,R8A,R8A)
+  15         ID    ( 1)  U I            DLOG
+  16   13   1 I        A?U E            I
+  17         II    ( 1)  U I            IABS
+  18   13   7 I        A U E            IP
+  19   13   8 I        A U E            IQ
+  20          I         MU E            IRR
+  21          I         MU E            ISS
+  22   13   2 I        A?U E            J
+  23   13   3 I        A U E            K
+  24   13   4 I        A U E            L
+  25   13   5 I        A U E            M
+  26          I         MU E            MM
+  27   13   6 I        A U E            N
+  28          I         M? E            NN
+  29   13   9 D    ( 1)A?U E            R(1)
+  30          D         MU E            RD
+  31          D         MU E            XX
+  32   13  10 D    ( 1)A?U E            Z(1)
+**-- END OF SYMBOL TABLE

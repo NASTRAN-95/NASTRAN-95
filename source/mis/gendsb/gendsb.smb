@@ -1,0 +1,153 @@
+**++ Symbol table for subprogram GENDSB in file mis/gendsb.f90
+     produced by SPAG     8.01RF-40 at 14:46:53 on  2 Dec 2023
+   0         X             K             mis/gendsb.f90,0000002,0000332
+   1         C     /10/ ??         88   /AMGMN/MCB,NROW,ND,NE,REFC,FMACH,RFK,TSKJ,ISK,NSK
+   2         C     /59/ ?U        236   /DLBDY/NJ1,NK1,NP,NB,NTP,NBZ,NBY,NTZ,NTY,NTO,NTZS,NTYS,INC,INS,INB,INAS,IZIN,IYIN,INBEA1,INBEA2,INSBEA,IZB,IYB,IAVR,IARB,INFL,IXLE,IXTE,INT121,INT122,IZS,IYS,ICS,IEE,ISG,ICG,IXIJ,IX,IDELX,IXIC,IXLAM,IA0,IXIS1,IXIS2,IA0P,IRIA,INASB,IFLAX,IFLA,ITH1A,ITH2A,ECORE,
+                                                NEXT,SCR1,SCR2,SCR3,SCR4,SCR5,NTBE
+   3         C     / 1/  U          4   /SYSTEM/SYSBUF
+   4         C     / 1/ ??          4   /ZZZZZZ/Z
+   5   19   4 R    ( 1)A U E            CG(1)
+   6          R         M? E            CGR
+   7         s     ( 2)  U              CLOSE
+     (I4V,I4E)
+   8         s     ( 3)  U              DMPFIL
+     (I4V,I4L,I4E)
+   9         s     (12)  U              DPPSB
+     (I4V,I4E,I4V,I4V,R4V,R4V,I4L,I4L,I4A,I4A,X8A,I4L)
+  10   19  12 X    ( 1)AM? E            DPY(1)
+  11   19  11 X    ( 1)AM? E            DPZ(1)
+  12         s     (20)  U              DPZY
+     (I4V,I4V,I4E,I4V,I4V,I4V,I4V,I4L,I4L,I4L,I4L,I4L,I4L,I4L,I4L,I4A,I4A,I4V
+     ,X8A,X8A)
+  13   19  10 X    ( 1)AM? E            DT(1)
+  14         s     (16)  U              DYPZ
+     (I4V,I4V,I4V,I4E,I4V,I4V,I4V,R4V,R4V,R4V,I4L,I4L,I4V,I4V,I4V,X8A)
+  15         s     (13)  U              DZPY
+     (I4V,I4V,I4V,I4E,I4V,I4V,I4V,R4V,R4V,R4V,I4L,I4L,X8A)
+  16    2  52 I        C U E            ECORE
+  17    1   6 R        C?? E            FMACH
+  18         s     ( 4)  U              FREAD
+     (I4V,X8A,I4E,I4E)
+     (   ,I4E,   ,   )
+  19         S     (12) MU        276   GENDSB(NCARAY,NBARAY,SG,CG,NFL,NBEA1,NBEA2,IFLA1,IFLA2,DT,DPZ,DPY)
+  20         s     ( 3)  U              GOPEN
+     (I4V,I4L,I4E)
+  21          I         MU E            I
+  22          I         MU E            I1
+  23          I         MU E            I2
+  24    2  42 I        C   E            IA0
+  25    2  45 I        C   E            IA0P
+  26    2  25 I        C U E            IARB
+  27    2  24 I        C U E            IAVR
+  28          I         MU E            IBUF1
+  29          I         MU E            IBUF2
+  30          I         MU E            IBUF3
+  31          I         MU E            IBUF4
+  32    2  36 I        C   E            ICG
+  33          I         MU E            ICOUNT
+  34    2  33 I        C   E            ICS
+  35    2  39 I        C   E            IDELX
+  36    2  34 I        C   E            IEE
+  37          I         M? E            IFIRST
+  38          I         MU E            IFL
+  39    2  49 I        C   E            IFLA
+  40   19   8 I    ( 1)A U E            IFLA1(1)
+  41   19   9 I    ( 1)A U E            IFLA2(1)
+  42    2  48 I        C   E            IFLAX
+  43          I         MU E            ILAST
+  44    2  16 I        C   E            INAS
+  45    2  47 I        C   E            INASB
+  46    2  15 I        C   E            INB
+  47    2  19 I        C U E            INBEA1
+  48    2  20 I        C   E            INBEA2
+  49    2  13 I        C   E            INC
+  50    2  26 I        C   E            INFL
+  51    2  14 I        C   E            INS
+  52    2  21 I        C   E            INSBEA
+  53    2  29 I        C U E            INT121
+  54    2  30 I        C U E            INT122
+  55    2  46 I        C   E            IRIA
+  56    2  35 I        C   E            ISG
+  57    1   9 I        C   E            ISK
+  58          I         M? E            ITAPE
+  59    2  50 I        C U E            ITH1A
+  60    2  51 I        C U E            ITH2A
+  61    2  38 I        C   E            IX
+  62    2  40 I        C   E            IXIC
+  63    2  37 I        C   E            IXIJ
+  64    2  43 I        C   E            IXIS1
+  65    2  44 I        C   E            IXIS2
+  66    2  41 I        C   E            IXLAM
+  67    2  27 I        C   E            IXLE
+  68    2  28 I        C   E            IXTE
+  69    2  23 I        C U E            IYB
+  70    2  18 I        C   E            IYIN
+  71    2  32 I        C U E            IYS
+  72          I         MU E            IZ
+  73    2  22 I        C U E            IZB
+  74    2  17 I        C   E            IZIN
+  75    2  31 I        C U E            IZS
+  76          I         MU E            J
+  77          I         MU E            J1
+  78          I         MU E            J2
+  79          I         M? E            JBO
+  80          I         MU E            K
+  81          I         MU E            KB
+  82          I         MU E            KS
+  83          I         MU E            KT
+  84          I         MU E            LBO
+  85          I         MU E            LS
+  86          I         MU E            LSO
+  87          I         MU E            LSX
+  88    1   1 I    ( 1)C   E        7   MCB(7)
+  89         s     ( 3)  U              MESAGE
+     (I4E,I4E,I4A)
+  90          I    ( 1)I?? E        2   NAME(2)
+  91    2   4 I        C   E            NB
+  92   19   2 I    ( 1)A?U E            NBARAY(1)
+  93   19   6 I    ( 1)A U E            NBEA1(1)
+  94   19   7 I    ( 1)A U E            NBEA2(1)
+  95          I         MU E            NBOX
+  96          I         MU E            NBUF
+  97          I         MU E            NBXR
+  98    2   7 I        C   E            NBY
+  99    2   6 I        C   E            NBZ
+ 100   19   1 I    ( 1)A?U E            NCARAY(1)
+ 101    1   3 I        C   E            ND
+ 102    1   4 I        C   E            NE
+ 103    2  53 I        C U E            NEXT
+ 104   19   5 I    ( 1)A U E            NFL(1)
+ 105    2   1 I        C   E            NJ1
+ 106    2   2 I        C   E            NK1
+ 107          I         MU E            NLT1
+ 108          I         MU E            NLT2
+ 109    2   3 I        C   E            NP
+ 110    1   2 I        C   E            NROW
+ 111    1  10 I        C   E            NSK
+ 112          I         MU E            NSTRIP
+ 113    2  59 I        C U E            NTBE
+ 114    2  10 I        C   E            NTO
+ 115    2   5 I        C?U E            NTP
+ 116    2   9 I        C?U E            NTY
+ 117    2  12 I        C   E            NTYS
+ 118    2   8 I        C?U E            NTZ
+ 119    2  11 I        C   E            NTZS
+ 120          I         MU E            NYFLAG
+ 121          I         MU E            NZYKB
+ 122          I         MU E            NZYSV
+ 123    1   5 R        C   E            REFC
+ 124    1   7 R        C   E            RFK
+ 125    2  54 I        C?U E            SCR1
+ 126    2  55 I        C?? E            SCR2
+ 127    2  56 I        C?? E            SCR3
+ 128    2  57 I        C?U E            SCR4
+ 129    2  58 I        C?? E            SCR5
+ 130   19   3 R    ( 1)A U E            SG(1)
+ 131          R         M? E            SGR
+ 132    3   1 I        C U E            SYSBUF
+ 133    1   8 R    ( 1)C   E        7   TSKJ(7)
+ 134         s     ( 4)  U              WRITE
+     (I4V,X8A,I4E,I4E)
+     (   ,I4E,   ,   )
+ 135    4   1 I    ( 1)C?? E        1   Z(1)
+**-- END OF SYMBOL TABLE

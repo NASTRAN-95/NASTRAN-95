@@ -1,0 +1,12 @@
+**++ Symbol table for subprogram CDIVID in file mis/cdivid.f90
+     produced by SPAG     8.01RF-40 at 14:46:41 on  2 Dec 2023
+   0         X             K             mis/cdivid.f90,0000002,0000017
+   1    3   1 D    ( 1)A U E            A(1)
+   2    3   2 D    ( 1)AM  E            B(1)
+   3         S     ( 4) MU          6   CDIVID(A,B,D,NCOL)
+   4    3   3 D    ( 1)A U E            D(2)
+   5          D         MU E            DENM
+   6          D         MU E            DTEMP
+   7          I         MU E            I
+   8    3   4 I        A U E            NCOL
+**-- END OF SYMBOL TABLE

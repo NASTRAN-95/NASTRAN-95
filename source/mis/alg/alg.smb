@@ -1,0 +1,78 @@
+**++ Symbol table for subprogram ALG in file mis/alg.f90
+     produced by SPAG     8.01RF-40 at 14:46:58 on  2 Dec 2023
+   0         X             K             mis/alg.f90,0000002,0000081
+   1         C     / 2/ MU          8   /ALGINO/ISCR3,ALGDB
+   2         C     /11/  U         44   /BLANK/APRESS,ATEMP,STRML,PGEOM,IPRTK,IFAIL,SIGN,ZORIGN,FXCOOR,FYCOOR,FZCOOR
+   3         C     / 9/ MU         36   /CONTRL/NANAL,NAERO,NARBIT,LOG1,LOG2,LOG3,LOG4,LOG5,LOG6
+   4         C     / 2/  U          8   /SYSTEM/SYSBUF,NOUT
+   5         C     / 3/ MU         12   /UD3PRT/IPRTC,ISTRML,IPGEOM
+   6         C     / 3/           172   /UDSTR2/NBLDES,STAG,CHORDD
+   7         C     / 3/  U         77   /XMSSG/UFM,UWM,UIM
+   8         C     / 1/ ??          4   /ZZZZZZ/IZ
+   9         S                     49   ALG
+  10         s           U              ALGAN
+  11         s           U              ALGAR
+  12    1   2 I        CMU E            ALGDB
+  13         s     ( 1)  U              ALGPO
+     (I4V)
+  14         s     ( 1)  U              ALGPR
+     (I4V)
+  15    2   1 I        C   E            APRESS
+  16    2   2 I        C   E            ATEMP
+  17    6   3 R    ( 1)C   E       21   CHORDD(21)
+  18         s     ( 2)  U              CLOSE
+     (I4V,I4E)
+  19         s     ( 4)  U              FREAD
+     (I4V,I4A,I4E,I4E)
+     (   ,I4V,   ,   )
+  20    2   9 R        C   E            FXCOOR
+  21    2  10 R        C   E            FYCOOR
+  22    2  11 R        C   E            FZCOOR
+  23         s     ( 3)  U              GOPEN
+     (I4V,I4L,I4E)
+  24          I         MU E            IBUF1
+  25          I         MU E            IBUF2
+  26          I         MU E            IBUF3
+  27          I         ?U E            IERR
+  28    2   6 I        C   E            IFAIL
+  29          I         M? E            IFILE
+  30    5   3 I        CMU E            IPGEOM
+  31    5   1 I        CMU E            IPRTC
+  32    2   5 I        C U E            IPRTK
+  33          I        I U E            ISCR1
+  34          I        I U E            ISCR2
+  35    1   1 I        CMU E            ISCR3
+  36          I         MU E            ISCR4
+  37    5   2 I        CM  E            ISTRML
+  38    8   1 I    ( 1)C?? E        1   IZ(1)
+  39         fI    ( 1)  U E            KORSZ
+     (I4A)
+  40    3   4 I        CM? E            LOG1
+  41    3   5 I        CMU E            LOG2
+  42    3   6 I        CM  E            LOG3
+  43    3   7 I        CM  E            LOG4
+  44    3   8 I        CMU E            LOG5
+  45    3   9 I        CM  E            LOG6
+  46         s     ( 3)  U              MESAGE
+     (I4E,I4E,I4A)
+  47    3   2 I        C?U E            NAERO
+  48          I    ( 1)I?? E        2   NAME(2)
+  49    3   1 I        C?U E            NANAL
+  50    3   3 I        CM  E            NARBIT
+  51    6   1 I        C   E            NBLDES
+  52    4   2 I        C U E            NOUT
+  53          I         MU E            NZ
+  54         s     ( 4)  U              OPEN
+     (ALT,I4V,I4L,I4E)
+  55    2   4 I        C U E            PGEOM
+  56    2   7 R        C   E            SIGN
+  57    6   2 R    ( 1)C   E       21   STAG(21)
+  58    2   3 I        C U E            STRML
+  59    4   1 I        C U E            SYSBUF
+  60          I    ( 1) ?U E       18   TITLE1(18)
+  61    7   1 C*23     C   E            UFM*23
+  62    7   3 C*29     C U E            UIM*29
+  63    7   2 C*25     C   E            UWM*25
+  64          I    ( 1)I U E        2   WD(2)
+  65    2   8 R        C   E            ZORIGN
+**-- END OF SYMBOL TABLE

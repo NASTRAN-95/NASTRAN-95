@@ -1,0 +1,46 @@
+**++ Symbol table for subprogram SAXIF1 in file mis/saxif1.f90
+     produced by SPAG     8.01RF-40 at 14:46:56 on  2 Dec 2023
+   0         X             K             mis/saxif1.f90,0000002,0000178
+   1         C     / 4/ MU        800   /SDR2X5/EST,NID,SIL,SV
+   2         C     /21/ MU        172   /SDR2X6/HM,R,Z,AM,COEF,EN,EL,RBAR,ZBAR,R1N,R2N,RBN1,DR,DZ,I1,I2,I3,IRET,IJ,IK,KJ
+   3          R    ( 1) MU E        9   A(9)
+   4    2   4 R    ( 1)CMU E        9   AM(9)
+   5    2   5 R        CMU E            COEF
+   6    2  13 R        CMU E            DR
+   7    2  14 R        CMU E            DZ
+   8    2   7 R        CMU E            EL
+   9    2   6 R        CMU E            EN
+  10    1   1 R    ( 1)C U E      100   EST(100)
+  11         IR    ( 1)  U I            FLOAT
+  12    2   1 R    ( 1)CMU E        9   HM(9)
+  13          I         MU E            I
+  14    2  15 I        CMU E            I1
+  15    2  16 I        CMU E            I2
+  16    2  17 I        CMU E            I3
+  17    2  19 I        CMU E            IJ
+  18    2  20 I        CMU E            IK
+  19   37   1 I        A U E            IOPT
+  20          I         MU E            IR
+  21    2  18 I        CMU E            IRET
+  22          I         MU E            J
+  23          I         MU E            JCOL
+  24          I         MU E            K
+  25    2  21 I        CMU E            KJ
+  26          I         MU E            N
+  27          I         MU E            NCOL
+  28          I    ( 1)  U E      100   NEST(100)
+  29    1   2 I        CM  E            NID
+  30          I         MU E            NSTA
+  31    2   2 R    ( 1)CMU E        4   R(4)
+  32    2  10 R        CMU E            R1N
+  33    2  11 R        CMU E            R2N
+  34    2   8 R        CMU E            RBAR
+  35    2  12 R        CMU E            RBN1
+  36          R         MU E            RHO
+  37         S     ( 1)  U        139   SAXIF1(IOPT)
+  38    1   3 I    ( 1)CM  E        4   SIL(4)
+  39         I?    ( 1)  U I            SQRT
+  40    1   4 R    ( 1)CMU E       95   SV(95)
+  41    2   3 R    ( 1)CMU E        4   Z(4)
+  42    2   9 R        CMU E            ZBAR
+**-- END OF SYMBOL TABLE

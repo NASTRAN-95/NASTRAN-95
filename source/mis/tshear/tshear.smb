@@ -1,0 +1,76 @@
+**++ Symbol table for subprogram TSHEAR in file mis/tshear.f90
+     produced by SPAG     8.01RF-40 at 14:46:44 on  2 Dec 2023
+   0         X             K             mis/tshear.f90,0000002,0000126
+   1         C     / 6/ M          24   /MATIN/MATID,INFLAG,TEMP,STRESS,SINTH,COSTH
+   2         C     /10/  U         40   /MATOUT/E1,G,NU,RHO,ALPHA,TO1,GE,SIGMAT,SIGMAC,SIGMAS
+   3         C     / 8/  U         32   /SSGETT/ELTYPE,OLDEL,EORFLG,ENDID,BUFFLG,ITEMP,IDEFT,IDEFM
+   4         C     /18/ MU        220   /SSGWRK/VEC,XL,DIAG1,DIAG2,TI,PA,TSQ,VECA,VECB,AREA,VMAG,I,J,IA,IB,I12,TBAR,IN
+   5         C     / 8/ MU        108   /TRIMEX/ECPT,ISILS,MID,THICK,FMU,CSID,ELTEMP,F12
+   6         C     / 1/ MU          4   /ZZZZZZ/PG
+   7    2   5 R        C U E            ALPHA
+   8    4  10 R        CMU E            AREA
+   9         s     ( 4)  U              BASGLB
+     (R4L,R4L,I4L,R4L)
+  10    3   5 R        C   E            BUFFLG
+  11    1   6 R        C   E            COSTH
+  12    5   6 R    ( 2)C?U E       16   CSID(4,4)
+  13    4   3 R    ( 1)CM? E        3   DIAG1(3)
+  14    4   4 R    ( 1)CM? E        3   DIAG2(3)
+  15    2   1 R        C U E            E1
+  16    5   1 R    ( 1)C?? E        1   ECPT(1)
+  17    5   7 R        C U E            ELTEMP
+  18    3   1 R        C   E            ELTYPE
+  19    3   4 R        C   E            ENDID
+  20    3   3 R        C   E            EORFLG
+  21    5   8 R    ( 1)CMU E        2   F12(2)
+  22    5   5 R        C   E            FMU
+  23    2   2 R        C   E            G
+  24    2   7 R        C   E            GE
+  25    4  12 I        CMU E            I
+  26    4  16 I        CMU E            I12
+  27    4  14 I        CMU E            IA
+  28    4  15 I        CMU E            IB
+  29    3   8 I        C   E            IDEFM
+  30    3   7 I        C   E            IDEFT
+  31          I         MU E            IGRID2
+  32    4  18 I        CMU E            IN
+  33    1   2 I        CM  E            INFLAG
+  34    5   2 I    ( 1)C?U E        4   ISILS(4)
+  35    3   6 I        C U E            ITEMP
+  36    4  13 I        CMU E            J
+  37         s     ( 1)  U              MAT
+     (R4L)
+  38    1   1 I        CM  E            MATID
+  39    5   3 I        C U E            MID
+  40         I?    ( 2)  U I            MOD
+  41          I    ( 2)  U E       16   NCSID(4,4)
+  42         s     ( 2)  U              NORM
+     (R4A,R4V)
+  43    2   3 I        C   E            NU
+  44    3   2 R        C   E            OLDEL
+  45    4   6 R        CMU E            PA
+  46    6   1 R    ( 1)CMU E        1   PG(1)
+  47    2   4 R        C   E            RHO
+  48         s     ( 3)  U              SAXB
+     (R4A,R4A,R4A)
+  49    2   9 R        C   E            SIGMAC
+  50    2  10 R        C   E            SIGMAS
+  51    2   8 R        C   E            SIGMAT
+  52    1   5 R        C   E            SINTH
+  53         s     ( 3)  U              SSGETD
+     (R4L,R4A,I4E)
+  54    1   4 R        C   E            STRESS
+  55    4  17 R        CMU E            TBAR
+  56    1   3 R        CM  E            TEMP
+  57    5   4 R        C U E            THICK
+  58    4   5 R    ( 1)C?U E       16   TI(16)
+  59    2   6 R        C U E            TO1
+  60         S                     58   TSHEAR
+  61    4   7 R        CMU E            TSQ
+  62    4   1 R    ( 2)CMU E       12   VEC(3,4)
+  63    4   8 R    ( 1)CMU E        3   VECA(3)
+  64    4   9 R    ( 1)CMU E        3   VECB(3)
+  65          R         ?U E            VKL
+  66    4  11 R        CMU E            VMAG
+  67    4   2 R    ( 1)C?U E        4   XL(4)
+**-- END OF SYMBOL TABLE

@@ -1,0 +1,128 @@
+**++ Symbol table for subprogram IFS5P in file mis/ifs5p.f90
+     produced by SPAG     7.61RG-40 at 01:00:00 on 21 Mar 2022
+   0         X             K             mis/ifs5p.f90,0000002,0001458
+   1         C     / 1/  U        256   /BITPOS/KB
+   2         C     / 6/ MU         24   /CIFS5P/KM,C,P,ICONT,IAERO,IPOPT
+   3         C     /24/ MU       2136   /IFPDTA/ID,N,K,KX,KY,I,RM,MF,M1,M1F,KN,BADDAT,BADFOR,NOPEN,NPARAM,IAX,NAX,IAXF,NAXF,LHARM,KNT,SLOTDF,GC,LL
+   4         C     / 2/ MU       2484   /IFPX1/NCDS,T1
+   5         C     / 5/ MU        216   /SYSTEM/NBUF,NOUT,ABORT,JUNK,KDUMEL
+   6         C     / 4/  U        102   /XMSSG/UFM,UWM,UIM,SFM
+   7    5   3 L        CM  E            ABORT
+   8          R         MU E            ANGSIN
+   9    3  12 L        CMU E            BADDAT
+  10    3  13 L        CMU E            BADFOR
+  11          I        I U E            BLANK
+  12    2   2 I        CM? E            C
+  13    3  23 I    ( 1)C U E        7   GC(7)
+  14    3   6 I    ( 1)CMU E      100   I(100)
+  15    2   5 I        CMU E            IAERO
+  16          I         MU E            IALT
+  17    3  16 I        C   E            IAX
+  18    3  18 I        C   E            IAXF
+  19          I          U E            IBLANK
+  20    2   4 I        CMU E            ICONT
+  21    3   1 I        CMU E            ID
+  22          I         MU E            IDUMEL
+  23         fL    ( 1)  U E            IFPDCO
+     (I4L)
+  24         S                   1126   IFS5P
+  25          I         MU E            IG1
+  26          I         MU E            IG2
+  27          I         MU E            IN1
+  28          I         MU E            IN2
+  29          I         MU E            IN3
+  30          I         MU E            IN4
+  31          I         MU E            IN5
+  32          I        I U E            INO
+  33    2   6 I        CMU E            IPOPT
+  34          I         MU E            IRANGE
+  35          I    ( 1)I U E        4   ISCAL(4)
+  36          I    ( 1)I U E       12   ITYPE(12)
+  37          I        I U E            IYES
+  38          I         MU E            J
+  39          I         MU E            J1
+  40    5   4 I    ( 1)C U E       42   JUNK(42)
+  41    3   3 I        C U E            K
+  42    1   1 I    ( 2)C U E       64   KB(32,2)
+  43          I         MU E            KDLH
+  44    5   5 I    ( 1)CMU E        9   KDUMEL(9)
+  45          I         MU E            KDX
+  46    2   1 I        CMU E            KM
+  47    3  11 I        CM  E            KN
+  48    3  21 I        C   E            KNT
+  49    3   4 I        C U E            KX
+  50    3   5 I        C U E            KY
+  51          I         MU E            KZ
+  52          I         MU E            L
+  53          I         MU E            L1
+  54          I         MU E            L2
+  55          I         MU E            L3
+  56          I         MU E            LDH
+  57    3  20 I        C   E            LHARM
+  58    3  24 I    ( 1)C U E        6   LL(6)
+  59         fI    ( 2)  UXE            LSHIFT
+     (I4E,I4V)
+  60          I         MU E            LZ
+  61          I    ( 1) MU E      100   M(100)
+  62    3   9 I    ( 1)C U E      100   M1(100)
+  63    3  10 I    ( 1)C U E      100   M1F(100)
+  64          I    ( 1)I U E        4   MET(4)
+  65    3   8 I    ( 1)C U E      100   MF(100)
+  66          I        I U E            ML
+  67          I    ( 1)I U E        3   MOT(3)
+  68          I        I U E            MS
+  69    3   2 I        CMU E            N
+  70          I         MU E            N1
+  71    3  17 I        C   E            NAX
+  72    3  19 I        C   E            NAXF
+  73          I         MU E            NB
+  74          I         MU E            NBPC
+  75    5   1 I        C   E            NBUF
+  76    4   1 I        C U E            NCDS
+  77          I         MU E            NCPW
+  78          I         MU E            NDUMC
+  79          I         MU E            NDUMD
+  80          I         MU E            NDUMG
+  81          I         MU E            NDUMP
+  82          I    ( 1) MU E       10   NFDH(10)
+  83          I         MU E            NM1
+  84          I         MU E            NM2
+  85          I        I U E            NMT
+  86    3  14 I        C   E            NOPEN
+  87    5   2 I        C U E            NOUT
+  88    3  15 I        C   E            NPARAM
+  89          I         M? E            NSHT
+  90          I         MU E            NSS
+  91         fI    ( 2)  UXE            ORF
+     (I4V,I4E)
+  92    2   3 I        CM? E            P
+  93         s     ( 1)  U              PAGE2
+     (I4E)
+  94          I         MU E            RET
+  95    3   7 R    ( 1)CMU E      100   RM(100)
+  96         fI    ( 2)  UXE            RSHIFT
+     (I4E,I4V)
+  97    6   4 C*25     C U E            SFM*25
+  98    3  22 R    ( 1)C   E        5   SLOTDF(5)
+  99         I?    ( 1)  U I            SQRT
+ 100    4   2 I    ( 2)CMU E      620   T1(2,310)
+ 101          I        I U E            THRU
+ 102          R         MU E            TMAG
+ 103          R         MU E            TR1
+ 104          R         MU E            TR2
+ 105          R         MU E            TR3
+ 106    6   1 C*23     C   E            UFM*23
+ 107    6   3 C*29     C   E            UIM*29
+ 108    6   2 C*25     C   E            UWM*25
+ 109          R         MU E            V11
+ 110          R         MU E            V12
+ 111          R         MU E            V13
+ 112          R         MU E            V1MAG
+ 113          R         MU E            V21
+ 114          R         MU E            V22
+ 115          R         MU E            V23
+ 116          R         MU E            V2MAG
+ 117         s     ( 4)  U              WRITE
+     (I4E,I4A,I4E,I4E)
+     (   ,I4E,   ,   )
+**-- END OF SYMBOL TABLE

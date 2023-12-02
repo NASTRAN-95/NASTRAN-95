@@ -1,0 +1,60 @@
+**++ Symbol table for subprogram FRD2B in file mis/frd2b.f90
+     produced by SPAG     8.01RF-40 at 14:46:42 on  2 Dec 2023
+   0         X             K             mis/frd2b.f90,0000002,0000070
+   1         C     / 1/  U          4   /FRD2BC/IH
+   2         C     /18/ MU        276   /SADDX/NOMAT,LCORE,MCBA,TYPA,ALPHA,MCBB,TYPB,BETA,MCBC,TYPC,GAMA,MCBD,TYPD,DELTA,MCBE,TYPE,EPSLN,MC
+   3         C     / 2/  U        220   /SYSTEM/KSYSTM,IPREC
+   4         C     / 1/ ??          4   /ZZZZZZ/Z
+   5   19   1 I        A U E            A
+   6   19   2 R    ( 1)A U E            ALP(2)
+   7    2   5 R    ( 1)CM  E        4   ALPHA(4)
+   8   19   3 I        A U E            B
+   9   19   4 R    ( 1)A U E            BET(2)
+  10    2   8 R    ( 1)CM  E        4   BETA(4)
+  11   19   5 I        A U E            C
+  12   19   7 I        A U E            D
+  13   19   8 R    ( 1)A U E            DEL(2)
+  14    2  14 R    ( 1)CM  E        4   DELTA(4)
+  15         s     ( 3)  U              DMPFIL
+     (I4E,R4A,I4V)
+  16   19   9 I        A U E            E
+  17   19  10 R    ( 1)A U E            EPS(2)
+  18    2  17 R    ( 1)CM  E        4   EPSLN(4)
+  19         S     (11) ?U         46   FRD2B(A,ALP,B,BET,C,GAM,D,DEL,E,EPS,OUT)
+  20   19   6 R    ( 1)A U E            GAM(2)
+  21    2  11 R    ( 1)CM  E        4   GAMA(4)
+  22          I         MU E            I
+  23          I         M? E            IFO
+  24    1   1 I        C U E            IH
+  25    3   2 I        C U E            IPREC
+  26          I         M? E            IROW
+  27          I         M? E            ITY
+  28         fI    ( 1)  U E            KORSZ
+     (R4A)
+  29    3   1 I    ( 1)C   E       54   KSYSTM(54)
+  30    2   2 I        CM  E            LCORE
+  31         s     ( 5)  U              MAKMCB
+     (I4A,I4V,I4V,I4V,I4V)
+  32    2  18 I    ( 1)CM? E        7   MC(7)
+  33    2   3 I    ( 1)CMU E        7   MCBA(7)
+  34    2   6 I    ( 1)CM? E        7   MCBB(7)
+  35    2   9 I    ( 1)CM? E        7   MCBC(7)
+  36    2  12 I    ( 1)CM? E        7   MCBD(7)
+  37    2  15 I    ( 1)CM? E        7   MCBE(7)
+  38          I         MU E            N
+  39          I         MU E            NC
+  40    2   1 I        CM  E            NOMAT
+  41   19  11 I        A?? E            OUT
+  42         s     ( 1)  U              RDTRL
+     (I4A)
+  43         s     ( 2)  U              SADD
+     (R4A,R4A)
+  44    2   4 I        CM  E            TYPA
+  45    2   7 I        CM  E            TYPB
+  46    2  10 I        CM  E            TYPC
+  47    2  13 I        CM  E            TYPD
+  48    2  16 I        CM  E            TYPE
+  49         s     ( 1)  U              WRTTRL
+     (I4A)
+  50    4   1 R    ( 1)C?? E        1   Z(1)
+**-- END OF SYMBOL TABLE

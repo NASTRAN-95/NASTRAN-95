@@ -1,0 +1,45 @@
+**++ Symbol table for subprogram SOFCLS in file mis/sofcls.f90
+     produced by SPAG     7.61RG-40 at 01:00:00 on 21 Mar 2022
+   0         X             K             mis/sofcls.f90,0000002,0000088
+   1         C     / 2/  U         32   /ITEMDT/NITEM,ITEM
+   2         C     / 1/  U        148   /SOF/A
+   3         C     / 7/ MU        104   /SOFCOM/NFILES,FILNAM,FILSIZ,STATUS,PSSWRD,FIRST,OPNSOF
+   4         C     / 1/  U         24   /SYS/B
+   5         C     / 1/  U          4   /SYSTEM/NBUFF
+   6         C     / 1/ M?          4   /ZZZZZZ/BUF
+   7    2   1 I    ( 1)C U E       37   A(37)
+   8    4   1 I    ( 1)C U E        6   B(6)
+   9    6   1 I    ( 1)CM? E        1   BUF(1)
+  10          I          U E            DIT
+  11          I            E            DITLBN
+  12          I         ?U E            DITPBN
+  13          L         MU E            DITUP
+  14    3   2 I    ( 1)C U E       10   FILNAM(10)
+  15    3   3 I    ( 1)C U E       10   FILSIZ(10)
+  16    3   6 R        C   E            FIRST
+  17          I         MU E            I
+  18          I         MU E            IBL
+  19    1   2 I    ( 2)C U E        7   ITEM(7,1)
+  20          I        I?? E            IWRT
+  21          I         MU E            J
+  22          I         MU E            K
+  23          I         MU E            LAST
+  24          I          U E            MDI
+  25          I            E            MDILBN
+  26          I         ?U E            MDIPBN
+  27          L         MU E            MDIUP
+  28    5   1 I        C U E            NBUFF
+  29    3   1 I        C U E            NFILES
+  30    1   1 I        C U E            NITEM
+  31          I          U E            NXT
+  32          I            E            NXTLBN
+  33          I         ?U E            NXTPBN
+  34          L         M  E            NXTRST
+  35          L         MU E            NXTUP
+  36    3   7 L        CMU E            OPNSOF
+  37    3   5 I    ( 1)C U E        2   PSSWRD(2)
+  38         S                     61   SOFCLS
+  39         s     ( 3)  U              SOFIO
+     (I4E,I4E,I4E)
+  40    3   4 R        C   E            STATUS
+**-- END OF SYMBOL TABLE

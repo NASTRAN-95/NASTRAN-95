@@ -1,0 +1,39 @@
+!*==sdcomp.f90  processed by SPAG 7.61RG at 01:00 on 21 Mar 2022
+ 
+SUBROUTINE sdcomp(Zi,Zr,Zd) !HIDESTARS (*,Zi,Zr,Zd)
+   IMPLICIT NONE
+   USE I_SMCOMX
+   USE C_LOGOUT
+!
+! Dummy argument declarations rewritten by SPAG
+!
+   REAL :: Zi
+   REAL :: Zr
+   REAL :: Zd
+!
+! Local variable declarations rewritten by SPAG
+!
+   INTEGER :: i44
+!
+! End of declarations rewritten by SPAG
+!
+   CALL sswtch(44,i44)
+   IF ( i44/=0 ) THEN
+!
+! OTHERWISE, CALL SYMMETRIC DECOMPOSITION OF RELEASE 94 AND EARLIER
+!
+      CALL sdcompx(*100,Zi,Zr,Zd)
+   ELSE
+!
+! CALL NEW SYMMETRIC DECOMPOSITION ROUTINE 12/95
+!
+      CALL smcomp(*100,Zi,Zr,Zd)
+      IF ( ierror==1 ) THEN
+         WRITE (Lout,99001)
+99001    FORMAT (8X,'INSUFFICIENT OPEN CORE FOR NEW SYMMETRIC DECOMPOSITION',/,8X,'WILL SWITCH AND USE OLD METHOD.')
+         CALL sdcompx(*100,Zi,Zr,Zd)
+      ENDIF
+   ENDIF
+   RETURN
+ 100  RETURN 1
+END SUBROUTINE sdcomp

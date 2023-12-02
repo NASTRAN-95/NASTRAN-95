@@ -1,0 +1,18 @@
+**++ Symbol table for subprogram DBMREL in file mds/dbmrel.f90
+     produced by SPAG     7.61RG-40 at 01:00:00 on 21 Mar 2022
+   0         X             K             mds/dbmrel.f90,0000002,0000042
+   1         C     / 2/  U          8   /SYSTEM/ISYSBF,IWR
+   2         s           U              DBMDMP
+   3         S                     23   DBMREL
+   4         f?    ( 2) MU I            FCB
+     (I4E,?*V)
+   5          ?         MU I            IDBFRE
+   6          ?         ?? I            IFILEX
+   7          I         MU E            INDEX
+   8          I         MU E            ISAVE
+   9    1   1 I        C   E            ISYSBF
+  10    1   2 I        C U E            IWR
+  11         G?    ( 1) M  I            MEM
+  12         s     ( 3)  U              MESAGE
+     (I4E,I4E,I4E)
+**-- END OF SYMBOL TABLE

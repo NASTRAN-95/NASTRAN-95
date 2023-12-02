@@ -1,0 +1,62 @@
+**++ Symbol table for subprogram FBS1 in file mis/fbs1.f90
+     produced by SPAG     8.01RF-40 at 14:46:59 on  2 Dec 2023
+   0         X             K             mis/fbs1.f90,0000002,0000135
+   1         C     / 2/  U          8   /FBSX/DBL,N
+   2         C     / 1/             4   /MACHIN/MACH
+   3         C     / 2/  U          8   /SYSTEM/SYSBUF,NOUT
+   4         C     / 4/  U        102   /XMSSG/UFM,UWM,UIM,SFM
+   5         C     / 1/  U          4   /ZZZZZZ/L
+   6         s     ( 1)  U              BCKREC
+     (I4A)
+   7          I        I U E            BEGN
+   8   15   1 I    ( 1)AMU E            BLOCK(8)
+   9          I    ( 1) M? E        2   BUF(2)
+  10         s     ( 3)  U              CONMSG
+     (I4A,I4E,I4E)
+  11    1   1 I        C   E            DBL
+  12          I        I U E            END
+  13         s     ( 1)  U              ENDGET
+     (I4A)
+  14         s     ( 1)  U              ENDGTB
+     (I4A)
+  15         S     ( 4) MU         74   FBS1(BLOCK,Y,YN,NWDS)
+  16         s     ( 2)  U              GETSTB
+     (ALT,I4A)
+  17         s     ( 2)  U              GETSTR
+     (ALT,I4A)
+  18          I         MU E            II
+  19          I         MU E            IJ
+  20          I         MU E            IK
+  21          I         MU E            J
+  22          I         MU E            J1
+  23          I         MU E            JI
+  24          I         MU E            JSTR
+  25          I         MU E            K
+  26    5   1 R    ( 1)C U E        1   L(1)
+  27          I         MU E            LAST
+  28          R         MU E            LJJ
+  29         fI    ( 1)  U E            LOCFX
+     (R4A)
+  30    2   1 I        C   E            MACH
+  31         II    ( 2)  U I            MAX0
+  32         s     ( 3)  U              MESAGE
+     (I4E,I4E,I4E)
+  33    1   2 I        C U E            N
+  34          I         MU E            NBRITM
+  35    3   2 I        C U E            NOUT
+  36          I         MU E            NSTR
+  37          I         MU E            NTERMS
+  38   15   4 I        A U E            NWDS
+  39    4   4 C*25     C U E            SFM*25
+  40         s     ( 2)  U              SKPREC
+     (I4L,I4E)
+  41          I        I U E            SUBNAM
+  42          R         MU E            SUM
+  43    3   1 R        C   E            SYSBUF
+  44    4   1 C*23     C   E            UFM*23
+  45    4   3 C*29     C   E            UIM*29
+  46    4   2 C*25     C   E            UWM*25
+  47   15   2 R    ( 1)AMU E            Y(1)
+  48          R         MU E            YJK
+  49   15   3 R    ( 1)A?? E            YN(1)
+**-- END OF SYMBOL TABLE

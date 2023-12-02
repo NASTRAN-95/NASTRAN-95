@@ -1,0 +1,54 @@
+**++ Symbol table for subprogram SORT in file mis/sort.f90
+     produced by SPAG     7.61RG-40 at 01:00:00 on 21 Mar 2022
+   0         X             K             mis/sort.f90,0000002,0000257
+   1         C     / 3/  U         16   /MACHIN/MACH,IJHLF,LQRO
+   2         C     / 4/  U        160   /SYSTEM/IBUF,NOUT,DM37,NBPW
+   3         C     / 1/  U         64   /TWO/TWO
+   4    2   3 R    ( 1)C   E       37   DM37(37)
+   5          I         MU E            I
+   6         II    ( 1)  U I            IABS
+   7    2   1 I        C   E            IBUF
+   8   35   1 I        A U E            IDUM
+   9          I         MU E            II
+  10    1   2 I    ( 1)C   E        2   IJHLF(2)
+  11          I         MU E            ISORT
+  12          I         MU E            J
+  13   35   2 I        A U E            JDUM
+  14          I         MU E            JJ
+  15          I         MU E            K
+  16          I         MU E            KEY
+  17   35   4 I        A U E            KEYWD
+  18         fI    ( 4)  U E            KHRFN1
+     (R4V,I4E,I4V,I4E)
+     (I4V,   ,R4V,   )
+  19          I         MU E            KK
+  20          I         MU E            L
+  21          I         MU E            LIMIT
+  22    1   3 I        C U E            LQRO
+  23          I         MU E            M
+  24    1   1 I        C   E            MACH
+  25         I?    ( 2)  U I            MOD
+  26          I         MU E            N
+  27    2   4 I        C U E            NBPW
+  28          I         MU E            NC
+  29    2   2 I        C U E            NOUT
+  30   35   3 I        A U E         Z  NR
+  31   35   6 I        A U E            NWDS
+  32          R          U E            RI
+  33          R          U E            RN
+  34          L         MU E            RVSBCD
+  35         S     ( 6) MU        135   SORT(IDUM,JDUM,NR,KEYWD,Z,NWDS)
+  36         E     ( 6)                 SORT2K(IDUM,JDUM,NR,KEYWD,Z,NWDS)
+  37         E     ( 6)                 SORTA(IDUM,JDUM,NR,KEYWD,Z,NWDS)
+  38         E     ( 6)                 SORTA7(IDUM,JDUM,NR,KEYWD,Z,NWDS)
+  39         E     ( 6)                 SORTA8(IDUM,JDUM,NR,KEYWD,Z,NWDS)
+  40         E     ( 6)                 SORTF(IDUM,JDUM,NR,KEYWD,Z,NWDS)
+  41          I    ( 1)I U E        6   SUBR(6)
+  42          I         MU E            TEMP
+  43    3   1 I    ( 1)C U E       16   TWO(16)
+  44          I         MU E            TWO31
+  45   35   5 I    ( 2)AMU E            Z(Nr,1)
+  46          R         ?? E            ZERO
+  47          I         MU E            ZI
+  48          I         MU E            ZN
+**-- END OF SYMBOL TABLE

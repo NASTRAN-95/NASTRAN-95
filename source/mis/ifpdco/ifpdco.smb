@@ -1,0 +1,15 @@
+**++ Symbol table for subprogram IFPDCO in file mis/ifpdco.f90
+     produced by SPAG     8.01RF-40 at 14:46:39 on  2 Dec 2023
+   0         X             K             mis/ifpdco.f90,0000002,0000040
+   1         C     / 3/ MU       2136   /IFPDTA/DUM,GC,LL
+   2         C     / 2/  U        224   /SYSTEM/IDUMMY,ITHRML
+   3          I         MU E            DG
+   4    1   1 R    ( 1)C   E      521   DUM(521)
+   5    1   2 I    ( 1)CMU E        7   GC(7)
+   6    8   1 I        A U E            IC
+   7    2   1 I    ( 1)C   E       55   IDUMMY(55)
+   8         FL    ( 1) MU E       21   IFPDCO(IC)
+   9    2   2 I        C U E            ITHRML
+  10          I         MU E            LC
+  11    1   3 I    ( 1)CMU E        6   LL(6)
+**-- END OF SYMBOL TABLE

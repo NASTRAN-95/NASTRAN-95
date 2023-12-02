@@ -1,0 +1,19 @@
+**++ Symbol table for subprogram LOGLOG in file mis/loglog.f90
+     produced by SPAG     8.01RF-40 at 14:46:44 on  2 Dec 2023
+   0         X             K             mis/loglog.f90,0000002,0000075
+   1   13   1 R        A U E            A
+   2          R         MU E            AA
+   3         IR    ( 1)  U I            ALOG10
+   4   13   2 R        A U E            B
+   5          R         MU E            BB
+   6   13   3 R        A U E            C
+   7          R         MU E            CC
+   8   13   4 R        A U E            D
+   9          R         MU E            DD
+  10   13   5 R        A U E            E
+  11          R         MU E            EE
+  12   13   6 R        AM  E            F
+  13         S     ( 6) MU         18   LOGLOG(A,B,C,D,E,F)
+  14         E     ( 6)                 LOGSMI(A,B,C,D,E,F)
+  15         E     ( 6)                 SMILOG(A,B,C,D,E,F)
+**-- END OF SYMBOL TABLE

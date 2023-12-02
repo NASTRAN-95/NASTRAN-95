@@ -1,0 +1,14 @@
+**++ Symbol table for subprogram NASTIM in file mds/nastim.f90
+     produced by SPAG     8.01RF-40 at 14:46:34 on  2 Dec 2023
+   0         X             K             mds/nastim.f90,0000002,0000017
+   1          R    ( 1) ?U E        2   ARRAY(2)
+   2    7   4 R        AM  E            CPUSEC
+   3         s     ( 2)  U              ETIME
+     (R4A,R4V)
+   4    7   1 I        AMU E            IHR
+   5    7   2 I        AMU E            IMN
+   6    7   3 I        AM  E            ISC
+   7         S     ( 4) MU          6   NASTIM(IHR,IMN,ISC,CPUSEC)
+   8          R         MU E            SECS
+   9          R         ?? E            TIME
+**-- END OF SYMBOL TABLE

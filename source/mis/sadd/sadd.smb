@@ -1,0 +1,62 @@
+**++ Symbol table for subprogram SADD in file mis/sadd.f90
+     produced by SPAG     7.61RG-40 at 01:00:00 on 21 Mar 2022
+   0         X             K             mis/sadd.f90,0000002,0000199
+   1         C     / 5/ MU         20   /PACKX/TYPIN,TYPOUT,ONE,N,INCR
+   2         C     / 4/ MU        276   /SADDX/NOMAT,LCORE,MCBS,MC
+   3         C     / 2/  U          8   /SYSTEM/SYSBUF,NOUT
+   4         C     / 3/  U         40   /TYPE/PRC,NWDS,RC
+   5         C     / 3/ MU         24   /ZNTPKX/A,II,EOL
+   6    5   1 R    ( 1)C U E        4   A(4)
+   7          R    ( 1) MU E        1   ALPH(1)
+   8          R    ( 1)  U E        1   AMCB(1)
+   9         s     ( 2)  U              CLOSE
+     (I4A,I4E)
+  10          D    ( 1)  U E        2   DA(2)
+  11          D    ( 1) MU E       10   DALPH(10)
+  12          D    ( 1)  U E        1   DMCB(1)
+  13   47   2 D    ( 1)AMU E            DZ(1)
+  14          I         MU E            END
+  15    5   3 I        C U E            EOL
+  16         s     ( 3)  U              GOPEN
+     (I4A,R4L,I4E)
+  17          I         MU E            HOP
+  18          I         MU E            I
+  19          I         MU E            IBUF
+  20    5   2 I        CMU E            II
+  21    1   5 I        CM  E            INCR
+  22         s     ( 5)  U              INTPK
+     (ALT,I4L,I4E,I4V,I4E)
+  23          I         MU E            J
+  24          I         MU E            JJ
+  25          I         MU E            K
+  26    2   2 I        C U E            LCORE
+  27          I         MU E            LL
+  28         II    ( 2)  U I            MAX0
+  29    2   4 I    ( 1)CMU E        7   MC(7)
+  30    2   3 I    ( 1)C?U E       60   MCBS(60)
+  31         s     ( 3)  U              MESAGE
+     (I4E,I4E,I4A)
+  32         II    ( 2)  U I            MIN0
+  33    1   4 I        CMU E            N
+  34          I    ( 1)I?? E        2   NAME(2)
+  35          I         MU E            NCOL1
+  36    2   1 I        C U E            NOMAT
+  37    3   2 I        C   E            NOUT
+  38          I          U E            NROW
+  39          I          U E            NTYPE
+  40          I         MU E            NUM
+  41    4   2 I    ( 1)C U E        4   NWDS(4)
+  42    1   3 I        CMU E            ONE
+  43         s     ( 3)  U              PACK
+     (R4L,I4L,I4A)
+  44    4   1 I    ( 1)C U E        2   PRC(2)
+  45          I         MU E            PREC
+  46    4   3 I    ( 1)C U E        4   RC(4)
+  47         S     ( 2) MU        117   SADD(Z,DZ)
+  48    3   1 I        C U E            SYSBUF
+  49          I         MU E            TYPE
+  50    1   1 I        CMU E            TYPIN
+  51    1   2 I        CM  E            TYPOUT
+  52   47   1 R    ( 1)AMU E            Z(1)
+  53         s           U              ZNTPKI
+**-- END OF SYMBOL TABLE

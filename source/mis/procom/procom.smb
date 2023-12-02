@@ -1,0 +1,57 @@
+**++ Symbol table for subprogram PROCOM in file mis/procom.f90
+     produced by SPAG     8.01RF-40 at 14:46:44 on  2 Dec 2023
+   0         X             K             mis/procom.f90,0000002,0000129
+   1         C     / 1/  U          4   /SYSTEM/IBUF
+   2         C     / 1/ MU          4   /ZZZZZZ/Z
+   3         s     ( 1)  U              BCKREC
+     (I4V)
+   4          I         MU E            BUF1
+   5          I         MU E            BUF2
+   6          I         MU E            BUF3
+   7   34   3 I        A?U E            CASECC
+   8         s     ( 2)  U              CLOSE
+     (I4V,I4E)
+   9          R         MU E            COEF
+  10          I         M  E            FILE
+  11         s     ( 4)  U              FREAD
+     (I4V,I4A,I4E,I4E)
+     (   ,R4A,   ,   )
+  12         s     ( 2)  U              FWDREC
+     (ALT,I4V)
+  13         s     ( 3)  U              GOPEN
+     (I4V,R4L,I4E)
+  14          I         MU E            I
+  15          I        I U E            I16
+  16          I        I U E            I166
+  17    1   1 I        C U E            IBUF
+  18          I         MU E            INEW
+  19          I    ( 1) M? E        7   INFO(7)
+  20          I         ?U E            IWORDS
+  21          I    ( 1)  U E        1   IZ(1)
+  22          I         MU E            J
+  23          I         MU E            K
+  24         fI    ( 1)  U E            KORSZ
+     (R4A)
+  25          I         MU E            LCC
+  26          I         MU E            LCORE
+  27          I         MU E            LSYM
+  28         s     ( 3)  U              MESAGE
+     (I4E,I4E,I4A)
+  29          I    ( 1)I?? E        2   NAM(2)
+  30   34   4 I        A?U E            NCOEFS
+  31   34   5 I        A?U E            NGRIDS
+  32          I         MU E            NTOT
+  33   34   2 I        A?U E            PROCOF
+  34         S     ( 5) ?U         80   PROCOM(PROCOS,PROCOF,CASECC,NCOEFS,NGRIDS)
+  35   34   1 I        A?U E            PROCOS
+  36         s     ( 1)  U              RDTRL
+     (I4A)
+  37         s     ( 7)  U              READ
+     (ALT,ALT,I4V,R4L,I4V,I4E,I4V)
+  38         s     ( 4)  U              WRITE
+     (I4V,I4A,I4E,I4E)
+     (   ,R4A,   ,   )
+  39         s     ( 1)  U              WRTTRL
+     (I4A)
+  40    2   1 R    ( 1)CMU E        1   Z(1)
+**-- END OF SYMBOL TABLE

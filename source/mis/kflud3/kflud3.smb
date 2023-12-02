@@ -1,0 +1,72 @@
+**++ Symbol table for subprogram KFLUD3 in file mis/kflud3.f90
+     produced by SPAG     8.01RF-40 at 14:47:20 on  2 Dec 2023
+   0         X             K             mis/kflud3.f90,0000002,0000173
+   1         C     / 1/            40   /CONDAD/CONSTD
+   2         C     / 3/  U         12   /SMA1CL/IOPT4,K4GGSW,NPVT
+   3         C     /38/ MU        448   /SMA1DP/R,R1,R2,R3,Z1,Z2,Z3,DETH,H,RA,RB,ZA,ZB,DR,DZ,BETA,BLOG,DZR,DZR2,BET2,R12,R22,G00,G10,G20,G01,G11,G02,RN,PIRO,PRN2,KQ,KVEC,KG,IRET,IPT,JC,IR
+   4         C     / 1/  U        400   /SMA1ET/ECPT
+   5         C     / 2/ ??         44   /SMA1IO/DUM1,IFKGG
+   6         C     / 3/ MU         12   /SYSTEM/SYSBUF,OUT,NOGO
+   7         C     / 1/  U         23   /XMSSG/UFM
+   8    3  20 D        CMU E            BET2
+   9    3  16 D        CMU E            BETA
+  10    3  17 D        CMU E            BLOG
+  11    1   1 D    ( 1)C   E        5   CONSTD(5)
+  12         ID    ( 1)  U I            DABS
+  13         ID    ( 1)  U I            DBLE
+  14    3   8 D        CMU E            DETH
+  15         ID    ( 1)  U I            DLOG
+  16          D          U E            DPI
+  17    3  14 D        CMU E            DR
+  18    5   1 R    ( 1)C   E       10   DUM1(10)
+  19    3  15 D        CMU E            DZ
+  20    3  18 D        CMU E            DZR
+  21    3  19 D        CMU E            DZR2
+  22    4   1 R    ( 1)C U E      100   ECPT(100)
+  23    3  23 D        CMU E            G00
+  24    3  26 D        CMU E            G01
+  25    3  28 D        CMU E            G02
+  26    3  24 D        CMU E            G10
+  27    3  27 D        CMU E            G11
+  28    3  25 D        CMU E            G20
+  29         s     ( 9)  U              GMMATD
+     (R8A,I4E,I4E,I4E,R8A,I4E,I4E,I4E,R8A)
+  30    3   9 D    ( 1)CM? E        9   H(9)
+  31          I         MU E            I
+  32    5   2 I        C?? E            IFKGG
+  33    2   1 I        C   E            IOPT4
+  34    3  36 I        CMU E            IPT
+  35    3  38 I        CMU E            IR
+  36    3  35 I        CMU E            IRET
+  37    3  37 I        CM? E            JC
+  38    2   2 I        C   E            K4GGSW
+  39         S                    110   KFLUD3
+  40    3  34 D    ( 1)C?? E        3   KG(3)
+  41    3  32 D    ( 1)CMU E        9   KQ(9)
+  42    3  33 D    ( 1)C?? E        3   KVEC(3)
+  43          I    ( 1)  U E      100   NECPT(100)
+  44    6   3 L        CM  E            NOGO
+  45          I    ( 1) MU E        3   NP(3)
+  46    2   3 I        C U E            NPVT
+  47    6   2 I        C U E            OUT
+  48    3  30 D        CMU E            PIRO
+  49    3  31 D        CMU E            PRN2
+  50    3   1 D        CMU E            R
+  51    3   2 D        CMU E            R1
+  52    3  21 D        CMU E            R12
+  53    3   3 D        CMU E            R2
+  54    3  22 D        CMU E            R22
+  55    3   4 D        CMU E            R3
+  56    3  10 D        CMU E            RA
+  57    3  11 D        CMU E            RB
+  58    3  29 D        CMU E            RN
+  59         s     ( 5)  U              SMA1B
+     (R8L,I4V,I4V,I4V,R8E)
+  60    6   1 R        C   E            SYSBUF
+  61    7   1 C*23     C U E            UFM*23
+  62    3   5 D        CMU E            Z1
+  63    3   6 D        CMU E            Z2
+  64    3   7 D        CMU E            Z3
+  65    3  12 D        CMU E            ZA
+  66    3  13 D        CMU E            ZB
+**-- END OF SYMBOL TABLE

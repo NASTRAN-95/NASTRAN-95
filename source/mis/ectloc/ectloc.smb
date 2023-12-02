@@ -1,0 +1,22 @@
+**++ Symbol table for subprogram ECTLOC in file mis/ectloc.f90
+     produced by SPAG     8.01RF-40 at 14:46:55 on  2 Dec 2023
+   0         X             K             mis/ectloc.f90,0000002,0000052
+   1         C     / 4/  U         16   /GPTA1/NELEM,LAST,INCR,ELEM
+   2    5   2 I    ( 1)A?U E            BUF(3)
+   3         s     ( 2)  U              CLOSE
+     (I4V,I4E)
+   4    5   1 I        A?? E            ECT
+   5         S     ( 3) MU         12   ECTLOC(ECT,BUF,IELEM)
+   6    1   4 I    ( 1)C U E        1   ELEM(1)
+   7         s     ( 2)  U              FWDREC
+     (ALT,I4V)
+   8          I         MU E            I
+   9    5   3 I        AM  E            IELEM
+  10    1   3 I        C U E            INCR
+  11    1   2 I        C U E            LAST
+  12    1   1 I        C   E            NELEM
+  13          I         ?? E            NREAD
+  14          I        I U E            PLOTEL
+  15         s     ( 7)  U              READ
+     (ALT,ALT,I4V,I4A,I4E,I4E,I4V)
+**-- END OF SYMBOL TABLE

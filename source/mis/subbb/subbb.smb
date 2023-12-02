@@ -1,0 +1,196 @@
+**++ Symbol table for subprogram SUBBB in file mis/subbb.f90
+     produced by SPAG     8.01RF-40 at 14:46:57 on  2 Dec 2023
+   0         X             K             mis/subbb.f90,0000002,0000191
+   1         C     /10/ ?U         44   /BLK1/SCRK,SPS,SNS,DSTR,AI,PI,DEL,SIGMA,BETA,RES
+   2         C     / 1/             8   /BLK2/BSYCON
+   3         C     /76/ MU      11008   /BLK3/SBKDE1,SBKDE2,F4,F4S,AM4,F5S,F6S,AM4TST,SUM3,SUM4,AM5TT,AM6,SUMSV1,SUMSV2,SVKL1,SVKL2,F5,F5T,AM5,AM5T,A,B,ALP,F1,AM1,ALN,BLKAPM,BKDEL3,F1S,C1,C2P,C2N,C2,AMTEST,FT2,BLAM1,FT3,AM2,SUM1,SUM2,F2,BLAM2,FT2T,C1T,FT3T,F2P,AM2P,SUM1T,SUM2T,C1P,C1N,BKDEL1,BKDEL2,
+                                                BLKAP1,ARG,ARG2,FT3TST,BC,BC2,BC3,BC4,BC5,CA1,CA2,CA3,CA4,CLIFT,CMOMT,PRES1,PRES2,PRES3,PRES4,QRES4,FQA,FQB,FQ7
+   4         C     /52/ MU        532   /BLK4/I,R,Y,A1,B1,C4,C5,GL,I6,I7,JL,NL,RI,RT,R5,SN,SP,XL,Y1,AMU,GAM,IDX,INX,NL2,RL1,RL2,RQ1,RQ2,XL1,ALP1,ALP2,GAMN,GAMP,INER,IOUT,REDF,STAG,STEP,AMACH,BETNN,BETNP,BKAP1,XLSV1,XLSV2,XLSV3,XLSV4,ALPAMP,AMOAXS,GUSAMP,DISAMP,PITAXS,PITCOR
+   5         C     / 2/  U          8   /SYSTEM/SYSBUF,IBBOUT
+   6         C     / 1/  U         23   /XMSSG/UFM
+   7    3  21 X        C U E            A
+   8    4   4 R        C   E            A1
+   9          R         MU E            AA
+  10          R         MU E            AA1
+  11          R         MU E            AA2
+  12    1   5 X        C U E            AI
+  13         s     ( 2)  U              AKAPM
+     (X8V,X8V)
+  14         s     ( 2)  U              AKAPPA
+     (R4V,R4V)
+  15    3  26 X        CMU E            ALN
+  16    3  23 X        CMU E            ALP
+  17    4  30 R        C   E            ALP1
+  18    4  31 R        C   E            ALP2
+  19    4  47 R        C   E            ALPAMP
+  20    3  25 X        C   E            AM1
+  21    3  38 X        CMU E            AM2
+  22    3  47 X        CMU E            AM2P
+  23    3   5 X        CM  E            AM4
+  24    3   8 X        C   E            AM4TST
+  25    3  19 X        C   E            AM5
+  26    3  20 X        C   E            AM5T
+  27    3  11 X        C   E            AM5TT
+  28    3  12 X        C   E            AM6
+  29    4  39 R        C   E            AMACH
+  30    4  48 R        C   E            AMOAXS
+  31    3  34 X        C   E            AMTEST
+  32    4  20 R        C U E            AMU
+  33    3  55 X        C   E            ARG
+  34    3  56 X        C   E            ARG2
+  35    3  22 X        C U E            B
+  36    4   5 R        C   E            B1
+  37    3  58 X        C U E            BC
+  38    3  59 X        C   E            BC2
+  39    3  60 X        C   E            BC3
+  40    3  61 X        C   E            BC4
+  41    3  62 X        C   E            BC5
+  42    1   9 R        C U E            BETA
+  43    4  40 R        C   E            BETNN
+  44    4  41 R        C   E            BETNP
+  45    4  42 R        C?U E            BKAP1
+  46    3  52 X        C U E            BKDEL1
+  47    3  53 X        C U E            BKDEL2
+  48    3  28 X        C?U E            BKDEL3
+  49    3  36 X        C   E            BLAM1
+  50    3  42 X        C U E            BLAM2
+  51    3  54 X        C U E            BLKAP1
+  52    3  27 X        C   E            BLKAPM
+  53    2   1 X        C   E            BSYCON
+  54    3  30 X        CMU E            C1
+  55          X         MU E            C1A
+  56    3  51 X        C   E            C1N
+  57    3  50 X        CMU E            C1P
+  58    3  44 X        C   E            C1T
+  59    3  33 X        CMU E            C2
+  60    3  32 X        C   E            C2N
+  61    3  31 X        CMU E            C2P
+  62          X         MU E            C3A
+  63    4   6 R        C   E            C4
+  64          X         MU E            C4A
+  65    4   7 R        C   E            C5
+  66    3  63 X        C   E            CA1
+  67    3  64 X        C   E            CA2
+  68    3  65 X        C   E            CA3
+  69    3  66 X        C   E            CA4
+  70         IR    ( 1)  U I            CABS
+  71          R         M? E            CARG
+  72         IX    ( 1)  U I            CCOS
+  73         IX    ( 1)  U I            CEXP
+  74          X         MU E            CEXP2A
+  75          X         MU E            CEXP2B
+  76          X         MU E            CEXP2C
+  77          X         MU E            CEXP3
+  78          X         MU E            CEXP3A
+  79          X         MU E            CEXP3B
+  80          X         MU E            CEXP3C
+  81          X         MU E            CEXP4
+  82          X         MU E            CEXP4A
+  83          X         MU E            CEXP4B
+  84          X         MU E            CEXP4C
+  85          R         ?U E            CKAP1
+  86    3  67 X        C   E            CLIFT
+  87    3  68 X        C   E            CMOMT
+  88          X         MU E            CONST
+  89         IX    ( 1)  U I            CSQRT
+  90    1   7 R        C?U E            DEL
+  91    4  50 R        C   E            DISAMP
+  92    1   4 R        C U E            DSTR
+  93    3  24 X        C   E            F1
+  94    3  29 X        C   E            F1S
+  95    3  41 X        CMU E            F2
+  96    3  46 X        CMU E            F2P
+  97    3   3 X        CMU E            F4
+  98    3   4 X        CMU E            F4S
+  99    3  17 X        C   E            F5
+ 100    3   6 X        CMU E            F5S
+ 101    3  18 X        C   E            F5T
+ 102    3   7 X        CMU E            F6S
+ 103    3  76 X        CM  E            FQ7
+ 104    3  74 X        CMU E            FQA
+ 105    3  75 X        C   E            FQB
+ 106    3  35 X        CMU E            FT2
+ 107    3  43 X        CMU E            FT2T
+ 108    3  37 X        CMU E            FT3
+ 109    3  45 X        CMU E            FT3T
+ 110    3  57 X        CMU E            FT3TST
+ 111    4  21 R        CMU E            GAM
+ 112    4  32 R        C   E            GAMN
+ 113    4  33 R        C   E            GAMP
+ 114    4   8 R        C U E            GL
+ 115    4  49 X        C   E            GUSAMP
+ 116    4   1 I        CMU E            I
+ 117    4   9 I        C   E            I6
+ 118    4  10 I        CM  E            I7
+ 119    5   2 I        C U E            IBBOUT
+ 120    4  22 I        C   E            IDX
+ 121    4  34 I        C   E            INER
+ 122    4  23 I        C   E            INX
+ 123    4  35 I        C   E            IOUT
+ 124    4  11 I        CMU E            JL
+ 125         s     ( 3)  U              MESAGE
+     (I4E,I4E,I4E)
+ 126    4  12 I        C U E            NL
+ 127    4  24 I        C U E            NL2
+ 128    1   6 R        C U E            PI
+ 129    4  51 R        C   E            PITAXS
+ 130    4  52 R        C   E            PITCOR
+ 131    3  69 X    ( 1)C   E       21   PRES1(21)
+ 132    3  70 X    ( 1)CMU E       21   PRES2(21)
+ 133    3  71 X    ( 1)CMU E       21   PRES3(21)
+ 134    3  72 X    ( 1)CM  E       21   PRES4(21)
+ 135    3  73 X    ( 1)C   E       21   QRES4(21)
+ 136    4   2 R        CMU E            R
+ 137    4  15 R        C   E            R5
+ 138    4  36 R        C   E            REDF
+ 139    1  10 R        C U E            RES
+ 140    4  13 R        CMU E            RI
+ 141    4  25 R        C U E            RL1
+ 142    4  26 R        C U E            RL2
+ 143    4  27 R        C   E            RQ1
+ 144    4  28 R        C   E            RQ2
+ 145    4  14 R        CMU E            RT
+ 146          R         MU E            S1
+ 147    3   1 X    ( 1)CM  E      201   SBKDE1(201)
+ 148    3   2 X    ( 1)CM  E      201   SBKDE2(201)
+ 149    1   1 R        C U E            SCRK
+ 150    1   8 R        C U E            SIGMA
+ 151         I?    ( 1)  U I            SIN
+ 152    4  16 R        C   E            SN
+ 153    1   3 R        C U E            SNS
+ 154    4  17 R        C   E            SP
+ 155    1   2 R        C U E            SPS
+ 156         I?    ( 1)  U I            SQRT
+ 157    4  37 R        C   E            STAG
+ 158    4  38 R        CMU E            STEP
+ 159         S                    148   SUBBB
+ 160         s           U              SUBC
+ 161    3  39 X        CMU E            SUM1
+ 162    3  48 X        CMU E            SUM1T
+ 163    3  40 X        CMU E            SUM2
+ 164    3  49 X        CMU E            SUM2T
+ 165    3   9 X        C   E            SUM3
+ 166    3  10 X        C   E            SUM4
+ 167    3  13 X    ( 1)CM  E      201   SUMSV1(201)
+ 168    3  14 X    ( 1)CM  E      201   SUMSV2(201)
+ 169    3  15 X    ( 1)CM  E      201   SVKL1(201)
+ 170    3  16 X    ( 1)CM  E      201   SVKL2(201)
+ 171    5   1 R        C   E            SYSBUF
+ 172          X         MU E            T1
+ 173          X         MU E            T2
+ 174          X         MU E            T3
+ 175          X         MU E            T4
+ 176          R         MU E            TEMP
+ 177          R         MU E            TEMP2
+ 178          R         MU E            TEMP3
+ 179    6   1 C*23     C U E            UFM*23
+ 180    4  18 R        CMU E            XL
+ 181    4  29 R        CMU E            XL1
+ 182          R         MU E            XL2
+ 183    4  43 R    ( 1)C   E       21   XLSV1(21)
+ 184    4  44 R    ( 1)C   E       21   XLSV2(21)
+ 185    4  45 R    ( 1)C   E       21   XLSV3(21)
+ 186    4  46 R    ( 1)C   E       21   XLSV4(21)
+ 187    4   3 R        C   E            Y
+ 188    4  19 R        C   E            Y1
+**-- END OF SYMBOL TABLE

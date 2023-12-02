@@ -1,0 +1,54 @@
+**++ Symbol table for subprogram INT2A8 in file mis/int2a8.f90
+     produced by SPAG     8.01RF-40 at 14:47:04 on  2 Dec 2023
+   0         X             K             mis/int2a8.f90,0000002,0000203
+   1         C     / 1/  U          4   /MACHIN/MACH
+   2         C     / 4/           164   /SYSTEM/DUMMY,NBPC,NBPW,NCPW
+   3          C*1  ( 1) MU E       10   A(10)*1
+   4   19   2 I    ( 1)A?? E            A8(2)
+   5         I?    ( 1)  U I            ABS
+   6          R         MU E            ABSX
+   7         IR    ( 1)  U I            ALOG10
+   8          C*1  ( 1)  U E       10   ALP(10)*1
+   9          C*10     I   E            ALP10*10
+  10    2   1 R    ( 1)C   E       38   DUMMY(38)
+  11         IR    ( 1)  U I            FLOAT
+  12         E     ( 2)                 FP2A8(X,A8)
+  13         E     ( 2)                 FP2K8(X,K8)
+  14         II    ( 1)  U I            IABS
+  15          C*1      I U E            IB*1
+  16         II    ( 1)  U I            IFIX
+  17          C*1      I U E            IM*1
+  18          I         MU E            INT
+  19         S     ( 2) ?U        134   INT2A8(X,A8)
+  20         E     ( 2)                 INT2K8(X,K8)
+  21          C*1      I U E            IP*1
+  22          I         MU E            IP1
+  23          I         MU E            IX
+  24          I         MU E            J
+  25          I          U E            JX
+  26          C*8  ( 1)AM  E        1   K8(1)*8
+  27         s     ( 2)  U              KHRBC2
+     (C8V,I4L)
+  28          I        IMU E            LL
+  29          I         MU E            LU
+  30    1   1 I        C U E            MACH
+  31         I?    ( 2)  U I            MOD
+  32          I         MU E            N
+  33          I         MU E            N1
+  34    2   2 I        C   E            NBPC
+  35    2   3 I        C   E            NBPW
+  36    2   4 I        C   E            NCPW
+  37          I        IMU E            NN
+  38          I         MU E            NP1
+  39          I         MU E            NT
+  40          I         MU E            POWER
+  41          C*1      I U E            PT*1
+  42          R         M  E            RX
+  43          C*8      IMU E            TEMP*8
+  44          C*10         E            TEMP10*10
+  45   19   1 R    ( 1)A U E            X(1)
+  46          R         MU E            XLL
+  47          R         MU E            XLU
+  48          C*8      I U E            ZERO*8
+  49          C*8      I U E            ZEROX*8
+**-- END OF SYMBOL TABLE

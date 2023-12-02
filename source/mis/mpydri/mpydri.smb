@@ -1,0 +1,127 @@
+**++ Symbol table for subprogram MPYDRI in file mis/mpydri.f90
+     produced by SPAG     8.01RF-40 at 14:47:16 on  2 Dec 2023
+   0         X             K             mis/mpydri.f90,0000002,0000667
+   1         C     /10/ MU        136   /MPYADX/FILEA,FILEB,FILEC,FILED,NZZ,T,SIGNAB,SIGNC,PREC,SCR
+   2         C     / 5/ ??         20   /NAMES/RD,RDREW,WRT,WRTREW,CLSREW
+   3         C     / 5/ M          20   /PACKX/TYPEP,TYPOUT,IP,JP,INCRP
+   4         C     / 2/  U          8   /SYSTEM/SYSBUF,NOUT
+   5         C     / 5/            68   /TRNSPX/NAMEA,NAMEAT,LCORE,NSCR,ISCR
+   6         C     / 2/  U         24   /TYPE/PRC,WORDS
+   7         C     / 4/ MU         16   /UNPAKX/TYPEU,IU,JU,INCRU
+   8         C     / 4/  U        102   /XMSSG/UFM,UWM,UIM,SFM
+   9   60   1 R    ( 1)AMU E            A(1)
+  10          I    ( 1) M? E        7   AD(7)
+  11   60   3 R    ( 1)AMU E            B(1)
+  12          I         MU E            BUF1
+  13          I         MU E            BUF2
+  14          I         MU E            BUF3
+  15   60   5 R    ( 1)AMU E            C(1)
+  16         s     ( 2)  U              CLOSE
+     (I4V,I4V)
+     (I4A,   )
+  17    2   5 I        C?? E            CLSREW
+  18          I         MU E            COLA
+  19          I         MU E            COLB
+  20          I         MU E            COLB2
+  21          I         MU E            COLB4
+  22          I         MU E            COLC
+  23          I         MU E            COLD
+  24         s     ( 5)  U              CPYFIL
+     (I4V,I4V,R4L,I4V,I4V)
+     (   ,I4A,   ,   ,   )
+  25   60   2 D    ( 1)AMU E            DA(1)
+  26   60   4 D    ( 1)A U E            DB(1)
+  27   60   6 D    ( 1)AMU E            DC(1)
+  28          I        I U E            DIAGNL
+  29          I         ?U E            FA
+  30          I         ?U E            FB
+  31          I         ?U E            FC
+  32          I         ?U E            FD
+  33          I         M? E            FILE
+  34    1   1 I    ( 1)C U E        7   FILEA(7)
+  35    1   2 I    ( 1)C U E        7   FILEB(7)
+  36    1   3 I    ( 1)C U E        7   FILEC(7)
+  37    1   4 I    ( 1)CMU E        7   FILED(7)
+  38          I          U E            FORMA
+  39          I          U E            FORMB
+  40          I          U E            FORMC
+  41          I         M? E            FORMD
+  42         s     ( 2)  U              FWDREC
+     (ALT,I4V)
+     (   ,I4A)
+  43         s     ( 3)  U              GOPEN
+     (I4A,R4L,I4V)
+     (I4V,   ,   )
+  44          I         MU E            I
+  45          I        I U E            IDENT
+  46    3   5 I        CM  E            INCRP
+  47    7   4 I        CM  E            INCRU
+  48    3   3 I        CM  E            IP
+  49    5   5 I        C   E            ISCR
+  50    7   2 I        CMU E            IU
+  51          I         MU E            J
+  52          I         MU E            JE
+  53    3   4 I        CM  E            JP
+  54    7   3 I        CM  E            JU
+  55          I         MU E            K
+  56          I         MU E            KX
+  57    5   3 I        C   E            LCORE
+  58         s     ( 5)  U              MAKMCB
+     (I4A,I4A,I4V,I4V,I4V)
+  59         s     ( 3)  U              MESAGE
+     (I4V,I4V,I4A)
+  60         S     ( 6) MU        486   MPYDRI(A,DA,B,DB,C,DC)
+  61          I    ( 1)I?? E        2   NAME(2)
+  62    5   1 I    ( 1)C   E        7   NAMEA(7)
+  63    5   2 I    ( 1)C   E        7   NAMEAT(7)
+  64    4   2 I        C U E            NOUT
+  65    5   4 I        C   E            NSCR
+  66          I         MU E            NWDS
+  67          I         M? E            NZ
+  68    1   5 I        C U E            NZZ
+  69         s     ( 4)  U              OPEN
+     (ALT,I4V,R4L,I4V)
+     (   ,I4A,   ,   )
+  70         s     ( 3)  U              PACK
+     (R4A,I4A,I4A)
+     (   ,I4V,   )
+  71    6   1 I    ( 1)C   E        2   PRC(2)
+  72    1   9 I        C U E            PREC
+  73    2   1 I        C   E            RD
+  74    2   2 I        C?? E            RDREW
+  75         s     ( 1)  U              REWIND
+     (I4V)
+  76          I         MU E            ROWA
+  77          I         MU E            ROWA2
+  78          I         MU E            ROWB
+  79          I         MU E            ROWB2
+  80          I         MU E            ROWC
+  81          I         MU E            ROWD
+  82          I         MU E            ROWD2
+  83          I        I U E            ROWVEC
+  84    1  10 I        C U E            SCR
+  85          I    ( 1) MU E        7   SD(7)
+  86    8   4 C*25     C U E            SFM*25
+  87    1   7 I        C U E            SIGNAB
+  88    1   8 I        C U E            SIGNC
+  89    4   1 I        C U E            SYSBUF
+  90    1   6 I        C U E            T
+  91          I          U E            TYPEA
+  92          I          U E            TYPEB
+  93          I          U E            TYPEC
+  94          I         MU E            TYPED
+  95    3   1 I        CM  E            TYPEP
+  96    7   1 I        CM  E            TYPEU
+  97    3   2 I        CM  E            TYPOUT
+  98    8   1 C*23     C U E            UFM*23
+  99    8   3 C*29     C   E            UIM*29
+ 100         s     ( 3)  U              UNPACK
+     (ALT,I4V,R4A)
+     (   ,I4A,   )
+ 101    8   2 C*25     C   E            UWM*25
+ 102    6   2 I    ( 1)C U E        4   WORDS(4)
+ 103    2   3 I        C   E            WRT
+ 104    2   4 I        C?? E            WRTREW
+ 105         s     ( 1)  U              WRTTRL
+     (I4A)
+**-- END OF SYMBOL TABLE

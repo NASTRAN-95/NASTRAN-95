@@ -1,0 +1,21 @@
+**++ Symbol table for subprogram SYMBOL in file mis/symbol.f90
+     produced by SPAG     8.01RF-40 at 14:47:09 on  2 Dec 2023
+   0         X             K             mis/symbol.f90,0000002,0000032
+   1         C     / 2/  U          8   /PLTDAT/MODEL,PLOTER
+   2         C     / 2/  U        164   /SYMBLS/NSYM,SYMBL
+   3          I         MU E            I
+   4    1   1 I        C   E            MODEL
+   5    2   1 I        C U E            NSYM
+   6   10   4 I        A?U E            OPT
+   7    1   2 I        C U E            PLOTER
+   8          I         MU E            SYM
+   9    2   2 I    ( 2)C U E       40   SYMBL(20,2)
+  10         S     ( 4) ?U         11   SYMBOL(X,Y,SYMX,OPT)
+  11   10   3 I    ( 1)A U E            SYMX(2)
+  12         s     ( 6)  U              TIPE
+     (I4E,I4E,I4E,I4E,I4E,I4V)
+  13         s     ( 6)  U              TYPE10
+     (R4V,R4V,I4E,I4V,I4E,I4E)
+  14   10   1 R        A?? E            X
+  15   10   2 R        A?? E            Y
+**-- END OF SYMBOL TABLE

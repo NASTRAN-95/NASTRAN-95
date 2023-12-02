@@ -1,0 +1,163 @@
+**++ Symbol table for subprogram EMGOLD in file mis/emgold.f90
+     produced by SPAG     8.01RF-40 at 14:46:35 on  2 Dec 2023
+   0         X             K             mis/emgold.f90,0000002,0000635
+   1         C     / 9/ MU        164   /EMG1BX/NSILS,POSVEC,IBLOC,NBLOC,IROWS,DICT,FILTYP,SIL,LAST
+   2         C     / 5/  U         20   /EMGDIC/ELTYPE,LDICT,NLOCS,ELID,ESTID
+   3         C     / 1/  U        400   /EMGEST/ESTBUF
+   4         C     /11/  U        116   /EMGPRM/SKIPXX,FLAGS,PRECIS,ERROR,HEAT,ICMBAR,LCSTM,LMAT,LHMAT,KFLAGS,L38
+   5         C     / 4/  U         16   /GPTA1/NELEMS,NLAST,INCR,ELEM
+   6         C     / 1/ M           4   /HYDROE/HYDRO
+   7         C     / 2/ MU         12   /IEMGOD/DUMMY,LTYPES
+   8         C     / 3/  U         16   /MACHIN/MACH,DUM2,LQRO
+   9         C     / 1/            40   /SMA1BK/S1DUM
+  10         C     / 6/ MU        892   /SMA1CL/IOPT4,K4GGSW,KNPVT,SKIP19,KNOGO,KSAFE
+  11         C     / 1/          2800   /SMA1DP/KWORK
+  12         C     / 1/ M         400   /SMA1ET/KECPT
+  13         C     / 1/ M           4   /SMA1HT/KHEAT
+  14         C     / 1/           144   /SMA1IO/SMAIO
+  15         C     / 1/            40   /SMA2BK/S2DUM
+  16         C     / 7/ MU        892   /SMA2CL/IOPTB,BGGIND,MNPVT,SKIP17,MNOGO,SKIP2,MSAFE
+  17         C     / 1/          2800   /SMA2DP/MWORK
+  18         C     / 1/ M         400   /SMA2ET/MECPT
+  19         C     / 1/ M           4   /SMA2HT/LHEAT
+  20         C     / 1/           260   /SYSTEM/KSYSTM
+  21         C     / 6/  U        160   /XMSSG/UFM,UWM,UIM,SFM,SWM,SIM
+  22          I    ( 1) MU E       15   BDICT(15)
+  23   16   2 R        CM  E            BGGIND
+  24    1   6 I    ( 1)CMU E       15   DICT(15)
+  25    8   2 R    ( 1)C   E        2   DUM2(2)
+  26    7   1 D        C?? E            DUMMY
+  27    5   4 I    ( 1)C U E        1   ELEM(1)
+  28    2   4 I        C U E            ELID
+  29    2   1 I        C U E            ELTYPE
+  30         s     ( 5)  U              EMG1B
+     (R8E,I4E,I4E,I4E,I4E)
+     (   ,   ,   ,   ,R8E)
+  31         S                    369   EMGOLD
+  32    4   4 L        C   E            ERROR
+  33    3   1 I    ( 1)C U E      100   ESTBUF(100)
+  34    2   5 I        C U E            ESTID
+  35          I         MU E            ESTWDS
+  36    1   7 I        CM  E            FILTYP
+  37    4   2 I    ( 1)C U E        3   FLAGS(3)
+  38    4   5 L        C U E            HEAT
+  39         s     ( 1)  U              HRING
+     (I4E)
+  40    6   1 L        CM  E            HYDRO
+  41          I         MU E            I
+  42          I         MU E            I1
+  43          I         MU E            I2
+  44    1   3 I        C   E            IBLOC
+  45    4   6 I        C U E            ICMBAR
+  46          I         MU E            ICOUNT
+  47          I         M  E            IF4GG
+  48          I         M  E            IFKGG
+  49    5   3 I        C U E            INCR
+  50          I         MU E            INDEX
+  51   10   1 I        CM  E            IOPT4
+  52   16   1 I        CM  E            IOPTB
+  53    1   5 I        C   E            IROWS
+  54          I         MU E            ISIL
+  55          I         MU E            IZERO
+  56          I         MU E            J
+  57          I         MU E            JLTYPE
+  58          I         MU E            K
+  59   10   2 I        CM  E            K4GGSW
+  60         s           U              KCONE2
+  61         s           U              KCONED
+  62         s           U              KCONEQ
+  63         s           U              KCONES
+  64          I    ( 1) MU E       15   KDICT(15)
+  65   12   1 I    ( 1)CM  E      100   KECPT(100)
+  66         s           U              KELBOW
+  67    4  10 I    ( 1)C   E        3   KFLAGS(3)
+  68         s           U              KFLUD2
+  69         s           U              KFLUD3
+  70         s           U              KFLUD4
+  71   13   1 L        CM  E            KHEAT
+  72   10   5 I        CMU E            KNOGO
+  73   10   3 I        CM  E            KNPVT
+  74         s           U              KQDMEM
+  75         s           U              KQDPLT
+  76   10   6 I    ( 1)C   E      200   KSAFE(200)
+  77         s     ( 1)  U              KSLOT
+     (I4E)
+  78         s     ( 1)  U              KSOLID
+     (I4E)
+  79   20   1 I    ( 1)C   E       65   KSYSTM(65)
+  80          I         MU E            KTEMP
+  81         s     ( 2)  U              KTETRA
+     (I4E,I4E)
+  82         s           U              KTRAPR
+  83         s     ( 1)  U              KTRIQD
+     (I4E)
+  84         s           U              KTRIRG
+  85         s           U              KTRPLT
+  86   11   1 I    ( 1)C   E      700   KWORK(700)
+  87          I         MU E            L
+  88    4  11 I        C U E            L38
+  89    1   9 L        CM  E            LAST
+  90    4   7 I        C   E            LCSTM
+  91    2   2 I        C   E            LDICT
+  92   19   1 L        CM  E            LHEAT
+  93    4   9 I        C   E            LHMAT
+  94    4   8 I        C   E            LMAT
+  95          I         MU E            LOCAL
+  96    8   3 I        C U E            LQRO
+  97    7   2 I        CMU E            LTYPES
+  98    8   1 I        C U E            MACH
+  99         s     ( 1)  U              MASSTQ
+     (I4E)
+ 100         s           U              MCONE
+ 101          I    ( 1) MU E       15   MDICT(15)
+ 102   18   1 I    ( 1)CM  E      100   MECPT(100)
+ 103         s           U              MELBOW
+ 104         s           U              MFLUD2
+ 105         s           U              MFLUD3
+ 106         s           U              MFLUD4
+ 107         s           U              MFREE
+ 108   16   5 I        CMU E            MNOGO
+ 109   16   3 I        CM  E            MNPVT
+ 110         I?    ( 2)  U I            MOD
+ 111         s           U              MQDPLT
+ 112         s     ( 1)  U              MRING
+     (I4E)
+ 113   16   7 I    ( 1)C   E      200   MSAFE(200)
+ 114         s     ( 1)  U              MSLOT
+     (I4E)
+ 115         s     ( 1)  U              MSOLID
+     (I4E)
+ 116          I         MU E            MTEMP
+ 117         s           U              MTRAPR
+ 118         s     ( 1)  U              MTRIQD
+     (I4E)
+ 119         s           U              MTRIRG
+ 120         s           U              MTRPLT
+ 121   17   1 I    ( 1)C   E      700   MWORK(700)
+ 122    1   4 I        C   E            NBLOC
+ 123          I          U E            NBPW
+ 124    5   1 I        C   E            NELEMS
+ 125    5   2 I        C   E            NLAST
+ 126    2   3 I        C   E            NLOCS
+ 127    1   1 I        CMU E            NSILS
+ 128          I          U E            OUTPT
+ 129         s     ( 1)  U              PAGE2
+     (I4E)
+ 130    1   2 I    ( 1)CMU E       10   POSVEC(10)
+ 131    4   3 I        C U E            PRECIS
+ 132          I         MU E            QP
+ 133    9   1 R    ( 1)C   E       10   S1DUM(10)
+ 134   15   1 R    ( 1)C   E       10   S2DUM(10)
+ 135   21   4 C*25     C   E            SFM*25
+ 136    1   8 I    ( 1)CMU E       10   SIL(10)
+ 137   21   6 C*31     C U E            SIM*31
+ 138   16   4 R    ( 1)C   E       17   SKIP17(17)
+ 139   10   4 R    ( 1)C   E       19   SKIP19(19)
+ 140   16   6 R    ( 1)C   E        2   SKIP2(2)
+ 141    4   1 R    ( 1)C   E       15   SKIPXX(15)
+ 142   14   1 R    ( 1)C   E       36   SMAIO(36)
+ 143   21   5 C*27     C U E            SWM*27
+ 144   21   1 C*23     C   E            UFM*23
+ 145   21   3 C*29     C   E            UIM*29
+ 146   21   2 C*25     C   E            UWM*25
+**-- END OF SYMBOL TABLE

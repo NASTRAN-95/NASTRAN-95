@@ -1,0 +1,32 @@
+**++ Symbol table for subprogram TRIF in file mis/trif.f90
+     produced by SPAG     8.01RF-40 at 14:46:38 on  2 Dec 2023
+   0         X             K             mis/trif.f90,0000002,0000127
+   1         C     / 3/ MU         12   /SYSTEM/IBUF,NOUT,NOGO
+   2         C     / 1/  U         23   /XMSSG/UFM
+   3   18   7 R        AM  E            A
+   4         I?    ( 1)  U I            ABS
+   5   18   8 R        AMU E            B
+   6   18   9 R        AMU E            C
+   7   18  11 R    ( 1)A U E            ELEM(2)
+   8    1   1 I        C   E            IBUF
+   9   18  10 I        A U E            ID
+  10   18   4 R    ( 1)AMU E            IVECT(3)
+  11   18   5 R    ( 1)AMU E            JVECT(3)
+  12   18   6 R    ( 1)AMU E            KVECT(3)
+  13    1   3 L        CM  E            NOGO
+  14    1   2 I        C U E            NOUT
+  15          R         MU E            SAVE
+  16         I?    ( 1)  U I            SQRT
+  17          R         MU E            TEMP
+  18         S     (11) MU         57   TRIF(XC,YC,ZC,IVECT,JVECT,KVECT,A,B,C,ID,ELEM)
+  19    2   1 C*23     C U E            UFM*23
+  20          R         MU E            X1
+  21          R         MU E            X2
+  22   18   1 R    ( 1)AMU E            XC(6)
+  23          R         MU E            Y1
+  24          R         MU E            Y2
+  25   18   2 R    ( 1)AMU E            YC(6)
+  26          R         MU E            Z1
+  27          R         MU E            Z2
+  28   18   3 R    ( 1)A U E            ZC(6)
+**-- END OF SYMBOL TABLE

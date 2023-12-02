@@ -1,0 +1,57 @@
+**++ Symbol table for subprogram T3SETS in file mis/t3sets.f90
+     produced by SPAG     8.01RF-40 at 14:46:36 on  2 Dec 2023
+   0         X             K             mis/t3sets.f90,0000002,0000247
+   1          R         MU E            AREA2
+   2   45  14 R        AMU E            AVGTHK
+   3          R    ( 2) MU E        9   AXIS(3,3)
+   4         s     ( 4)  U              BETRNS
+     (R4A,R4A,I4E,I4V)
+   5          R    ( 2)  U E       12   BGPDT(4,3)
+   6          R         MU E            CC
+   7   45  13 R    ( 1)AMU E            CENT(3)
+   8   45   6 R    ( 1)AMU E            DGPTH(3)
+   9          R    ( 1) MU E        3   EDG12(3)
+  10          R    ( 1) MU E        3   EDG13(3)
+  11          R    ( 1) MU E        3   EDG23(3)
+  12   45  17 R    ( 1)AMU E            EDGLEN(3)
+  13   45   7 R    ( 2)AMU E            EGPDT(4,3)
+  14   45  18 I        A?? E            ELID
+  15   45   4 R        A U E            ELTH
+  16   45   9 R    ( 2)AM  E            EPNORM(4,3)
+  17          R    ( 1) M? E        9   GGU(9)
+  18   45   8 R    ( 2)AM  E            GPNORM(4,3)
+  19   45   5 R    ( 1)AMU E            GPTH(3)
+  20          I         MU E            I
+  21   45   1 I        AM  E            IERR
+  22          I    ( 2) MU E       12   IGPDT(4,3)
+  23          I    ( 2) MU E       12   IGRID(4,3)
+  24          I         MU E            II
+  25   45  10 I    ( 1)AMU E            IORDER(3)
+  26          I         MU E            IP
+  27          I         MU E            IPOINT
+  28          I         MU E            ISIL
+  29          I         MU E            ITEMP
+  30          I         MU E            J
+  31   45   3 I    ( 2)AMU E            JGPDT(4,3)
+  32          I         MU E            K
+  33          I    ( 1) MU E        3   KSIL(3)
+  34          R         MU E            LENGTH
+  35   45  15 R        AMU E            LX
+  36   45  16 R        AM  E            LY
+  37          I         MU E            NNODE
+  38          I         MU E            NODEI
+  39          I         MU E            NODEJ
+  40          I         MU E            NODEK
+  41         s     ( 3)  U              SAXB
+     (R4A,R4A,R4L)
+  42   45   2 I    ( 1)AMU E            SIL(3)
+  43          R         MU E            SMALL
+  44         I?    ( 1)  U I            SQRT
+  45         S     (18) MU        144   T3SETS(IERR,SIL,JGPDT,ELTH,GPTH,DGPTH,EGPDT,GPNORM,EPNORM,IORDER,TEB,TUB,CENT,AVGTHK,LX,LY,EDGLEN,ELID)
+  46   45  11 R    ( 1)AMU E            TEB(9)
+  47          R    ( 1) MU E        3   TMPTHK(3)
+  48   45  12 R    ( 1)A?? E            TUB(9)
+  49          R    ( 1) MU E        3   X(3)
+  50          R    ( 1) MU E        3   Y(3)
+  51          R    ( 1) MU E        3   Z(3)
+**-- END OF SYMBOL TABLE

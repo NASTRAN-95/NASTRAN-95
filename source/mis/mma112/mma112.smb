@@ -1,0 +1,106 @@
+**++ Symbol table for subprogram MMA112 in file mis/mma112.f90
+     produced by SPAG     7.61RG-40 at 01:00:00 on 21 Mar 2022
+   0         X             K             mis/mma112.f90,0000002,0000156
+   1         C     /11/ ?U        140   /MPYADX/FILEA,FILEB,FILEC,FILED,NZ,T,SIGNAB,SIGNC,PREC1,SCRTCH,TIME
+   2         C     / 6/            24   /NAMES/RD,RDREW,WRT,WRTREW,CLSREW,CLS
+   3         C     / 5/            20   /PACKX/TYPEI,TYPEP,IPROW1,IPROWN,INCRP
+   4         C     / 1/           608   /SYSTEM/KSYSTM
+   5         C     / 3/            40   /TYPE/IPRC,NWORDS,IRC
+   6         C     / 4/ M          16   /UNPAKX/TYPEU,IUROW1,IUROWN,INCRU
+   7    2   6 I        C   E            CLS
+   8    2   5 I        C   E            CLSREW
+   9    1   1 I    ( 1)C   E        7   FILEA(7)
+  10    1   2 I    ( 1)C   E        7   FILEB(7)
+  11    1   3 I    ( 1)C   E        7   FILEC(7)
+  12    1   4 I    ( 1)C?? E        7   FILED(7)
+  13          I         MU E            I
+  14          ?          U I            IAX
+  15          ?          U I            IBROW
+  16          I         MU E            IBROWI
+  17          I         MU E            IDROW
+  18          ?          U I            IDX2
+  19          I         MU E            IDX2X
+  20          ?         ?U I            IFILE
+  21          I         MU E            II
+  22    3   5 I        C   E            INCRP
+  23    6   4 I        C   E            INCRU
+  24          I         MU E            INDX
+  25          I         MU E            INDXA
+  26          I         MU E            INDXAV
+  27          I         MU E            INDXB
+  28          I         MU E            INDXV
+  29          ?          U I            IPASS
+  30    5   1 I    ( 1)C   E        2   IPRC(2)
+  31    3   3 I        C   E            IPROW1
+  32    3   4 I        C   E            IPROWN
+  33    5   3 I    ( 1)C   E        4   IRC(4)
+  34          I         MU E            IROW1
+  35          I         MU E            IROWA1
+  36          I         MU E            IROWAN
+  37          I         MU E            IROWB1
+  38          I         MU E            IROWBN
+  39          I         MU E            IROWN
+  40          I         MU E            IROWS
+  41    6   2 I        CM  E            IUROW1
+  42    6   3 I        CM  E            IUROWN
+  43          I         MU E            J
+  44          I         MU E            K
+  45    4   1 I    ( 1)C   E      152   KSYSTM(152)
+  46          ?          U I            LASIND
+  47         II    ( 2)  U I            MAX0
+  48         II    ( 2)  U I            MIN0
+  49         S     ( 2) MU         77   MMA112(ZI,ZD)
+  50         s     ( 2)  U              MMARC2
+     (I4A,R8A)
+  51          I            E            NAC
+  52          I            E            NADENS
+  53          I            E            NAFORM
+  54          I            E            NANZWD
+  55          I          U E            NAR
+  56          I            E            NATYPE
+  57          I          U E            NBC
+  58          I            E            NBDENS
+  59          I            E            NBFORM
+  60          I            E            NBNZWD
+  61          I            E            NBR
+  62          I            E            NBTYPE
+  63          I            E            NCC
+  64          I            E            NCDENS
+  65          I            E            NCFORM
+  66          I            E            NCNZWD
+  67          ?          U I            NCOLPP
+  68          I            E            NCR
+  69          I            E            NCTYPE
+  70          I            E            NDC
+  71          I            E            NDDENS
+  72          I            E            NDFORM
+  73          I            E            NDNZWD
+  74          I          U E            NDR
+  75          I          U E            NDTYPE
+  76          I            E            NOUT
+  77          ?          U I            NWDD
+  78          I         MU E            NWDDNAR
+  79    5   2 I    ( 1)C   E        4   NWORDS(4)
+  80    1   5 I        C   E            NZ
+  81          ?         ?? I            OFILE
+  82         s     ( 3)  U              PACK
+     (R8L,?*V,I4A)
+  83    1   9 R        C   E            PREC1
+  84    2   1 I        C   E            RD
+  85    2   2 I        C   E            RDREW
+  86    1  10 R        C   E            SCRTCH
+  87    1   7 I        C   E            SIGNAB
+  88    1   8 I        C U E            SIGNC
+  89          R            E            SYSBUF
+  90    1   6 I        C U E            T
+  91    1  11 R        C   E            TIME
+  92    3   1 I        C   E            TYPEI
+  93    3   2 I        C   E            TYPEP
+  94    6   1 I        CM  E            TYPEU
+  95         s     ( 3)  U              UNPACK
+     (ALT,?*V,R8L)
+  96    2   3 I        C   E            WRT
+  97    2   4 I        C   E            WRTREW
+  98   49   2 D    ( 1)AMU E            ZD(2)
+  99   49   1 I    ( 1)A?U E            ZI(2)
+**-- END OF SYMBOL TABLE

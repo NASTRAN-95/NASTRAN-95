@@ -1,0 +1,51 @@
+**++ Symbol table for subprogram PACK in file mds/pack.f90
+     produced by SPAG     7.61RG-40 at 01:00:00 on 21 Mar 2022
+   0         X             K             mds/pack.f90,0000002,0000093
+   1         C     / 1/ M         640   /DDIOSV/IFLPOS
+   2         C     / 5/ ?U         20   /PACKX/ITYPIN,ITYPOT,IROBGN,LASROW,INCR
+   3   37   1 I    ( 1)A?U E            A(4)
+   4         s     ( 2)  U              DSBPNK
+     (?*F,I4A)
+   5         s           U              DSGEFL
+   6         s     ( 1)  U              DSMSG
+     (I4E)
+   7         s     ( 1)  U              DSMSG1
+     (?*F)
+   8         s     ( 4)  U              DSUPKC
+     (I4V,I4V,I4L,?*E)
+   9         s     ( 1)  U              ENDPUT
+     (?*F)
+  10         f?    ( 2)  U I            FCB
+     (I4E,?*V)
+  11   37   2 I        A U E            FILE
+  12         f?    ( 1) MU I            IBASE
+     (I4E)
+  13         G?    ( 1) MU I            IBLKC
+  14          ?         MU I            IEOR
+  15          ?         ?U I            IFILEX
+  16    1   1 I    ( 2)CM  E      160   IFLPOS(2,80)
+  17    2   5 I        C U E            INCR
+  18          I         MU E            INCRR
+  19          I         MU E            INDEA1
+  20          I         MU E            INDEXA
+  21          I         MU E            INDEXB
+  22    2   3 I        C U E            IROBGN
+  23          I         MU E            IROW
+  24    2   1 I        C?U E            ITYPIN
+  25    2   2 I        C?U E            ITYPOT
+  26          I         MU E            K
+  27          I         MU E            KK
+  28          I         MU E            KLAST
+  29          I         MU E            KLIM
+  30          I         MU E            LASIND
+  31    2   4 I        C U E            LASROW
+  32   37   3 I    ( 1)A?U E            MCB(7)
+  33          ?         MU I            NAME
+  34          I         MU E            NCNT
+  35          I         MU E            NWDIN
+  36         f?    ( 1)  U I            NWRDEL
+     (I4V)
+  37         S     ( 3) ?U         76   PACK(A,FILE,MCB)
+  38         s     ( 1)  U              PUTSTR
+     (?*F)
+**-- END OF SYMBOL TABLE

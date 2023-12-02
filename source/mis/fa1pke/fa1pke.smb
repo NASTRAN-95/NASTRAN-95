@@ -1,0 +1,156 @@
+**++ Symbol table for subprogram FA1PKE in file mis/fa1pke.f90
+     produced by SPAG     8.01RF-40 at 14:46:38 on  2 Dec 2023
+   0         X             K             mis/fa1pke.f90,0000002,0000397
+   1         C     / 1/  U          4   /BLANK/FLOOP
+   2         C     / 2/ ?U          8   /CONDAS/PI,TWOPI
+   3         C     / 8/  U         32   /FA1PKC/NCORE,NK,IMVR,IK,IA,IQ,ICP,IFLAG
+   4         C     / 2/  U          8   /SYSTEM/SYSBUF,NOUT
+   5         C     / 4/ M          16   /UNPAKX/IOUT,INN,NNN,INCR1
+   6         C     / 4/  U        102   /XMSSG/UFM,UWM,UIM,SFM
+   7         C     / 1/ MU          4   /ZZZZZZ/Z
+   8          R         MU E            A10
+   9          R         MU E            A11
+  10         I?    ( 1)  U I            ABS
+  11   29   2 I        A U E            BHH
+  12          R         MU E            BOV
+  13   29   7 R        A?U E            BREF
+  14          I         MU E            BUF1
+  15   29   4 I        A?? E            BXHH
+  16         s     ( 2)  U              CLOSE
+     (I4V,I4E)
+  17          R         MU E            D1
+  18         ID    ( 1)  U I            DABS
+  19          R         ?? E            DET
+  20          D         MU E            DSUM
+  21          D         MU E            DX1
+  22          D         MU E            DX2
+  23          D    ( 1) MU E        1   DZ(1)
+  24          R         MU E            EI
+  25          L         MU E            EIGV
+  26   29  10 R        AMU E            EPS
+  27          R         MU E            ER
+  28         s     ( 6)  U              FA1PKA
+     (R4L,R4L,R4L,R4L,I4E,I4V)
+  29         S     (10) MU        264   FA1PKE(KHH,BHH,MHH,BXHH,FSAVE,NLOOP,BREF,RREF,NEIW,EPS)
+  30         s     (10)  U              FA1PKV
+     (R4L,R4L,R4L,I4V,R4L,R4L,R4V,R4V,R4V,R4L)
+  31    1   1 I        C U E            FLOOP
+  32   29   5 I        A?U E            FSAVE
+  33         s     ( 9)  U              GMMATS
+     (R4L,I4V,I4V,I4E,R4L,I4V,I4V,I4E,R4L)
+  34         s     ( 3)  U              GOPEN
+     (I4V,R4L,I4E)
+  35          I         MU E            I
+  36    3   5 I        C U E            IA
+  37          I         MU E            IAD
+  38          I         MU E            IB
+  39          I         MU E            IBH
+  40          I         MU E            IBUF2
+  41          I         MU E            IC0
+  42          I         MU E            IC0D
+  43    3   7 I        C U E            ICP
+  44          I         MU E            IEIGNS
+  45          I         MU E            IFL
+  46    3   8 I        C U E            IFLAG
+  47    3   4 I        C U E            IK
+  48          I         MU E            IKH
+  49          I         MU E            IMA
+  50          I         MU E            IMH
+  51          I         MU E            IMHERE
+  52    3   3 I        C U E            IMVR
+  53    5   4 I        CM  E            INCR1
+  54    5   2 I        CM  E            INN
+  55         s     ( 8)  U              INVERS
+     (I4V,R4L,I4V,I4E,I4E,R4V,I4V,R4L)
+  56          I         MU E            IOP
+  57    5   1 I        CM  E            IOUT
+  58          I         MU E            IP0
+  59          I         MU E            IP0D
+  60    3   6 I        C U E            IQ
+  61          I         MU E            IQ0
+  62          I         MU E            IQI
+  63          I         MU E            IQR
+  64          I         MU E            ISING
+  65          I        IMU E            ISTART
+  66          I         MU E            IT
+  67          I         MU E            IV
+  68          I         MU E            J
+  69          I         MU E            JI
+  70          I         MU E            K
+  71   29   1 I        A U E            KHH
+  72          R         MU E            KINT
+  73          I         MU E            KN1
+  74          I         MU E            L
+  75          I         ?U E            L39
+  76         s     ( 3)  U              MESAGE
+     (I4E,I4E,I4A)
+     (   ,   ,I4E)
+  77   29   3 I        A U E            MHH
+  78         II    ( 2)  U I            MIN0
+  79         I?    ( 2)  U I            MOD
+  80          I    ( 1)I?? E        2   NAME(2)
+  81    3   1 I        C U E            NCORE
+  82          I         MU E            NEIGN
+  83   29   9 I        AMU E            NEIW
+  84          I         MU E            NIT
+  85    3   2 I        C U E            NK
+  86          I         MU E            NL
+  87          I         MU E            NLFT
+  88   29   6 I        A U E            NLOOP
+  89          I         MU E            NN
+  90          I         MU E            NN2
+  91    5   3 I        CM  E            NNN
+  92    4   2 I        C U E            NOUT
+  93          I         MU E            NR
+  94          I         MU E            NRA
+  95          I         MU E            NREM
+  96          I         MU E            NROOT
+  97          I         MU E            NROW
+  98          I         MU E            NRS
+  99          I         ?? E            NWR
+ 100    2   1 R        C?U E            PI
+ 101          R         MU E            RBV
+ 102         s     ( 1)  U              RDTRL
+     (I4A)
+ 103         s     ( 7)  U              READ
+     (ALT,ALT,I4V,R4L,I4V,I4E,I4V)
+ 104          R         MU E            RF
+ 105          R         MU E            RG
+ 106          R         MU E            RHO
+ 107          R         MU E            RK
+ 108          R         MU E            RKTST
+ 109   29   8 R        A U E            RREF
+ 110         s     ( 4)  U              RSORT
+     (I4E,I4E,R4L,I4V)
+ 111          R         MU E            RVS
+ 112    6   4 C*25     C U E            SFM*25
+ 113         s     ( 2)  U              SKPREC
+     (I4V,I4E)
+ 114         s     ( 2)  U              SSWTCH
+     (I4E,I4V)
+ 115    4   1 I        C U E            SYSBUF
+ 116          I    ( 1) MU E        7   TRL(7)
+ 117    2   2 R        C U E            TWOPI
+ 118    6   1 C*23     C   E            UFM*23
+ 119    6   3 C*29     C   E            UIM*29
+ 120         s     ( 3)  U              UNPACK
+     (ALT,I4V,R4L)
+ 121    6   2 C*25     C U E            UWM*25
+ 122          R         MU E            VEL
+ 123          R         MU E            VELS
+ 124         s     ( 4)  U              WRITE
+     (I4V,R4L,I4E,I4E)
+ 125         s     ( 1)  U              WRTTRL
+     (I4A)
+ 126          R         MU E            X10
+ 127          R         MU E            X11
+ 128          R         MU E            X12
+ 129          R         MU E            XAV
+ 130          R         MU E            XAV1
+ 131          R         MU E            Y10
+ 132          R         MU E            Y11
+ 133          R         MU E            YAV1
+ 134    7   1 R    ( 1)CMU E        1   Z(1)
+ 135         s     ( 2)  U              ZEROC
+     (R4L,I4V)
+**-- END OF SYMBOL TABLE

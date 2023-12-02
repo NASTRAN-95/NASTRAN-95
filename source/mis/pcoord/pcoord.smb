@@ -1,0 +1,33 @@
+**++ Symbol table for subprogram PCOORD in file mis/pcoord.f90
+     produced by SPAG     8.01RF-40 at 14:46:45 on  2 Dec 2023
+   0         X             K             mis/pcoord.f90,0000002,0000067
+   1         C     / 1/ ?U         48   /DRWAXS/G
+   2         C     / 4/  U        100   /PLTDAT/IDUM20,SIZE,IDUM2,CNTCHR
+   3         C     / 2/  U        864   /XXPARM/IDUMM,FPLTIT
+   4         I?    ( 1)  U I            ABS
+   5    2   4 R    ( 1)C U E        2   CNTCHR(2)
+   6          R         MU E            DE
+   7          R         MU E            EP
+   8    3   2 I        C U E            FPLTIT
+   9    1   1 R    ( 2)C?U E       12   G(3,4)
+  10          I         MU E            I
+  11    2   3 I    ( 1)C   E        2   IDUM2(2)
+  12    2   1 I    ( 1)C   E       20   IDUM20(20)
+  13    3   1 I    ( 1)C   E      215   IDUMM(215)
+  14         s     ( 6)  U              LINE
+     (R4V,R4V,R4V,R4V,I4V,I4E)
+  15          R         MU E            OF
+  16         S     ( 1) ??         35   PCOORD(PEN)
+  17   16   1 I        A?? E            PEN
+  18          R         MU E            SF
+  19    2   2 R        C U E            SIZE
+  20          I    ( 1) M? E        2   SYM(2)
+  21         s     ( 4)  U              SYMBOL
+     (R4V,R4V,I4A,I4E)
+  22         s     ( 6)  U              TIPE
+     (R4E,R4V,I4E,R4L,I4E,I4E)
+  23          R         MU E            X1
+  24          R         MU E            X2
+  25          R         MU E            Y1
+  26          R         MU E            Y2
+**-- END OF SYMBOL TABLE

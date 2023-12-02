@@ -1,0 +1,83 @@
+**++ Symbol table for subprogram EMG in file mis/emg.f90
+     produced by SPAG     8.01RF-40 at 14:46:45 on  2 Dec 2023
+   0         X             K             mis/emg.f90,0000002,0000137
+   1         C     / 6/ M          24   /BLANK/NOK,NOM,NOB,NOK4GG,NOKDGG,CMASS
+   2         C     / 7/ MU         44   /EMGFIL/EST,CSTM,MPT,DIT,GEOM2,MATS,DICTN
+   3         C     /25/ MU        116   /EMGPRM/ICORE,JCORE,NCORE,ICSTM,NCSTM,IMAT,NMAT,IHMAT,NHMAT,IDIT,NDIT,ICONG,NCONG,LCONG,ANYCON,FLAGS,PRECIS,ERROR,HEAT,ICMBAR,LCSTM,LMAT,LHMAT,KFLAGS,L38
+   4         C     / 2/ M          20   /HMATDD/SKP,LINEAR
+   5         C     / 1/  U          4   /MACHIN/MACH
+   6         C     / 1/           260   /SYSTEM/KSYSTM
+   7         C     / 1/ M?          4   /ZZZZZZ/Z
+   8    3  15 L        C   E            ANYCON
+   9    1   6 I        C   E            CMASS
+  10    2   2 I        CM  E            CSTM
+  11    2   7 I    ( 1)CM  E        3   DICTN(3)
+  12    2   4 I        CM  E            DIT
+  13         S                     54   EMG
+  14         s           U              EMGCNG
+  15         s     ( 1)  U              EMGCOR
+     (I4A)
+  16         s           U              EMGFIN
+  17         s     ( 1)  U              EMGPRO
+     (I4A)
+  18         s     ( 3)  U              EMGSOC
+     (I4V,I4V,L4V)
+  19         s           U              EMGTAB
+  20    3  18 L        CMU E            ERROR
+  21    2   1 I        CM  E            EST
+  22    3  16 I    ( 1)C   E        3   FLAGS(3)
+  23    2   5 I        CM  E            GEOM2
+  24    3  19 L        CM? E            HEAT
+  25          I         MU E            I
+  26          I    ( 1) ?? E        7   IBUF(7)
+  27    3  20 I        C   E            ICMBAR
+  28    3  12 I        C   E            ICONG
+  29    3   1 I        CMU E            ICORE
+  30    3   4 I        C   E            ICSTM
+  31    3  10 I        C   E            IDIT
+  32    3   8 I        C   E            IHMAT
+  33    3   6 I        C   E            IMAT
+  34          I          U E            IPRECI
+  35          I         MU E            J
+  36    3   2 I        CM  E            JCORE
+  37    3  24 I    ( 1)C   E        3   KFLAGS(3)
+  38         s     ( 1)  U              KLOCK
+     (I4V)
+  39         fI    ( 1)  U E            KORSZ
+     (I4L)
+  40    6   1 I    ( 1)C   E       65   KSYSTM(65)
+  41    3  25 I        C?U E            L38
+  42    3  14 I        C   E            LCONG
+  43    3  21 I        C   E            LCSTM
+  44    3  23 I        C   E            LHMAT
+  45    4   2 L        CM  E            LINEAR
+  46    3  22 I        C   E            LMAT
+  47    5   1 I        C U E            MACH
+  48    2   6 I    ( 1)CMU E        3   MATS(3)
+  49          I    ( 1) MU E        7   MCB(7)
+  50         s     ( 3)  U              MESAGE
+     (I4E,I4E,I4A)
+  51    2   3 I        CM  E            MPT
+  52          I    ( 1)I?? E        2   NAME(2)
+  53    3  13 I        C   E            NCONG
+  54    3   3 I        CMU E            NCORE
+  55    3   5 I        C   E            NCSTM
+  56    3  11 I        C   E            NDIT
+  57    3   9 I        C   E            NHMAT
+  58    3   7 I        C   E            NMAT
+  59    1   3 I        CM  E            NOB
+  60          L         MU E            NOGO
+  61          I          U E            NOHEAT
+  62    1   1 I        CM  E            NOK
+  63    1   4 I        CM  E            NOK4GG
+  64    1   5 I        CM  E            NOKDGG
+  65    1   2 I        CM  E            NOM
+  66          I          U E            NOUT
+  67    3  17 I        CMU E            PRECIS
+  68         s     ( 1)  U              RDTRL
+     (I4A)
+  69    4   1 R    ( 1)C   E        4   SKP(4)
+  70         s     ( 2)  U              SSWTCH
+     (I4E,I4V)
+  71    7   1 I    ( 1)CM? E        1   Z(1)
+**-- END OF SYMBOL TABLE

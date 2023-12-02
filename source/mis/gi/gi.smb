@@ -1,0 +1,52 @@
+**++ Symbol table for subprogram GI in file mis/gi.f90
+     produced by SPAG     8.01RF-40 at 14:46:55 on  2 Dec 2023
+   0         X             K             mis/gi.f90,0000002,0000049
+   1         C     /11/  U         44   /BITPOS/UM,UO,UR,USG,USB,UL,UA,UF,US,UN,UG
+   2         C     / 2/  U          8   /BLANK/NK,NG
+   3         C     /16/ MU         64   /GICOM/SPLINE,USETA,CSTM,BAGPDT,SILA,ECTA,GM,GO,GTKA,KSIZE,GSIZE,SCR1,SCR2,SCR3,SCR4,SCR5
+   4         C     / 1/ ??        128   /TWO/TWO1
+   5         fI    ( 2)  UXE            ANDF
+     (I4L,I4L)
+   6    3   4 I        CM  E            BAGPDT
+   7    3   3 I        CM  E            CSTM
+   8    3   6 I        CM  E            ECTA
+   9         S                     31   GI
+  10         s           U              GIGGKS
+  11         s     ( 3)  U              GIGTKA
+     (L4V,L4V,L4V)
+  12         s           U              GIGTKG
+  13         s           U              GIPSST
+  14    3   7 I        CM  E            GM
+  15    3   8 I        CM  E            GO
+  16    3  11 I        CMU E            GSIZE
+  17    3   9 I        CMU E            GTKA
+  18          I    ( 1)IMU E        7   IA(7)
+  19    3  10 I        CM  E            KSIZE
+  20          L        IMU E            MULTI
+  21    2   2 I        C U E            NG
+  22    2   1 I        C U E            NK
+  23          L        IMU E            OMIT
+  24         s     ( 1)  U              RDTRL
+     (I4A)
+  25    3  12 I        CM  E            SCR1
+  26    3  13 I        CM  E            SCR2
+  27    3  14 I        CM  E            SCR3
+  28    3  15 I        CM  E            SCR4
+  29    3  16 I        CM  E            SCR5
+  30    3   5 I        CMU E            SILA
+  31          L        IMU E            SINGLE
+  32    3   1 I        CM  E            SPLINE
+  33    4   1 I    ( 1)C?? E       32   TWO1(32)
+  34    1   7 I        C   E            UA
+  35    1   8 I        C   E            UF
+  36    1  11 I        C   E            UG
+  37    1   6 I        C   E            UL
+  38    1   1 I        C U E            UM
+  39    1  10 I        C   E            UN
+  40    1   2 I        C U E            UO
+  41    1   3 I        C   E            UR
+  42    1   9 I        C U E            US
+  43    1   5 I        C   E            USB
+  44    3   2 I        CMU E            USETA
+  45    1   4 I        C   E            USG
+**-- END OF SYMBOL TABLE

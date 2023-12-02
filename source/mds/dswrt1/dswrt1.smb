@@ -1,0 +1,34 @@
+**++ Symbol table for subprogram DSWRT1 in file mds/dswrt1.f90
+     produced by SPAG     8.01RF-40 at 14:46:33 on  2 Dec 2023
+   0         X             K             mds/dswrt1.f90,0000002,0000076
+   1         s           U              DSWRNB
+   2         S     ( 1)  U         68   DSWRT1(IDATA)
+   3          I         MU E            I
+   4         I?    ( 2)  U I            IAND
+   5         G?    ( 1) MU I            IBASE
+   6          ?          U I            IBLOCK
+   7          I         MU E            ICOUNT
+   8    2   1 I    ( 1)A U E            IDATA(2)
+   9          ?          U I            IDSC
+  10          ?          U I            IDSEB
+  11          ?          U I            IDSP
+  12          ?          U I            IDSRH
+  13          ?          U I            IDSRT
+  14          ?          U I            IDSX
+  15          ?          U I            IEOR
+  16          I         MU E            IFIN
+  17          I         MU E            IFLG
+  18          ?          U I            INDBAS
+  19          ?         MU I            INDCBP
+  20          ?         MU I            INDCLR
+  21          I         MU E            INEXT
+  22         I?    ( 2)  U I            IOR
+  23          I         MU E            IRWORDS
+  24          ?         MU I            LWORDS
+  25          ?          U I            MASKH2
+  26          ?          U I            MASKQ2
+  27          ?          U I            NBLOCK
+  28          ?          U I            NBUFF
+  29         I?    ( 1)  U I            NOT
+  30          ?         MU I            NWORDS
+**-- END OF SYMBOL TABLE

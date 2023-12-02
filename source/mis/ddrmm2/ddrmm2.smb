@@ -1,0 +1,211 @@
+**++ Symbol table for subprogram DDRMM2 in file mis/ddrmm2.f90
+     produced by SPAG     8.01RF-40 at 14:47:04 on  2 Dec 2023
+   0         X             K             mis/ddrmm2.f90,0000002,0000635
+   1         C     / 1/  U          4   /CLSTRS/COMPLX
+   2         C     / 2/  U          8   /CONDAS/PI,TWOPI
+   3         C     /48/ MU       1496   /DDRMC1/IDREC,BUFF,PASSES,OUTFIL,JFILE,MCB,ENTRYS,SETS,INFILE,LAMBDA,FILE,SORT2,COL1,FRSTID,NCORE,NSOLS,DHSIZE,FILNAM,RBUF,IDOUT,ICC,NCC,ILIST,NLIST,NWDS,SETID,TRNSNT,I1,I2,PHASE,ITYPE1,ITYPE2,NPTSF,LSF,NWDSF,SCRT,IERROR,ITEMP,DEVICE,FORM,ISTLST,LSTLST,UVSOL,
+                                                NLAMBS,NWORDS,OMEGA,IPASS,SUBCAS
+   4         C     / 4/  U         16   /GPTA1/NELEM,LAST,INCR,ELEM
+   5         C     /10/ M?        136   /MPYADX/MCBA,MCBB,MCBC,MCBD,LZ,ITFLAG,ISINAB,ISINC,IPREC,ISCRT
+   6         C     / 6/ ??         24   /NAMES/RD,RDREW,WRT,WRTREW,CLSREW,CLS
+   7         C     / 6/ MU        452   /STDATA/LMINOR,NSTXTR,NPOS,SAVDAT,SAVPOS,BUFSAV
+   8         C     / 2/  U          8   /SYSTEM/SYSBUF,OUTPT
+   9         C     / 5/  U        129   /XMSSG/UFM,UWM,UIM,SFM,SWM
+  10         C     / 2/ MU         20   /ZBLPKX/A,IROW
+  11         C     / 4/  U         28   /ZNTPKX/AOUT,IROWO,IEOL,IEOR
+  12         C     / 1/ MU          4   /ZZZZZZ/RZ
+  13   10   1 R    ( 1)CM  E        4   A(4)
+  14          L         ?U E            ANYXY
+  15   11   1 R    ( 1)C U E        4   AOUT(4)
+  16         s     ( 6)  U              BISLOC
+     (ALT,I4V,I4L,I4E,I4V,I4V)
+  17         s     ( 5)  U              BLDPK
+     (I4E,I4E,I4V,I4E,I4E)
+  18         s     ( 3)  U              BLDPKN
+     (I4V,I4E,I4A)
+  19          I    ( 1) MU E      150   BUF(150)
+  20          I          U E            BUF1
+  21          I          U E            BUF2
+  22          I          U E            BUF3
+  23          I         ?? E            BUF4
+  24          I         ?? E            BUF5
+  25          I            E            BUF6
+  26          I    ( 1) MU E       75   BUFA(75)
+  27          I    ( 1) ?U E       75   BUFB(75)
+  28    3   2 I    ( 1)C   E        6   BUFF(6)
+  29    7   6 I    ( 1)C?U E       10   BUFSAV(10)
+  30         s     ( 2)  U              CLOSE
+     (I4V,I4V)
+  31    6   6 I        C?? E            CLS
+  32    6   5 I        C?? E            CLSREW
+  33    3  13 L        CM  E            COL1
+  34    1   1 I    ( 1)C U E        1   COMPLX(1)
+  35         S                    355   DDRMM2
+  36         s     ( 8)  U              DDRMMP
+     (ALT,I4L,I4E,I4V,I4V,I4V,I4L,L4V)
+  37         s     ( 4)  U              DDRMMS
+     (I4A,I4L,I4V,I4V)
+  38    3  39 I        CMU E            DEVICE
+  39    3  17 I        C   E            DHSIZE
+  40          I    ( 1)I U E        3   DVAMID(3)
+  41    4   4 I    ( 1)C U E        1   ELEM(1)
+  42          I    ( 1) MU E      300   ELWORK(300)
+  43    3   7 I        C   E            ENTRYS
+  44          I        I?? E            EOR
+  45    3  11 I        CM  E            FILE
+  46    3  18 I    ( 1)C?? E        2   FILNAM(2)
+  47         s     ( 2)  U              FNAME
+     (I4V,I4A)
+  48    3  40 I        CMU E            FORM
+  49    3  14 L        CMU E            FRSTID
+  50         s     ( 2)  U              FWDREC
+     (ALT,I4V)
+  51          I         MU E            I
+  52    3  28 I        CMU E            I1
+  53    3  29 I        CMU E            I2
+  54          I    ( 1) ?? E        4   IA(4)
+  55          I         MU E            IAPP
+  56    3  21 I        C U E            ICC
+  57          I         MU E            ID
+  58          I         MU E            IDATA
+  59    3  20 L        CMU E            IDOUT
+  60    3   1 I    ( 1)CMU E      146   IDREC(146)
+  61          I         MU E            IDVICE
+  62          I         MU E            IELEM
+  63   11   3 I        C U E            IEOL
+  64   11   4 I        C   E            IEOR
+  65    3  37 I        CM  E            IERROR
+  66          I         MU E            IJ
+  67    3  23 I        C U E            ILIST
+  68    4   3 I        C U E            INCR
+  69    3   9 I        C?U E            INFILE
+  70          I         MU E            INSUF
+  71         s     ( 5)  U              INTPK
+     (ALT,I4V,I4E,I4V,I4E)
+  72          I         MU E            IOMEGA
+  73          I         MU E            IOUT
+  74    3  47 I        CMU E            IPASS
+  75    5   9 I        CM  E            IPREC
+  76   10   2 I        CMU E            IROW
+  77   11   2 I        C U E            IROWO
+  78    5  10 I        CM  E            ISCRT
+  79    5   7 I        CM  E            ISINAB
+  80    5   8 I        CM  E            ISINC
+  81    3  41 I        CMU E            ISTLST
+  82    3  38 I        CMU E            ITEMP
+  83    5   6 I        CM  E            ITFLAG
+  84    3  31 I        C U E            ITYPE1
+  85    3  32 I        C   E            ITYPE2
+  86          I         MU E            IXY
+  87          I         M? E            IXYTYP
+  88          I         MU E            J
+  89          I         MU E            JDATA
+  90    3   5 I        C U E            JFILE
+  91          I         MU E            JLIST
+  92          I         ?? E            JP
+  93          I         MU E            JWORDS
+  94          I         MU E            JXY
+  95          I         MU E            K
+  96          I         MU E            KDATA
+  97          I         MU E            KLIST
+  98         fI    ( 1)  U E            KORSZ
+     (I4L)
+  99          I         MU E            KXY
+ 100          I         MU E            L
+ 101    3  10 R        C   E            LAMBDA
+ 102    4   2 I        C   E            LAST
+ 103          I         MU E            LENTRY
+ 104    7   1 L        CMU E            LMINOR
+ 105    3  34 I        CMU E            LSF
+ 106    3  42 I        CM? E            LSTLST
+ 107          I         ?U E            LXY
+ 108    5   5 I        CM  E            LZ
+ 109         s     ( 2)  U              MAGPHA
+     (I4L,I4L)
+ 110          I         MU E            MAJOR
+ 111    3   6 I    ( 1)CM? E        7   MCB(7)
+ 112    5   1 I    ( 1)CM? E        7   MCBA(7)
+ 113    5   2 I    ( 1)CM? E        7   MCBB(7)
+ 114    5   3 I    ( 1)CM  E        7   MCBC(7)
+ 115    5   4 I    ( 1)CM? E        7   MCBD(7)
+ 116          I         MU E            MINOR
+ 117         I?    ( 2)  U I            MOD
+ 118         s     ( 3)  U              MPYAD
+     (I4L,I4L,I4L)
+ 119    3  22 I        C   E            NCC
+ 120          I         MU E            NCOLS
+ 121    3  15 I        C   E            NCORE
+ 122          I         MU E            NDATA
+ 123    4   1 I        C   E            NELEM
+ 124          I         M? E            NEXT
+ 125    3  44 I        C U E            NLAMBS
+ 126    3  24 I        C U E            NLIST
+ 127          I        I?? E            NOEOR
+ 128          I         MU E            NOMEGA
+ 129    7   3 I        CMU E            NPOS
+ 130          I         MU E            NPT
+ 131    3  33 I        CMU E            NPTSF
+ 132    3  16 I        C U E            NSOLS
+ 133    7   2 I        CMU E            NSTXTR
+ 134         fI    ( 1)  U E            NUMTYP
+     (I4L)
+ 135          I         MU E            NUMWDS
+ 136    3  25 I        C?? E            NWDS
+ 137    3  35 I        C   E            NWDSF
+ 138    3  45 I        C?U E            NWORDS
+ 139          I         MU E            NXY
+ 140          I         MU E            NXY1
+ 141    3  46 R        C   E            OMEGA
+ 142         s     ( 4)  U              OPEN
+     (ALT,I4V,I4L,I4V)
+ 143    3   4 I        C?U E            OUTFIL
+ 144    8   2 I        C U E            OUTPT
+ 145    3   3 I        C U E            PASSES
+ 146    3  30 I        C   E            PHASE
+ 147    2   1 R        C   E            PI
+ 148    3  19 R    ( 1)CM  E      150   RBUF(150)
+ 149    6   1 I        C   E            RD
+ 150    6   2 I        C?? E            RDREW
+ 151         s     ( 1)  U              RDTRL
+     (I4A)
+ 152         s     ( 7)  U              READ
+     (ALT,ALT,I4V,I4A,I4E,I4V,I4V)
+ 153          R    ( 1)    E        1   RIDREC(1)
+ 154   12   1 R    ( 1)CMU E        1   RZ(1)
+ 155    7   4 I    ( 1)C U E       75   SAVDAT(75)
+ 156    7   5 I    ( 1)C U E       25   SAVPOS(25)
+ 157    3  36 I    ( 1)C U E        7   SCRT(7)
+ 158          I            E            SCRT1
+ 159          I            E            SCRT2
+ 160          I            E            SCRT3
+ 161          I         ?U E            SCRT4
+ 162          I         ?U E            SCRT5
+ 163          I         ?U E            SCRT6
+ 164          I          U E            SCRT7
+ 165         s     ( 5)  U              SETFND
+     (ALT,I4L,I4V,I4V,I4V)
+ 166    3  26 I        CMU E            SETID
+ 167    3   8 I    ( 2)C U E       15   SETS(5,3)
+ 168    9   4 C*25     C   E            SFM*25
+ 169    3  12 L        C   E            SORT2
+ 170    3  48 I        C?U E            SUBCAS
+ 171    9   5 C*27     C U E            SWM*27
+ 172    8   1 I        C   E            SYSBUF
+ 173    3  27 L        C U E            TRNSNT
+ 174    2   2 R        C U E            TWOPI
+ 175          I         M? E            TYPOUT
+ 176    9   1 C*23     C   E            UFM*23
+ 177    9   3 C*29     C   E            UIM*29
+ 178    3  43 I        C U E            UVSOL
+ 179    9   2 C*25     C U E            UWM*25
+ 180         s     ( 4)  U              WRITE
+     (I4V,I4A,I4E,I4V)
+     (   ,I4E,   ,   )
+ 181    6   3 I        C?? E            WRT
+ 182    6   4 I        C?? E            WRTREW
+ 183         s     ( 1)  U              WRTTRL
+     (I4A)
+ 184          I    ( 1) MU E        1   Z(1)
+ 185         s           U              ZBLPKI
+ 186         s           U              ZNTPKI
+**-- END OF SYMBOL TABLE

@@ -1,0 +1,129 @@
+**++ Symbol table for subprogram FIND in file mis/find.f90
+     produced by SPAG     8.01RF-40 at 14:46:47 on  2 Dec 2023
+   0         X             K             mis/find.f90,0000002,0000318
+   1         C     /12/ ?U         88   /BLANK/NGP,SKP11,NSETS,PRNT,SKP12,NGPSET,SKP13,PARM,GPSET,SKP2,MERR,SETD
+   2         C     / 5/ MU        100   /PLTDAT/SKPPLT,REG,AXYMAX,SKPA,CNTCHR
+   3         C     / 5/ MU         84   /RSTXXX/CSTM,MIN,MAX,D,AVER
+   4         C     / 2/  U          8   /SYSTEM/BUFSIZ,NOUT
+   5         C     / 2/  U         48   /XMSSG/UFM,UWM
+   6         C     /24/ MU        628   /XXPARM/PLTBUF,PLTTER,NOPENS,PAPSIZ,PENPAP,SCALE,OBJMOD,FSCALE,MAXDEF,DEFMAX,AXIS,VIEW,FVP,SKPVP1,D0,SKPVP2,PRJECT,S0S,FOR,ORG,NORG,ORIGIN,EDGE,XY
+   7          R         MU E            A
+   8         I?    ( 1)  U I            ABS
+   9         IR    ( 2)  U I            AMAX1
+  10         IR    ( 2)  U I            AMIN1
+  11    3   5 R    ( 1)C U E        3   AVER(3)
+  12          I    ( 1)  U E        2   AWRD(2)
+  13    6  11 R    ( 1)C   E        6   AXIS(6)
+  14    2   3 R    ( 1)C U E       14   AXYMAX(14)
+  15          R         MU E            B
+  16   29   2 I        A?? E            BUF1
+  17   29   3 I        A U E            BUF4
+  18    4   1 I        C U E            BUFSIZ
+  19         s     ( 2)  U              CLOSE
+     (I4V,I4E)
+  20    2   5 R    ( 1)C U E        2   CNTCHR(2)
+  21    3   1 R    ( 2)C   E        9   CSTM(3,3)
+  22    3   4 R    ( 1)C U E        3   D(3)
+  23    6  15 R        C U E            D0
+  24    6  10 R        C   E            DEFMAX
+  25          R         MU E            DIAM
+  26          D          U E            DWRD
+  27    6  23 R    ( 2)CMU E       44   EDGE(11,4)
+  28          I    ( 1) M? E        3   ERR(3)
+  29         S     ( 5) ?U        209   FIND(MODE,BUF1,BUF4,SETID,X)
+  30         s     ( 4)  U              FNDSET
+     (I4A,I4L,I4V,I4E)
+  31    6  19 I        CMU E            FOR
+  32         s     ( 4)  U              FREAD
+     (I4V,I4V,I4E,I4E)
+     (   ,I4A,   ,   )
+  33    6   8 I        CMU E            FSCALE
+  34    6  13 I        CM  E            FVP
+  35         s     ( 2)  U              FWDREC
+     (ALT,I4V)
+  36          R         MU E            FWRD
+  37         s     ( 3)  U              GOPEN
+     (I4V,I4L,I4E)
+  38    1   9 I        C?? E            GPSET
+  39          I        I U E            HSET
+  40          I         MU E            I
+  41          I         MU E            ICRQ
+  42          R         MU E            IMSEP
+  43          I         MU E            IWRD
+  44          I         MU E            J
+  45    3   3 R    ( 1)CM  E        3   MAX(3)
+  46    6   9 R        CMU E            MAXDEF
+  47    1  11 I        C?? E            MERR
+  48         s     ( 3)  U              MESAGE
+     (I4E,I4E,I4A)
+  49    3   2 R    ( 1)CM  E        3   MIN(3)
+  50          R        I U E            MM17P5
+  51   29   1 I        A?U E            MODE
+  52          I    ( 1)I?? E       20   MSG1(20)
+  53          I    ( 1)I?? E       21   MSG3(21)
+  54          I    ( 1)I?? E       20   MSG6(20)
+  55          I    ( 1)I?? E        2   NAME(2)
+  56    1   1 I        C?U E            NGP
+  57    1   6 I        C?U E            NGPSET
+  58          I        I?? E            NMSG1
+  59          I        I?? E            NMSG3
+  60          I        I?? E            NMSG6
+  61          I         MU E            NOGO
+  62    6   3 I        C   E            NOPENS
+  63    6  21 I        C U E            NORG
+  64    4   2 I        C U E            NOUT
+  65    1   3 I        C U E            NSETS
+  66    6   7 R        CMU E            OBJMOD
+  67    6  20 I        CMU E            ORG
+  68          I        I U E            ORIG
+  69    6  22 I    ( 1)CMU E       11   ORIGIN(11)
+  70    6   4 R    ( 1)C   E        2   PAPSIZ(2)
+  71    1   8 I        C?? E            PARM
+  72    6   5 R    ( 1)C   E       27   PENPAP(27)
+  73         s     ( 2)  U              PERPEC
+     (I4L,I4E)
+  74    6   1 R        C   E            PLTBUF
+  75    6   2 R    ( 1)C   E        5   PLTTER(5)
+  76          I        I U E            POIN
+  77    6  17 I        C U E            PRJECT
+  78    1   4 I        C U E            PRNT
+  79         s     ( 1)  U              PROCES
+     (I4L)
+  80          R         MU E            RATIO
+  81          R        I U E            RDIST
+  82         s     ( 5)  U              RDMODE
+     (ALT,ALT,ALT,I4V,I4V)
+  83         s     ( 3)  U              RDMODX
+     (I4V,I4V,I4V)
+  84         s     ( 2)  U              RDWORD
+     (I4V,I4V)
+  85    2   2 R    ( 1)CMU E        4   REG(4)
+  86          I        I U E            REGI
+  87          I         MU E            REGION
+  88    6  18 R        C U E            S0S
+  89          I        I U E            SCAL
+  90    6   6 R        CMU E            SCALE
+  91          I         MU E            SET
+  92    1  12 I        C U E            SETD
+  93   29   4 I    ( 1)A U E            SETID(1)
+  94    1   2 R        C   E            SKP11
+  95    1   5 R        C   E            SKP12
+  96    1   7 R    ( 1)C   E        4   SKP13(4)
+  97    1  10 R    ( 1)C   E        8   SKP2(8)
+  98    2   4 R    ( 1)C   E        3   SKPA(3)
+  99    2   1 R    ( 1)C   E        2   SKPPLT(2)
+ 100    6  14 R    ( 1)C   E        4   SKPVP1(4)
+ 101    6  16 R    ( 1)C   E        2   SKPVP2(2)
+ 102         I?    ( 1)  U I            SQRT
+ 103          R        I U E            SQRT3
+ 104          I         MU E            TRA
+ 105    5   1 C*23     C U E            UFM*23
+ 106    5   2 C*25     C U E            UWM*25
+ 107          I        I U E            VANT
+ 108    6  12 R    ( 1)C   E        9   VIEW(9)
+ 109          I         ?U E            WORD
+ 110         s     ( 4)  U              WRTPRT
+     (I4V,I4A,I4A,I4V)
+ 111   29   5 I    ( 1)A?? E            X(1)
+ 112    6  24 R    ( 2)CM  E       33   XY(11,3)
+**-- END OF SYMBOL TABLE

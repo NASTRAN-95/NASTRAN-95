@@ -1,0 +1,41 @@
+**++ Symbol table for subprogram RULER in file mis/ruler.f90
+     produced by SPAG     8.01RF-40 at 14:46:50 on  2 Dec 2023
+   0         X             K             mis/ruler.f90,0000002,0000084
+   1         C     / 1/ ??        128   /TWO/TWO1
+   2         C     / 3/ MU         24   /ZNTPKX/A1,L,EOL
+   3          R         MU E            A
+   4    2   1 R    ( 1)CMU E        4   A1(4)
+   5         I?    ( 1)  U I            ABS
+   6   29   7 R    ( 1)A?? E            BUFF(1)
+   7         s     ( 2)  U              CLOSE
+     (I4V,I4E)
+   8    2   3 I        CMU E            EOL
+   9         s     ( 3)  U              GOPEN
+     (I4V,R4A,I4E)
+  10          I         MU E            I
+  11   29   2 I    ( 1)A U E            ICP(1)
+  12         s     ( 5)  U              INTPK
+     (ALT,I4V,I4E,I4E,I4E)
+  13   29   8 I        A U E            IOPT
+  14          I         MU E            IS
+  15          I         MU E            J
+  16          I         MU E            J1
+  17          I         MU E            K
+  18    2   2 I        CMU E            L
+  19   29   5 I    ( 1)AM? E            LIST(1)
+  20          I         MU E            M
+  21   29   6 I        A U E            N
+  22          I         MU E            N1
+  23          I         MU E            NAMCP
+  24          I         MU E            OCT
+  25   29   4 I        AM  E            ONCT
+  26         fI    ( 2)  UXE            ORF
+     (I4L,R4L)
+  27          R         MU E            R
+  28   29   1 I        A U E            RULE
+  29         S     ( 8) MU         62   RULER(RULE,ICP,ZRCT,ONCT,LIST,N,BUFF,IOPT)
+  30    1   1 R    ( 1)C?? E       32   TWO1(32)
+  31          I         MU E            ZCT
+  32         s           U              ZNTPKI
+  33   29   3 I        AM  E            ZRCT
+**-- END OF SYMBOL TABLE

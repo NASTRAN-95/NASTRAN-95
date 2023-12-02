@@ -1,0 +1,43 @@
+**++ Symbol table for subprogram UNPACK in file mds/unpack.f90
+     produced by SPAG     7.61RG-40 at 01:00:00 on 21 Mar 2022
+   0         X             K             mds/unpack.f90,0000002,0000081
+   1         C     / 4/ MU         16   /UNPAKX/ITYPOT,IROBGN,LASROW,INCR
+   2   33   2 R    ( 1)AM? E            A(4)
+   3         s     ( 2)  U              DSIPK1
+     (?*V,I4V)
+   4         s           U              DSSDCB
+   5         s           U              DSSKRC
+   6         s     ( 4)  U              DSUPKC
+     (?*L,I4V,?*E,R4L)
+   7         s     ( 1)  U              ENDGET
+     (?*A)
+   8   33   1 I        A U E            FILE
+   9         s     ( 2)  U              GETSTR
+     (ALT,?*A)
+  10         II    ( 1) ?? I            IABS
+  11         f?    ( 1)  U I            IBASE
+     (I4E)
+  12          ?    ( 1) MU I            IBLKD
+  13          I         MU E            IDIFF
+  14          I         MU E            ILSROW
+  15    1   4 I        C U E            INCR
+  16          I         MU E            INDEX1
+  17          I         MU E            INDEX2
+  18          ?          U I            IRETRN
+  19    1   2 I        CMU E            IROBGN
+  20          I         MU E            IROW
+  21          I         MU E            ITYPE
+  22    1   1 I        C?U E            ITYPOT
+  23          I         MU E            K
+  24          I         MU E            KK
+  25          I         MU E            KKK
+  26          I        I U E            LARGE
+  27    1   3 I        CMU E            LASROW
+  28          ?         M  I            NAME
+  29          I         MU E            NUM
+  30          I         MU E            NUMINC
+  31          I         MU E            NUMLEF
+  32         f?    ( 1)  U I            NWRDEL
+     (I4E)
+  33         S     ( 2) MU         66   UNPACK(FILE,A)
+**-- END OF SYMBOL TABLE

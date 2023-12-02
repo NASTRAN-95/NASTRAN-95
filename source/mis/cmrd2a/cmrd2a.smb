@@ -1,0 +1,53 @@
+**++ Symbol table for subprogram CMRD2A in file mis/cmrd2a.f90
+     produced by SPAG     8.01RF-40 at 14:47:03 on  2 Dec 2023
+   0         X             K             mis/cmrd2a.f90,0000002,0000097
+   1         C     / 5/ ??         88   /BITPOS/IDUM4,UN,IDUM5,UB,UI
+   2         C     /11/ MU        164   /BLANK/IDUM1,DRY,IDUM6,GBUF1,IDUM2,INFILE,OTFILE,ISCR,KORLEN,KORBGN,OLDNAM
+   3         C     / 3/ M?         20   /PATX/LCORE,NSUB,FUSET
+   4         C     / 2/  U          8   /SYSTEM/IDUM3,IPRNTR
+   5         C     / 1/  U         23   /XMSSG/UFM
+   6         C     / 1/ ??          4   /ZZZZZZ/Z
+   7         s     ( 5)  U              CALCV
+     (I4V,I4V,I4V,I4V,I4L)
+   8         S                     23   CMRD2A
+   9    2   2 I        CMU E            DRY
+  10    3   3 I        CM  E            FUSET
+  11    2   4 I        C   E            GBUF1
+  12         s     (11)  U              GMPRTN
+     (I4V,I4V,I4V,I4V,I4V,I4V,I4V,I4L,I4L,I4L,I4V)
+  13    2   1 I        C   E            IDUM1
+  14    2   5 I    ( 1)C   E        5   IDUM2(5)
+  15    4   1 I        C   E            IDUM3
+  16    1   1 I    ( 1)C   E        9   IDUM4(9)
+  17    1   3 I    ( 1)C   E       10   IDUM5(10)
+  18    2   3 I        C   E            IDUM6
+  19          I         M? E            IMSG
+  20    2   6 I    ( 1)C   E       11   INFILE(11)
+  21    4   2 I        C U E            IPRNTR
+  22    2   8 I    ( 1)C   E       11   ISCR(11)
+  23          I        I?U E            ITEM
+  24          I         ?U E            ITEST
+  25          I         ?? E            KAA
+  26          I         ?? E            KBB
+  27          I         ?? E            KBI
+  28          I         ?? E            KIB
+  29          I         ?? E            KII
+  30    2  10 I        C U E            KORBGN
+  31    2   9 I        C?U E            KORLEN
+  32    3   1 I        CM  E            LCORE
+  33          I    ( 1)I U E        2   MODNAM(2)
+  34         s     ( 5)  U              MTRXO
+     (I4V,I4A,I4V,I4E,I4V)
+  35    3   2 I    ( 1)C?? E        3   NSUB(3)
+  36    2  11 I    ( 1)C?U E        2   OLDNAM(2)
+  37    2   7 I    ( 1)C   E        6   OTFILE(6)
+  38         s     ( 3)  U              SMSG
+     (I4V,I4V,I4A)
+  39    1   4 I        C?? E            UB
+  40    5   1 C*23     C U E            UFM*23
+  41    1   5 I        C?? E            UI
+  42    1   2 I        C?? E            UN
+  43          I         ?? E            UPRT
+  44          I          U E            USETMR
+  45    6   1 I    ( 1)C?? E        1   Z(1)
+**-- END OF SYMBOL TABLE

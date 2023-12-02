@@ -1,0 +1,13 @@
+**++ Symbol table for subprogram CXTRNY in file mis/cxtrny.f90
+     produced by SPAG     8.01RF-40 at 14:47:01 on  2 Dec 2023
+   0         X             K             mis/cxtrny.f90,0000002,0000020
+   1         C     / 2/  U          8   /CINVPX/AAA,NCOL
+   2    1   1 R        C   E            AAA
+   3    4   3 D    ( 1)AMU E            ALPHA(2)
+   4         S     ( 3) MU          7   CXTRNY(X,Y,ALPHA)
+   5          I         MU E            I
+   6    1   2 I        C U E            NCOL
+   7          I         MU E            NCOL2
+   8    4   1 D    ( 1)A U E            X(1)
+   9    4   2 D    ( 1)A U E            Y(1)
+**-- END OF SYMBOL TABLE

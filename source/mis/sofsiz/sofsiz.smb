@@ -1,0 +1,14 @@
+**++ Symbol table for subprogram SOFSIZ in file mis/sofsiz.f90
+     produced by SPAG     8.01RF-40 at 14:46:36 on  2 Dec 2023
+   0         X             K             mis/sofsiz.f90,0000002,0000016
+   1         C     / 4/  U         16   /SYS/BLKSIZ,DIRSIZ,SUPSIZ,AVBLKS
+   2    1   4 I        C U E            AVBLKS
+   3    1   1 I        C U E            BLKSIZ
+   4         s     ( 1)  U              CHKOPN
+     (I4L)
+   5    1   2 R        C   E            DIRSIZ
+   6    8   1 R        A   E            DUM
+   7          I    ( 1)I?? E        2   NMSBR(2)
+   8         FI    ( 1) M  E        2   SOFSIZ(DUM)
+   9    1   3 R        C   E            SUPSIZ
+**-- END OF SYMBOL TABLE

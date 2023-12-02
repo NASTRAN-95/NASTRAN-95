@@ -1,0 +1,28 @@
+**++ Symbol table for subprogram XFLSZD in file mis/xflszd.f90
+     produced by SPAG     8.01RF-40 at 14:46:58 on  2 Dec 2023
+   0         X             K             mis/xflszd.f90,0000002,0000058
+   1         C     / 1/  U          4   /MACHIN/MACH
+   2         C     / 1/  U          4   /SYSTEM/KYSTEM
+   3         C     / 1/ ??          4   /XDPL/POOL
+   4         C     / 1/ ??          4   /XFIAT/FIAT
+   5         C     / 3/  U         12   /XFIST/NFIST,LFIST,IFIST
+   6         fI    ( 2)  UXE            ANDF
+     (I4V,I4L)
+   7    4   1 I    ( 1)C?? E        1   FIAT(1)
+   8   22   1 I        A U E            FILE
+   9   22   3 I        A U E            FILNAM
+  10          I         MU E            I
+  11   22   2 I        AM  E            IBLOCK
+  12    5   3 I    ( 1)C U E        1   IFIST(1)
+  13          I         MU E            INDX
+  14    2   1 I        C U E            KYSTEM
+  15    5   2 I        C U E            LFIST
+  16          I         MU E            LIM
+  17    1   1 I        C U E            MACH
+  18          I        I?? E            MASK
+  19    5   1 I        C   E            NFIST
+  20    3   1 I    ( 1)C?? E        1   POOL(1)
+  21         fI    ( 2)  UXE            RSHIFT
+     (I4L,I4E)
+  22         S     ( 3) MU         18   XFLSZD(FILE,IBLOCK,FILNAM)
+**-- END OF SYMBOL TABLE

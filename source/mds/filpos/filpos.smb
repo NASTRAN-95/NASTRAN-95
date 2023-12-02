@@ -1,0 +1,23 @@
+**++ Symbol table for subprogram FILPOS in file mds/filpos.f90
+     produced by SPAG     8.01RF-40 at 14:46:34 on  2 Dec 2023
+   0         X             K             mds/filpos.f90,0000002,0000016
+   1         s     ( 1)  U              DBMMGR
+     (I4E)
+   2         s           U              DSGEFL
+   3         s           U              DSSDCB
+   4         f?    ( 2)  U I            FCB
+     (I4E,?*V)
+   5    6   1 I        A U E            FILE
+   6         S     ( 2)  U          8   FILPOS(FILE,IPOS)
+   7         I?    ( 2)  U I            IAND
+   8          I         MU E            ICBLK
+   9          ?         ?? I            IFILEX
+  10          ?          U I            INDBAS
+  11          ?         M  I            INDCBP
+  12          ?         MU I            INDCLR
+  13    6   2 I        A U E            IPOS
+  14          ?          U I            MASKH2
+  15          ?          U I            MULQ2
+  16          ?         M  I            NAME
+  17          ?         MU I            NBLOCK
+**-- END OF SYMBOL TABLE

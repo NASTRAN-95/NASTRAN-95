@@ -1,0 +1,11 @@
+**++ Symbol table for subprogram SAXB in file mis/saxb.f90
+     produced by SPAG     8.01RF-40 at 14:47:11 on  2 Dec 2023
+   0         X             K             mis/saxb.f90,0000002,0000037
+   1    7   1 R    ( 1)A U E            A(3)
+   2    7   2 R    ( 1)A U E            B(3)
+   3    7   3 R    ( 1)AM  E            C(3)
+   4          R    ( 1) MU E        3   D(3)
+   5         E     ( 3)                 SAMB(A,B,C)
+   6         E     ( 3)                 SAPB(A,B,C)
+   7         S     ( 3) MU         14   SAXB(A,B,C)
+**-- END OF SYMBOL TABLE

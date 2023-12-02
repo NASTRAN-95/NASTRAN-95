@@ -1,0 +1,53 @@
+**++ Symbol table for subprogram FNXT in file mis/fnxt.f90
+     produced by SPAG     8.01RF-40 at 14:46:58 on  2 Dec 2023
+   0         X             K             mis/fnxt.f90,0000002,0000115
+   1         C     /18/ MU        148   /SOF/DIT,DITPBN,DITLBN,DITSIZ,DITNSB,DITBL,IODUM,MDIDUM,NXT,NXTPBN,NXTLBN,NXTTSZ,NXTFSZ,NXTCUR,DITUP,MDIUP,NXTUP,NXTRST
+   2         C     / 3/  U         84   /SOFCOM/NFILES,FILNAM,FILSIZ
+   3         C     / 3/  U         12   /SYS/BLKSIZ,DIRSIZ,SUPSIZ
+   4         C     / 1/ ??          4   /ZZZZZZ/BUF
+   5    3   1 I        C   E            BLKSIZ
+   6    4   1 I    ( 1)C?? E        1   BUF(1)
+   7         s     ( 1)  U              CHKOPN
+     (I4L)
+   8    3   2 I        C   E            DIRSIZ
+   9    1   1 I        C U E            DIT
+  10    1   6 I        C   E            DITBL
+  11    1   3 I        CM  E            DITLBN
+  12    1   5 I        C   E            DITNSB
+  13    1   2 I        CMU E            DITPBN
+  14    1   4 I        C   E            DITSIZ
+  15    1  15 L        CMU E            DITUP
+  16         s     ( 2)  U              ERRMKN
+     (I4V,I4E)
+  17    2   2 R    ( 1)C   E       10   FILNAM(10)
+  18          I         MU E            FILNUM
+  19    2   3 I    ( 1)C U E       10   FILSIZ(10)
+  20          I         MU E            FILSUP
+  21         S     ( 2) MU         52   FNXT(II,J)
+  22          I         MU E            I
+  23          I         MU E            IBLOCK
+  24   21   1 I        A U E            II
+  25          I         MU E            INDEX
+  26          I        I?? E            INDSBR
+  27    1   7 I    ( 1)C   E        8   IODUM(8)
+  28          I        I?? E            IRD
+  29          I        I?? E            IWRT
+  30   21   2 I        AM  E            J
+  31          I         MU E            L
+  32          I         MU E            MAX
+  33    1   8 I    ( 1)C   E        4   MDIDUM(4)
+  34    1  16 I        C   E            MDIUP
+  35    2   1 I        C U E            NFILES
+  36          I    ( 1)I?? E        2   NMSBR(2)
+  37    1   9 I        C U E            NXT
+  38    1  14 I        C   E            NXTCUR
+  39    1  13 I    ( 1)C U E       10   NXTFSZ(10)
+  40    1  11 I        CMU E            NXTLBN
+  41    1  10 I        CMU E            NXTPBN
+  42    1  18 I        C   E            NXTRST
+  43    1  12 I        C U E            NXTTSZ
+  44    1  17 L        CMU E            NXTUP
+  45         s     ( 3)  U              SOFIO
+     (I4V,I4V,I4L)
+  46    3   3 I        C U E            SUPSIZ
+**-- END OF SYMBOL TABLE

@@ -1,0 +1,28 @@
+**++ Symbol table for subprogram AKP2 in file mis/akp2.f90
+     produced by SPAG     8.01RF-40 at 14:47:06 on  2 Dec 2023
+   0         X             K             mis/akp2.f90,0000002,0000021
+   1         C     /10/ MU         44   /BLK1/SCRK,SPS,SNS,DSTR,AI,PI,DEL,SIGMA,BETA,RES
+   2    1   5 X        C   E            AI
+   3         S                     10   AKP2
+   4    1   9 R        C   E            BETA
+   5          R         MU E            C1
+   6          R         MU E            C2
+   7         I?    ( 1)  U I            COS
+   8          R         MU E            D1
+   9          R         MU E            D2
+  10          R         MU E            DC1DA
+  11          R         MU E            DC2DA
+  12    1   7 R        C U E            DEL
+  13          R         MU E            DGDA
+  14    1   4 R        C   E            DSTR
+  15          R         MU E            GAM
+  16    1   6 R        C   E            PI
+  17    1  10 R        CM  E            RES
+  18          R         MU E            S1
+  19    1   1 R        C U E            SCRK
+  20    1   8 R        C U E            SIGMA
+  21         I?    ( 1)  U I            SIN
+  22    1   3 R        C U E            SNS
+  23    1   2 R        C U E            SPS
+  24         I?    ( 1)  U I            SQRT
+**-- END OF SYMBOL TABLE

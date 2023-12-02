@@ -1,0 +1,73 @@
+**++ Symbol table for subprogram DETM5 in file mis/detm5.f90
+     produced by SPAG     8.01RF-40 at 14:46:47 on  2 Dec 2023
+   0         X             K             mis/detm5.f90,0000002,0000074
+   1         C     / 1/            20   /CONDAS/CONSTS
+   2         C     /23/  U        240   /DETMX/P,N2EV,IPSAV,IPS,IDET,IPDETA,PREC,NSTART,NDCMP,IC,NSMOVE,ITERM,IS,ND,IADD,SML1,IPDETX,IPDET1,IFAIL,K,FACT1,IFFND,NFAIL
+   3         C     /15/ ?U        160   /REGEAN/IM,LCORE,RMAX,RMIN,MZ,NEV,EPSI,RMINR,NE,NIT,NEVM,SCR6,IPOUT,NFOUND,LAMA
+   4         C     / 1/  U          4   /SYSTEM/SYSBUF
+   5         C     / 1/ ?U          8   /ZZZZZZ/PSAVE
+   6         I?    ( 1)  U I            ABS
+   7         s     ( 2)  U              CLOSE
+     (I4V,I4E)
+   8    1   1 R    ( 1)C   E        5   CONSTS(5)
+   9          R    ( 1) MU E        5   CORE(5)
+  10          D    ( 1)    E        1   DET(1)
+  11         S                     42   DETM5
+  12    3   7 R        C   E            EPSI
+  13    2  21 R        C   E            FACT1
+  14         s     ( 3)  U              GOPEN
+     (I4V,I4L,I4E)
+  15          I         MU E            I
+  16    2  15 I        C U E            IADD
+  17    2  10 I        C U E            IC
+  18    2   5 I        C U E            IDET
+  19    2  19 I        C   E            IFAIL
+  20    2  22 I        C   E            IFFND
+  21    3   1 I    ( 1)C   E       26   IM(26)
+  22          I    ( 1) MU E        8   IPDET(8)
+  23    2  18 I    ( 1)C   E        4   IPDET1(4)
+  24    2   6 I        C U E            IPDETA
+  25    2  17 I    ( 1)C   E        4   IPDETX(4)
+  26    3  13 I        C?? E            IPOUT
+  27    2   4 I        C U E            IPS
+  28    2   3 I        C   E            IPSAV
+  29    2  13 I        C   E            IS
+  30    2  12 I        C U E            ITERM
+  31    2  20 I        C   E            K
+  32         fI    ( 1)  U E            KORSZ
+     (R8A)
+  33    3  15 I        C   E            LAMA
+  34    3   2 I        C U E            LCORE
+  35    3   5 I        C U E            MZ
+  36    2   2 I        C   E            N2EV
+  37          I         MU E            N2EV2
+  38    2  14 I        C U E            ND
+  39    2   9 I        C U E            NDCMP
+  40    3   9 I        C   E            NE
+  41    3   6 I        C   E            NEV
+  42    3  11 I        C   E            NEVM
+  43    2  23 I        C U E            NFAIL
+  44    3  14 I        C U E            NFOUND
+  45    3  10 I        C   E            NIT
+  46          I         MU E            NND
+  47          I         MU E            NNI
+  48          I         MU E            NNP
+  49    2  11 I        C U E            NSMOVE
+  50    2   8 I        C U E            NSTART
+  51          I         MU E            NZ
+  52    2   1 R    ( 1)C   E       32   P(32)
+  53    2   7 R        C   E            PREC
+  54          D    ( 1)    E        1   PS(1)
+  55    5   1 D    ( 1)C?U E        1   PSAVE(1)
+  56    3   3 R        C   E            RMAX
+  57    3   4 R        C   E            RMIN
+  58    3   8 R        C   E            RMINR
+  59    3  12 R        C   E            SCR6
+  60    2  16 R        C   E            SML1
+  61         I?    ( 1)  U I            SQRT
+  62    4   1 I        C U E            SYSBUF
+  63          R          U E            TPHI
+  64         s     ( 4)  U              WRITE
+     (I4V,I4L,I4E,I4E)
+     (   ,R4L,   ,   )
+**-- END OF SYMBOL TABLE

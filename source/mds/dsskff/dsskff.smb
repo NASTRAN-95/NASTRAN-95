@@ -1,0 +1,9 @@
+**++ Symbol table for subprogram DSSKFF in file mds/dsskff.f90
+     produced by SPAG     8.01RF-40 at 14:46:33 on  2 Dec 2023
+   0         X             K             mds/dsskff.f90,0000002,0000017
+   1         s           U              DSFWR1
+   2         S     ( 1)  U         10   DSSKFF(NN)
+   3          ?          U I            IRETRN
+   4          I         MU E            N
+   5    2   1 I        A U E            NN
+**-- END OF SYMBOL TABLE

@@ -1,0 +1,24 @@
+**++ Symbol table for subprogram ALG15 in file mis/alg15.f90
+     produced by SPAG     8.01RF-40 at 14:47:20 on  2 Dec 2023
+   0         X             K             mis/alg15.f90,0000002,0000106
+   1          R    ( 1) MU E       21   A(21)
+   2         S     ( 7) MU         93   ALG15(XDATA,YDATA,NDATA,XIN,YOUT,NXY,NTYPE)
+   3          R    ( 1) MU E       21   B(21)
+   4          R    ( 1) MU E       21   D(21)
+   5          R         MU E            DX
+   6          I         MU E            I
+   7          I         MU E            II
+   8          I         MU E            J
+   9          I         MU E            JP
+  10          I         MU E            KP
+  11          R    ( 1) MU E       21   M(21)
+  12          I         MU E            N
+  13    2   3 I        A U E            NDATA
+  14    2   7 I        A U E            NTYPE
+  15    2   6 I        A U E            NXY
+  16    2   1 R    ( 1)A U E            XDATA(2)
+  17    2   4 R    ( 1)A U E            XIN(1)
+  18    2   2 R    ( 1)A U E            YDATA(2)
+  19    2   5 R    ( 1)AM  E            YOUT(1)
+  20          R         MU E            YPRIME
+**-- END OF SYMBOL TABLE

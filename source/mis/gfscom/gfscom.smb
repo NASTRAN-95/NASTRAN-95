@@ -1,0 +1,73 @@
+**++ Symbol table for subprogram GFSCOM in file mis/gfscom.f90
+     produced by SPAG     7.61RG-40 at 01:00:00 on 21 Mar 2022
+   0         X             K             mis/gfscom.f90,0000002,0000131
+   1         C     / 6/  U         24   /BLANK/NOGRAV,NOFREE,KCOMP,COMPTP,FORM,LMODES
+   2         C     / 5/ M          20   /PACKX/TI1,TO1,I1,N1,INCR1
+   3         C     / 1/  U          4   /SYSTEM/SYSBUF
+   4         C     / 4/ M          16   /UNPAKX/TO2,I2,N2,INCR2
+   5         C     / 2/ M          20   /ZBLPKX/A,IROW
+   6         C     / 1/ ??          4   /ZZZZZZ/Z
+   7    5   1 R    ( 1)C   E        4   A(4)
+   8   18   5 I        A?U E            AC
+   9   18   1 I        A?? E            AWY
+  10         s     ( 5)  U              BLDPK
+     (I4E,I4E,I4V,I4E,I4E)
+  11         s     ( 3)  U              BLDPKN
+     (I4V,I4E,I4A)
+  12         s     ( 2)  U              CLOSE
+     (I4V,I4E)
+  13    1   4 R        C   E            COMPTP
+  14         ID    ( 1)  U I            DBLE
+  15          D         MU E            DKCOMP
+  16          D    ( 1) MU E        1   DZ(1)
+  17    1   5 R        C   E            FORM
+  18         S     ( 6) ?U         59   GFSCOM(AWY,NUY,KC,IDENT,AC,SCR)
+  19         s     ( 3)  U              GOPEN
+     (I4V,I4L,I4E)
+  20          I         MU E            I
+  21    2   3 I        CM  E            I1
+  22    4   2 I        CM  E            I2
+  23          I         MU E            IBUF
+  24   18   4 I        A?? E            IDENT
+  25    2   5 I        CM  E            INCR1
+  26    4   4 I        CM  E            INCR2
+  27    5   2 I        CM  E            IROW
+  28          I         MU E            J
+  29   18   3 I        A?? E            KC
+  30    1   3 R        C U E            KCOMP
+  31         fI    ( 1)  U E            KORSZ
+     (I4L)
+  32    1   6 I        C   E            LMODES
+  33         s     ( 5)  U              MAKMCB
+     (I4A,I4V,I4V,I4E,I4E)
+  34          I    ( 1) MU E        7   MCB(7)
+  35         s     ( 3)  U              MESAGE
+     (I4E,I4E,I4A)
+  36    2   4 I        CM  E            N1
+  37    4   3 I        CM  E            N2
+  38          I    ( 1)I?? E        2   NAME(2)
+  39    1   2 I        C   E            NOFREE
+  40    1   1 I        C   E            NOGRAV
+  41          I         MU E            NROW
+  42   18   2 I        A?U E            NUY
+  43          I         MU E            NZ
+  44         s     ( 3)  U              PACK
+     (R4L,I4V,I4A)
+  45         s     ( 1)  U              RDTRL
+     (I4A)
+  46          R    ( 1) M? E        1   RZ(1)
+  47   18   6 I        A?? E            SCR
+  48         s     ( 8)  U              SSG2B
+     (I4V,I4V,I4E,I4V,I4E,I4E,I4E,I4V)
+  49    3   1 I        C U E            SYSBUF
+  50    2   1 I        CM  E            TI1
+  51    2   2 I        CM  E            TO1
+  52    4   1 I        CM  E            TO2
+  53         s     ( 3)  U              UNPACK
+     (ALT,I4V,R8L)
+  54          D         M  E            VAL
+  55         s     ( 1)  U              WRTTRL
+     (I4A)
+  56    6   1 I    ( 1)C?? E        1   Z(1)
+  57         s           U              ZBLPKI
+**-- END OF SYMBOL TABLE

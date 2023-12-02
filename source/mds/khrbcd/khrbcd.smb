@@ -1,0 +1,21 @@
+**++ Symbol table for subprogram KHRBCD in file mds/khrbcd.f90
+     produced by SPAG     8.01RF-40 at 14:46:34 on  2 Dec 2023
+   0         X             K             mds/khrbcd.f90,0000002,0000361
+   1          I    ( 1) MU E        2   B4(2)
+   2   17   2 I    ( 1)AMU E            BCD4(2)
+   3         E     ( 2)                 BCDKH2(BCD4,KHR8)
+   4         E     ( 2)                 BCDKH7(BCD4,KHR72)
+   5         E     ( 2)                 BCDKH8(BCD4,KHR80)
+   6          I         MU E            I
+   7          C*100     M  E            K100*100
+   8          C*72       U E            K72*72
+   9          C*8       MU E            K8*8
+  10          C*80      MU E            K80*80
+  11          C*100    A U E            KHR100*100
+  12          C*72     AM  E            KHR72*72
+  13          C*8      AMU E            KHR8*8
+  14   17   1 C*80     AMU E            KHR80*80
+  15         E     ( 2)                 KHRBC1(KHR100,BCD4)
+  16         E     ( 2)                 KHRBC2(KHR8,BCD4)
+  17         S     ( 2) MU         27   KHRBCD(KHR80,BCD4)
+**-- END OF SYMBOL TABLE

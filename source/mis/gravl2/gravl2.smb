@@ -1,0 +1,70 @@
+**++ Symbol table for subprogram GRAVL2 in file mis/gravl2.f90
+     produced by SPAG     8.01RF-40 at 14:46:37 on  2 Dec 2023
+   0         X             K             mis/gravl2.f90,0000002,0000087
+   1         C     / 1/  U          4   /BLANK/NROWSP
+   2         C     / 8/ ??         64   /LOADX/N,BGPDT,OLD,CSTM,SIL,ISTL,NN,MASS
+   3         C     / 1/  U          4   /SYSTEM/SYSBUF
+   4         C     / 2/ M          20   /ZBLPKX/B,II
+   5         C     / 3/  U         24   /ZNTPKX/A,LL,IEOL
+   6         C     / 1/ ??          4   /ZZZZZZ/CORE
+   7    5   1 R    ( 1)C U E        4   A(4)
+   8    4   1 R    ( 1)CM  E        4   B(4)
+   9    2   2 R        C   E            BGPDT
+  10         s     ( 5)  U              BLDPK
+     (I4E,I4E,I4L,I4E,I4E)
+  11         s     ( 3)  U              BLDPKN
+     (I4L,I4E,I4A)
+  12         s     ( 2)  U              CLOSE
+     (I4A,I4E)
+     (I4V,   )
+  13    6   1 R    ( 1)C?? E        1   CORE(1)
+  14    2   4 R        C   E            CSTM
+  15   18   2 I        A?? E            FILD
+  16          R         ?? E            FLAG
+  17         s     ( 3)  U              GOPEN
+     (I4V,R4L,I4E)
+  18         S     ( 3) ?U         60   GRAVL2(NVECT,FILD,PG)
+  19          I         M  E            IBUF
+  20    5   3 I        C U E            IEOL
+  21    4   2 I        CM  E            II
+  22          I         MU E            ILOOP
+  23         s     ( 5)  U              INTPK
+     (ALT,I4V,I4E,I4E,I4E)
+  24          I         MU E            IOUT
+  25          I         M? E            IPM
+  26          I         M  E            ISIL
+  27          I         MU E            ISIL1
+  28          I         ?U E            ISIL2
+  29    2   6 I        C   E            ISTL
+  30         fI    ( 1)  U E            KORSZ
+     (R4A)
+  31          I         MU E            LCORE
+  32    5   2 I        C U E            LL
+  33    2   8 I        C   E            MASS
+  34         s     ( 3)  U              MESAGE
+     (I4E,I4V,I4A)
+  35    2   1 I    ( 1)C   E        2   N(2)
+  36          I    ( 1)I?? E        2   NAME(2)
+  37    2   7 I    ( 1)C   E        8   NN(8)
+  38    1   1 I        C U E            NROWSP
+  39   18   1 I        A U E            NVECT
+  40          I         M  E            NZ
+  41    2   3 R        C   E            OLD
+  42         s     ( 4)  U              OPEN
+     (ALT,I4L,R4L,I4E)
+  43   18   3 I    ( 1)A?U E            PG(7)
+  44         s     ( 7)  U              READ
+     (ALT,ALT,I4V,I4V,I4E,I4E,R4V)
+  45         s     ( 1)  U              REWIND
+     (I4V)
+  46    2   5 I        C?? E            SIL
+  47         s     ( 2)  U              SKPFIL
+     (I4A,I4E)
+  48         s     ( 2)  U              SKPREC
+     (I4V,I4E)
+  49    3   1 I        C U E            SYSBUF
+  50         s     ( 1)  U              WRTTRL
+     (I4A)
+  51         s           U              ZBLPKI
+  52         s           U              ZNTPKI
+**-- END OF SYMBOL TABLE

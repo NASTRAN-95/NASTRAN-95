@@ -1,0 +1,46 @@
+**++ Symbol table for subprogram SSG4 in file mis/ssg4.f90
+     produced by SPAG     8.01RF-40 at 14:46:47 on  2 Dec 2023
+   0         X             K             mis/ssg4.f90,0000002,0000047
+   1         C     /11/ ??         44   /BITPOS/UM,UO,UR,USG,USB,UL,UA,UF,US,UN,UG
+   2         C     / 1/  U          4   /BLANK/IOMT
+   3          I        I?? E            D
+   4         s     ( 6)  U              FACTOR
+     (I4V,I4V,I4V,I4V,I4V,I4V)
+   5          I        I?? E            GO
+   6    2   1 I        C U E            IOMT
+   7          I        I?? E            MLL
+   8          I        I?? E            MLR
+   9          I        I?? E            MOAB
+  10          I        I?? E            MOOB
+  11          I        I?? E            MR
+  12          I        I?? E            PL
+  13          I        I?? E            PLI
+  14          I        I?? E            PO
+  15          I        I?? E            POI
+  16          I        I?? E            QR
+  17          I        I?? E            SCR1
+  18          I        I?? E            SCR2
+  19          I        I?? E            SCR3
+  20          I        I?? E            SCR4
+  21          I        I?? E            SCR5
+  22         s     (10)  U              SDR1B
+     (I4V,I4V,I4V,I4V,R4V,R4V,R4V,I4V,I4E,I4E)
+  23         s     ( 8)  U              SSG2B
+     (I4V,I4V,I4E,I4V,I4E,I4E,I4E,I4V)
+  24         s     ( 8)  U              SSG3A
+     (I4V,I4V,I4V,I4V,I4V,I4V,I4E,R4V)
+  25         S                     10   SSG4
+  26    1   7 R        C?? E            UA
+  27    1   8 R        C   E            UF
+  28    1  11 R        C   E            UG
+  29    1   6 R        C?? E            UL
+  30    1   1 R        C   E            UM
+  31    1  10 R        C   E            UN
+  32    1   2 R        C?? E            UO
+  33    1   3 R        C   E            UR
+  34    1   9 R        C   E            US
+  35    1   5 R        C   E            USB
+  36          I        I?? E            USET
+  37    1   4 R        C   E            USG
+  38          R         ?? E            XXX
+**-- END OF SYMBOL TABLE

@@ -1,0 +1,32 @@
+**++ Symbol table for subprogram CRSUB in file mis/crsub.f90
+     produced by SPAG     8.01RF-40 at 14:47:07 on  2 Dec 2023
+   0         X             K             mis/crsub.f90,0000002,0000050
+   1         C     /10/ MU        136   /SOF/DIT,DITPBN,DITLBN,DITSIZ,DITNSB,DITBL,IODUM,MDIDUM,NXTDUM,DITUP
+   2         C     / 1/ M           4   /ZZZZZZ/BUF
+   3    2   1 I    ( 1)CM  E        1   BUF(1)
+   4         s     ( 1)  U              CHKOPN
+     (I4L)
+   5         S     ( 2) MU         18   CRSUB(NAME,I)
+   6    1   1 I        C   E            DIT
+   7    1   6 I        C   E            DITBL
+   8    1   3 I        C   E            DITLBN
+   9    1   5 I        CMU E            DITNSB
+  10    1   2 I        C   E            DITPBN
+  11    1   4 I        CMU E            DITSIZ
+  12    1  10 L        CM  E            DITUP
+  13         s     ( 2)  U              ERRMKN
+     (I4V,I4E)
+  14         s     ( 2)  U              FDIT
+     (I4V,I4V)
+  15         s     ( 2)  U              FDSUB
+     (I4L,I4V)
+  16    5   2 I        AMU E            I
+  17          I    ( 1)I?? E        2   IEMPTY(2)
+  18          I        I?? E            INDSBR
+  19    1   7 I    ( 1)C   E        8   IODUM(8)
+  20          I         ?U E            JDIT
+  21    1   8 I    ( 1)C   E        4   MDIDUM(4)
+  22    5   1 I    ( 1)A U E            NAME(2)
+  23          I    ( 1)I?? E        2   NMSBR(2)
+  24    1   9 I    ( 1)C   E       15   NXTDUM(15)
+**-- END OF SYMBOL TABLE

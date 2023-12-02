@@ -1,0 +1,19 @@
+**++ Symbol table for subprogram DSRLSE in file mds/dsrlse.f90
+     produced by SPAG     8.01RF-40 at 14:46:34 on  2 Dec 2023
+   0         X             K             mds/dsrlse.f90,0000002,0000021
+   1         s     ( 1)  U              DSCLOS
+     (I4V)
+   2         s     ( 3)  U              DSOPEN
+     (?*E,I4V,I4E)
+   3         S                     11   DSRLSE
+   4         I?    ( 2)  U I            IAND
+   5          ?          U I            IFILEX
+   6          I         M? E            INEXT
+   7          ?          U I            MASKH1
+   8          ?          U I            MASKH2
+   9         f?    ( 2) MU I            MDSFCB
+     (I4E,I4V)
+  10         f?    ( 1)  U I            MDSNAM
+     (I4V)
+  11          I         MU E            NEXDSN
+**-- END OF SYMBOL TABLE

@@ -1,0 +1,50 @@
+**++ Symbol table for subprogram SUREAD in file mis/suread.f90
+     produced by SPAG     8.01RF-40 at 14:47:22 on  2 Dec 2023
+   0         X             K             mis/suread.f90,0000002,0000088
+   1         C     / 3/ ??         12   /MACHIN/MACH,IHALF,JHALF
+   2         C     / 9/ MU         56   /SOF/DITDUM,IO,IOPBN,IOLBN,IOMODE,IOPTR,IOSIND,IOITCD,IOBLK
+   3         C     / 2/  U          8   /SYS/BLKSIZ,DIRSIZ
+   4         C     / 1/ ?U          4   /ZZZZZZ/BUF
+   5         fI    ( 2)  UXE            ANDF
+     (I4E,I4V)
+   6    3   1 I        C U E            BLKSIZ
+   7    4   1 I    ( 1)C?U E        1   BUF(1)
+   8         s     ( 1)  U              CHKOPN
+     (I4L)
+   9    3   2 I        C   E            DIRSIZ
+  10    2   1 R    ( 1)C   E        6   DITDUM(6)
+  11         s     ( 2)  U              ERRMKN
+     (I4V,I4E)
+  12         s     ( 2)  U              FNXT
+     (I4V,I4V)
+  13   40   1 I    ( 1)AM  E            IA(1)
+  14          I         MU E            ICOUNT
+  15          I        I U E            IDLE
+  16          I        I U E            IEOG
+  17          I        I U E            IEOI
+  18    1   2 I        C?? E            IHALF
+  19          I        I?? E            INDSBR
+  20          I         ?U E            INXT
+  21    2   2 I        C U E            IO
+  22    2   9 I        C   E            IOBLK
+  23    2   8 I        C   E            IOITCD
+  24    2   4 I        CMU E            IOLBN
+  25    2   5 I        CMU E            IOMODE
+  26    2   3 I        CMU E            IOPBN
+  27    2   6 I        CMU E            IOPTR
+  28    2   7 I        C   E            IOSIND
+  29          I        I?U E            IRD
+  30   40   4 I        AM  E            ITEST
+  31    1   3 I        C?? E            JHALF
+  32    1   1 I        C   E            MACH
+  33         I?    ( 2)  U I            MOD
+  34   40   2 I        A U E            ND
+  35          I         MU E            NEXT
+  36          I    ( 1)I?? E        2   NMSBR(2)
+  37   40   3 I        AM  E            NOUT
+  38         fI    ( 2)  UXE            RSHIFT
+     (I4L,I4V)
+  39         s     ( 3)  U              SOFIO
+     (I4V,I4V,I4L)
+  40         S     ( 4) MU         41   SUREAD(IA,ND,NOUT,ITEST)
+**-- END OF SYMBOL TABLE

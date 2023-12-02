@@ -1,0 +1,120 @@
+**++ Symbol table for subprogram KQDPLT in file mis/kqdplt.f90
+     produced by SPAG     8.01RF-40 at 14:47:12 on  2 Dec 2023
+   0         X             K             mis/kqdplt.f90,0000002,0000365
+   1         C     / 1/            20   /CONDAS/CONSTS
+   2         C     / 6/ MU         24   /MATIN/MATID,INFLAG,ELTEMP,STRESS,SINTH,COSTH
+   3         C     /18/  U         72   /MATOUT/G11,G12,G13,G22,G23,G33,RHO,ALPHA1,ALPHA2,ALP12,TSUB0,GSUBE,SIGTEN,SIGCOM,SIGSHE,G2X211,G2X212,G2X222
+   4         C     / 8/ MU         92   /SMA1CL/IOPT4,K4GGSW,NPVT,DUMCL,LINK,IDETCK,DODET,NOGO
+   5         C     /42/ MU       2292   /SMA1DP/KOUT,TITE,TJTE,TEMP18,DPDUM1,IVECT,JVECT,KVECT,D1,D2,A1,T,V,VV,H,U1,U2,R,KSUM,DPDUM2,PROD9,TEMP9,XSUBB,XSUBC,YSUBC,E,TEMP,SP1,SP2,KM,NBEGIN,JNOT,NPIVOT,THETA,NSUBC,ISING,SUBSCA,SUBSCB,SUBSCC,SINANG,COSANG,NPOINT
+   6         C     / 1/ MU        400   /SMA1ET/ECPT
+   7         C     / 5/ ??        144   /SMA1IO/DUM1,IFKGG,DUM2,IF4GG,DUM3
+   8          D    ( 1) ?? E        1   A(1)
+   9    5  11 D    ( 1)CMU E        3   A1(3)
+  10         I?    ( 1)  U I            ABS
+  11    3  10 R        C   E            ALP12
+  12    3   8 R        C   E            ALPHA1
+  13    3   9 R        C   E            ALPHA2
+  14    1   1 R    ( 1)C   E        5   CONSTS(5)
+  15         I?    ( 1)  U I            COS
+  16    5  41 R        CMU E            COSANG
+  17    2   6 R        CM  E            COSTH
+  18    5   9 D    ( 1)CMU E        3   D1(3)
+  19    5  10 D    ( 1)CMU E        3   D2(3)
+  20         ID    ( 1)  U I            DBLE
+  21          R          U E            DEGRA
+  22    4   7 R        C   E            DODET
+  23    5   5 D    ( 1)C   E       54   DPDUM1(54)
+  24    5  20 D    ( 1)C   E        3   DPDUM2(3)
+  25         ID    ( 1)  U I            DSQRT
+  26    7   1 R    ( 1)C   E       10   DUM1(10)
+  27    7   3 R    ( 1)C   E        1   DUM2(1)
+  28    7   5 R    ( 1)C   E       23   DUM3(23)
+  29    4   4 R    ( 1)C   E        7   DUMCL(7)
+  30    5  26 D    ( 1)CMU E       18   E(18)
+  31    6   1 R    ( 1)CMU E      100   ECPT(100)
+  32    2   3 R        CM  E            ELTEMP
+  33    3   1 R        C   E            G11
+  34    3   2 R        C   E            G12
+  35    3   3 R        C   E            G13
+  36    3   4 R        C   E            G22
+  37    3   5 R        C   E            G23
+  38    3  16 R        C   E            G2X211
+  39    3  17 R        C   E            G2X212
+  40    3  18 R        C   E            G2X222
+  41    3   6 R        C   E            G33
+  42         s     ( 9)  U              GMMATD
+     (R8A,I4E,I4E,I4E,R8A,I4E,I4E,I4E,R8A)
+  43    3  12 R        C U E            GSUBE
+  44    5  15 D        C   E            H
+  45          I         MU E            I
+  46    4   6 I        C   E            IDETCK
+  47    7   4 I        C?? E            IF4GG
+  48    7   2 I        C?? E            IFKGG
+  49    2   2 I        C   E            INFLAG
+  50    4   1 I        C U E            IOPT4
+  51    5  36 I        C   E            ISING
+  52    5   6 D    ( 1)CMU E        3   IVECT(3)
+  53          I         MU E            J
+  54    5  32 I        CMU E            JNOT
+  55    5   7 D    ( 1)CMU E        3   JVECT(3)
+  56          I         MU E            K
+  57    4   2 I        CM  E            K4GGSW
+  58    5  30 I        CMU E            KM
+  59    5   1 D    ( 1)C?? E       36   KOUT(36)
+  60         S                    168   KQDPLT
+  61    5  19 D    ( 1)CMU E       36   KSUM(36)
+  62         s     ( 1)  U              KTRBSC
+     (I4E)
+  63    5   8 D    ( 1)CMU E        3   KVECT(3)
+  64    4   5 I    ( 1)C   E       10   LINK(10)
+  65          I    ( 1)I U E       12   M(12)
+  66    2   1 I        C   E            MATID
+  67         s     ( 3)  U              MESAGE
+     (I4E,I4E,R4L)
+  68    5  31 I        CMU E            NBEGIN
+  69          I    ( 1) ?U E      100   NECPT(100)
+  70    4   8 I        CMU E            NOGO
+  71    5  33 I        CMU E            NPIVOT
+  72    5  42 I        CMU E            NPOINT
+  73    4   3 I        C U E            NPVT
+  74    5  35 I        C   E            NSUBC
+  75    5  21 D    ( 1)C?U E        9   PROD9(9)
+  76    5  18 D    ( 2)CMU E        8   R(2,4)
+  77          D    ( 1) M  E        8   REQUIV(8)
+  78    3   7 R        C   E            RHO
+  79    3  14 R        C   E            SIGCOM
+  80    3  15 R        C   E            SIGSHE
+  81    3  13 R        C   E            SIGTEN
+  82         I?    ( 1)  U I            SIN
+  83    5  40 R        CMU E            SINANG
+  84    2   5 R        CMU E            SINTH
+  85         s     ( 5)  U              SMA1B
+     (R8L,I4L,I4E,I4V,R8E)
+  86    5  28 R    ( 1)C   E       28   SP1(28)
+  87    5  29 R    ( 1)C   E        2   SP2(2)
+  88    2   4 R        C   E            STRESS
+  89    5  37 I        CMU E            SUBSCA
+  90    5  38 I        CMU E            SUBSCB
+  91    5  39 I        CMU E            SUBSCC
+  92    5  12 D    ( 1)CM? E        9   T(9)
+  93    5  27 D        CMU E            TEMP
+  94    5   4 D    ( 1)C?? E       18   TEMP18(18)
+  95    5  22 D    ( 1)C?? E        9   TEMP9(9)
+  96    5  34 R        CMU E            THETA
+  97    5   2 D    ( 1)CM? E       18   TITE(18)
+  98    5   3 D    ( 1)CM? E       18   TJTE(18)
+  99         s     ( 2)  U              TRANSD
+     (I4L,R8A)
+ 100    3  11 R        C   E            TSUB0
+ 101    5  16 D        CMU E            U1
+ 102    5  17 D        CMU E            U2
+ 103    5  13 D    ( 1)CMU E        2   V(2)
+ 104          R    ( 1)  U E        3   VQ1(3)
+ 105          R    ( 1)  U E        3   VQ2(3)
+ 106          R    ( 1)  U E        3   VQ3(3)
+ 107          R    ( 1)  U E        3   VQ4(3)
+ 108    5  14 D    ( 1)CMU E        2   VV(2)
+ 109    5  23 D        CMU E            XSUBB
+ 110    5  24 D        CM  E            XSUBC
+ 111    5  25 D        CM  E            YSUBC
+**-- END OF SYMBOL TABLE

@@ -1,0 +1,31 @@
+**++ Symbol table for subprogram ROMBER in file mis/romber.f90
+     produced by SPAG     8.01RF-40 at 14:46:40 on  2 Dec 2023
+   0         X             K             mis/romber.f90,0000002,0000113
+   1         I?    ( 1)  U I            ABS
+   2   25   1 R        A U E            B
+   3          R         MU E            CONST
+   4         I?    ( 1)  U I            COS
+   5          R         MU E            DEN
+   6          R         MU E            DIFF
+   7          R         MU E            F
+   8          R    ( 1) MU E       20   FAAAA(20)
+   9          R    ( 1) MU E       20   FAAAB(20)
+  10          R         MU E            FAAAC
+  11          R         MU E            FAAAD
+  12          R         MU E            FAAAE
+  13          R         MU E            FAAAF
+  14          R         MU E            FAAAG
+  15          R         MU E            FAAAH
+  16   25   4 R        AM  E            FINTG
+  17          I         MU E            IAAAA
+  18          I         MU E            IAAAC
+  19          I         MU E            IAAAD
+  20          I         MU E            IAAAF
+  21          I         MU E            IRET
+  22   25   3 I        AM  E            ITDONE
+  23   25   5 I        A U E            K
+  24   25   2 R        AM  E            PRECIS
+  25         S     ( 6) MU         72   ROMBER(B,PRECIS,ITDONE,FINTG,K,X)
+  26         I?    ( 1)  U I            SIN
+  27   25   6 R    ( 1)AMU E            X(6)
+**-- END OF SYMBOL TABLE

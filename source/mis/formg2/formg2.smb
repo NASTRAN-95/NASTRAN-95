@@ -1,0 +1,18 @@
+**++ Symbol table for subprogram FORMG2 in file mis/formg2.f90
+     produced by SPAG     8.01RF-40 at 14:46:40 on  2 Dec 2023
+   0         X             K             mis/formg2.f90,0000002,0000193
+   1         C     / 1/  U          4   /ZZZZZZ/Z
+   2         S     ( 5)  U        137   FORMG2(IG,JR,JD,IR,ID)
+   3          I         MU E            I
+   4    2   5 I        A U E            ID
+   5    2   1 I        A U E            IG
+   6    2   4 I        A U E            IR
+   7    2   3 I        A U E            JD
+   8    2   2 I        A U E            JR
+   9          D         MU E            XD
+  10          D         MU E            YD
+  11    1   1 I    ( 1)C U E        1   Z(1)
+  12          D         MU E            ZD
+  13          R    ( 1)  U E        1   ZR(1)
+  14          D    ( 1) MU E        1   ZZ(1)
+**-- END OF SYMBOL TABLE

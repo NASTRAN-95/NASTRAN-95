@@ -1,0 +1,9 @@
+**++ Symbol table for subprogram WALTIM in file mds/waltim.f90
+     produced by SPAG     8.01RF-40 at 14:46:34 on  2 Dec 2023
+   0         X             K             mds/waltim.f90,0000002,0000013
+   1         s     ( 1)  U              ITIME
+     (I4A)
+   2          I    ( 1) ?U E        3   TIME(3)
+   3    4   1 I        AM  E            WALSEC
+   4         S     ( 1) M           2   WALTIM(WALSEC)
+**-- END OF SYMBOL TABLE

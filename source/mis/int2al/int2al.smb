@@ -1,0 +1,14 @@
+**++ Symbol table for subprogram INT2AL in file mis/int2al.f90
+     produced by SPAG     8.01RF-40 at 14:46:53 on  2 Dec 2023
+   0         X             K             mis/int2al.f90,0000002,0000044
+   1    5   2 I    ( 1)AM  E            ALF(2)
+   2          I        I U E            BLANK
+   3    5   3 I    ( 1)AMU E            CH(9)
+   4    5   1 I        A?U E            INT
+   5         S     ( 3) MU         15   INT2AL(INT,ALF,CH)
+   6         s     ( 3)  U              INT2K8
+     (ALT,I4V,C8V)
+   7          I         MU E            J
+   8          C*8       ?U E            K8*8
+   9          I        I U E            ZERO
+**-- END OF SYMBOL TABLE

@@ -1,0 +1,26 @@
+**++ Symbol table for subprogram FBSINV in file mis/fbsinv.f90
+     produced by SPAG     8.01RF-40 at 14:46:56 on  2 Dec 2023
+   0         X             K             mis/fbsinv.f90,0000002,0000057
+   1         C     / 1/ ?U         28   /FBSX/FILEL
+   2         s     ( 4)  U              FBS1
+     (I4A,R4A,R4A,I4V)
+   3         s     ( 4)  U              FBS2
+     (I4A,R4A,R4A,I4V)
+   4         S     ( 3) MU         21   FBSINV(X,Y,IOBUFF)
+   5    1   1 I    ( 1)C?U E        7   FILEL(7)
+   6          I         MU E            I
+   7          I    ( 1) M? E       15   IBLK(15)
+   8    4   3 I        A   E            IOBUFF
+   9          I          U E            LTYPE
+  10         s     ( 3)  U              MESAGE
+     (I4E,I4L,I4L)
+  11          I         ?U E            NROW
+  12          I         MU E            NROW2
+  13          I    ( 1)IM? E        3   PARM(3)
+  14         s     ( 1)  U              REWIND
+     (I4A)
+  15         s     ( 2)  U              SKPREC
+     (I4A,I4E)
+  16    4   1 R    ( 1)A U E            X(1)
+  17    4   2 R    ( 1)AM? E            Y(1)
+**-- END OF SYMBOL TABLE

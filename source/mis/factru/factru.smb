@@ -1,0 +1,37 @@
+**++ Symbol table for subprogram FACTRU in file mis/factru.f90
+     produced by SPAG     8.01RF-40 at 14:47:16 on  2 Dec 2023
+   0         X             K             mis/factru.f90,0000002,0000039
+   1         C     /12/ MU        128   /DCOMPX/IA,IL,IU,ISCR1,ISCR2,ISCR3,DETT,IPOW,NZ,MINDIA,IB,IBB
+   2         C     / 2/  U        220   /SYSTEM/SYS,IPREC
+   3         C     / 1/ ??          4   /ZZZZZZ/XX
+   4    7   1 I        A U E            A
+   5         s     ( 4)  U              DECOMP
+     (ALT,R4A,R4A,R4A)
+   6    1   7 D        C   E            DETT
+   7         S     ( 6)  U         21   FACTRU(A,LLL,ULL,SCR1,SCR2,SCR3)
+   8    1   1 I    ( 1)CMU E        7   IA(7)
+   9    1  11 I        CM  E            IB
+  10    1  12 I        CM  E            IBB
+  11    1   2 I    ( 1)CM? E        7   IL(7)
+  12    1   8 I        C   E            IPOW
+  13    2   2 I        C U E            IPREC
+  14    1   4 I        CM  E            ISCR1
+  15    1   5 I        CM  E            ISCR2
+  16    1   6 I        CM  E            ISCR3
+  17    1   3 I    ( 1)CM? E        7   IU(7)
+  18         fI    ( 1)  U E            KORSZ
+     (R4A)
+  19    7   2 I        A U E            LLL
+  20    1  10 D        C   E            MINDIA
+  21    1   9 I        CM  E            NZ
+  22         s     ( 1)  U              RDTRL
+     (I4A)
+  23    7   4 I        A U E            SCR1
+  24    7   5 I        A U E            SCR2
+  25    7   6 I        A U E            SCR3
+  26    2   1 R    ( 1)C   E       54   SYS(54)
+  27    7   3 I        A U E            ULL
+  28         s     ( 1)  U              WRTTRL
+     (I4A)
+  29    3   1 R    ( 1)C?? E        1   XX(1)
+**-- END OF SYMBOL TABLE

@@ -1,0 +1,48 @@
+**++ Symbol table for subprogram DPPS in file mis/dpps.f90
+     produced by SPAG     8.01RF-40 at 14:46:41 on  2 Dec 2023
+   0         X             K             mis/dpps.f90,0000002,0000042
+   1         C     /19/  U         76   /DLCOM/NP,NSTRIP,NTP,F,NJJ,NEXT,LENGTH,INC,INB,IYS,IZS,IEE,ISG,ICG,IXIC,IDELX,IXLAM,IDT,ICORE
+   2    3   6 R        A?? E            CGR
+   3         S     (12) MU         22   DPPS(KS,I,J1,J2,SGR,CGR,YS,ZS,NBARAY,NCARAY,DT,WORK)
+   4    3  11 X    ( 1)AM  E            DT(1)
+   5    1   4 R        C   E            F
+   6    3   2 I        A?? E            I
+   7    1  14 I        C U E            ICG
+   8    1  19 I        C   E            ICORE
+   9    1  16 I        C U E            IDELX
+  10    1  18 I        C   E            IDT
+  11    1  12 I        C U E            IEE
+  12    1   9 I        C   E            INB
+  13    1   8 I        C   E            INC
+  14    1  13 I        C U E            ISG
+  15    1  15 I        C U E            IXIC
+  16    1  17 I        C U E            IXLAM
+  17    1  10 I        C   E            IYS
+  18    1  11 I        C   E            IZS
+  19          I         MU E            J
+  20    3   3 I        A U E            J1
+  21    3   4 I        A U E            J2
+  22    3   1 I        A U E            KS
+  23          I         MU E            L
+  24    1   7 I        C   E            LENGTH
+  25          I         MU E            LS
+  26    3   9 I    ( 1)A U E            NBARAY(1)
+  27          I         MU E            NBCUM
+  28          I         MU E            NBXS
+  29          I         MU E            NC1
+  30    3  10 I    ( 1)A U E            NCARAY(1)
+  31    1   6 I        C   E            NEXT
+  32    1   5 I        C   E            NJJ
+  33    1   1 I        C   E            NP
+  34    1   2 I        C   E            NSTRIP
+  35    1   3 I        C   E            NTP
+  36    3   5 R        A?? E            SGR
+  37         s     (17)  U              SUBP
+     (I4V,I4V,I4V,I4E,R4V,R4V,R4V,R4V,X8V,R4L,R4L,R4L,R4L,R4L,R4L,R4A,R4A)
+  38          X         ?U E            SUM
+  39    3  12 R    ( 1)A?? E            WORK(1)
+  40          R         M? E            YREC
+  41    3   7 R    ( 1)A?U E            YS(1)
+  42          R         M? E            ZREC
+  43    3   8 R    ( 1)A?U E            ZS(1)
+**-- END OF SYMBOL TABLE

@@ -1,0 +1,176 @@
+**++ Symbol table for subprogram GIVENS in file mis/givens.f90
+     produced by SPAG     8.01RF-40 at 14:47:15 on  2 Dec 2023
+   0         X             K             mis/givens.f90,0000002,0000233
+   1         C     / 4/  U         20   /BLANK/IPROB,NUMMOD,ICASE,XLMDAS
+   2         C     / 5/            20   /CONDAS/PI,TWOPI,RADEG,DEGRA,FPS
+   3         C     /11/ MU        440   /GIVN/DUM,N,LFREQ,ORDER,D1,HFREQ,D2,NV,D3,D4,NFR
+   4         C     / 1/ MU          8   /MGIVXX/DLMDAS
+   5         C     / 2/            64   /NTIME/LNTIME,TCONS
+   6         C     / 5/ MU         20   /PACKX/ITP1,ITP2,IIP,JJP,INCRP
+   7         C     /24/ ?U        168   /REGEAN/IM,IK,IEV,SCR1,SCR2,SCR3,SCR4,SCR5,LCORE,RMAX,RMIN,MZ,NEV,EPSI,RMINR,NE,NIT,NEVM,SCR6,SCR7,NFOUND,LAMDA,IBUCK,NSYM
+   8         C     / 1/  U          4   /REIGKR/OPTION
+   9         C     /10/ MU        276   /SADDX/NOMAT,LLCORE,MCBA,ITYPA,ALPHA,MCBB,ITYPB,BETA,MCBCDE,MCBX
+  10         C     / 5/ ?U        220   /SYSTEM/SYSBUF,NOUT,NOGO,KSYS,JPREC
+  11         C     / 4/ MU         16   /UNPAKX/ITU,IIU,JJU,INCRU
+  12         C     / 4/  U        102   /XMSSG/UFM,UWM,UIM,SFM
+  13         C     / 1/ MU          4   /ZZZZZZ/CORE
+  14          R         MU E            AK
+  15    9   5 R    ( 1)CM  E        4   ALPHA(4)
+  16          R         MU E            AM
+  17          R         MU E            AMB
+  18          R         MU E            AN
+  19          R         MU E            AN2
+  20          R         MU E            ANV
+  21          R          U E            APC
+  22          R          U E            APU
+  23          R         MU E            AV
+  24          R         MU E            AV2
+  25          R         MU E            AZ
+  26    9   8 R    ( 1)CM  E        4   BETA(4)
+  27         s     ( 2)  U              CLOSE
+     (I4V,I4E)
+  28         s     ( 3)  U              CONMSG
+     (I4A,I4E,I4E)
+  29   13   1 R    ( 1)CMU E        1   CORE(1)
+  30    3   5 R        C   E            D1
+  31    3   7 R        C   E            D2
+  32    3   9 R        C   E            D3
+  33    3  10 R        C   E            D4
+  34          D    ( 1) M  E        2   DALPHA(2)
+  35          D    ( 1) M  E        2   DBETA(2)
+  36          D    ( 1) MU E        1   DCORE(1)
+  37    2   4 R        C   E            DEGRA
+  38    4   1 D        CMU E            DLMDAS
+  39    3   1 R    ( 1)C   E      100   DUM(100)
+  40          I    ( 1) M  E        4   EIGR(4)
+  41          I        I U E            END
+  42    7  14 R        C   E            EPSI
+  43         s     ( 2)  U              ERRTRC
+     (C*E,I4E)
+  44         s     ( 6)  U              FACTOR
+     (I4V,I4V,I4E,I4V,I4V,I4V)
+  45          I         M? E            FILE
+  46    2   5 R        C   E            FPS
+  47         S                    138   GIVENS
+  48         s     ( 3)  U              GOPEN
+     (I4V,R4L,I4E)
+  49    3   6 R        C   E            HFREQ
+  50          I         MU E            I
+  51    7  23 I        C   E            IBUCK
+  52          I         MU E            IBUF1
+  53          I         MU E            IBUF2
+  54    1   3 I        C   E            ICASE
+  55          I    ( 1) MU E        1   ICORE(1)
+  56          I        I?U E            ICR1
+  57          I        I?? E            ICR2
+  58    7   3 I    ( 1)C   E        7   IEV(7)
+  59          I         M? E            IFILE1
+  60          I         M? E            IFILE2
+  61    6   3 I        CM  E            IIP
+  62   11   2 I        CMU E            IIU
+  63    7   2 I    ( 1)C   E        7   IK(7)
+  64    7   1 I    ( 1)C   E        7   IM(7)
+  65    6   5 I        CM  E            INCRP
+  66   11   4 I        CM  E            INCRU
+  67         s     ( 3)  U              INVERT
+     (I4V,I4V,I4V)
+  68          I         M? E            IP1
+  69    1   1 I    ( 1)C   E        2   IPROB(2)
+  70    6   1 I        CMU E            ITP1
+  71    6   2 I        CM  E            ITP2
+  72   11   1 I        CMU E            ITU
+  73    9   4 I        CM  E            ITYPA
+  74    9   7 I        CM  E            ITYPB
+  75          I    ( 1) MU E        7   IX(7)
+  76    6   4 I        CM  E            JJP
+  77   11   3 I        CMU E            JJU
+  78   10   5 I        C?U E            JPREC
+  79          I         MU E            K
+  80          I         MU E            KAA
+  81         fI    ( 1)  U E            KORSZ
+     (R4L)
+  82   10   4 I    ( 1)C   E       51   KSYS(51)
+  83          I         MU E            L
+  84    7  22 I        C   E            LAMDA
+  85    7   9 I        C   E            LCORE
+  86    3   3 R        C   E            LFREQ
+  87    9   2 I        CM  E            LLCORE
+  88    5   1 I        C   E            LNTIME
+  89          I         MU E            M
+  90          I         MU E            MAA
+  91          R    ( 1)  U E        1   MB(1)
+  92    9   3 I    ( 1)CMU E        7   MCBA(7)
+  93    9   6 I    ( 1)CM? E        7   MCBB(7)
+  94    9   9 I    ( 1)C   E       36   MCBCDE(36)
+  95    9  10 I    ( 1)CM? E        7   MCBX(7)
+  96         s     ( 3)  U              MESAGE
+     (I4E,I4E,I4A)
+  97          I        I U E            MGIV
+  98    7  12 I        C   E            MZ
+  99    3   2 I        CMU E            N
+ 100          I    ( 1)IM? E        4   NAME(4)
+ 101          I         MU E            NCOL
+ 102    7  16 I        C   E            NE
+ 103    7  13 I        C   E            NEV
+ 104    7  18 I        C   E            NEVM
+ 105    7  21 I        C   E            NFOUND
+ 106    3  11 I        C?? E            NFR
+ 107    7  17 I        C   E            NIT
+ 108          I         MU E            NNV
+ 109   10   3 I        C   E            NOGO
+ 110    9   1 I        CM  E            NOMAT
+ 111   10   2 I        C U E            NOUT
+ 112    7  24 I        C   E            NSYM
+ 113    1   2 I        C   E            NUMMOD
+ 114    3   8 I        C U E            NV
+ 115          I         MU E            NZ
+ 116    8   1 I        C U E            OPTION
+ 117    3   4 R        C   E            ORDER
+ 118         s     ( 3)  U              PACK
+     (R4A,I4V,I4A)
+ 119          I         MU E            PHIA
+ 120    2   1 R        C   E            PI
+ 121    2   3 R        C   E            RADEG
+ 122         s     ( 1)  U              RDTRL
+     (I4A)
+ 123         s     ( 4)  U              READ6
+     (I4V,I4V,I4V,I4V)
+ 124    7  10 R        C   E            RMAX
+ 125    7  11 R        C   E            RMIN
+ 126    7  15 R        C   E            RMINR
+ 127         s     ( 2)  U              SADD
+     (R4A,R4A)
+ 128    7   4 I        C?? E            SCR1
+ 129    7   5 I        C?? E            SCR2
+ 130    7   6 I        C?U E            SCR3
+ 131    7   7 I        C?? E            SCR4
+ 132    7   8 I        C?? E            SCR5
+ 133    7  19 I        C?? E            SCR6
+ 134    7  20 I        C?U E            SCR7
+ 135   12   4 C*25     C U E            SFM*25
+ 136          R         MU E            SLMDAS
+ 137         I?    ( 1)  U I            SQRT
+ 138         s     ( 8)  U              SSG2B
+     (I4V,I4V,I4E,I4V,I4E,I4V,I4E,I4V)
+ 139   10   1 I        C U E            SYSBUF
+ 140          I         MU E            T
+ 141          R         MU E            T1
+ 142          R         MU E            T2
+ 143          R         MU E            T23
+ 144          R         MU E            T3
+ 145    5   2 R    ( 1)C   E       15   TCONS(15)
+ 146         s     ( 1)  U              TMTOGO
+     (I4V)
+ 147         s     (11)  U              TRANP1
+     (I4V,I4V,I4E,I4V,I4V,I4V,I4V,I4V,I4V,I4E,I4E)
+ 148    2   2 R        C   E            TWOPI
+ 149   12   1 C*23     C   E            UFM*23
+ 150   12   3 C*29     C U E            UIM*29
+ 151         s     ( 3)  U              UNPACK
+     (ALT,I4V,R4A)
+ 152   12   2 C*25     C   E            UWM*25
+ 153         s           U              VALVEC
+ 154         s     ( 1)  U              WRTTRL
+     (I4A)
+ 155    1   4 R        C U E            XLMDAS
+**-- END OF SYMBOL TABLE

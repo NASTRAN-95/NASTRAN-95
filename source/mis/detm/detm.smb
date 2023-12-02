@@ -1,0 +1,80 @@
+**++ Symbol table for subprogram DETM in file mis/detm.f90
+     produced by SPAG     8.01RF-40 at 14:47:10 on  2 Dec 2023
+   0         X             K             mis/detm.f90,0000002,0000100
+   1         C     /28/ M?        248   /DETMX/P,DETX,PS1,DET1,N2EV,IPSAV,IPS,IDET,IPDETA,PREC,NSTART,NDCMP,IC,NSMOVE,ITERM,IS,ND,IADD,SML1,IPDETX,IPDET1,IFAIL,K,FACT1,IFFND,NFAIL,NPOLE,ISNG
+   2         C     /22/ MU        160   /REGEAN/IM,IK,IEV,SCR1,SCR2,SCR3,SCR4,SCR5,LCORE,RMAX,RMIN,MZ,NEV,EPSI,RMINR,NE,NIT,NEVM,SCR6,SCR7,NFOUND,LAMA
+   3    1   4 D    ( 1)C   E        4   DET1(4)
+   4         S                     41   DETM
+   5         s     ( 1)  U              DETM1
+     (ALT)
+   6         s           U              DETM2
+   7         s     ( 3)  U              DETM3
+     (ALT,ALT,ALT)
+   8         s           U              DETM4
+   9         s           U              DETM5
+  10    1   2 D    ( 1)C   E        4   DETX(4)
+  11    2  14 R        C   E            EPSI
+  12    1  24 R        C   E            FACT1
+  13         s     ( 2)  U              FDVECT
+     (R4V,R8L)
+  14    1  18 I        C   E            IADD
+  15    1  13 I        C   E            IC
+  16    1   8 I        C   E            IDET
+  17          I         MU E            IDONE
+  18    2   3 I    ( 1)C   E        7   IEV(7)
+  19    1  22 I        C   E            IFAIL
+  20    1  25 I        CM  E            IFFND
+  21    2   2 I    ( 1)C U E        7   IK(7)
+  22    2   1 I    ( 1)CMU E        7   IM(7)
+  23    1  21 I    ( 1)C   E        4   IPDET1(4)
+  24    1   9 I        C   E            IPDETA
+  25    1  20 I    ( 1)C   E        4   IPDETX(4)
+  26    1   7 I        C   E            IPS
+  27    1   6 I        C   E            IPSAV
+  28    1  16 I        C   E            IS
+  29          I         MU E            ISCR7
+  30    1  28 I        C   E            ISNG
+  31    1  15 I        CM  E            ITERM
+  32          I         ?U E            ITIME1
+  33          I         ?U E            ITIME2
+  34          I         ?U E            ITLEFT
+  35    1  23 I        C   E            K
+  36         s     ( 1)  U              KLOCK
+     (I4V)
+  37    2  22 I        C   E            LAMA
+  38    2   9 I        CM  E            LCORE
+  39         s     ( 3)  U              MESAGE
+     (I4E,I4E,I4A)
+  40    2  12 I        C U E            MZ
+  41    1   5 I        C   E            N2EV
+  42          I    ( 1)I?? E        2   NAME(2)
+  43    1  17 I        C   E            ND
+  44    1  12 I        CM  E            NDCMP
+  45    2  16 I        C   E            NE
+  46    2  13 I        C   E            NEV
+  47    2  18 I        C U E            NEVM
+  48    1  26 I        CM  E            NFAIL
+  49    2  21 I        CMU E            NFOUND
+  50    2  17 I        C   E            NIT
+  51    1  27 I        CM  E            NPOLE
+  52    1  14 I        CM  E            NSMOVE
+  53    1  11 I        CM  E            NSTART
+  54    1   1 D    ( 1)C?? E        4   P(4)
+  55    1  10 I        CM  E            PREC
+  56    1   3 D    ( 1)C   E        4   PS1(4)
+  57         s     ( 1)  U              RDTRL
+     (I4L)
+  58    2  10 R        C   E            RMAX
+  59    2  11 R        C   E            RMIN
+  60    2  15 R        C   E            RMINR
+  61    2   4 I        C   E            SCR1
+  62    2   5 I        C   E            SCR2
+  63    2   6 I        C   E            SCR3
+  64    2   7 I        C   E            SCR4
+  65    2   8 I        C   E            SCR5
+  66    2  19 I        C   E            SCR6
+  67    2  20 I        CMU E            SCR7
+  68    1  19 R        C?? E            SML1
+  69         s     ( 1)  U              TMTOGO
+     (I4V)
+**-- END OF SYMBOL TABLE

@@ -1,0 +1,125 @@
+**++ Symbol table for subprogram DDCMPS in file mis/ddcmps.f90
+     produced by SPAG     8.01RF-40 at 14:47:01 on  2 Dec 2023
+   0         X             K             mis/ddcmps.f90,0000002,0000241
+   1         C     /11/ MU         60   /BLANK/ISYM,DIAGCK,DIAGET,PDEFCK,SING,SET,CHLSKY,DET,MINDIA,POWER,SUBNAM
+   2         C     /11/ MU        132   /CDCMPX/JA,JL,JU,JSCR1,JSCR2,JSCR3,CDET,JPOW,NZZZ,CMNDIA,JB
+   3         C     /11/ MU        124   /DCOMPX/IA,IL,IU,ISCR1,ISCR2,ISCR3,DDET,IPOW,NZZ,DMNDIA,IB
+   4         C     / 1/            76   /NAMES/KNAMES
+   5         C     /13/ MU         68   /SDCQ/NERR,NOGLEV,BUF6,ISCMSG,ISCDIA,ISTSCR,KPDFCK,KDGCK,KDGET,KPREC,PARM,OPNSCR,FIRST
+   6         C     /12/ MU        132   /SFACT/IFILA,IFILL,IFILU,KSCR1,KSCR2,NZ,SDET,SDETC,KPOW,KSCR3,MINDS,ICHLK
+   7         C     / 1/           276   /SYSTEM/KSYSTM
+   8         C     / 5/  U        129   /XMSSG/UFM,UWM,UIM,SFM,SWM
+   9         C     / 1/ ??          4   /ZZZZZZ/Z
+  10    5   3 I        CMU E            BUF6
+  11         s     ( 4)  U              CDCOMP
+     (ALT,R4A,R4A,R4A)
+  12    2   7 D    ( 1)C U E        2   CDET(2)
+  13    1   7 I        C U E            CHLSKY
+  14    2  10 D        C U E            CMNDIA
+  15         S                    143   DDCMPS
+  16    3   7 D        C U E            DDET
+  17         s     ( 4)  U              DECOMP
+     (ALT,R4A,R4A,R4A)
+  18    1   8 R    ( 1)CM  E        2   DET(2)
+  19    1   2 I        C U E            DIAGCK
+  20    1   3 I        C U E            DIAGET
+  21    3  10 D        C U E            DMNDIA
+  22    5  13 L        CM  E            FIRST
+  23          I         MU E            I
+  24    3   1 I    ( 1)CM? E        7   IA(7)
+  25    3  11 I        CM  E            IB
+  26    6  12 I        CM  E            ICHLK
+  27    6   1 I    ( 1)CMU E        7   IFILA(7)
+  28    6   2 I    ( 1)CM? E        7   IFILL(7)
+  29    6   3 I    ( 1)CM  E        7   IFILU(7)
+  30          I         MU E            IFORM
+  31    3   2 I    ( 1)CMU E        7   IL(7)
+  32    3   8 I        C U E            IPOW
+  33    5   5 I        CM  E            ISCDIA
+  34    5   4 I        CM  E            ISCMSG
+  35    3   4 I        CM  E            ISCR1
+  36    3   5 I        CM  E            ISCR2
+  37    3   6 I        CM  E            ISCR3
+  38    5   6 I        C   E            ISTSCR
+  39    1   1 I        CMU E            ISYM
+  40    3   3 I    ( 1)CMU E        7   IU(7)
+  41    2   1 I    ( 1)CMU E        7   JA(7)
+  42    2  11 I        CM  E            JB
+  43    2   2 I    ( 1)CMU E        7   JL(7)
+  44    2   8 I        C U E            JPOW
+  45    2   4 I        CM  E            JSCR1
+  46    2   5 I        CM  E            JSCR2
+  47    2   6 I        CM  E            JSCR3
+  48    2   3 I    ( 1)CMU E        7   JU(7)
+  49          I        I U E            KAA
+  50    5   8 I        CM  E            KDGCK
+  51    5   9 I        CM  E            KDGET
+  52    4   1 I    ( 1)C   E       19   KNAMES(19)
+  53         fI    ( 1)  U E            KORSZ
+     (R4A)
+  54    5   7 I        CM  E            KPDFCK
+  55    6   9 I        C U E            KPOW
+  56    5  10 I        C   E            KPREC
+  57    6   4 I        CM  E            KSCR1
+  58    6   5 I        CM  E            KSCR2
+  59    6  10 I        CM  E            KSCR3
+  60    7   1 I    ( 1)C   E       69   KSYSTM(69)
+  61          I        I?? E            LGPL
+  62          I        I U E            LLL
+  63          I        I U E            LSCR1
+  64          I        I U E            LSCR2
+  65          I        I U E            LSCR3
+  66          I        I U E            LSCR4
+  67          I        I U E            LSCR5
+  68          I        I U E            LSCR6
+  69          I        I?? E            LSIL
+  70          I        I?? E            LUSET
+  71         s     ( 3)  U              MESAGE
+     (I4L,I4L,I4L)
+  72    1   9 D        CM  E            MINDIA
+  73    6  11 D        C U E            MINDS
+  74          I    ( 1)I U E        2   NAM(2)
+  75          I    ( 1)I U E        2   NAME(2)
+  76          I          U E            NBUFSZ
+  77    5   1 I    ( 1)C U E        2   NERR(2)
+  78    5   2 I        C U E            NOGLEV
+  79    6   6 I        CM  E            NZ
+  80    3   9 I        CM  E            NZZ
+  81    2   9 I        CM  E            NZZZ
+  82    5  12 L        CM  E            OPNSCR
+  83          I          U E            OUTPT
+  84         s     ( 1)  U              PAGE2
+     (I4E)
+  85    5  11 I    ( 1)CMU E        4   PARM(4)
+  86    1   4 I        C U E            PDEFCK
+  87    1  10 I        CM  E            POWER
+  88         s     ( 1)  U              RDTRL
+     (I4A)
+  89          I          U E            RECT
+  90         s     ( 8)  U              SDCMM
+     (R4A,I4L,I4L,I4L,I4V,I4V,I4V,R4A)
+  91         s     ( 3)  U              SDCMPS
+     (R4A,R4A,R4A)
+  92         s     ( 4)  U              SDCOMP
+     (ALT,R4A,R4A,R4A)
+  93    6   7 D        C U E            SDET
+  94    6   8 D        C U E            SDETC
+  95    1   6 I    ( 1)C?? E        2   SET(2)
+  96    8   4 C*25     C   E            SFM*25
+  97    1   5 I        CMU E            SING
+  98          I          U E            SQR
+  99    1  11 R    ( 1)C?? E        2   SUBNAM(2)
+ 100    8   5 C*27     C U E            SWM*27
+ 101          I          U E            SYM
+ 102    8   1 C*23     C   E            UFM*23
+ 103    8   3 C*29     C   E            UIM*29
+ 104          I        I U E            ULL
+ 105    8   2 C*25     C   E            UWM*25
+ 106         s     ( 1)  U              WRTTRL
+     (I4A)
+ 107    9   1 R    ( 1)C?? E        1   Z(1)
+ 108          R    ( 1) ?? E        1   ZM(1)
+ 109          R    ( 1) ?? E        1   ZZ(1)
+ 110          R    ( 1) ?? E        1   ZZZ(1)
+ 111          R    ( 1) ?? E        1   ZZZZ(1)
+**-- END OF SYMBOL TABLE

@@ -1,0 +1,78 @@
+**++ Symbol table for subprogram SGENA in file mis/sgena.f90
+     produced by SPAG     8.01RF-40 at 14:46:51 on  2 Dec 2023
+   0         X             K             mis/sgena.f90,0000002,0000164
+   1         C     / 2/  U         12   /BLANK/IDRY,NAME
+   2         C     / 3/ MU         12   /SGENCM/NONO,NSS,IPTR
+   3         C     / 2/  U          8   /SYSTEM/SYSBUF,OUTT
+   4         C     / 1/ ??        128   /TWO/TWO
+   5         C     / 2/  U         48   /XMSSG/UFM,UWM
+   6         C     / 1/ ?U          4   /ZZZZZZ/Z
+   7         fI    ( 2)  UXE            ANDF
+     (I4E,I4L)
+   8         s     ( 6)  U              BISLOC
+     (ALT,I4V,I4L,I4E,I4V,I4V)
+   9   53   2 I    ( 1)A?? E            BUF(1)
+  10          I    ( 1) MU E       20   CARD(20)
+  11          I    ( 1) ?U E        6   CEXIST(6)
+  12          I    ( 1) ?U E        6   CIN(6)
+  13          I         MU E            CODE
+  14          I         MU E            COMP
+  15         fI    ( 1)  UXE            COMPLF
+     (I4L)
+  16         s     ( 3)  U              DECODE
+     (I4V,I4A,I4V)
+  17         s     ( 4)  U              FREAD
+     (I4V,I4A,I4E,I4E)
+  18          I         MU E            I
+  19          I         ?? E            ICD
+  20   53   5 I    ( 1)AMU E            ICODE(4)
+  21    1   1 I        C   E            IDRY
+  22   53   6 I        A?? E            IEXTRA
+  23   53   4 I        A?? E            IFILE
+  24          I         MU E            IG
+  25          I         ?U E            IGR
+  26          I         MU E            IGRD
+  27          I         MU E            IGRID
+  28          I         MU E            INAM
+  29          I         MU E            IPT
+  30    2   3 I        C U E            IPTR
+  31          I         MU E            ISIL
+  32          I         MU E            J
+  33          I         MU E            JG
+  34         s     ( 4)  U              LOCATE
+     (ALT,I4L,I4L,I4V)
+  35   53   3 I    ( 1)AM? E            MCB(7)
+  36         s     ( 3)  U              MESAGE
+     (I4E,I4V,I4A)
+  37          I         MU E            N
+  38    1   2 I    ( 1)C U E        2   NAME(2)
+  39          I         ?U E            NC
+  40          I         ?U E            NCIN
+  41          I         MU E            NGRD
+  42    2   1 I        CM  E            NONO
+  43          I         MU E            NPRO
+  44    2   2 I        C U E            NSS
+  45          I         ?? E            NWDS
+  46   53   8 I    ( 1)A U E            OCODE(4)
+  47   53   9 I        A?U E            OEXTRA
+  48   53   7 I        A?? E            OFILE
+  49         fI    ( 2)  UXE            ORF
+     (I4L,I4L)
+  50    3   2 I        C U E            OUTT
+  51         s     ( 1)  U              PAGE2
+     (I4E)
+  52         s     ( 7)  U              READ
+     (ALT,ALT,I4V,I4A,I4E,I4E,I4V)
+  53         S     ( 9) MU         78   SGENA(TYPE,BUF,MCB,IFILE,ICODE,IEXTRA,OFILE,OCODE,OEXTRA)
+  54         s     ( 3)  U              SPLT10
+     (I4V,I4A,I4V)
+  55          I    ( 1)I?? E        2   SUBNAM(2)
+  56    3   1 I        C   E            SYSBUF
+  57    4   1 I    ( 1)C?? E       32   TWO(32)
+  58   53   1 I    ( 1)A U E            TYPE(2)
+  59    5   1 C*23     C U E            UFM*23
+  60    5   2 C*25     C U E            UWM*25
+  61         s     ( 4)  U              WRITE
+     (I4V,I4E,I4E,I4E)
+  62    6   1 I    ( 1)C?U E        1   Z(1)
+**-- END OF SYMBOL TABLE

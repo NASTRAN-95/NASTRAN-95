@@ -1,0 +1,7 @@
+**++ Symbol table for subprogram MODC in file mis/modc.f90
+     produced by SPAG     8.01RF-40 at 14:47:12 on  2 Dec 2023
+   0         X             K             mis/modc.f90,0000002,0000020
+   1         C     / 1/             4   /BLANK/IPARM
+   2    1   1 I        C   E            IPARM
+   3         S                          MODC
+**-- END OF SYMBOL TABLE

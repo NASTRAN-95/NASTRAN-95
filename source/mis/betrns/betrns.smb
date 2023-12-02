@@ -1,0 +1,29 @@
+**++ Symbol table for subprogram BETRNS in file mis/betrns.f90
+     produced by SPAG     8.01RF-40 at 14:46:49 on  2 Dec 2023
+   0         X             K             mis/betrns.f90,0000002,0000159
+   1         E     ( 4)                 BETRND(TBD,GD,KFLAG,ELID)
+   2         S     ( 4) MU         97   BETRNS(TBE,GG,KFLAG,ELID)
+   3          D    ( 1) MU E        3   D12(3)
+   4         ID    ( 1)  U I            DSQRT
+   5          D    ( 1) MU E        3   DSSTR(3)
+   6          D    ( 1) MU E        3   DSTR(3)
+   7          D         MU E            DTEMP
+   8          D    ( 1) MU E        3   DV(3)
+   9    2   4 I        A?? E            ELID
+  10          D    ( 1)A U E        9   GD(9)
+  11    2   2 R    ( 1)A U E            GG(9)
+  12          I         MU E            I
+  13    2   3 I        A U E            KFLAG
+  14          D         MU E            LED
+  15          R         MU E            LEN
+  16         s     ( 3)  U              MESAGE
+     (I4E,I4E,I4V)
+  17          R    ( 1) MU E        3   R12(3)
+  18          R    ( 1) MU E        3   RSSTR(3)
+  19          R    ( 1) MU E        3   RSTR(3)
+  20          R    ( 1) MU E        3   RV(3)
+  21         I?    ( 1)  U I            SQRT
+  22          D    ( 1)AMU E        9   TBD(9)
+  23    2   1 R    ( 1)AMU E            TBE(9)
+  24          R         MU E            TEMP
+**-- END OF SYMBOL TABLE

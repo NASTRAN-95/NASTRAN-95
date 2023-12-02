@@ -1,0 +1,85 @@
+**++ Symbol table for subprogram FRRD in file mis/frrd.f90
+     produced by SPAG     8.01RF-40 at 14:46:38 on  2 Dec 2023
+   0         X             K             mis/frrd.f90,0000002,0000106
+   1         C     / 8/ ?U         40   /BLANK/APP,MODAL,LUSETD,MULTI,SINGLE,OMIT,NONCUP,FRQSET
+   2         C     / 3/ M         136   /CDCMPX/DUM32,IB,IBBAR
+   3         C     / 7/           632   /FRRDST/OVF,ICNT,IFRST,ITL,IDIT,IFRD,K4DD
+   4    1   1 R    ( 1)C   E        2   APP(2)
+   5          I        I?? E            BDD
+   6          I        I?? E            CASECC
+   7          I        I?? E            DIT
+   8          I        I?? E            DLT
+   9    2   1 R    ( 1)C   E       32   DUM32(32)
+  10          I        I?? E            FOL
+  11          I        I?? E            FRL
+  12    1   8 R        C?? E            FRQSET
+  13         S                     45   FRRD
+  14         s     (11)  U              FRRD1A
+     (I4V,I4V,I4V,I4V,I4V,I4V,I4V,I4V,R4V,I4V,I4V)
+  15         s     (16)  U              FRRD1B
+     (I4V,I4V,I4V,I4V,I4V,I4V,I4V,I4L,I4V,I4V,I4V,I4V,I4V,I4V,I4V,I4V)
+  16         s     (13)  U              FRRD1C
+     (I4V,R4V,I4V,I4V,I4V,I4E,I4V,I4V,I4V,I4V,I4V,I4V,I4V)
+  17         s     (10)  U              FRRD1D
+     (I4V,I4V,I4V,I4V,I4V,I4V,I4E,I4V,I4V,I4V)
+  18         s     ( 4)  U              FRRD1E
+     (I4V,I4V,I4V,I4V)
+  19         s     ( 9)  U              FRRD1F
+     (I4V,I4V,I4V,I4V,R4V,I4V,I4V,I4V,I4V)
+  20          I        I?? E            GMD
+  21          I        I?? E            GOD
+  22          I         MU E            I
+  23    2   2 I        CM  E            IB
+  24    2   3 I        C   E            IBBAR
+  25    3   2 I        C   E            ICNT
+  26    3   5 I        C   E            IDIT
+  27    3   6 I        C   E            IFRD
+  28    3   3 I        C   E            IFRST
+  29          I         ?? E            IGOOD
+  30          I         ?U E            ITIME1
+  31          I         ?U E            ITIME2
+  32    3   4 I    ( 1)C   E        3   ITL(3)
+  33          I         ?U E            ITLEFT
+  34    3   7 I        C   E            K4DD
+  35          I        I?? E            KDD
+  36         s     ( 1)  U              KLOCK
+     (I4V)
+  37    1   3 I        C?? E            LUSETD
+  38          I    ( 1) MU E        7   MCB(7)
+  39          I        I?? E            MDD
+  40         s     ( 3)  U              MESAGE
+     (I4E,I4E,I4A)
+  41          I        I U E            MODA
+  42    1   2 I    ( 1)C?U E        2   MODAL(2)
+  43    1   4 I        C?U E            MULTI
+  44          I    ( 1)I?? E        2   NAME(2)
+  45          I         MU E            NDONE
+  46          I         ?U E            NFREQ
+  47          I         ?U E            NLOAD
+  48    1   7 I        C U E            NONCUP
+  49          I         ?? E            NOTRD
+  50    1   6 I        C?U E            OMIT
+  51    3   1 R    ( 1)C   E      150   OVF(150)
+  52          I        I?U E            PD
+  53          I        IM? E            PDD
+  54          I        I?? E            PHIDH
+  55          I        I?U E            PP
+  56          I        I?U E            PS
+  57         s     ( 1)  U              RDTRL
+     (I4L)
+  58          I        I?? E            SCR1
+  59          I        I?? E            SCR2
+  60          I        I?? E            SCR3
+  61          I        I?? E            SCR4
+  62          I        I?U E            SCR5
+  63          I        IMU E            SCR6
+  64          I        I?? E            SCR7
+  65          I        I?? E            SCR8
+  66    1   5 I        C?U E            SINGLE
+  67         s     ( 1)  U              TMTOGO
+     (I4V)
+  68          I        I?U E            UDV
+  69          I        I?? E            USETD
+  70         s     ( 1)  U              WRTTRL
+     (I4L)
+**-- END OF SYMBOL TABLE

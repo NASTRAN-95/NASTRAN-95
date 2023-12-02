@@ -1,0 +1,31 @@
+**++ Symbol table for subprogram OFP1B in file mis/ofp1b.f90
+     produced by SPAG     8.01RF-40 at 14:47:17 on  2 Dec 2023
+   0         X             K             mis/ofp1b.f90,0000002,0000747
+   1         C     / 3/ MU         12   /SYSTEM/IBUF,L,NOGO
+   2         C     / 1/             4   /ZZZZZZ/CORE
+   3    2   1 R    ( 1)C   E        1   CORE(1)
+   4          R    ( 1)  U E       50   FD(50)
+   5    1   1 I        C   E            IBUF
+   6          I    ( 1)  U E       50   ID(50)
+   7          I         MU E            IDD
+   8          I        I U E            IDUM1
+   9          I        I U E            IDUM2
+  10          I        I U E            IDUM3
+  11          I        I U E            IDUM4
+  12          I        I U E            IDUM5
+  13          I        I U E            IDUM6
+  14          I        I U E            IDUM7
+  15          I        I U E            IDUM8
+  16          I        I U E            IDUM9
+  17          I         MU E            IDX
+  18          I         MU E            IHARM
+  19          I         MU E            JHARM
+  20          I         MU E            K
+  21    1   2 I        C U E            L
+  22   27   1 I        A U E            LINE
+  23          I         MU E            LOCAL
+  24         I?    ( 2)  U I            MOD
+  25    1   3 I        CM  E            NOGO
+  26          R    ( 1)    E        6   OF(6)
+  27         S     ( 1)  U        471   OFP1B(LINE)
+**-- END OF SYMBOL TABLE

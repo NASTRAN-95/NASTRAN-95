@@ -1,0 +1,9 @@
+**++ Symbol table for subprogram OLPLOT in file mis/olplot.f90
+     produced by SPAG     8.01RF-40 at 14:47:02 on  2 Dec 2023
+   0         X             K             mis/olplot.f90,0000002,0000022
+   1         C     / 2/  U          8   /SYSTEM/IBUF,NOUT
+   2    1   1 I        C   E            IBUF
+   3    1   2 I        C U E            NOUT
+   4         S                      2   OLPLOT
+   5          I        I U E            PLT2
+**-- END OF SYMBOL TABLE

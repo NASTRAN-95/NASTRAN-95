@@ -1,0 +1,61 @@
+**++ Symbol table for subprogram SETLVL in file mis/setlvl.f90
+     produced by SPAG     8.01RF-40 at 14:46:40 on  2 Dec 2023
+   0         X             K             mis/setlvl.f90,0000002,0000126
+   1         C     /14/ MU        140   /SOF/DIT,DITPBN,DITLBN,DITSIZ,DITNSB,DITBL,IODUM,MDI,MDIPBN,MDILBN,MDIBL,NXTDUM,DITUP,MDIUP
+   2         C     / 1/ M?          4   /ZZZZZZ/BUF
+   3         fI    ( 2)  UXE            ANDF
+     (I4L,I4E)
+   4    2   1 I    ( 1)CM? E        1   BUF(1)
+   5         s     ( 1)  U              CHKOPN
+     (I4L)
+   6         fI    ( 1)  UXE            COMPLF
+     (I4E)
+   7         s     ( 2)  U              CRSUB
+     (I4L,I4V)
+   8          I        I U E            CS
+   9    1   1 I        C   E            DIT
+  10    1   6 I        C   E            DITBL
+  11    1   3 I        C   E            DITLBN
+  12    1   5 I        CMU E            DITNSB
+  13    1   2 I        C   E            DITPBN
+  14    1   4 I        CMU E            DITSIZ
+  15    1  13 L        CM  E            DITUP
+  16         s     ( 2)  U              FDIT
+     (I4V,I4V)
+  17         s     ( 2)  U              FDSUB
+     (I4L,I4V)
+  18         s     ( 2)  U              FMDI
+     (I4V,I4V)
+  19          I        I U E            HL
+  20          I         MU E            I
+  21          I        I U E            IB
+  22   48   5 I        A?U E            IBIT
+  23          I         MU E            ICOUNT
+  24          I         ?U E            IDIT
+  25          I        I U E            IEMPTY
+  26          I         ?U E            IMDI
+  27          I         ?U E            INEW
+  28    1   7 I    ( 1)C   E        8   IODUM(8)
+  29          I    ( 1) ?U E        7   IOLD(7)
+  30   48   4 I        AM  E            ITEST
+  31          I         MU E            K
+  32          I         MU E            KK
+  33          I        I U E            LL
+  34          I         M? E            LLMASK
+  35         fI    ( 2)  UXE            LSHIFT
+     (I4E,I4E)
+  36          I         M? E            MASKCS
+  37    1   8 I        C   E            MDI
+  38    1  11 I        C   E            MDIBL
+  39    1  10 I        C   E            MDILBN
+  40    1   9 I        C   E            MDIPBN
+  41    1  14 L        CM  E            MDIUP
+  42   48   1 I    ( 1)A?? E            NEWNM(2)
+  43          I    ( 1)I?? E        2   NMSBR(2)
+  44   48   2 I        AMU E            NUMB
+  45    1  12 I    ( 1)C   E       15   NXTDUM(15)
+  46   48   3 I    ( 1)AMU E            OLDNMS(14)
+  47         fI    ( 2)  UXE            ORF
+     (I4E,I4E)
+  48         S     ( 5) MU         68   SETLVL(NEWNM,NUMB,OLDNMS,ITEST,IBIT)
+**-- END OF SYMBOL TABLE

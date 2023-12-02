@@ -1,0 +1,34 @@
+**++ Symbol table for subprogram ENDPUT in file mds/endput.f90
+     produced by SPAG     8.01RF-40 at 14:46:33 on  2 Dec 2023
+   0         X             K             mds/endput.f90,0000002,0000060
+   1    7   1 I    ( 1)AMU E            BLOCK(15)
+   2         s           U              DSGEFL
+   3         s     ( 1)  U              DSMSG
+     (I4E)
+   4         s     ( 1)  U              DSMSG1
+     (I4A)
+   5         s           U              DSSDCB
+   6         s           U              DSWRNB
+   7         S     ( 1) MU         47   ENDPUT(BLOCK)
+   8         G?    ( 2) MU I            FCB
+   9         G?    ( 1) M  I            IBASE
+  10          ?          U I            IDSC
+  11          ?          U I            IDSCT
+  12          ?          U I            IDSEB
+  13          ?          U I            IDSP
+  14          ?          U I            IDSRT
+  15          ?          U I            IDSSB
+  16          ?          U I            IDSSH
+  17          ?          U I            IDSST
+  18          ?          U I            IDSX
+  19          ?         ?U I            IFILEX
+  20          I         MU E            IFLG
+  21          ?          U I            INDBAS
+  22          ?         MU I            INDCBP
+  23          ?         MU I            INDCLR
+  24          I         MU E            LIM
+  25          ?          U I            MULQ3
+  26          ?         M  I            NAME
+  27          ?          U I            NBUFF
+  28          ?         MU I            NWORDS
+**-- END OF SYMBOL TABLE

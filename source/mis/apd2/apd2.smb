@@ -1,0 +1,233 @@
+**++ Symbol table for subprogram APD2 in file mis/apd2.f90
+     produced by SPAG     7.61RG-40 at 01:00:00 on 21 Mar 2022
+   0         X             K             mis/apd2.f90,0000002,0000626
+   1         C     / 6/ MU         84   /APD12C/KEY,AUSET,USA,UK,NCAM2,NASB
+   2         C     /64/ MU        256   /APD1C/EID,PID,CP,NSPAN,NCHORD,LSPAN,LCHORD,IGID,X1,Y1,Z1,X12,X4,Y4,Z4,X43,XOP,X1P,ALZO,MCSTM,NCST1,NCST2,CIDBX,ACSID,IACS,SILB,NCRD,SCR1,SCR2,SCR3,SCR4,SCR5,ECTA,BGPA,GPLA,USETA,SILA,CSTMA,ACPT,BUF10,BUF11,BUF12,NEXT,LEFT,ISILN,NCAM,NAEF1,NAEF2,NCA1,NCA2,
+                                                CA2S,CA2E,CA3S,CA3E,CA4S,CA4E,NPA1,NPA2,PA2S,PA2E,PA3S,PA3E,PA4S,PA4E
+   3         C     / 8/ MU         92   /APD1D/ICPL,YP4,S1,C1,XP2,XP3,XP4,RA1
+   4         C     / 3/ MU         12   /BLANK/NK,NJ,LUSETA
+   5         C     / 2/  U          8   /SYSTEM/SYSBUF,NOT
+   6         C     / 1/  U         23   /XMSSG/UFM
+   7         C     / 1/ MU          4   /ZZZZZZ/Z
+   8          R    ( 2) ?? E        9   ACPL(3,3)
+   9    2  39 I        C?? E            ACPT
+  10          I         M  E            ACSIB
+  11    2  24 I        C U E            ACSID
+  12          I    ( 1) ?? E        4   ACSIX(4)
+  13    2  19 R        C   E            ALZO
+  14         S     ( 5) MU        511   APD2(IOPT,CAO1,CAO2,NCORE,ID)
+  15         s           U              APDCS
+  16         s     ( 6)  U              APDOE
+     (I4V,I4A,I4V,I4V,I4V,I4V)
+  17    1   2 I    ( 2)CM? E       12   AUSET(6,2)
+  18          I         MU E            BACK
+  19          I         MU E            BET
+  20    2  34 I        C?? E            BGPA
+  21    2  40 I        C U E            BUF10
+  22    2  41 I        C U E            BUF11
+  23    2  42 I        C U E            BUF12
+  24    3   4 R        C   E            C1
+  25    2  52 I        C   E            CA2E
+  26    2  51 I        C   E            CA2S
+  27    2  54 R        C   E            CA3E
+  28    2  53 R        C   E            CA3S
+  29    2  56 R        C   E            CA4E
+  30    2  55 R        C   E            CA4S
+  31   14   2 I    ( 1)A   E            CAO1(1)
+  32   14   3 I    ( 1)AMU E            CAO2(1)
+  33          I    ( 1) MU E        5   CID(5)
+  34    2  23 I        CMU E            CIDBX
+  35         s     ( 2)  U              CLOSE
+     (I4V,I4E)
+  36    2   3 I        C   E            CP
+  37    2  38 I        C   E            CSTMA
+  38          R         MU E            D1
+  39          R         MU E            D2
+  40    2  33 I        C?? E            ECTA
+  41    2   1 I        C U E            EID
+  42          I         MU E            EIDB
+  43         s     ( 5)  U              EMSG
+     (I4E,I4E,I4E,I4E,I4E)
+  44         s     ( 4)  U              FREAD
+     (I4V,I4V,I4E,I4E)
+  45         s     ( 9)  U              GMMATS
+     (R4A,I4E,I4E,I4E,R4A,I4E,I4E,I4E,R4A)
+  46         s     ( 3)  U              GOPEN
+     (I4V,R4L,I4E)
+  47    2  35 I        C?? E            GPLA
+  48          I         MU E            I
+  49    2  25 I        C U E            IACS
+  50          I         MU E            IAO
+  51          I         MU E            IAOP
+  52          I         MU E            IARB
+  53          I         MU E            IAVR
+  54          I    ( 1) M  E        1   IAX(1)
+  55          I         MU E            IBC
+  56          I         MU E            IBT
+  57          I         MU E            ICG
+  58          I         ?U E            ICHORD
+  59          I         M? E            ICID
+  60    3   1 I    ( 1)CM  E       14   ICPL(14)
+  61   14   5 I        A U E            ID
+  62          I         MU E            IDELX
+  63          I         MU E            IDS
+  64          I         MU E            IEE
+  65          I         MU E            IFLA1
+  66          I         MU E            IFLA2
+  67    2   8 I        CMU E            IGID
+  68          I         MU E            INAS
+  69          I         MU E            INASB
+  70          I         MU E            INB
+  71          I         MU E            INBEA1
+  72          I         MU E            INBEA2
+  73          I         MU E            INC
+  74          I         MU E            INFL
+  75          I         MU E            INSBEA
+  76          I         MU E            INT121
+  77          I         MU E            INT122
+  78   14   1 I        A U E            IOPT
+  79          I         MU E            IPC
+  80          I         MU E            IRET
+  81          I         MU E            IRIA
+  82          I         ?U E            IRIB
+  83          I         ?U E            IRSB
+  84          I         MU E            ISG
+  85    2  45 I        CMU E            ISILN
+  86          I         ?U E            ISPAN
+  87          I         ?U E            ITH1
+  88          I         MU E            ITH1A
+  89          I         ?U E            ITH2
+  90          I         MU E            ITH2A
+  91          I         MU E            IX
+  92          I         MU E            IXIC
+  93          I         MU E            IXIS1
+  94          I         MU E            IXIS2
+  95          I         MU E            IXLAM
+  96          I         MU E            IXLE
+  97          I         MU E            IXTE
+  98          I         MU E            IYB
+  99          I         MU E            IYS
+ 100          I    ( 1) MU E        1   IZ(1)
+ 101          I         MU E            IZB
+ 102          I         MU E            IZS
+ 103          I         MU E            J
+ 104          I         ?U E            JCHORD
+ 105          I         ?U E            JSPAN
+ 106          I         MU E            K
+ 107    1   1 I    ( 1)C   E        5   KEY(5)
+ 108          I         MU E            KK
+ 109          I         MU E            KT1
+ 110          I         MU E            L
+ 111    2   7 I        C?U E            LCHORD
+ 112    2  44 I        C U E            LEFT
+ 113          I         MU E            LRIB
+ 114          I         MU E            LRSB
+ 115    2   6 I        C?U E            LSPAN
+ 116          I         MU E            LTH1
+ 117          I         MU E            LTH2
+ 118    4   3 I        CM  E            LUSETA
+ 119          I         MU E            M
+ 120    2  20 I        C   E            MCSTM
+ 121         s     ( 3)  U              MESAGE
+     (I4E,I4E,I4A)
+ 122          I         MU E            NA
+ 123    2  47 I        C?? E            NAEF1
+ 124    2  48 I        C?? E            NAEF2
+ 125          I    ( 1)I?? E        2   NAM(2)
+ 126          I         MU E            NAS
+ 127    1   6 I        C U E            NASB
+ 128          I         MU E            NASS
+ 129          I         MU E            NB
+ 130          I         MU E            NBEA1
+ 131          I         MU E            NBY
+ 132          I         MU E            NBZ
+ 133    2  49 I        C   E            NCA1
+ 134    2  50 I        C   E            NCA2
+ 135    2  46 I        C   E            NCAM
+ 136    1   5 I        C U E            NCAM2
+ 137    2   5 I        C U E            NCHORD
+ 138   14   4 I        A U E            NCORE
+ 139    2  27 I        CMU E            NCRD
+ 140    2  21 I        C   E            NCST1
+ 141    2  22 I        C   E            NCST2
+ 142          I    ( 1) ?? E        6   NECTA(6)
+ 143    2  43 I        C   E            NEXT
+ 144          I         MU E            NFL
+ 145          I         MU E            NINT
+ 146    4   2 I        CMU E            NJ
+ 147          I         MU E            NJA
+ 148    4   1 I        CMU E            NK
+ 149          I         MU E            NKA
+ 150    5   2 I        C U E            NOT
+ 151          I         MU E            NP
+ 152    2  57 I        C   E            NPA1
+ 153    2  58 I        C   E            NPA2
+ 154          I         ?U E            NRIB
+ 155          I         ?U E            NRSB
+ 156          I         MU E            NSB
+ 157          I         MU E            NSBEA
+ 158    2   4 I        C U E            NSPAN
+ 159          I         MU E            NSTRIP
+ 160          I         MU E            NT121
+ 161          I         MU E            NT122
+ 162          I         MU E            NTH1
+ 163          I         MU E            NTH2
+ 164          I         MU E            NTO
+ 165          I         MU E            NTP
+ 166          I         MU E            NTY
+ 167          I         MU E            NTYS
+ 168          I         MU E            NTZ
+ 169          I         MU E            NTZS
+ 170          I         M? E            NWR
+ 171          R         MU E            OLDX
+ 172          R         MU E            P1
+ 173    2  60 I        C U E            PA2E
+ 174    2  59 I        C U E            PA2S
+ 175    2  62 R        C   E            PA3E
+ 176    2  61 R        C   E            PA3S
+ 177    2  64 R        C   E            PA4E
+ 178    2  63 R        C   E            PA4S
+ 179          I         MU E            PC
+ 180    2   2 I        C U E            PID
+ 181          R        I U E            PIO180
+ 182          I         MU E            PPC
+ 183    3   8 R    ( 1)C U E        3   RA1(3)
+ 184          R    ( 1)  U E        3   RB1(3)
+ 185    3   3 R        C   E            S1
+ 186    2  28 I        C?? E            SCR1
+ 187    2  29 I        C?? E            SCR2
+ 188    2  30 I        C?? E            SCR3
+ 189    2  31 I        C?? E            SCR4
+ 190    2  32 I        C?? E            SCR5
+ 191    2  37 I        C?? E            SILA
+ 192    2  26 I        CMU E            SILB
+ 193          I    ( 1) M  E        2   SILDX(2)
+ 194    5   1 R        C   E            SYSBUF
+ 195          R         MU E            TEMP
+ 196          I    ( 1)I U E        3   TYPE(3)
+ 197    6   1 C*23     C U E            UFM*23
+ 198    1   4 I        C U E            UK
+ 199    1   3 I        C U E            USA
+ 200    2  36 I        C?? E            USETA
+ 201          R    ( 1) MU E        3   VX1(3)
+ 202          R    ( 1) MU E        3   VX2(3)
+ 203          R         MU E            WIDTH
+ 204         s     ( 4)  U              WRITE
+     (I4V,I4E,I4E,I4E)
+     (   ,I4A,   ,   )
+ 205    2   9 R        C U E            X1
+ 206    2  12 R        C U E            X12
+ 207    2  18 R        C   E            X1P
+ 208    2  13 R        CM  E            X4
+ 209    2  16 R        CM  E            X43
+ 210    2  17 R        C   E            XOP
+ 211    3   5 R        C   E            XP2
+ 212    3   6 R        C   E            XP3
+ 213    3   7 R        C   E            XP4
+ 214    2  10 R        C U E            Y1
+ 215    2  14 R        CM  E            Y4
+ 216    3   2 R        C   E            YP4
+ 217    7   1 R    ( 1)CMU E        1   Z(1)
+ 218    2  11 R        C U E            Z1
+ 219    2  15 R        CM  E            Z4
+**-- END OF SYMBOL TABLE

@@ -1,0 +1,146 @@
+**++ Symbol table for subprogram DIHEX in file mis/dihex.f90
+     produced by SPAG     7.61RG-40 at 01:00:00 on 21 Mar 2022
+   0         X             K             mis/dihex.f90,0000002,0000740
+   1         C     / 7/  U         96   /DS1AAA/NPVT,DUM6,I6X6K,DUM12,JMAX,DUM2,NROWSC
+   2         C     / 4/ M?        824   /DS1ADP/ISIL,SK,WORK,STR
+   3         C     / 1/ MU       1312   /DS1AET/EST
+   4         C     / 3/ MU         12   /MATIN/MID,INFLAG,TEMP
+   5         C     / 1/  U        184   /MATISO/BUFM6
+   6         C     / 9/ MU        104   /MATOUT/E,G,NU,RHO,TALPHA,TREF,CDAMP,SPACE,MTDEP
+   7         C     / 5/ MU         40   /SYSTEM/SYSBUF,OTPT,NOGO,SYS,MTEMP
+   8         C     / 1/             4   /ZZZZZZ/ZS
+   9          R         MU E            ALFA
+  10          L         MU E            ANIS
+  11          I         MU E            BCORD
+  12          R         MU E            BETA
+  13          I         MU E            BGPDT
+  14    5   1 R    ( 1)C U E       46   BUFM6(46)
+  15          D    ( 2) MU E        9   C(3,3)
+  16    6   7 R        C   E            CDAMP
+  17          I         M  E            CID
+  18         I?    ( 1)  U I            COS
+  19          R    ( 1)I U E        3   DALFA(3)
+  20          D    ( 1) M? E        6   DALPHA(6)
+  21          R    ( 1)I U E        2   DBETA(2)
+  22         ID    ( 1)  U I            DBLE
+  23          D         ?U E            DETJ
+  24          L         MU E            DIAG
+  25         S     ( 1) ?U        413   DIHEX(TYPE)
+  26          R    ( 1)I U E        3   DMAXAR(3)
+  27         s     ( 2)  U              DS1B
+     (R8A,I4L)
+  28          R        I U E            DTOR
+  29    1   4 R    ( 1)C   E       12   DUM12(12)
+  30    1   6 R    ( 1)C   E        2   DUM2(2)
+  31    1   2 R    ( 1)C   E        6   DUM6(6)
+  32    6   1 R        C   E            E
+  33          D         MU E            E1
+  34          D         MU E            E2
+  35          D         MU E            E3
+  36          I         ?U E            EID
+  37          I    ( 1)I U E        3   ELNO(3)
+  38    3   1 R    ( 1)CMU E      328   EST(328)
+  39          R    ( 2)    E       36   EVEC(3,12)
+  40    6   2 R        C   E            G
+  41          D    ( 1)I U E        8   GAUSS(8)
+  42          D    ( 1) M? E       36   GMAT(36)
+  43         s     ( 9)  U              GMMATD
+     (R8A,I4E,I4E,I4E,R8A,I4E,I4E,I4E,R8A)
+  44          I         MU E            GPT
+  45          R    ( 1) MU E      128   GRID(128)
+  46          D    ( 1) MU E        4   H(4)
+  47          I         MU E            HEAT
+  48          I         MU E            I
+  49    1   3 I        C U E            I6X6K
+  50          I    ( 1)  U E       46   IB(46)
+  51          I         MU E            ID
+  52          I    ( 1) MU E        1   IEST(1)
+  53          I         MU E            IG
+  54          I         MU E            IGP
+  55          I    ( 1) MU E      128   IGRID(128)
+  56          I        I U E            IHEX
+  57         s     (10)  U              IHEXSD
+     (I4V,R8L,R8L,R8A,R8V,I4V,R8L,R8L,R8L,R4L)
+  58          I         MU E            II
+  59          I         MU E            IJK
+  60          I         MU E            IK
+  61          I         MU E            IM
+  62          I         MU E            IN
+  63          I         MU E            INC
+  64    4   2 I        CM  E            INFLAG
+  65          I         M  E            IPREC
+  66          I         MU E            IRP
+  67    2   1 I    ( 1)CM? E       32   ISIL(32)
+  68          I    ( 1)    E        1   IWORK(1)
+  69          I         MU E            IX
+  70          I         MU E            IZ
+  71          I         MU E            IZS
+  72          I         MU E            J
+  73          D    ( 2) ?? E        9   JACOB(3,3)
+  74    1   5 I        C U E            JMAX
+  75          I    ( 1)    E        1   JZ(1)
+  76          I         MU E            K
+  77          I        I U E            KGG
+  78          I         MU E            L
+  79          I         MU E            M
+  80         s     ( 1)  U              MAT
+     (I4V)
+  81          R         MU E            MAXAR
+  82          I        I U E            MGG
+  83    4   1 I        CMU E            MID
+  84    6   9 L        C U E            MTDEP
+  85    7   5 I        C   E            MTEMP
+  86          I         MU E            MZ
+  87          I         MU E            N
+  88          I    ( 1)    E        8   NC(8)
+  89          I         MU E            ND
+  90          I        I U E            NERR1
+  91          I         MU E            NGG
+  92          I         MU E            NGP
+  93          I         MU E            NIP
+  94          I         MU E            NK
+  95          I         MU E            NM
+  96    7   3 I        CM  E            NOGO
+  97    1   1 I        C U E            NPVT
+  98    1   7 I        C U E            NROWSC
+  99    6   3 R        C   E            NU
+ 100          I         MU E            NZ
+ 101          I         MU E            NZS
+ 102    7   2 I        C U E            OTPT
+ 103          D    ( 2) MU E        9   PART(3,3)
+ 104          L         MU E            RECT
+ 105    6   4 R        C   E            RHO
+ 106          D    ( 1) M? E        4   S(4)
+ 107          D         MU E            SFACT
+ 108          D    ( 1) MU E        6   SIG(6)
+ 109          I    ( 1) MU E        1   SIL(1)
+ 110    2   2 D    ( 2)CM? E       36   SK(6,6)
+ 111    6   8 R    ( 1)C   E       18   SPACE(18)
+ 112          D    ( 1) M? E       18   STORE(18)
+ 113    2   4 D    ( 1)CM? E       18   STR(18)
+ 114          D         MU E            SV
+ 115          D         MU E            SX
+ 116          D          U E            SXY
+ 117          D         MU E            SY
+ 118    7   4 R    ( 1)C   E        6   SYS(6)
+ 119    7   1 R        C   E            SYSBUF
+ 120          D          U E            SYZ
+ 121          D         MU E            SZ
+ 122          D          U E            SZX
+ 123    6   5 R        CMU E            TALPHA
+ 124          L         MU E            TDEP
+ 125    4   3 R        CMU E            TEMP
+ 126          D    ( 2)    E        9   TF(3,3)
+ 127          D    ( 2) MU E        9   TK(3,3)
+ 128         s     ( 6)  U              TKTZTK
+     (R8A,R8A,I4V,I4V,I4V,I4V)
+ 129         s     ( 2)  U              TRANSD
+     (R4L,R8L)
+ 130    6   6 R        CMU E            TREF
+ 131   25   1 I        A?U E            TYPE
+ 132          I    ( 1)I U E        6   UFM(6)
+ 133          R    ( 2)    E        6   VN(3,2)
+ 134    2   3 R    ( 1)C   E       66   WORK(66)
+ 135          D    ( 1) MU E        1   Z(1)
+ 136    8   1 R    ( 1)C   E        1   ZS(1)
+**-- END OF SYMBOL TABLE

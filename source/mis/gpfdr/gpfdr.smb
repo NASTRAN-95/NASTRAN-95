@@ -1,0 +1,287 @@
+**++ Symbol table for subprogram GPFDR in file mis/gpfdr.f90
+     produced by SPAG     8.01RF-40 at 14:46:38 on  2 Dec 2023
+   0         X             K             mis/gpfdr.f90,0000002,0001590
+   1         C     / 1/  U          8   /BLANK/APP
+   2         C     / 4/  U         16   /GPTA1/NELEMS,LAST,INCR,ELEM
+   3         C     / 7/ ??         28   /NAMES/RD,RDREW,WRT,WRTREW,CLSREW,CLS,CLSEOF
+   4         C     / 2/  U          8   /SYSTEM/SYSBUF,OUTPT
+   5         C     / 4/ M          16   /UNPAKX/TYPOUT,IROW,NROW,INCRX
+   6         C     / 5/  U        129   /XMSSG/UFM,UWM,UIM,SFM,SWM
+   7         C     / 3/  U         24   /ZNTPKX/A,IROWX,IEOL
+   8         C     / 1/ MU          4   /ZZZZZZ/Z
+   9    7   1 R    ( 1)C U E        4   A(4)
+  10          L         MU E            ANY
+  11          L         MU E            ANYGP
+  12    1   1 I    ( 1)C U E        2   APP(2)
+  13          L         MU E            AXIC
+  14          L         MU E            AXIF
+  15         s     ( 1)  U              BCKREC
+     (I4V)
+  16         s     ( 6)  U              BISLOC
+     (ALT,I4V,I4L,I4E,I4V,I4V)
+  17          I         MU E            BRANCH
+  18          I    ( 1) MU E      100   BUF(100)
+  19          I         MU E            BUF1
+  20          I         MU E            BUF2
+  21          I         MU E            BUF3
+  22          I         MU E            BUF4
+  23          I         MU E            BUF5
+  24          I         MU E            BUF6
+  25          I        I?U E            CASECC
+  26         s     ( 2)  U              CLOSE
+     (I4E,I4V)
+  27    3   6 I        C?? E            CLS
+  28    3   7 I        C?? E            CLSEOF
+  29    3   5 I        C?? E            CLSREW
+  30          R         MU E            COEF
+  31          I         MU E            COMP
+  32          I    ( 1) ?U E       32   COMPS(32)
+  33          I         MU E            CORE
+  34         ID    ( 1)  U I            DBLE
+  35         s     ( 3)  U              DECODE
+     (I4V,I4A,I4V)
+  36         s           U              DELSET
+  37          L         MU E            DIAGM
+  38          I         MU E            DICLOC
+  39          L         MU E            DICOUT
+  40          D          U E            DIII
+  41          L         MU E            DOUBLE
+  42          D    ( 1) MU E        1   DZ(1)
+  43          I        I?U E            ECT
+  44          I         MU E            ECTWDS
+  45          I         MU E            ELDVIS
+  46    2   4 I    ( 1)C U E        1   ELEM(1)
+  47          D         MU E            ELENGY
+  48          I         MU E            ELNSET
+  49          I         MU E            ELTYPE
+  50          L         MU E            ENFILE
+  51          L         MU E            ENFLAG
+  52          L         MU E            ENGOUT
+  53          R        I   E            ENOEOR
+  54          I         MU E            ENTRYS
+  55          I        I?? E            EOR
+  56          L         MU E            EORST4
+  57          I        I?U E            EQEXIN
+  58          I         MU E            ESTID
+  59          I         MU E            EXELID
+  60          I         MU E            EXTGP
+  61          I         MU E            EXTID
+  62          I         M? E            FILE
+  63         s     ( 2)  U              FILPOS
+     (I4V,I4V)
+  64         s     ( 2)  U              FNAME
+     (I4V,I4A)
+  65          R    ( 1)  U E       10   FVEC(10)
+  66         s     ( 2)  U              FWDREC
+     (ALT,I4V)
+  67          I         MU E            GPDVIS
+  68          I        I?U E            GPECT
+  69         S                    907   GPFDR
+  70          L         MU E            GPFILE
+  71          I         MU E            GPSET
+  72          I         MU E            GPSIL
+  73          I         MU E            GRDPTS
+  74          I         MU E            GRID1
+  75          I         MU E            GRIDL
+  76          I         MU E            GSIZE
+  77          I         MU E            I
+  78          I         MU E            I1
+  79          I         MU E            I2
+  80         II    ( 1)  U I            IABS
+  81          I         MU E            IBUF1
+  82          I         MU E            ICC
+  83          I         MU E            ICCZ
+  84          I         MU E            ICODE
+  85          I         MU E            ICONT
+  86          I         MU E            ID
+  87          I         MU E            IDEXT
+  88          I         MU E            IDICTS
+  89          I    ( 1) M? E       10   IDREC(10)
+  90          I         MU E            IDTAB
+  91          I         MU E            IDX
+  92          I         MU E            IELLST
+  93          I        I U E            IELN
+  94    7   3 I        C U E            IEOL
+  95          I        I U E            IGP
+  96          I         MU E            IGPLST
+  97          I    ( 1) M  E        2   III(2)
+  98          I         MU E            IKDIC
+  99          I         MU E            IKMAT
+ 100          I         MU E            ILAB
+ 101          I         MU E            ILOC1
+ 102          I        I U E            ILSYM
+ 103    2   3 I        C U E            INCR
+ 104    5   4 I        CM  E            INCRX
+ 105         s     ( 5)  U              INTPK
+     (ALT,I4V,I4E,I4E,I4E)
+ 106          I         MU E            IPDIC
+ 107          I         MU E            IPGE
+ 108          I         MU E            IPTR1
+ 109          I         MU E            IPTR2
+ 110          I         MU E            IRETRN
+ 111    5   2 I        CM  E            IROW
+ 112    7   2 I        C U E            IROWX
+ 113          I         MU E            ISET
+ 114          I         MU E            ISIL
+ 115          I         MU E            ISILEX
+ 116          I         MU E            ISUB
+ 117          I        I U E            ISUBC
+ 118          I    ( 1)IM? E       10   ISUM(10)
+ 119          I        I U E            ISYM
+ 120          I         MU E            ITAB1
+ 121          I         MU E            ITAB2
+ 122          I         MU E            ITEMP
+ 123          I         MU E            ITIT
+ 124          I         MU E            ITYPE
+ 125          I         MU E            IUGE
+ 126          I         MU E            IVEC
+ 127          I         MU E            IVECZ
+ 128          I         MU E            IWORDS
+ 129          I         MU E            J
+ 130          I         MU E            JDICTS
+ 131          I         MU E            JK
+ 132          I         MU E            JKMAT
+ 133          I         MU E            JPGE
+ 134          I         MU E            JSIZE
+ 135          I         MU E            JTAB1
+ 136          I         MU E            JTAB2
+ 137          I         MU E            JTYPE
+ 138          I         MU E            K
+ 139          I        I?U E            KDICT
+ 140          I         MU E            KKK
+ 141          I        I?U E            KMAT
+ 142         fI    ( 1)  U E            KORSZ
+     (I4A)
+ 143          I         MU E            KT
+ 144          I         MU E            KTYPE
+ 145          I    ( 1) ?U E       10   KVEC(10)
+ 146          I         MU E            L
+ 147          I        I U E            LABEL
+ 148          I        I?? E            LAMA
+ 149    2   2 I        C U E            LAST
+ 150          I         MU E            LASTID
+ 151          I        I U E            LBUF
+ 152          I         MU E            LDICT
+ 153          I         MU E            LDICTS
+ 154          I         M? E            LELLST
+ 155          I         MU E            LENGTH
+ 156          I         MU E            LFEQ
+ 157          I         M? E            LGPLST
+ 158          I         MU E            LINES
+ 159          I         M? E            LOC
+ 160          I         MU E            LPDIC
+ 161          I         MU E            LSET
+ 162          I         MU E            LSIL
+ 163          I         MU E            LSYM
+ 164          I    ( 1) MU E        7   MCB(7)
+ 165         s     ( 3)  U              MESAGE
+     (I4E,I4E,I4A)
+ 166          I    ( 1)I U E       20   METHOD(20)
+ 167          I        I U E            METHS
+ 168          I         M? E            MM
+ 169         I?    ( 2)  U I            MOD
+ 170          I         MU E            MODE
+ 171          I         MU E            MOVEPQ
+ 172          I         MU E            N
+ 173          I    ( 1) ?? E        2   NAME(2)
+ 174          I         M  E            NAME1
+ 175          I         M  E            NAME2
+ 176          I    ( 1) ?? E        2   NAMES(2)
+ 177          I         MU E            NCC
+ 178          I         MU E            NCOMP2
+ 179          I         ?U E            NCOMPS
+ 180          I         MU E            NDICTS
+ 181          I         MU E            NDTAB
+ 182    2   1 I        C U E            NELEMS
+ 183          I         MU E            NENTRY
+ 184          I         MU E            NERROR
+ 185          I         M? E            NEXT
+ 186          I         M? E            NEXTEN
+ 187          I         M? E            NEXTGP
+ 188          I         MU E            NGRIDS
+ 189          I         MU E            NKDIC
+ 190          I         MU E            NKMAT
+ 191          I         ?? E            NOEOR
+ 192          I         MU E            NPDIC
+ 193          I         MU E            NPGE
+ 194    5   3 I        CM  E            NROW
+ 195          I         MU E            NSILEX
+ 196          I         MU E            NSIZE
+ 197          I         MU E            NTAB1
+ 198          I         MU E            NUGE
+ 199          I         MU E            NVEC
+ 200          I        I?U E            OGPF1
+ 201          I         MU E            OLDCOD
+ 202          I         MU E            OLDID
+ 203          I    ( 1)I U E        2   OLOAD(2)
+ 204          I        I?U E            ONRGY1
+ 205         s     ( 4)  U              OPEN
+     (ALT,I4V,I4L,I4V)
+ 206          I    ( 1)I U E        2   OSPCF(2)
+ 207          I    ( 1) MU E       10   OUT(10)
+ 208    4   2 I        C U E            OUTPT
+ 209          I        I U E            PG
+ 210          I    ( 1) M? E        3   PHEAD(3)
+ 211          I         MU E            PIVOT
+ 212          I         MU E            POINTS
+ 213          I         MU E            PTR
+ 214          I        I U E            QG
+ 215          R    ( 1) MU E        5   RBUF(5)
+ 216    3   1 I        C?? E            RD
+ 217    3   2 I        C?? E            RDREW
+ 218         s     ( 1)  U              RDTRL
+     (I4A)
+ 219         s     ( 7)  U              READ
+     (ALT,ALT,I4V,I4A,I4E,I4E,I4V)
+     (   ,   ,   ,I4E,   ,   ,   )
+ 220          I    ( 1) ?U E        3   RECID(3)
+ 221          I    ( 1) ?U E        3   RECIDX(3)
+ 222          R    ( 1) M  E      146   RIDREC(146)
+ 223          R    ( 1) M  E       10   ROUT(10)
+ 224          R    ( 1) MU E       10   RSUM(10)
+ 225          R    ( 1) MU E        1   RZ(1)
+ 226         s     ( 2)  U              SAVPOS
+     (I4V,I4L)
+ 227          I    ( 1)I U E        2   SCALE(2)
+ 228          I        I?U E            SCRT1
+ 229          I        I?U E            SCRT2
+ 230          I        I?U E            SCRT3
+ 231          I        I?U E            SCRT4
+ 232          I         MU E            SET
+ 233         s     ( 5)  U              SETFND
+     (ALT,I4L,I4V,I4V,I4V)
+ 234    6   4 C*25     C   E            SFM*25
+ 235          L         MU E            SILIN
+ 236         IR    ( 1)  U I            SNGL
+ 237         s     ( 6)  U              SORT
+     (I4E,I4E,I4E,I4E,I4L,I4E)
+ 238          I         MU E            SUBCAS
+ 239          I    ( 1)I?? E        2   SUBR(2)
+ 240          I        I U E            SUBTIT
+ 241    6   5 C*27     C U E            SWM*27
+ 242          I         MU E            SYMFLG
+ 243    4   1 I        C U E            SYSBUF
+ 244          I        I U E            TITLE
+ 245          I         MU E            TOTAL
+ 246          D         MU E            TOTENG
+ 247          I    ( 1) MU E        7   TRL(7)
+ 248    5   1 I        CM  E            TYPOUT
+ 249    6   1 C*23     C   E            UFM*23
+ 250          I        I?U E            UG
+ 251          I         MU E            UGPGQG
+ 252    6   3 C*29     C U E            UIM*29
+ 253         s     ( 3)  U              UNPACK
+     (ALT,I4V,R4L)
+ 254    6   2 C*25     C U E            UWM*25
+ 255          R    ( 1) M? E        6   VEC(6)
+ 256         s     ( 4)  U              WRITE
+     (I4V,I4A,I4E,I4V)
+     (   ,R4A,   ,   )
+     (   ,I4E,   ,   )
+ 257    3   3 I        C?? E            WRT
+ 258    3   4 I        C?? E            WRTREW
+ 259         s     ( 1)  U              WRTTRL
+     (I4A)
+ 260    8   1 I    ( 1)CMU E        1   Z(1)
+ 261         s           U              ZNTPKI
+**-- END OF SYMBOL TABLE

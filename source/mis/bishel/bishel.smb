@@ -1,0 +1,18 @@
+**++ Symbol table for subprogram BISHEL in file mis/bishel.f90
+     produced by SPAG     8.01RF-40 at 14:46:59 on  2 Dec 2023
+   0         X             K             mis/bishel.f90,0000002,0000058
+   1    2   4 I    ( 1)AMU E            ARRAY(1)
+   2         S     ( 4) MU         28   BISHEL(LIST,NENT,NTERM,ARRAY)
+   3         s     ( 6)  U              BISLOC
+     (ALT,I4V,I4A,I4V,I4E,I4V)
+   4          I         MU E            I
+   5          I         MU E            J
+   6          I         MU E            K
+   7          I         M? E            KID
+   8          I         MU E            L
+   9    2   1 I    ( 1)A U E            LIST(1)
+  10          I         MU E            M
+  11          I         MU E            N
+  12    2   2 I        AMU E            NENT
+  13    2   3 I        A?U E            NTERM
+**-- END OF SYMBOL TABLE

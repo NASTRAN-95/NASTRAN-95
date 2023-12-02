@@ -1,0 +1,63 @@
+**++ Symbol table for subprogram DDAMAT in file mis/ddamat.f90
+     produced by SPAG     8.01RF-40 at 14:46:35 on  2 Dec 2023
+   0         X             K             mis/ddamat.f90,0000002,0000147
+   1         C     / 1/  U          4   /BLANK/GG
+   2         C     / 5/ M          20   /PACKX/IIN,IOUT,II,NN,INCR
+   3         C     / 1/  U        320   /SYSTEM/IBUF
+   4         C     / 4/ M          16   /UNPAKX/JOUT,III,NNN,JNCR
+   5         C     / 1/ MU          4   /ZZZZZZ/Z
+   6          I        I?U E            A
+   7          I        I?U E            B
+   8          I         MU E            BUF1
+   9          I         MU E            BUF2
+  10          I         MU E            BUF3
+  11          I        I?U E            C
+  12         s     ( 2)  U              CLOSE
+     (I4V,I4E)
+  13         S                     95   DDAMAT
+  14          D         MU E            DGG
+  15          D    ( 1) MU E        1   DZ(1)
+  16    1   1 R        C U E            GG
+  17          D         MU E            GGDZ
+  18          R         MU E            GGZ
+  19         s     ( 3)  U              GOPEN
+     (I4V,R4L,I4E)
+  20          I         MU E            I
+  21    3   1 I    ( 1)C U E       80   IBUF(80)
+  22    2   3 I        CM  E            II
+  23    4   2 I        CM  E            III
+  24    2   1 I        CM  E            IIN
+  25    2   5 I        CM  E            INCR
+  26          I         MU E            INULL
+  27    2   2 I        CM  E            IOUT
+  28          I          U E            IPREC
+  29          I         MU E            ISUB
+  30          I         MU E            J
+  31    4   4 I        CM  E            JNCR
+  32    4   1 I        CM  E            JOUT
+  33          I         M? E            K
+  34         fI    ( 1)  U E            KORSZ
+     (R4A)
+  35          I         MU E            LCORE
+  36          I    ( 1) MU E        7   MCB(7)
+  37         s     ( 3)  U              MESAGE
+     (I4V,I4E,I4A)
+  38          I    ( 1)I?? E        2   NAM(2)
+  39          I         MU E            NCOLA
+  40          I         MU E            NCOLB
+  41    2   4 I        CM  E            NN
+  42    4   3 I        CM  E            NNN
+  43          I         MU E            NROWA
+  44          I         MU E            NROWB
+  45         s     ( 3)  U              PACK
+     (R4L,I4V,I4A)
+     (R8L,   ,   )
+  46         s     ( 1)  U              RDTRL
+     (I4A)
+  47         s     ( 3)  U              UNPACK
+     (ALT,I4V,R8L)
+     (   ,   ,R4L)
+  48         s     ( 1)  U              WRTTRL
+     (I4A)
+  49    5   1 R    ( 1)CMU E        1   Z(1)
+**-- END OF SYMBOL TABLE

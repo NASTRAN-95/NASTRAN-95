@@ -1,0 +1,112 @@
+**++ Symbol table for subprogram TRPLT in file mis/trplt.f90
+     produced by SPAG     7.61RG-40 at 01:00:00 on 21 Mar 2022
+   0         X             K             mis/trplt.f90,0000002,0000427
+   1         C     / 1/            20   /CONDAS/CONSTS
+   2         C     / 6/ MU         24   /MATIN/MATID,INFLAG,ELTEMP,STRESS,SINTH,COSTH
+   3         C     / 4/ ?U        196   /SSGTRI/D,KHI,KS,P
+   4         C     /54/ MU       1200   /SSGWRK/A,T,S,HINV,PROD12,D1,D2,HABC,SSUM,R,IVECT,JVECT,KVECT,VV1,VV2,XSUBB,XSUBC,YSUBC,E,TEMP,L1,L2,C1,C2,S1,S2,X1,X2,Y1,Y2,NPOINT,DUM9,TEMP1,TEMP2,PROD9,TEMP9,DUM8,KM,SUBSCA,SUBSCB,SUBSCC,DUM11,THETA,NSUBC,ISING,U1,U2,SINANG,COSANG,DUM10,XC,YC,DETERM,DUM12
+   5         C     / 1/ ?U        400   /TRIMEX/ECPT
+   6         C     / 1/ MU          4   /ZZZZZZ/Z
+   7    4   1 R    ( 1)C?? E       45   A(45)
+   8         I?    ( 1)  U I            ABS
+   9    4  23 R        CMU E            C1
+  10    4  24 R        CMU E            C2
+  11    1   1 R    ( 1)C   E        5   CONSTS(5)
+  12         I?    ( 1)  U I            COS
+  13    4  49 R        CMU E            COSANG
+  14    2   6 R        CM  E            COSTH
+  15    3   1 R    ( 1)C   E        9   D(9)
+  16    4   6 R    ( 1)CMU E        3   D1(3)
+  17    4   7 R    ( 1)CMU E        3   D2(3)
+  18          R          U E            DEGRA
+  19    4  53 R        C?? E            DETERM
+  20    4  50 R        C   E            DUM10
+  21    4  42 R        C   E            DUM11
+  22    4  54 R    ( 1)C   E        4   DUM12(4)
+  23    4  37 R        C   E            DUM8
+  24    4  32 R        C   E            DUM9
+  25    4  19 R    ( 1)CMU E       18   E(18)
+  26    5   1 R    ( 1)C?U E      100   ECPT(100)
+  27    2   3 R        CM  E            ELTEMP
+  28          R    ( 1) MU E       36   G(36)
+  29         s     ( 3)  U              GBTRAN
+     (I4L,I4L,R4L)
+  30         s     ( 9)  U              GMMATS
+     (R4L,I4E,I4E,I4E,R4L,I4E,I4E,I4E,R4L)
+  31    4   8 R    ( 1)CMU E       18   HABC(18)
+  32    4   4 R    ( 1)C?? E       36   HINV(36)
+  33          R    ( 1) M? E       12   HQ(12)
+  34          I         MU E            I
+  35    2   2 I        C   E            INFLAG
+  36         s     ( 8)  U              INVERS
+     (I4E,R4L,I4E,R4L,I4E,R4V,I4V,R4L)
+  37    4  45 I        CMU E            ISING
+  38    4  11 R    ( 1)CMU E        3   IVECT(3)
+  39          I         MU E            J
+  40    4  12 R    ( 1)CMU E        3   JVECT(3)
+  41          I         MU E            K
+  42    3   2 R    ( 1)C?? E        5   KHI(5)
+  43    4  38 I        CMU E            KM
+  44    3   3 R    ( 1)C?? E       30   KS(30)
+  45    4  13 R    ( 1)CMU E        3   KVECT(3)
+  46          I         MU E            L
+  47    4  21 R        CMU E            L1
+  48    4  22 R        CMU E            L2
+  49          I    ( 1)I U E        9   M(9)
+  50    2   1 I        C   E            MATID
+  51         s     ( 3)  U              MESAGE
+     (I4E,I4E,R4L)
+  52          I    ( 1) ?U E       25   NECPT(25)
+  53    4  31 I        CMU E            NPOINT
+  54    4  44 I        CMU E            NSUBC
+  55    3   4 R    ( 1)C?U E        5   P(5)
+  56    4   5 R    ( 1)C?U E       12   PROD12(12)
+  57          R    ( 1) ?U E       15   PROD15(15)
+  58    4  35 R    ( 1)C?? E        9   PROD9(9)
+  59    4  10 R    ( 2)CMU E        8   R(2,4)
+  60          R    ( 1) M  E        9   REQUIV(9)
+  61    4   3 R    ( 1)C?? E       18   S(18)
+  62    4  25 R        CMU E            S1
+  63    4  26 R        CMU E            S2
+  64         I?    ( 1)  U I            SIN
+  65    4  48 R        CMU E            SINANG
+  66    2   5 R        CMU E            SINTH
+  67         I?    ( 1)  U I            SQRT
+  68         s     ( 3)  U              SSGKHI
+     (R4L,R4L,R4E)
+  69    4   9 R    ( 1)CMU E       60   SSUM(60)
+  70    2   4 R        C   E            STRESS
+  71    4  39 I        CMU E            SUBSCA
+  72    4  40 I        CMU E            SUBSCB
+  73    4  41 I        CMU E            SUBSCC
+  74    4   2 R    ( 1)CM? E        9   T(9)
+  75    4  20 R        CMU E            TEMP
+  76    4  33 R        CMU E            TEMP1
+  77          R    ( 1) ?U E       15   TEMP15(15)
+  78    4  34 R        CMU E            TEMP2
+  79    4  36 R    ( 1)C?U E        9   TEMP9(9)
+  80    4  43 R        CMU E            THETA
+  81   84   1 R    ( 1)A?? E            TI(6)
+  82          R    ( 1) M? E       10   TITE(10)
+  83         s     ( 2)  U              TRBSC
+     (I4E,R4L)
+  84         S     ( 1) ??        210   TRPLT(TI)
+  85    4  46 R        CMU E            U1
+  86    4  47 R        CMU E            U2
+  87          R    ( 1) MU E       25   V(25)
+  88          R    ( 1)  U E        3   V1(3)
+  89          R    ( 1)  U E        3   V2(3)
+  90          R    ( 1)  U E        3   V3(3)
+  91    4  14 R    ( 1)CMU E        2   VV1(2)
+  92    4  15 R    ( 1)CMU E        2   VV2(2)
+  93    4  27 R        CMU E            X1
+  94    4  28 R        CMU E            X2
+  95    4  51 R        CM  E            XC
+  96    4  16 R        CMU E            XSUBB
+  97    4  17 R        CMU E            XSUBC
+  98    4  29 R        CMU E            Y1
+  99    4  30 R        CMU E            Y2
+ 100    4  52 R        CM  E            YC
+ 101    4  18 R        CMU E            YSUBC
+ 102    6   1 R    ( 1)CMU E        1   Z(1)
+**-- END OF SYMBOL TABLE

@@ -1,0 +1,31 @@
+**++ Symbol table for subprogram DK89 in file mis/dk89.f90
+     produced by SPAG     8.01RF-40 at 14:46:50 on  2 Dec 2023
+   0         X             K             mis/dk89.f90,0000002,0000059
+   1   11   2 D        A U E            A
+   2          D         MU E            AMF
+   3          D         MU E            AMMSF
+   4          D         MU E            AMN1F
+   5          D         MU E            AN1
+   6          D         MU E            AN2
+   7          D         MU E            ANM1F
+   8   11   3 D        A U E            B
+   9          D         MU E            CAPX
+  10         ID    ( 1)  U I            DABS
+  11         FD    ( 6) MU E       50   DK89(I,A,B,M,N,X)
+  12         ID    ( 1)  U I            DLOG
+  13          D         MU E            F89
+  14   11   1 I        A U E            I
+  15          I         MU E            IRET
+  16          I         MU E            IS
+  17          I         MU E            KFAC
+  18          I         MU E            LFAC
+  19   11   4 I        A U E            M
+  20   11   5 I        A U E            N
+  21          I         MU E            N1
+  22          I         MU E            N2
+  23          I         MU E            N3
+  24          I         MU E            NFAC
+  25          D         MU E            S
+  26          D         MU E            SF
+  27   11   6 D    ( 1)A U E            X(1)
+**-- END OF SYMBOL TABLE

@@ -1,0 +1,175 @@
+**++ Symbol table for subprogram MTRXIN in file mis/mtrxin.f90
+     produced by SPAG     8.01RF-40 at 14:46:37 on  2 Dec 2023
+   0         X             K             mis/mtrxin.f90,0000002,0000514
+   1         C     / 2/ MU         16   /BLANK/LUSET,NOMAT
+   2         C     / 3/ ?U         12   /MACHIN/MACH,IHALF,JHALF
+   3         C     / 5/ ??         20   /NAMES/RD,RDREW,WRT,WRTREW,CLSREW
+   4         C     / 3/ M         276   /SADDX/NOMATS,NZ,MCBS
+   5         C     / 1/ M?         24   /SETUP/IFILE
+   6         C     / 4/  U         32   /SYSTEM/SYSBUF,NOUT,XX,LOADNN
+   7         C     / 2/  U         24   /TYPE/PRC,NWDS
+   8         C     / 1/            23   /XMSSG/UFM
+   9         C     / 2/ MU         20   /ZBLPKX/X,ROW
+  10         C     / 1/ MU          4   /ZZZZZZ/Z
+  11          R    ( 1) M  E        4   ALPHA(4)
+  12         fI    ( 2)  UXE            ANDF
+     (I4L,I4V)
+  13          R    ( 1) M  E        4   BETA(4)
+  14         s     ( 5)  U              BLDPK
+     (I4E,I4E,I4V,I4E,I4E)
+  15         s     ( 4)  U              BLDPKI
+     (I4L,I4V,I4L,I4L)
+  16         s     ( 3)  U              BLDPKN
+     (I4V,I4E,I4L)
+  17          I    ( 1)IMU E       81   BLOCK(81)
+  18          I    ( 1) MU E       20   BUF(20)
+  19          I         MU E            BUF1
+  20          I         MU E            BUF2
+  21          I         MU E            BUF3
+  22          I         MU E            BUF4
+  23          I         M  E            BUF5
+  24          D    ( 1)  U E        2   BUFD(2)
+  25          I    ( 1)  U E        3   BUFI(3)
+  26          R    ( 1)  U E       13   BUFR(13)
+  27          I         MU E            BUFX
+  28          I        I?U E            CASECC
+  29         s     ( 2)  U              CLOSE
+     (I4V,I4E)
+  30    3   5 I        C?? E            CLSREW
+  31          I         MU E            COL
+  32          I    ( 1)    E       13   DB(13)
+  33          I    ( 1)I?U E        2   DMIG(2)
+  34          I        I?U E            EQEX
+  35          I         M? E            FILE
+  36          I         M  E            FILE1
+  37          I         M  E            FILE2
+  38          I         M  E            FILE3
+  39          I    ( 1) MU E        7   FILEA(7)
+  40          I    ( 1) M  E        7   FILEB(7)
+  41          I    ( 1) M? E        7   FILEC(7)
+  42          I    ( 1) ?U E        3   FILEI(3)
+  43          I         ?? E            FLAG
+  44         s     ( 2)  U              FNAME
+     (I4V,I4L)
+  45         s     ( 4)  U              FREAD
+     (I4V,I4A,I4E,I4E)
+  46         s     ( 2)  U              FWDREC
+     (ALT,I4V)
+  47         s     ( 3)  U              GOPEN
+     (I4V,I4L,I4E)
+  48          I         MU E            I
+  49          I         MU E            I10
+  50          I         MU E            I11
+  51          I         MU E            I12
+  52          I         MU E            I45
+  53          I         MU E            I7
+  54          I         MU E            ICOL
+  55    5   1 I    ( 1)CM? E        6   IFILE(6)
+  56    2   2 I        C?U E            IHALF
+  57          I        I U E            IMAT1
+  58          I        I U E            IMAT2
+  59          I        I U E            IMAT3
+  60          I         MU E            IMTRX
+  61          I         MU E            IPRC
+  62          I         MU E            IPTR
+  63          I         MU E            IQQ
+  64          I         MU E            ISW
+  65          I        I U E            ITF
+  66          I         MU E            J
+  67          I         MU E            J1
+  68    2   3 I        C U E            JHALF
+  69          I         MU E            JN
+  70          I         MU E            JSW
+  71          I         MU E            K
+  72          I         MU E            KHI
+  73          I         MU E            KLO
+  74          I         MU E            KN
+  75         fI    ( 1)  U E            KORSZ
+     (I4A)
+  76    6   4 I        C   E            LOADNN
+  77         s     ( 4)  U              LOCATE
+     (ALT,I4L,I4A,I4V)
+  78         fI    ( 2)  UXE            LSHIFT
+     (I4V,I4V)
+  79    1   1 I        C U E            LUSET
+  80    2   1 I        C   E            MACH
+  81          I         M? E            MASK16
+  82          I    ( 1)IMU E       50   MCB(50)
+  83    4   3 I    ( 1)C   E       67   MCBS(67)
+  84         s     ( 3)  U              MESAGE
+     (I4E,I4E,I4A)
+  85         I?    ( 2)  U I            MOD
+  86          I        I?U E            MPOOL
+  87         S                    370   MTRXIN
+  88          I         M? E            N
+  89          I    ( 1)I?? E        2   NAM(2)
+  90          I         MU E            NCOL
+  91          I         ?U E            NEQEX
+  92          I        I U E            NFILES
+  93          I         MU E            NMTRX
+  94          I         MU E            NN
+  95          I         MU E            NODMIG
+  96          I         MU E            NOGO
+  97    1   2 I    ( 1)CM  E        3   NOMAT(3)
+  98          I         MU E            NOMAT1
+  99          I         MU E            NOMAT2
+ 100          I         MU E            NOMAT3
+ 101    4   1 I        CM  E            NOMATS
+ 102          I         MU E            NOMPOO
+ 103    6   2 I        C   E            NOUT
+ 104          I         MU E            NWD
+ 105          I         MU E            NWD1
+ 106    7   2 I    ( 1)C U E        4   NWDS(4)
+ 107    4   2 I        CM  E            NZ
+ 108         s     ( 4)  U              OPEN
+     (ALT,I4V,I4L,I4V)
+ 109         fI    ( 2)  UXE            ORF
+     (I4V,I4E)
+ 110          L         MU E            PACK
+ 111    7   1 I    ( 1)C U E        2   PRC(2)
+ 112          I         MU E            PREC
+ 113         s     ( 3)  U              PRELOC
+     (ALT,I4L,I4V)
+ 114    3   1 I        C   E            RD
+ 115    3   2 I        C?? E            RDREW
+ 116         s     ( 1)  U              RDTRL
+     (I4L)
+ 117         s     ( 7)  U              READ
+     (ALT,ALT,I4V,I4A,I4E,I4E,I4V)
+ 118          I         MU E            RET
+ 119    9   2 I        CMU E            ROW
+ 120         fI    ( 2)  UXE            RSHIFT
+     (I4L,I4V)
+ 121         s     ( 2)  U              SADD
+     (I4L,I4L)
+ 122          I        I?U E            SCR1
+ 123          I        I U E            SCR2
+ 124          I        I U E            SCR3
+ 125          I        I U E            SCR4
+ 126          I        I U E            SCR5
+ 127          I        I U E            SCR6
+ 128          I        I U E            SCR7
+ 129         s     ( 2)  U              SKPREC
+     (I4V,I4E)
+ 130         s     ( 6)  U              SORTI
+     (I4E,I4E,I4V,I4E,I4L,I4E)
+ 131         s     ( 6)  U              SORTI2
+     (I4E,I4E,I4V,I4E,I4L,I4E)
+ 132    6   1 I        C U E            SYSBUF
+ 133          I        I?U E            TFPOOL
+ 134          I         MU E            TFSET
+ 135          I         M  E            TYPALP
+ 136          I         M  E            TYPBET
+ 137    8   1 C*23     C   E            UFM*23
+ 138         s     ( 4)  U              WRITE
+     (I4V,I4E,I4E,I4E)
+ 139    3   3 I        C   E            WRT
+ 140    3   4 I        C?? E            WRTREW
+ 141         s     ( 1)  U              WRTTRL
+     (I4A)
+ 142    9   1 R    ( 1)CM  E        4   X(4)
+ 143          D    ( 1) M  E        2   XD(2)
+ 144    6   3 I    ( 1)C   E        5   XX(5)
+ 145   10   1 I    ( 1)CMU E        1   Z(1)
+ 146         s           U              ZBLPKI
+**-- END OF SYMBOL TABLE

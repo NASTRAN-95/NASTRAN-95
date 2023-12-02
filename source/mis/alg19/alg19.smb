@@ -1,0 +1,112 @@
+**++ Symbol table for subprogram ALG19 in file mis/alg19.f90
+     produced by SPAG     8.01RF-40 at 14:46:56 on  2 Dec 2023
+   0         X             K             mis/alg19.f90,0000002,0000276
+   1         C     / 1/  U          4   /UD3PRT/IPRTC
+   2          R    ( 1) MU E       21   AC(21)
+   3         s     ( 7)  U              ALG15
+     (R4A,R4A,I4E,R4V,R4V,I4E,I4E)
+     (   ,   ,   ,R4A,R4A,   ,   )
+   4         S     (24) ?U        224   ALG19(LOG1,LOG2,LOG3,LOG5,NLINES,NSPEC,KPTS,RSTA,XSTA,R,ZR,B1,B2,TC,PI,C1,NBLADE,CCORD,BLOCK,ALPB,EPSLON,IFANGS,IPUNCH,NAERO)
+   5    4  20 R    ( 2)A U E            ALPB(10,21)
+   6          R         ?U E            AONC
+   7    4  12 R    ( 1)A?? E            B1(1)
+   8    4  13 R    ( 1)A?? E            B2(1)
+   9          R         MU E            BETA1
+  10          R         MU E            BETA2
+  11    4  19 R    ( 2)A U E            BLOCK(10,21)
+  12    4  16 R        A   E            C1
+  13          R         MU E            CAMBER
+  14    4  18 R    ( 1)A U E            CCORD(1)
+  15          R         ?U E            DADD
+  16          R    ( 1) MU E       21   DELTAD(21)
+  17          R    ( 2) MU E      210   DEV(10,21)
+  18          R         ?U E            DEVFR
+  19          R    ( 2) ?U E       50   DEVV(10,5)
+  20          R    ( 2) MU E       55   DM(11,5)
+  21          R         ?U E            DO
+  22          R    ( 1) M? E        5   DOO(5)
+  23          R    ( 2) MU E       55   DVFRAC(11,5)
+  24          R    ( 1) MU E       10   DX(10)
+  25    4  21 R    ( 2)A U E            EPSLON(10,21)
+  26          R    ( 1)I?? E        8   F137B(8)
+  27          R    ( 1)I?? E        5   F137S(5)
+  28          R    ( 1)I?? E        7   F142TC(7)
+  29          R    ( 2)I?? E       40   F161D(8,5)
+  30          R    ( 1)I?? E        8   F164XB(8)
+  31          R    ( 1)I?? E        7   F172K(7)
+  32          R    ( 2)I?? E       16   F195M(8,2)
+  33         IR    ( 1)  U I            FLOAT
+  34         s     ( 4)  U              FREAD
+     (I4V,I4A,I4E,I4E)
+     (   ,R4A,   ,   )
+  35          I         MU E            I
+  36          I    ( 1) MU E       24   IDATA(24)
+  37    4  22 I    ( 1)A U E            IFANGS(1)
+  38    1   1 I        C U E            IPRTC
+  39    4  23 I        A U E            IPUNCH
+  40          I         MU E            J
+  41          I         MU E            K
+  42          I         MU E            KK
+  43    4   7 I    ( 1)A?? E            KPTS(1)
+  44          I         MU E            L1
+  45          I         M? E            L2
+  46          I         MU E            LMAX
+  47          I         MU E            LNCT
+  48    4   1 I        A?? E            LOG1
+  49    4   2 I        A U E            LOG2
+  50    4   3 I        A U E            LOG3
+  51    4   4 I        A?U E            LOG5
+  52    4  24 I        A U E            NAERO
+  53          I    ( 1) MU E       10   NBLAD(10)
+  54    4  17 I        A U E            NBLADE
+  55          I    ( 1) MU E       10   NCURVE(10)
+  56          I         MU E            NDATR
+  57          I    ( 1) MU E       10   NDEL(10)
+  58          I         MU E            NDPTS
+  59          I    ( 1) MU E       10   NEVAL(10)
+  60          I    ( 1) MU E       10   NL1(10)
+  61          I    ( 1) MU E       10   NL2(10)
+  62          I         MU E            NLE
+  63    4   5 I        A?U E            NLINES
+  64          I    ( 1) MU E       10   NLITER(10)
+  65          I    ( 1) MU E       10   NLOSS(10)
+  66          I    ( 1) MU E       10   NMACH(10)
+  67          I    ( 1) MU E       10   NOUT1(10)
+  68          I    ( 1) MU E       10   NOUT2(10)
+  69          I    ( 1) MU E       10   NOUT3(10)
+  70          I    ( 1) MU E       10   NR(10)
+  71          I         MU E            NRAD
+  72    4   6 I        A?? E            NSPEC
+  73          I         MU E            NSWITC
+  74          I         MU E            NTE
+  75          I    ( 1) MU E       10   NTERP(10)
+  76          I         MU E            NX
+  77    4  15 R        A U E            PI
+  78          R         MU E            Q
+  79    4  10 R    ( 2)A?U E            R(10,21)
+  80          R    ( 1) MU E        6   RDATA(6)
+  81          R    ( 1) MU E       21   RDTE(21)
+  82          R    ( 2) MU E      210   RR(21,10)
+  83    4   8 R    ( 2)A?? E            RSTA(21,10)
+  84          R    ( 1) ?U E        5   RTE(5)
+  85          R    ( 1) MU E       21   SOL(21)
+  86          R         MU E            SOLID
+  87          R         MU E            SPEED
+  88         I?    ( 1)  U I            SQRT
+  89    4  14 R    ( 1)A?? E            TC(1)
+  90          R         ?U E            THICK
+  91         s     ( 4)  U              WRITE
+     (I4V,I4A,I4E,I4E)
+     (   ,R4E,   ,   )
+     (   ,R4A,   ,   )
+  92          R    ( 1) ?U E       10   X(10)
+  93          R         MU E            X1
+  94          R         ?U E            XB
+  95          R         M? E            XJ
+  96          R         ?U E            XKDT
+  97          R         MU E            XKSHPE
+  98          R    ( 2) MU E      210   XLOSS(21,10)
+  99          R         ?U E            XMS
+ 100    4   9 R    ( 2)A?? E            XSTA(21,10)
+ 101    4  11 R    ( 1)A?? E            ZR(1)
+**-- END OF SYMBOL TABLE

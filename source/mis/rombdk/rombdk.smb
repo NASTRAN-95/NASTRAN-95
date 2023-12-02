@@ -1,0 +1,31 @@
+**++ Symbol table for subprogram ROMBDK in file mis/rombdk.f90
+     produced by SPAG     8.01RF-40 at 14:47:18 on  2 Dec 2023
+   0         X             K             mis/rombdk.f90,0000002,0000112
+   1   26   1 D        A U E            B
+   2          D         MU E            CONST
+   3         ID    ( 1)  U I            DABS
+   4         ID    ( 1)  U I            DCOS
+   5          D         MU E            DEN
+   6          D         MU E            DIFF
+   7         ID    ( 1)  U I            DSIN
+   8          D         MU E            F
+   9          D    ( 1) MU E       20   FAAAA(20)
+  10          D    ( 1) MU E       20   FAAAB(20)
+  11          D         MU E            FAAAC
+  12          D         MU E            FAAAD
+  13          D         MU E            FAAAE
+  14          D         MU E            FAAAF
+  15          D         MU E            FAAAG
+  16          D         MU E            FAAAH
+  17   26   4 D        AM  E            FINTG
+  18          I         MU E            IAAAA
+  19          I         MU E            IAAAC
+  20          I         MU E            IAAAD
+  21          I         MU E            IAAAF
+  22          I         MU E            IRET
+  23   26   3 I        AM  E            ITDONE
+  24   26   5 I        A U E            K
+  25   26   2 D        AM  E            PRECIS
+  26         S     ( 6) MU         72   ROMBDK(B,PRECIS,ITDONE,FINTG,K,X)
+  27   26   6 D    ( 1)AMU E            X(6)
+**-- END OF SYMBOL TABLE

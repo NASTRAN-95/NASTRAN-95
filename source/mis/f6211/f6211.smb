@@ -1,0 +1,17 @@
+**++ Symbol table for subprogram F6211 in file mis/f6211.f90
+     produced by SPAG     8.01RF-40 at 14:46:38 on  2 Dec 2023
+   0         X             K             mis/f6211.f90,0000002,0000046
+   1    9   2 R        A U E            A
+   2          R         MU E            AAJ
+   3         I?    ( 1)  U I            ABS
+   4         IR    ( 1)  U I            ALOG
+   5    9   3 R        A U E            B
+   6          R         MU E            C1
+   7          R         MU E            C2
+   8          R         MU E            C3
+   9         FR    ( 4) MU E       36   F6211(I,A,B,X)
+  10    9   1 I        A U E            I
+  11          I         MU E            J
+  12    9   4 R    ( 1)A U E            X(1)
+  13          R         MU E            XX
+**-- END OF SYMBOL TABLE

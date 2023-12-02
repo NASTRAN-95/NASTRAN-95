@@ -1,0 +1,10 @@
+**++ Symbol table for subprogram TDATE in file mds/tdate.f90
+     produced by SPAG     8.01RF-40 at 14:46:34 on  2 Dec 2023
+   0         X             K             mds/tdate.f90,0000002,0000025
+   1    5   1 I    ( 1)AM  E            DATE(3)
+   2          I    ( 1) ?U E        3   DATE1(3)
+   3         s     ( 1)  U              IDATE
+     (I4A)
+   4         I?    ( 2)  U I            MOD
+   5         S     ( 1) M           4   TDATE(DATE)
+**-- END OF SYMBOL TABLE

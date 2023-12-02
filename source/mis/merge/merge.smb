@@ -1,0 +1,92 @@
+**++ Symbol table for subprogram MERGE in file mis/merge.f90
+     produced by SPAG     8.01RF-40 at 14:46:51 on  2 Dec 2023
+   0         X             K             mis/merge.f90,0000002,0000255
+   1         C     / 9/ MU        148   /PARMEG/NAMEA,NCOLA,NROWA,IFORMA,ITYPA,IA,IA11,LCARE,RULE
+   2         C     / 2/  U          8   /SYSTEM/SYSBUF,NOUT
+   3         C     / 1/ ??        128   /TWO/TWO1
+   4         C     / 2/ M          20   /ZBLPKX/IC11,II
+   5          I    ( 1) ?U E        4   A11(4)
+   6         fI    ( 2)  UXE            ANDF
+     (I4L,I4L)
+   7          I    ( 1) ?U E        4   B11(4)
+   8         s     ( 5)  U              BLDPK
+     (I4V,I4V,I4V,I4E,I4E)
+   9         s     ( 3)  U              BLDPKN
+     (I4V,I4E,I4V)
+  10          I    ( 1) ?? E       40   BLOCK(40)
+  11         s     ( 2)  U              CLOSE
+     (I4V,I4E)
+  12   51   3 I    ( 1)AMU E            CORE(1)
+  13         s     ( 3)  U              GOPEN
+     (I4V,I4L,I4E)
+  14          I         MU E            I
+  15    1   6 I    ( 1)CM  E        2   IA(2)
+  16    1   7 I    ( 2)CMU E       28   IA11(7,4)
+  17         II    ( 1)  U I            IABS
+  18          I         MU E            IAZ
+  19          I         MU E            IBUF
+  20          I         MU E            IBUFCP
+  21          I         MU E            IBUFRP
+  22          I         MU E            IBZ
+  23    4   1 I    ( 1)CM  E        4   IC11(4)
+  24   51   2 I    ( 1)A?U E            ICP(1)
+  25          I         MU E            IEOL
+  26    1   4 I        C   E            IFORMA
+  27    4   2 I        CM  E            II
+  28         s     ( 5)  U              INTPK
+     (ALT,I4L,I4L,I4V,I4E)
+  29         s     ( 5)  U              INTPKI
+     (I4L,I4V,I4V,I4L,I4V)
+  30          I         MU E            IO
+  31          I         MU E            IOTP
+  32          I         MU E            IPOS
+  33          I         M? E            IREW
+  34   51   1 I    ( 1)A?U E            IRP(1)
+  35          I         MU E            ISTOR
+  36          I         MU E            ITEMP
+  37    1   5 I        C?U E            ITYPA
+  38          I         MU E            J
+  39          I         MU E            JEOL
+  40          I         MU E            JPOS
+  41          I         MU E            K
+  42          I         MU E            KM
+  43          I         MU E            L
+  44          I         MU E            L1
+  45          I         MU E            L2
+  46          I         MU E            L3
+  47    1   8 I        C U E            LCARE
+  48          I         MU E            LCORE
+  49          I         MU E            LOOP
+  50          I         MU E            M
+  51         S     ( 3) MU        185   MERGE(IRP,ICP,CORE)
+  52         s     ( 3)  U              MESAGE
+     (I4V,I4E,I4A)
+  53          I         M? E            MN
+  54          I         M? E            NAM1
+  55          I         M? E            NAM2
+  56          I    ( 1)I?? E        2   NAME(2)
+  57    1   1 I        C?U E            NAMEA
+  58    1   2 I        CMU E            NCOLA
+  59          I         MU E            NCOLA1
+  60          I         M  E            NM
+  61          I         MU E            NMAT
+  62    2   2 I        C U E            NOUT
+  63    1   3 I        C?U E            NROWA
+  64          I         MU E            NTYPA
+  65          I         ?? E            OCPCT
+  66         s     ( 4)  U              OPEN
+     (ALT,I4L,I4L,I4V)
+  67          I         ?? E            ORPCT
+  68         fI    ( 2)  UXE            RSHIFT
+     (I4E,I4E)
+  69    1   9 I        C?? E            RULE
+  70         s     ( 8)  U              RULER
+     (I4V,I4A,I4V,I4V,I4L,I4V,I4L,I4E)
+  71         s     ( 2)  U              SKPREC
+     (I4L,I4E)
+  72    2   1 I        C U E            SYSBUF
+  73    3   1 I    ( 1)C?? E       32   TWO1(32)
+  74         s           U              ZBLPKI
+  75          I         ?U E            ZCPCT
+  76          I         ?? E            ZRPCT
+**-- END OF SYMBOL TABLE

@@ -1,0 +1,103 @@
+**++ Symbol table for subprogram INVTR in file mis/invtr.f90
+     produced by SPAG     7.61RG-40 at 01:00:00 on 21 Mar 2022
+   0         X             K             mis/invtr.f90,0000002,0000419
+   1         C     / 5/ MU         68   /INVTRX/FILEA,FILEB,SCRFIL,NX,PREC
+   2         C     / 7/ ?U         28   /NAMES/RD,RDREW,WRT,WRTREW,REW,NOREW,EOFNRW
+   3         C     / 5/ MU         20   /PACKX/IT1,IT2,IY,JY,INCRY
+   4         C     / 1/  U          4   /SYSTEM/SYSBUF
+   5         C     / 3/  U         64   /TYPE/PRC,NWDS,RC
+   6         C     / 4/ MU         16   /UNPAKX/ITX1,IX,JX,INCRX
+   7         C     / 3/  U         24   /ZNTPKX/A,II,EOL
+   8    7   1 R    ( 1)C U E        4   A(4)
+   9          R         MU E            A1
+  10          I         MU E            BAKSKP
+  11         s     ( 1)  U              BCKREC
+     (I4A)
+  12         s     ( 2)  U              CLOSE
+     (I4A,I4V)
+     (I4V,   )
+  13          I         MU E            CMPLX
+  14          I         MU E            CORE
+  15          D    ( 1)  U E        2   DA(2)
+  16          D         MU E            DTEMP
+  17   35   2 D    ( 1)AMU E            DX(1)
+  18    2   7 I        C?? E            EOFNRW
+  19    7   3 I        C U E            EOL
+  20    1   1 I    ( 1)C?? E        7   FILEA(7)
+  21    1   2 I    ( 1)CM? E        7   FILEB(7)
+  22          I          U E            FORMA
+  23          I         MU E            FORSKP
+  24         s     ( 3)  U              GOPEN
+     (I4A,R4L,I4E)
+     (I4V,   ,   )
+  25          I         MU E            I
+  26          I         MU E            I1
+  27    7   2 I        C U E            II
+  28          I         MU E            IN1
+  29          I         MU E            IN2
+  30          I         MU E            INBUF
+  31          I         MU E            INCR
+  32    6   4 I        CM  E            INCRX
+  33    3   5 I        CM  E            INCRY
+  34         s     ( 5)  U              INTPK
+     (ALT,I4A,I4E,I4V,I4E)
+     (   ,I4V,   ,   ,   )
+  35         S     ( 2) MU        329   INVTR(X,DX)
+  36          I         MU E            IOBUF
+  37    3   1 I        CM  E            IT1
+  38    3   2 I        CM  E            IT2
+  39    6   1 I        CM  E            ITX1
+  40    6   2 I        CMU E            IX
+  41    3   3 I        CMU E            IY
+  42          I         MU E            J
+  43          I         MU E            JJ
+  44    6   3 I        CMU E            JX
+  45    3   4 I        CM  E            JY
+  46          I         MU E            K
+  47          I         MU E            KK
+  48          I         MU E            L
+  49          I         MU E            L1
+  50          I         MU E            LEND
+  51          I         MU E            LL
+  52          I         MU E            M
+  53         s     ( 3)  U              MESAGE
+     (I4V,I4E,I4A)
+  54          I    ( 1)I?? E        2   NAME(2)
+  55          I         M? E            NO
+  56    2   6 I        C?U E            NOREW
+  57          I         ?U E            NROW
+  58    5   2 I    ( 1)C U E        4   NWDS(4)
+  59    1   4 I        C U E            NX
+  60          I         MU E            OUTBUF
+  61         s     ( 3)  U              PACK
+     (R4A,I4V,I4A)
+     (   ,I4A,   )
+  62    5   1 R    ( 1)C   E        2   PRC(2)
+  63    1   5 I        C U E            PREC
+  64    5   3 I    ( 1)C U E       10   RC(10)
+  65    2   1 I        C?? E            RD
+  66    2   2 I        C   E            RDREW
+  67    2   5 I        C?U E            REW
+  68         s     ( 1)  U              REWIND
+     (I4V)
+  69    1   3 I        C?? E            SCRFIL
+  70         s     ( 2)  U              SKPREC
+     (I4A,I4E)
+     (I4V,   )
+  71         I?    ( 1)  U I            SQRT
+  72    4   1 I        C U E            SYSBUF
+  73          I    ( 1)I?? E        7   T(7)
+  74          R         MU E            TEMP
+  75          I         MU E            TRA
+  76          I         MU E            TRA1
+  77          I         MU E            TRA2
+  78          I          U E            TYPEA
+  79          I         MU E            TYPEAR
+  80          I          U E            TYPEB
+  81         s     ( 3)  U              UNPACK
+     (ALT,I4A,R4A)
+  82    2   3 I        C?? E            WRT
+  83    2   4 I        C   E            WRTREW
+  84   35   1 R    ( 1)AMU E            X(1)
+  85         s           U              ZNTPKI
+**-- END OF SYMBOL TABLE

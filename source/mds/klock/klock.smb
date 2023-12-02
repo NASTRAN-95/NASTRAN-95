@@ -1,0 +1,8 @@
+**++ Symbol table for subprogram KLOCK in file mds/klock.f90
+     produced by SPAG     8.01RF-40 at 14:46:34 on  2 Dec 2023
+   0         X             K             mds/klock.f90,0000002,0000009
+   1         s     ( 3)  U              CPUTIM
+     (I4V,I4V,I4E)
+   2    3   1 I        A?? E            ICPUSC
+   3         S     ( 1) ??          1   KLOCK(ICPUSC)
+**-- END OF SYMBOL TABLE

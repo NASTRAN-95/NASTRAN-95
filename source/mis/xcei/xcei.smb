@@ -1,0 +1,84 @@
+**++ Symbol table for subprogram XCEI in file mis/xcei.f90
+     produced by SPAG     7.61RG-40 at 01:00:00 on 21 Mar 2022
+   0         X             K             mis/xcei.f90,0000002,0000239
+   1         C     / 1/ ?U         28   /OSCENT/BUF
+   2         C     / 6/  U        328   /SYSTEM/BFSZ,ISYSOU,DUM21,ICFIAT,DUM57,ICPFLG
+   3         C     / 1/ MU        168   /XCEITB/CEITBL
+   4         C     / 1/ MU         12   /XDPL/IDPL
+   5         C     / 1/ MU         12   /XFIAT/IFIAT
+   6         C     / 1/  U          4   /XVPS/VPS
+   7         C     / 1/ ??          4   /ZZZZZZ/DATABF
+   8         fI    ( 2)  UXE            ANDF
+     (I4E,I4E)
+   9    2   1 I        C U E            BFSZ
+  10    1   1 I    ( 1)C?U E        7   BUF(7)
+  11    3   1 I    ( 1)CMU E       42   CEITBL(42)
+  12          I         MU E            CEITBX
+  13         s     ( 2)  U              CLOSE
+     (I4A,I4E)
+     (I4V,   )
+  14          I    ( 1)I U E        4   CONTRL(4)
+  15    7   1 I    ( 1)C?? E        1   DATABF(1)
+  16          I    ( 1) ?U E        2   DCPARM(2)
+  17    2   3 I    ( 1)C   E       21   DUM21(21)
+  18    2   5 I    ( 1)C   E       57   DUM57(57)
+  19         s     ( 2)  U              FWDREC
+     (ALT,I4V)
+  20          I         MU E            I
+  21          I         MU E            IBOT
+  22    2   4 I        C U E            ICFIAT
+  23    2   6 I        C U E            ICPFLG
+  24          I    ( 1) ?U E        1   IDIC(1)
+  25    4   1 I    ( 1)CMU E        3   IDPL(3)
+  26    5   1 I    ( 1)CMU E        3   IFIAT(3)
+  27          I         MU E            IHOLD
+  28          I         MU E            II
+  29    2   2 I        C   E            ISYSOU
+  30          I         MU E            ITOP
+  31          I         MU E            IVPSPT
+  32          I         MU E            J
+  33          I         MU E            JJ
+  34          I         MU E            KK
+  35         fI    ( 1)  U E            KORSZ
+     (I4L)
+  36          I         M? E            LDIC
+  37          I         MU E            LOOP
+  38          I         M? E            LPFLG
+  39         fI    ( 2)  UXE            LSHIFT
+     (I4E,I4E)
+  40          I         M? E            MASK
+  41          I        I?? E            MASK1
+  42         s     ( 3)  U              MESAGE
+     (I4E,I4E,I4E)
+     (   ,   ,I4A)
+     (   ,I4A,   )
+  43          I         MU E            MXLOOP
+  44          I         MU E            NBEGN
+  45          I        I U E            NBLANK
+  46          I         MU E            NEND
+  47          I         MU E            NEWSQ
+  48          I        I?? E            NOFLGS
+  49          I        I U E            NOSCAR
+  50          I         ?U E            NRECSZ
+  51          I    ( 1)I?? E        2   NXCEI(2)
+  52          I    ( 1)I?U E        2   NXPTDC(2)
+  53         s     ( 4)  U              OPEN
+     (ALT,I4V,I4A,I4E)
+     (   ,I4A,   ,   )
+  54         fI    ( 2)  UXE            ORF
+     (I4E,I4V)
+  55         s           U              PEXIT
+  56          I        I?? E            POOL
+  57         s     ( 7)  U              READ
+     (ALT,ALT,I4A,I4A,I4E,I4E,I4V)
+  58         s     ( 1)  U              REWIND
+     (I4V)
+  59         fI    ( 2)  UXE            RSHIFT
+     (I4E,I4E)
+  60         s     ( 2)  U              SKPFIL
+     (I4V,I4E)
+  61    6   1 I    ( 1)C U E        1   VPS(1)
+  62         s     ( 4)  U              WRITE
+     (I4A,I4A,I4E,I4E)
+  63         S                    132   XCEI
+**-- END OF SYMBOL TABLE

@@ -1,0 +1,18 @@
+**++ Symbol table for subprogram DSBLPK in file mds/dsblpk.f90
+     produced by SPAG     8.01RF-40 at 14:46:32 on  2 Dec 2023
+   0         X             K             mds/dsblpk.f90,0000002,0000029
+   1    2   1 I    ( 1)AMU E            BLOCK(15)
+   2         S     ( 1) MU         20   DSBLPK(BLOCK)
+   3         f?    ( 2) MU I            FCB
+     (I4E,?*V)
+   4         G?    ( 1)    I            IBASE
+   5          ?         ?? I            IFILEX
+   6          I         MU E            IFLAG
+   7          ?          U I            INDCLR
+   8          ?          U I            ITRAIL
+   9          ?          U I            ITYPI
+  10          ?          U I            ITYPO
+  11          ?          U I            NAME
+  12         s     ( 1)  U              PUTSTR
+     (I4A)
+**-- END OF SYMBOL TABLE

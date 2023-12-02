@@ -1,0 +1,14 @@
+**++ Symbol table for subprogram DSFWR1 in file mds/dsfwr1.f90
+     produced by SPAG     8.01RF-40 at 14:46:32 on  2 Dec 2023
+   0         X             K             mds/dsfwr1.f90,0000002,0000014
+   1         S                      7   DSFWR1
+   2         s           U              DSSKRC
+   3         I?    ( 2)  U I            IAND
+   4         f?    ( 1)  U I            IBASE
+     (? E)
+   5          I         MU E            ID
+   6          ?          U I            IDSEF
+   7          ?          U I            INDCLR
+   8          ?         M  I            IRETRN
+   9          ?          U I            MASKQ1
+**-- END OF SYMBOL TABLE

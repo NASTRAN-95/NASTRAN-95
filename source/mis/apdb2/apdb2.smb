@@ -1,0 +1,128 @@
+**++ Symbol table for subprogram APDB2 in file mis/apdb2.f90
+     produced by SPAG     8.01RF-40 at 14:46:58 on  2 Dec 2023
+   0         X             K             mis/apdb2.f90,0000002,0000193
+   1         C     / 1/  U          4   /APDBUG/DEBUG
+   2         C     /11/ ?U         44   /BITPOS/UM,UO,UR,USG,USB,UL,UA,UF,US,UN,UG
+   3         C     / 5/ ??         20   /NAMES/RD,RDREW,WRT,WRTREW,CLSREW
+   4         C     / 6/ M          48   /PATX/LC,N,NO,NY,USET1,IBC
+   5         C     / 2/ ??        220   /SYSTEM/KSYSTM,IPREC
+   6         C     / 1/ ??        128   /TWO/ITWO
+   7         C     / 2/ M?         20   /ZBLPKX/AP,II
+   8         C     / 1/ ??          4   /ZZZZZZ/CORE
+   9   12   9 R    ( 1)A?? E            ACSTM(1)
+  10         fI    ( 2)  UXE            ANDF
+     (I4L,I4L)
+  11    7   1 R    ( 1)CM? E        4   AP(4)
+  12         S     (13) MU        104   APDB2(IBUF1,IBUF2,NEXT,LEFT,NSTNS,NLINES,XSIGN,LCSTM,ACSTM,NODEX,NODEI,ISILC,XYZB)
+  13         s     ( 9)  U              APDB2A
+     (I4V,I4E,I4V,I4V,R4V,R4L,R4L,R4A,R4A)
+  14         s     ( 5)  U              BLDPK
+     (I4E,I4E,I4V,I4E,I4E)
+  15         s     ( 3)  U              BLDPKN
+     (I4V,I4E,I4A)
+  16         s     ( 4)  U              BUG1
+     (C*E,I4E,I4A,I4E)
+     (   ,   ,R4A,   )
+     (   ,   ,I4V,   )
+  17         s     ( 5)  U              CALCV
+     (I4V,I4V,I4V,I4V,I4A)
+  18         s     ( 2)  U              CLOSE
+     (I4V,I4V)
+  19    3   5 I        C?? E            CLSREW
+  20    8   1 I    ( 1)C?? E        1   CORE(1)
+  21    1   1 L        C U E            DEBUG
+  22         s     ( 4)  U              FREAD
+     (I4V,I4A,I4E,I4E)
+  23          I         M? E            GKAB
+  24          I         M? E            GKF
+  25          I         MU E            GKM
+  26          I         MU E            GKN
+  27          I         MU E            GKNB
+  28          I         M? E            GKO
+  29          I         MU E            GKS
+  30          I         M? E            GM
+  31         s     ( 9)  U              GMMATS
+     (R4A,I4E,I4E,I4E,R4A,I4E,I4E,I4E,R4A)
+  32          I         M? E            GO
+  33         s     ( 3)  U              GOPEN
+     (I4V,R4L,I4V)
+  34          I         MU E            GSIZE
+  35          I         MU E            GTKA
+  36          I         MU E            GTKG
+  37    4   6 I    ( 1)C   E        7   IBC(7)
+  38   12   1 I        A U E            IBUF1
+  39   12   2 I        A U E            IBUF2
+  40          I         MU E            ICOL
+  41          I    ( 1) ?U E        7   IDATA(7)
+  42    7   2 I        CM  E            II
+  43    5   2 I        C?? E            IPREC
+  44          I         MU E            ISIL
+  45   12  12 I    ( 1)AMU E            ISILC(1)
+  46          I    ( 1) MU E        7   ITRL(7)
+  47    6   1 I    ( 1)C?? E       32   ITWO(32)
+  49         fI    ( 1)  U E            KORSZ
+     (I4A)
+  50    5   1 I    ( 1)C   E       54   KSYSTM(54)
+  51    4   1 I        CM  E            LC
+  52   12   8 I        A?U E            LCSTM
+  53   12   4 I        A   E            LEFT
+  54          L        IMU E            MULTI
+  55    4   2 I        C   E            N
+  56          I         MU E            NCS
+  57          I         MU E            NDEG
+  58   12   3 I        A   E            NEXT
+  59          I         MU E            NLINE
+  60   12   6 I        A?U E            NLINES
+  61          I         MU E            NLOOP
+  62          I         MU E            NN
+  63    4   3 I        C   E            NO
+  64   12  11 I    ( 1)AM  E            NODEI(1)
+  65   12  10 I    ( 1)AM  E            NODEX(1)
+  66          I         MU E            NST
+  67   12   5 I        A?U E         Z  NSTNS
+  68    4   4 I        C   E            NY
+  69          L        IMU E            OMIT
+  70         s     ( 2)  U              PRETRS
+     (R4A,I4V)
+  71    3   1 I        C   E            RD
+  72          R    ( 1) MU E        7   RDATA(7)
+  73    3   2 I        C?? E            RDREW
+  74         s     ( 1)  U              RDTRL
+     (I4A)
+  75          I         M? E            SCR1
+  76          I         MU E            SCR2
+  77          L        IMU E            SINGLE
+  78         s     ( 4)  U              SSG2A
+     (I4V,I4V,I4E,I4V)
+  79         s     ( 8)  U              SSG2B
+     (I4V,I4V,I4V,I4V,I4E,I4V,I4E,I4V)
+  80          R    ( 2) ?? E        9   TA(3,3)
+  81          R    ( 1) MU E        3   TBL(3)
+  82          R    ( 1) MU E        3   TBLA(3)
+  83          R    ( 1) ?U E        3   TBLR(3)
+  84          R    ( 1) ?U E        3   TBLT(3)
+  85          I    ( 1) M? E        7   TGKG(7)
+  86         s     ( 2)  U              TRANSS
+     (R4L,R4A)
+  87    2   7 I        C?? E            UA
+  88    2   8 I        C?? E            UF
+  89    2  11 I        C?? E            UG
+  90    2   6 I        C   E            UL
+  91    2   1 I        C?U E            UM
+  92    2  10 I        C?? E            UN
+  93    2   2 I        C?U E            UO
+  94    2   3 I        C   E            UR
+  95    2   9 I        C?U E            US
+  96    2   5 I        C   E            USB
+  97          R         MU E            USET
+  98    4   5 I        CM  E            USET1
+  99    2   4 I        C   E            USG
+ 100    3   3 I        C   E            WRT
+ 101    3   4 I        C?? E            WRTREW
+ 102         s     ( 1)  U              WRTTRL
+     (I4A)
+ 103   12   7 R        A?? E            XSIGN
+ 104   12  13 R    ( 2)AMU E            XYZB(4,Nstns)
+ 105          R    ( 1) ?? E        1   Z(1)
+ 106         s           U              ZBLPKI
+**-- END OF SYMBOL TABLE

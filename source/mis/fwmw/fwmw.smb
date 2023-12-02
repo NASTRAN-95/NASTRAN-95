@@ -1,0 +1,78 @@
+**++ Symbol table for subprogram FWMW in file mis/fwmw.f90
+     produced by SPAG     8.01RF-40 at 14:47:22 on  2 Dec 2023
+   0         X             K             mis/fwmw.f90,0000002,0000192
+   1   29   6 R        A U E            A0
+   2   29   7 R    ( 1)A U E            ARB(1)
+   3   29  20 R    ( 1)A U E            AVR(1)
+   4          R         MU E            B
+   5   29  18 R        A?? E            BETA2
+   6          R         MU E            C
+   7   29  19 R        A?? E            CBAR
+   8   29   4 R        A?U E            CGS
+   9         IX    ( 2)  U I            CMPLX
+  10          R         M? E            DA
+  11          R         M? E            DAIB
+  12          R         M? E            DARIB
+  13          R         MU E            DELEPS
+  14          R         ?U E            DFYYI
+  15          R         ?U E            DFYYR
+  16          R         ?U E            DFYZI
+  17          R         ?U E            DFYZR
+  18          R         ?U E            DFZYI
+  19          R         ?U E            DFZYR
+  20          R         ?U E            DFZZI
+  21          R         ?U E            DFZZR
+  22          R         M? E            DMMY
+  23          R         MU E            DY
+  24          R         MU E            DYB
+  25          R         MU E            DZ
+  26          R         MU E            DZB
+  27          R         M? E            ETA
+  28          R         MU E            F
+  29         S     (22) MU        116   FWMW(ND,NE,SGS,CGS,IRB,A0,ARB,XBLE,XBTE,YB,ZB,XS,YS,ZS,NAS,NASB,KR,BETA2,CBAR,AVR,FWZ,FWY)
+  30   29  22 X        AMU E            FWY
+  31          R         MU E            FWYI
+  32          R         MU E            FWYR
+  33   29  21 X        AMU E            FWZ
+  34          R         MU E            FWZI
+  35          R         MU E            FWZR
+  36         s     (19)  U              FZY2
+     (R4V,R4V,R4V,R4V,R4V,R4V,R4V,R4V,R4V,R4V,I4V,R4V,R4V,R4V,R4V,R4V,R4V,R4V
+     ,R4V)
+  37          I         MU E            I
+  38          I         MU E            IB
+  39          I         M? E            INFL
+  40          I         ?U E            IOUTFL
+  41   29   5 I        A U E            IRB
+  42          I         MU E            IRET1
+  43          I         MU E            ITYPE
+  44          I         MU E            K
+  45   29  17 I        A?? E            KR
+  46   29  15 I        A U E            NAS
+  47   29  16 I    ( 1)A U E            NASB(1)
+  48   29   1 I        A U E            ND
+  49   29   2 I        A U E            NE
+  50          R         MU E            RHO
+  51          R         MU E            RHO2
+  52          R         MU E            RHODB
+  53          R         MU E            S
+  54          R         M? E            SG
+  55   29   3 R        A U E            SGS
+  56         I?    ( 1)  U I            SQRT
+  57         s     (21)  U              SUBI
+     (R4V,R4V,R4V,R4V,R4V,R4V,R4V,R4V,R4V,R4V,R4V,R4V,R4V,R4V,R4V,R4V,R4V,R4V
+     ,R4V,I4V,I4V)
+  58          R         MU E            SY
+  59          R         MU E            SZ
+  60   29   8 R        A?? E            XBLE
+  61   29   9 R        A?? E            XBTE
+  62   29  12 R        A?? E            XS
+  63   29  10 R    ( 1)A U E            YB(1)
+  64          R         M? E            YBI
+  65   29  13 R        A U E            YS
+  66   29  11 R    ( 1)A U E            ZB(1)
+  67          R         M? E            ZBAR
+  68          R         M? E            ZBI
+  69          R         M? E            ZETA
+  70   29  14 R        A U E            ZS
+**-- END OF SYMBOL TABLE

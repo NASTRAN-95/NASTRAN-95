@@ -1,0 +1,12 @@
+**++ Symbol table for subprogram WRTPRT in file mis/wrtprt.f90
+     produced by SPAG     8.01RF-40 at 14:47:13 on  2 Dec 2023
+   0         X             K             mis/wrtprt.f90,0000002,0000011
+   1    6   1 I        A?? E            FILE
+   2    6   3 I    ( 1)A?? E            FORMAT(N)
+   3    6   2 I    ( 1)A?U E            LIST(1)
+   4    6   4 I        A?U E         Z  N
+   5         s     ( 4)  U              WRITE
+     (I4V,I4A,I4E,I4E)
+     (   ,I4V,   ,   )
+   6         S     ( 4) ?U          3   WRTPRT(FILE,LIST,FORMAT,N)
+**-- END OF SYMBOL TABLE

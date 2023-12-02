@@ -1,0 +1,59 @@
+**++ Symbol table for subprogram SMP1 in file mis/smp1.f90
+     produced by SPAG     8.01RF-40 at 14:47:13 on  2 Dec 2023
+   0         X             K             mis/smp1.f90,0000002,0000067
+   1         C     /13/ ??         52   /BITPOS/UM,UO,UR,USG,USB,UL,UA,UF,US,UN,UG,UE,UP
+   2          I    ( 1) ?? E        3   AA(3)
+   3          I         ?? E            AAB
+   4          I        I   E            BAA
+   5          I        I   E            BFF
+   6         s     ( 8)  U              ELIM
+     (I4V,I4L,I4L,I4V,I4L,I4V,I4V,I4V)
+   7         s     ( 6)  U              FACTOR
+     (I4V,I4V,I4V,I4V,I4V,I4V)
+   8          I    ( 1) ?U E        3   FF(3)
+   9          I        I?? E            GO
+  10          I         MU E            I
+  11          I    ( 1)I?? E        3   IOAB(3)
+  12          I    ( 1)I?? E        3   IOOB(3)
+  13          I        I   E            K4AA
+  14          I        I   E            K4FF
+  15          I        I?? E            KAA
+  16          I        I?? E            KFF
+  17          I        I?? E            KOOB
+  18          I        I?? E            LOO
+  19          I        I   E            MAA
+  20          I    ( 1) MU E        7   MCB(7)
+  21          I        I   E            MFF
+  22         s     ( 5)  U              MPART
+     (I4V,I4V,I4A,I4E,I4V)
+  23          I        I   E            OAB
+  24          I        I   E            OOB
+  25         s     ( 1)  U              RDTRL
+     (I4A)
+  26          I        I?? E            SCR1
+  27          I        I?? E            SCR2
+  28          I        I?? E            SCR3
+  29          I        I?? E            SCR4
+  30          I        I   E            SCR5
+  31          I        I?? E            SCR6
+  32          I        I   E            SCR7
+  33         S                     12   SMP1
+  34         s     ( 8)  U              SOLVER
+     (I4V,I4V,I4A,I4V,I4V,I4E,I4E,I4V)
+  35    1   7 I        C?? E            UA
+  36    1  12 R        C   E            UE
+  37    1   8 I        C?? E            UF
+  38    1  11 R        C   E            UG
+  39    1   6 R        C   E            UL
+  40    1   1 R        C   E            UM
+  41    1  10 R        C   E            UN
+  42    1   2 I        C?? E            UO
+  43    1  13 R        C   E            UP
+  44         s     ( 5)  U              UPART
+     (I4V,I4V,I4V,I4V,I4V)
+  45    1   3 R        C   E            UR
+  46    1   9 R        C   E            US
+  47    1   5 R        C   E            USB
+  48          I        I?? E            USET
+  49    1   4 R        C   E            USG
+**-- END OF SYMBOL TABLE

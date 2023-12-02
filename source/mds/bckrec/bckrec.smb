@@ -1,0 +1,10 @@
+**++ Symbol table for subprogram BCKREC in file mds/bckrec.f90
+     produced by SPAG     8.01RF-40 at 14:46:34 on  2 Dec 2023
+   0         X             K             mds/bckrec.f90,0000002,0000010
+   1         S     ( 1)  U          4   BCKREC(FILE)
+   2         s           U              DSBRC1
+   3         s           U              DSGEFL
+   4         s           U              DSSDCB
+   5    1   1 I        A U E            FILE
+   6          ?         M  I            NAME
+**-- END OF SYMBOL TABLE

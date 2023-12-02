@@ -1,0 +1,18 @@
+**++ Symbol table for subprogram DBMINT in file mds/dbmint.f90
+     produced by SPAG     7.61RG-40 at 01:00:00 on 21 Mar 2022
+   0         X             K             mds/dbmint.f90,0000002,0000058
+   1         C     / 2/  U          8   /SYSTEM/ISYSBF,IWR
+   2         C     / 1/ M?         16   /ZZZZZZ/MEM
+   3         S                     10   DBMINT
+   4          ?          U I            IDBADR
+   5          ?         MU I            IDBBAS
+   6          ?         M  I            IDBDIR
+   7          ?         MU I            IDBFRE
+   8          ?          U I            IDBLEN
+   9    1   1 I        C U E            ISYSBF
+  10    1   2 I        C   E            IWR
+  11         fI    ( 1)  U E            LOCFX
+     (I4A)
+  12          ?         M  I            MAXALC
+  13    2   1 I    ( 1)CM? E        4   MEM(4)
+**-- END OF SYMBOL TABLE

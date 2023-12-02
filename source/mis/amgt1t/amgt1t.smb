@@ -1,0 +1,65 @@
+**++ Symbol table for subprogram AMGT1T in file mis/amgt1t.f90
+     produced by SPAG     8.01RF-40 at 14:46:51 on  2 Dec 2023
+   0         X             K             mis/amgt1t.f90,0000002,0000159
+   1          R         MU E            A1
+   2          R         MU E            A2
+   3          R         MU E            A3
+   4          R         MU E            A4
+   5          R         MU E            A5
+   6          R         MU E            A6
+   7          R         MU E            A7
+   8          R         MU E            A8
+   9          R         MU E            A9
+  10   11   3 I        A?? E            ACPT
+  11         S     ( 6) MU         81   AMGT1T(NLINE,NL,ACPT,NSTNS,C3T,C4T)
+  12          R         MU E            B1
+  13          R         MU E            B2
+  14          R         MU E            B3
+  15          R         MU E            B4
+  16          R         MU E            B5
+  17          R         MU E            B6
+  18          R         MU E            B7
+  19          R         MU E            B8
+  20          R         MU E            B9
+  21         s     ( 1)  U              BCKREC
+     (I4V)
+  22          R         MU E            C1
+  23          R         MU E            C2
+  24          R         MU E            C3
+  25   11   5 R        AM  E            C3T
+  26          R         MU E            C4
+  27   11   6 R        AM  E            C4T
+  28          R         MU E            C5
+  29          R         MU E            C6
+  30          R         MU E            C7
+  31          R         MU E            C8
+  32          R         MU E            C9
+  33          R    ( 1) ?U E        3   DATA(3)
+  34          R    ( 1) MU E        3   F1(3)
+  35          I        I?? E            FILE
+  36          R    ( 1) MU E        3   FN(3)
+  37         s     ( 4)  U              FREAD
+     (I4V,R4A,I4E,I4E)
+  38          I         MU E            I
+  39          I         M? E            IP1
+  40          R         MU E            L1
+  41          R         MU E            L2
+  42          R         MU E            L3
+  43         s     ( 3)  U              MESAGE
+     (I4V,I4V,I4A)
+  44          I         ?? E            MM
+  45          I    ( 1)I?? E        2   NAME(2)
+  46   11   2 I        A U E            NL
+  47   11   1 I        A U E            NLINE
+  48          I         M? E            NSKIP
+  49   11   4 I        A U E            NSTNS
+  50          R    ( 1) MU E        3   P1(3)
+  51          R    ( 1) MU E        3   PN(3)
+  52         s     ( 7)  U              READ
+     (ALT,ALT,I4V,R4A,I4E,I4E,I4V)
+  53          R    ( 1) MU E        3   S1(3)
+  54          R    ( 1) MU E        3   SN(3)
+  55         I?    ( 1)  U I            SQRT
+  56          R         MU E            W1
+  57          R         MU E            W2
+**-- END OF SYMBOL TABLE

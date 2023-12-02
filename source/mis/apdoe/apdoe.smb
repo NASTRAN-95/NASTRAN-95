@@ -1,0 +1,14 @@
+**++ Symbol table for subprogram APDOE in file mis/apdoe.f90
+     produced by SPAG     8.01RF-40 at 14:46:55 on  2 Dec 2023
+   0         X             K             mis/apdoe.f90,0000002,0000040
+   1         S     ( 6) MU         22   APDOE(ID,Z,START,END,FOUND,COUNT)
+   2    1   6 I        AMU E            COUNT
+   3    1   4 I        A U E            END
+   4    1   5 I        AM  E            FOUND
+   5          I         MU E            I
+   6    1   1 I        A U E            ID
+   7          I         MU E            J
+   8          L         MU E            LOOK
+   9    1   3 I        A U E            START
+  10    1   2 I    ( 1)A U E            Z(1)
+**-- END OF SYMBOL TABLE

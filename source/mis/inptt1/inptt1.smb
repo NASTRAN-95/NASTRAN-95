@@ -1,0 +1,109 @@
+**++ Symbol table for subprogram INPTT1 in file mis/inptt1.f90
+     produced by SPAG     7.61RG-40 at 01:00:00 on 21 Mar 2022
+   0         X             K             mis/inptt1.f90,0000002,0000475
+   1         C     / 4/  U         24   /BLANK/P1,P2,P3,P4
+   2         C     / 1/  U          4   /MACHIN/MACH
+   3         C     / 1/           260   /SYSTEM/KSYSTM
+   4         C     / 4/  U        102   /XMSSG/UFM,UWM,UIM,SFM
+   5         C     / 1/ ??          4   /ZZZZZZ/X
+   6         fI    ( 2)  UXE            ANDF
+     (I4E,I4V)
+   7          I    ( 1)I U E        4   BCDBIN(4)
+   8         s     ( 2)  U              CLOSE
+     (I4V,I4E)
+   9         s     ( 5)  U              CPYFIL
+     (I4V,I4V,R4A,I4V,I4V)
+  10          I    ( 1) ?? E        3   DX(3)
+  11         s     ( 2)  U              FNAME
+     (I4V,I4A)
+  12         s     ( 2)  U              FWDREC
+     (ALT,I4V)
+  13          I         MU E            I
+  14          I    ( 1)I U E        7   IDHDR(7)
+  15          I    ( 1) ?U E        7   IDHDRX(7)
+  16          I         M? E            IFILE
+  17          I         MU E            IN
+  18          I         MU E            INBUF
+  19          I    ( 1)I U E       10   INN(10)
+  20         S                    249   INPTT1
+  21         E                          INPUT1
+  22          I         M? E            IOLD
+  23          I        I U E            IPT1
+  24          I        I U E            IPT4
+  25          I         MU E            IPTX
+  26          I         ?? E            IX
+  27          I         MU E            J
+  28          I         MU E            J1
+  29          I         M? E            J2
+  30          I         MU E            KF
+  31         fI    ( 1)  U E            KORSZ
+     (R4A)
+  32    3   1 I    ( 1)C   E       65   KSYSTM(65)
+  33          I         MU E            LCOR
+  34          I         MU E            LINE
+  35    2   1 I        C U E            MACH
+  36          I        I?? E            MASK
+  37         s     ( 3)  U              MESAGE
+     (I4E,I4E,I4A)
+     (   ,   ,I4E)
+  38          I        I U E            METE
+  39          I        I U E            MFIV
+  40          I        I U E            MFOR
+  41          I        I U E            MNIN
+  42         I?    ( 2)  U I            MOD
+  43          I        I U E            MONE
+  44          I        I U E            MSC
+  45          I        I U E            MSIX
+  46          I        I U E            MTRE
+  47          I        I U E            MTWO
+  48          I    ( 1) MU E        2   NAME(2)
+  49          I    ( 1) ?U E        2   NAMEX(2)
+  50          I          U E            NB
+  51          I         ?U E            NF
+  52          I          U E            NLPP
+  53          I         MU E            NNT
+  54          I    ( 1)I U E        2   NONE(2)
+  55          I          U E            NOUT
+  56          I    ( 2) MU E       15   NT(5,3)
+  57         s     ( 4)  U              OPEN
+     (ALT,I4V,R4L,I4E)
+  58          I         MU E            OUBUF
+  59          I    ( 1)I U E        5   OUT(5)
+  60          I         MU E            OUTPUT
+  61    1   1 I        C U E            P1
+  62    1   2 I        C U E            P2
+  63    1   3 I    ( 1)C U E        2   P3(2)
+  64          I    ( 1) ?U E        2   P3X(2)
+  65    1   4 I    ( 1)C U E        2   P4(2)
+  66         s           U              PAGE1
+  67         s     ( 1)  U              PAGE2
+     (I4E)
+  68         s     ( 1)  U              RDTRL
+     (I4A)
+  69         s     ( 7)  U              READ
+     (ALT,ALT,I4V,I4A,I4E,I4E,I4V)
+  70         s     ( 1)  U              REWIND
+     (I4V)
+  71         fI    ( 2)  UXE            RSHIFT
+     (I4L,I4V)
+  72    4   4 C*25     C U E            SFM*25
+  73         s     ( 2)  U              SKPFIL
+     (I4V,I4E)
+  74          I    ( 1)I?? E        2   SUBNAM(2)
+  75         fL    ( 1)  U E            TAPBIT
+     (I4V)
+  76          I    ( 1) M? E        2   TAPCOD(2)
+  77          L         MU E            TAPEUP
+  78         s     ( 4)  U              TPSWIT
+     (I4V,I4V,I4E,I4A)
+  79          I    ( 1) MU E        7   TRL(7)
+  80    4   1 C*23     C U E            UFM*23
+  81    4   3 C*29     C U E            UIM*29
+  82         s     ( 1)  U              UNLOAD
+     (I4V)
+  83    4   2 C*25     C U E            UWM*25
+  84         s     ( 1)  U              WRTTRL
+     (I4A)
+  85    5   1 R    ( 1)C?? E        1   X(1)
+  86          I        I U E            ZERO
+**-- END OF SYMBOL TABLE

@@ -1,0 +1,96 @@
+**++ Symbol table for subprogram IFPPVC in file mis/ifppvc.f90
+     produced by SPAG     8.01RF-40 at 14:46:59 on  2 Dec 2023
+   0         X             K             mis/ifppvc.f90,0000002,0000343
+   1         C     /12/ MU       1016   /IFPDTA/ID,KN,D1,M,MF,M1,M1F,D2,NOPEN,D3,KNT,D4
+   2         C     / 2/  U         12   /IFPX1/NCDS,T1
+   3         C     / 5/ MU        332   /SYSTEM/IBUF,NOUT,ABORT,DUM,JRUN
+   4         C     / 1/  U         23   /XMSSG/UFM
+   5         C     / 1/ MU          4   /ZZZZZZ/KOR
+   6          R         MU E            A
+   7    3   3 L        CMU E            ABORT
+   8          I        I?? E            BLANK
+   9         s     ( 2)  U              CLOSE
+     (I4V,I4E)
+  10    1   3 R    ( 1)C   E       52   D1(52)
+  11    1   8 R    ( 1)C   E        3   D2(3)
+  12    1  10 R    ( 1)C   E        6   D3(6)
+  13    1  12 R    ( 1)C   E       18   D4(18)
+  14    3   4 I    ( 1)C   E       79   DUM(79)
+  15          I         MU E            I
+  16          I         MU E            IA
+  17         II    ( 1)  U I            IABS
+  18          I         MU E            IB
+  19    3   1 I        C U E            IBUF
+  20          I         MU E            IBUF1
+  21          I         MU E            ICS
+  22    1   1 I    ( 1)C   E        2   ID(2)
+  23          I         MU E            IDON
+  24          I         MU E            IF0
+  25          I         MU E            IFIELD
+  26          I        I?? E            IFIL
+  27         S     ( 2) MU        252   IFPPVC(IPVS,JR)
+  28          I         MU E            II
+  29          I         MU E            IK
+  30          I         MU E            IOLDN
+  31          I        I U E            IPAR
+  32          I        I U E            IPAR1
+  33          I        IMU E            IPLUS
+  34          I         MU E            IPP
+  35   27   1 I        AM  E            IPVS
+  36          I         MU E            ISORT
+  37          I        IMU E            ISTAR
+  38          I         MU E            ISTOP
+  39          I         MU E            ISV
+  40          I         MU E            IT
+  41          I        I U E            ITHR
+  42          I        I U E            IVAR
+  43          I        I U E            IVAR1
+  44          I         MU E            J
+  45   27   2 I    ( 1)AMU E            JR(1)
+  46    3   5 I        C U E            JRUN
+  47          I         MU E            K
+  48          I         ?? E            KDUM
+  49         fI    ( 4)  U E            KHRFN1
+     (I4V,I4E,I4V,I4E)
+  50    1   2 I        CMU E            KN
+  51    1  11 I        CMU E            KNT
+  52    5   1 I    ( 1)CMU E        1   KOR(1)
+  53          I         ?U E            L42
+  54          I         MU E            LN
+  55          I         MU E            LST
+  56          I         MU E            LTJ
+  57    1   4 I    ( 1)C   E       50   M(50)
+  58    1   6 I    ( 1)C?U E       35   M1(35)
+  59    1   7 I    ( 1)C?U E       35   M1F(35)
+  60         s     ( 3)  U              MESAGE
+     (I4E,I4V,I4A)
+  61    1   5 I    ( 1)C   E       50   MF(50)
+  62          I         MU E            N
+  63          I         MU E            N1
+  64          I         MU E            N2
+  65          I    ( 1)I?? E        2   NAME(2)
+  66    2   1 I        C   E            NCDS
+  67          I        I U E            NCDSMX
+  68    1   9 I        CMU E            NOPEN
+  69    3   2 I        C U E            NOUT
+  70          I        I?? E            NPTP
+  71          I         MU E            NV
+  72          I         ?U E            NW
+  73         s     ( 4)  U              OPEN
+     (ALT,I4V,I4L,I4E)
+  74         s     ( 4)  U              RCARD
+     (I4A,I4A,I4V,I4A)
+  75         s     ( 4)  U              RCARD2
+     (I4A,I4A,I4V,I4A)
+  76         s     ( 7)  U              READ
+     (ALT,ALT,I4V,I4A,I4E,I4E,I4V)
+  77         s     ( 6)  U              SORT
+     (I4E,I4E,I4E,I4E,I4L,I4V)
+  78         s     ( 2)  U              SSWTCH
+     (I4E,I4V)
+  79    2   2 I    ( 2)C U E        2   T1(2,1)
+  80    4   1 C*23     C U E            UFM*23
+  81         s     ( 4)  U              WRITE
+     (I4V,I4E,I4E,I4E)
+  82          R    ( 1) MU E        1   Z(1)
+**-- END OF SYMBOL TABLE

@@ -1,0 +1,67 @@
+**++ Symbol table for subprogram MPLPRT in file mis/mplprt.f90
+     produced by SPAG     8.01RF-40 at 14:47:09 on  2 Dec 2023
+   0         X             K             mis/mplprt.f90,0000002,0000331
+   1         C     / 6/ M         768   /OUTPUT/T1,T2,T3,H1,H2,H3
+   2         C     / 6/  U         48   /SYSTEM/NB,NO,JUNK1,NLPP,JUNK2,LINE
+   3         C     / 1/  U          4   /XFIST/NFIST
+   4         C     / 3/  U         12   /XGPI2/LMPL,MPLPNT,MPL
+   5         C     / 1/  U          8   /XGPI2X/XX
+   6         C     / 5/  U        129   /XMSSG/UFM,UWM,UIM,SFM,SWM
+   7         C     / 1/  U          4   /XPFIST/NPFIST
+   8          I    ( 1)I U E        2   ADD(2)
+   9          I         MU E            FLAG
+  10          I        I U E            FLAGB
+  11          I        I U E            FLAGS
+  12          I         MU E            FLGTOT
+  13    1   4 I    ( 1)CM  E       32   H1(32)
+  14          I    ( 1)I U E       32   H1X(32)
+  15    1   5 I    ( 1)CM  E       32   H2(32)
+  16          I    ( 1)I U E       32   H2X(32)
+  17    1   6 I    ( 1)CM  E       32   H3(32)
+  18          I    ( 1)I U E       32   H3X(32)
+  19          I         MU E            I
+  20          I         MU E            I0
+  21          I         MU E            I1
+  22          I         MU E            I2
+  23         II    ( 1)  U I            IABS
+  24          I         MU E            IP
+  25          I         MU E            J1
+  26          I         MU E            J2
+  27    2   3 I    ( 1)C   E        6   JUNK1(6)
+  28    2   5 I    ( 1)C   E        2   JUNK2(2)
+  29          I    ( 1)I U E        6   KP(6)
+  30          I         MU E            L
+  31          I         MU E            L1
+  32          I         MU E            L2
+  33    2   6 I        C   E            LINE
+  34    4   1 I        C U E            LMPL
+  35          I         MU E            M
+  36          I         MU E            M1
+  37          I         MU E            M2
+  38         I?    ( 2)  U I            MOD
+  39    4   3 I    ( 1)C U E        1   MPL(1)
+  40          I         MU E            MPLID
+  41    4   2 I        C   E            MPLPNT
+  42         S                    177   MPLPRT
+  43    2   1 I        C   E            NB
+  44    3   1 I        C U E            NFIST
+  45    2   4 I        C   E            NLPP
+  46    2   2 I        C U E            NO
+  47          I         MU E            NP
+  48          I         MU E            NPAD
+  49    7   1 I        C U E            NPFIST
+  50         s           U              PAGE
+  51         s     ( 1)  U              PAGE2
+     (I4E)
+  52    6   4 C*25     C   E            SFM*25
+  53    6   5 C*27     C U E            SWM*27
+  54    1   1 I    ( 1)C   E       32   T1(32)
+  55    1   2 I    ( 1)C   E       32   T2(32)
+  56    1   3 I    ( 1)C   E       32   T3(32)
+  57          I         MU E            TOT
+  58    6   1 C*23     C   E            UFM*23
+  59    6   3 C*29     C   E            UIM*29
+  60    6   2 C*25     C   E            UWM*25
+  61          R    ( 2)  U E        2   X(2,1)
+  62    5   1 D    ( 1)C U E        1   XX(1)
+**-- END OF SYMBOL TABLE

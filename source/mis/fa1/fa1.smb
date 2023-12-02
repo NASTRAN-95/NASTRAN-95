@@ -1,0 +1,132 @@
+**++ Symbol table for subprogram FA1 in file mis/fa1.f90
+     produced by SPAG     8.01RF-40 at 14:46:36 on  2 Dec 2023
+   0         X             K             mis/fa1.f90,0000002,0000406
+   1         C     / 3/ MU         12   /BLANK/FLOOP,TSTART,ICEAD
+   2         C     / 1/ ??        384   /OUTPUT/HDG
+   3         C     / 5/ MU         20   /PACKX/ITI,ITO,IJ,NN,INCR1
+   4         C     / 2/  U          8   /SYSTEM/SYSBUF,OUT
+   5         C     / 4/ M          16   /UNPAKX/IOUT,II,JJ,INCR
+   6         C     / 1/  U         23   /XMSSG/UFM
+   7         C     / 1/ ?U          4   /ZZZZZZ/IZ
+   8          I    ( 1)I?? E        2   AERO(2)
+   9          I        I?U E            BHH
+  10          R    ( 1) M? E       12   BLOCK(12)
+  11          R         MU E            BREF
+  12          I         MU E            BUFF
+  13          I         MU E            BUFF1
+  14          I        I?U E            BXHH
+  15          I        I?U E            CASECC
+  16         s     ( 2)  U              CLOSE
+     (I4V,I4E)
+  17         s     ( 5)  U              CYCT2B
+     (I4V,I4V,I4V,R4A,I4A)
+  18          R    ( 1) M? E        3   DLT(3)
+  19         S                    291   FA1
+  20         s     ( 5)  U              FA1K
+     (I4V,R4V,R4V,I4V,I4E)
+  21         s     ( 7)  U              FA1KE
+     (I4V,R4V,R4V,R4V,R4V,I4V,I4V)
+  22         s     (10)  U              FA1PKE
+     (I4V,I4V,I4V,I4V,I4V,I4V,R4V,R4V,I4V,I4V)
+  23         s     ( 2)  U              FA1PKI
+     (I4V,I4V)
+  24          I    ( 1)I?? E        2   FLFACT(2)
+  25          I        I?U E            FLIST
+  26    1   1 I        CMU E            FLOOP
+  27          I    ( 1) ?U E       10   FLUT(10)
+  28          I    ( 1)I?? E        2   FLUTER(2)
+  29          I         MU E            FMETHD
+  30         s     ( 2)  U              FNAME
+     (I4V,I4A)
+  31          I        I?U E            FSAVE
+  32         s     ( 3)  U              GOPEN
+     (I4V,I4L,I4E)
+     (   ,R4L,   )
+  33    2   1 R    ( 1)C?? E       96   HDG(96)
+  34          I         MU E            I
+  35          I         MU E            I165
+  36          I    ( 1) M  E       12   IBLOCK(12)
+  37          I         MU E            IBUF
+  38    1   3 I        CM  E            ICEAD
+  39          I         M? E            ICO
+  40          I         ?? E            IDUM
+  41          I         M? E            IEP
+  42          I         M? E            IFILE
+  43    5   2 I        C   E            II
+  44    3   3 I        CM  E            IJ
+  45          I    ( 1)I U E        2   IMETH(2)
+  46    5   4 I        CM  E            INCR
+  47    3   5 I        CM  E            INCR1
+  48    5   1 I        CM  E            IOUT
+  49    3   1 I        CM  E            ITI
+  50    3   2 I        CM  E            ITO
+  51    7   1 I    ( 1)C?U E        1   IZ(1)
+  52          I         MU E            IZX
+  53    5   3 I        C   E            JJ
+  54          R         ?U E            KFREQ
+  55          I        I?U E            KHH
+  56         s     ( 1)  U              KLOCK
+     (I4V)
+  57         fI    ( 1)  U E            KORSZ
+     (I4A)
+  58          I        I?U E            KXHH
+  59          I         MU E            LCC
+  60          I         MU E            LFL
+  61         s     ( 4)  U              LOCATE
+     (ALT,I4L,I4A,I4V)
+  62         s     ( 3)  U              MESAGE
+     (I4E,I4E,I4A)
+  63          I    ( 1)I U E        4   METHOD(4)
+  64          I        I?? E            MHH
+  65         II    ( 2)  U I            MIN0
+  66          I        I?? E            MXHH
+  67          I         MU E            NCORE
+  68          I         M? E            NEIW
+  69          I         MU E            NLOOPS
+  70          I        I U E            NMD
+  71    3   4 I        CMU E            NN
+  72          I         MU E            NP
+  73          I         MU E            NRHO
+  74          I    ( 1)I?? E        2   NS(2)
+  75          I         MU E            NWR
+  76         s     ( 4)  U              OPEN
+     (ALT,I4V,I4L,I4E)
+     (   ,   ,R4L,   )
+  77    4   2 I        C U E            OUT
+  78         s     ( 3)  U              PACK
+     (R4A,I4V,I4A)
+  79          I         MU E            PK
+  80          I         MU E            PM
+  81          I         MU E            PR
+  82         s     ( 3)  U              PRELOC
+     (ALT,I4L,I4V)
+  83          I        I?U E            QHHL
+  84         s     ( 1)  U              RDTRL
+     (I4A)
+  85         s     ( 7)  U              READ
+     (ALT,ALT,I4V,I4A,I4E,I4E,I4V)
+     (   ,   ,   ,R4A,   ,   ,   )
+  86          R    ( 1) MU E        8   REC(8)
+  87          I    ( 1) MU E        8   REC0(8)
+  88          R         ?U E            RHO
+  89          R         MU E            RREF
+  90          I        I?U E            SCR1
+  91          I         MU E            SK
+  92          I         MU E            SL
+  93          I         MU E            SM
+  94          I         M? E            SMETH
+  95          I         MU E            SR
+  96         s     ( 5)  U              SSG2C
+     (I4V,I4E,I4V,I4E,R4L)
+  97    4   1 I        C U E            SYSBUF
+  98          I    ( 1)IMU E       10   TRL(10)
+  99    1   2 I        C?? E            TSTART
+ 100    6   1 C*23     C U E            UFM*23
+ 101         s     ( 4)  U              WRITE
+     (I4V,I4A,I4E,I4E)
+     (   ,R4A,   ,   )
+     (   ,I4E,   ,   )
+ 102         s     ( 1)  U              WRTTRL
+     (I4A)
+ 103          R    ( 1) ?U E        1   Z(1)
+**-- END OF SYMBOL TABLE

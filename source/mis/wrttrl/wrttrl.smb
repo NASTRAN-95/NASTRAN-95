@@ -1,0 +1,62 @@
+**++ Symbol table for subprogram WRTTRL in file mis/wrttrl.f90
+     produced by SPAG     8.01RF-40 at 14:47:03 on  2 Dec 2023
+   0         X             K             mis/wrttrl.f90,0000002,0000218
+   1         C     / 2/  U          8   /L15L8/L15,L8
+   2         C     / 1/  U          4   /LOGOUT/LOUT
+   3         C     / 1/             4   /MACHIN/MACH
+   4         C     / 1/           700   /SYSTEM/SYSTEM
+   5         C     / 1/ MU         12   /XFIAT/FIAT
+   6         C     / 1/  U          8   /XFIST/FIST
+   7         C     / 5/  U        129   /XMSSG/UFM,UWM,UIM,SFM,SWM
+   8         C     / 1/ M          24   /XSORTX/ISAV
+   9         fI    ( 2)  UXE            ANDF
+     (I4V,I4E)
+  10          R         MU E            COUNT
+  11    5   1 I    ( 1)CMU E        3   FIAT(3)
+  12          I    ( 1)AMU E        7   FILBK(7)
+  13   51   1 I    ( 1)AMU E            FILBLK(7)
+  14    6   1 I    ( 1)C U E        2   FIST(2)
+  15          R         MU E            FM
+  16          R         MU E            FN
+  17         s     ( 2)  U              FNAME
+     (I4L,I4L)
+  18          I         MU E            I
+  19         II    ( 1) ?U I            IABS
+  20          I          U E            ICFIAT
+  21          I         MU E            IENDF
+  22          I         MU E            INDEX
+  23          I          U E            IOUT
+  24    8   1 I    ( 1)CM  E        6   ISAV(6)
+  25          I         MU E            ITUCB
+  26          I         MU E            IUCB
+  27    1   1 I        C U E            L15
+  28    1   2 I        C U E            L8
+  29          I    ( 1) ?U E        2   LB(2)
+  30    2   1 I        C U E            LOUT
+  31         fI    ( 2)  UXE            LSHIFT
+     (I4E,I4E)
+  32    3   1 I        C   E            MACH
+  33          I        I?? E            MASK
+  34          I        IMU E            MBIT
+  35         s     ( 3)  U              MESAGE
+     (I4E,I4L,I4A)
+  36          I         MU E            N
+  37          I    ( 1)I?? E        2   NAME(2)
+  38          I          U E            NBPW
+  39          I         MU E            NOUT
+  40         fI    ( 2)  UXE            ORF
+     (I4L,I4E)
+  41         E     ( 1)                 RDTRL(FILBK)
+  42         fI    ( 2)  UXE            RSHIFT
+     (I4L,I4E)
+  43    7   4 C*25     C   E            SFM*25
+  44         s     ( 2)  U              SSWTCH
+     (I4E,I4V)
+  45    7   5 C*27     C U E            SWM*27
+  46    4   1 R    ( 1)C   E      175   SYSTEM(175)
+  47    7   1 C*23     C   E            UFM*23
+  48    7   3 C*29     C   E            UIM*29
+  49    7   2 C*25     C   E            UWM*25
+  50          R    ( 1)I U E        4   WORDS(4)
+  51         S     ( 1) MU        110   WRTTRL(FILBLK)
+**-- END OF SYMBOL TABLE

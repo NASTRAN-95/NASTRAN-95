@@ -1,0 +1,90 @@
+**++ Symbol table for subprogram TABLE5 in file mis/table5.f90
+     produced by SPAG     8.01RF-40 at 14:46:43 on  2 Dec 2023
+   0         X             K             mis/table5.f90,0000002,0000453
+   1         C     / 3/ MU         24   /BLANK/DUMMY,P4,TI
+   2         C     / 1/  U          4   /MACHIN/MACH
+   3         C     / 2/ MU          8   /SYSTEM/SYSBUF,NOUT
+   4         C     / 3/  U         77   /XMSSG/UFM,UWM,UIM
+   5         C     / 1/ MU          4   /ZZZZZZ/Z
+   6         s     ( 2)  U              CLOSE
+     (I4V,I4E)
+   7          L        IMU E            DEBUG
+   8          I        I U E            DEL
+   9          L         MU E            DP
+  10          D          U E            DTEMP
+  11    1   1 I    ( 1)C   E        4   DUMMY(4)
+  12          I        I U E            END
+  13          C*10 ( 1) MU E       30   FMT(30)*10
+  14          C*10     I U E            FMTB*10
+  15          C*10     I U E            FMTD*10
+  16          C*10     I U E            FMTI*10
+  17          C*10     I U E            FMTR*10
+  18          C*10     I U E            FMTX*10
+  19   63   7 I    ( 2)AM  E            FN(3,1)
+  20         s     ( 2)  U              FNAME
+     (I4V,I4A)
+  21         s     ( 3)  U              FORWRT
+     (CAA,R4L,I4E)
+  22         s     ( 2)  U              FWDREC
+     (ALT,I4V)
+  23          I         MU E            I
+  24         II    ( 1)  U I            IABS
+  25          I         MU E            IB
+  26   63   4 I        A U E            IBUF
+  27   63   1 I        AM? E            IN
+  28          I         MU E            ISAVE
+  29          I         MU E            J
+  30          I         MU E            JI
+  31          I         MU E            JJ
+  32          I         MU E            JZ
+  33          I         MU E            K
+  34          I         MU E            KK
+  35          I         MU E            KK1
+  36          I         MU E            KK2
+  37          I         MU E            KK3
+  38          I         MU E            KORE
+  39          I         MU E            L
+  40          I         MU E            L5
+  41   63   6 I        AMU E            LFN
+  42          I         MU E            LL
+  43          C*10     I U E            LPREN*10
+  44          C*10     I U E            LPRI10*10
+  45    2   1 I        C U E            MACH
+  46         s     ( 3)  U              MESAGE
+     (I4V,I4V,I4A)
+  47         I?    ( 2)  U I            MOD
+  48          I    ( 1) ?U E        2   NAME(2)
+  49    3   2 I        CMU E            NOUT
+  50         fI    ( 1)  U E            NUMTYP
+     (I4L)
+  51         s     ( 4)  U              OPEN
+     (ALT,I4V,I4L,I4E)
+  52   63   2 I        A?U E            OUT
+  53    1   2 I        C U E            P4
+  54         s           U              PAGE1
+  55         s     ( 1)  U              PAGE2
+     (I4E)
+  56          I         MU E            PJJ
+  57         s     ( 7)  U              READ
+     (ALT,ALT,I4V,I4A,I4E,I4E,I4V)
+  58          C*10     I U E            RPREN*10
+  59          R    ( 1) ?U E        1   RZ(1)
+  60         IR    ( 1)  U I            SNGL
+  61          I    ( 1)I?? E        2   SUB(2)
+  62    3   1 I        C   E            SYSBUF
+  63         S     ( 7) MU        254   TABLE5(IN,OUT,TRL,IBUF,WRT,LFN,FN)
+  64          I        I U E            TBLE
+  65          R    ( 1) M  E        2   TEMP(2)
+  66    1   3 I    ( 1)CMU E        1   TI(1)
+  67          I         MU E            TIL
+  68          I         MU E            TIL10
+  69          L         MU E            TION
+  70   63   3 I    ( 1)AMU E            TRL(7)
+  71    4   1 C*23     C   E            UFM*23
+  72    4   3 C*29     C U E            UIM*29
+  73    4   2 C*25     C U E            UWM*25
+  74         s     ( 4)  U              WRITE
+     (I4V,I4L,I4V,I4E)
+  75   63   5 I        AM  E            WRT
+  76    5   1 I    ( 1)CMU E        1   Z(1)
+**-- END OF SYMBOL TABLE

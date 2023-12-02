@@ -1,0 +1,22 @@
+**++ Symbol table for subprogram STACK in file mis/stack.f90
+     produced by SPAG     8.01RF-40 at 14:47:05 on  2 Dec 2023
+   0         X             K             mis/stack.f90,0000002,0000070
+   1         C     / 2/ MU         24   /BANDD/DUM,KT
+   2         C     / 1/  U          4   /BANDS/NN
+   3    1   1 R    ( 1)C   E        5   DUM(5)
+   4          I         MU E            I
+   5   18   1 I    ( 1)A U E            IDEG(1)
+   6   18   3 I    ( 1)AMU E            ILD(1)
+   7   18   4 I    ( 1)AMU E            IW(1)
+   8          I         MU E            J
+   9          I         MU E            J1
+  10          I         MU E            K
+  11          I         MU E            KFLAG
+  12    1   2 I        CMU E            KT
+  13          I         MU E            KT1
+  14          I         MU E            L
+  15   18   2 I    ( 1)AMU E            NEW(1)
+  16    2   1 I        C U E            NN
+  17          I         MU E            NN1
+  18         S     ( 4) MU         41   STACK(IDEG,NEW,ILD,IW)
+**-- END OF SYMBOL TABLE

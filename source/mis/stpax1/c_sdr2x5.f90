@@ -1,0 +1,17 @@
+!*==/home/marcusmae/nasa/nastran/SPAGged/C_SDR2X5.f90  created by SPAG 7.61RG at 01:00 on 21 Mar 2022
+MODULE C_SDR2X5
+   REAL, DIMENSION(144) :: Ak
+   REAL, DIMENSION(16) :: Akph2
+   REAL, DIMENSION(48) :: Akuph
+   REAL, DIMENSION(61) :: Dum5
+   REAL, DIMENSION(39) :: Ecpt
+   INTEGER :: Idel
+   INTEGER, DIMENSION(4) :: Igp
+   REAL, DIMENSION(14) :: Phi
+   REAL, DIMENSION(360) :: Sel
+   REAL, DIMENSION(120) :: Selp1
+   REAL, DIMENSION(180) :: Selp2
+   REAL, DIMENSION(60) :: Selp3
+   REAL, DIMENSION(06) :: Ts
+   REAL :: Tz
+END MODULE C_SDR2X5

@@ -1,0 +1,16 @@
+**++ Symbol table for subprogram CSUB in file mis/csub.f90
+     produced by SPAG     8.01RF-40 at 14:46:49 on  2 Dec 2023
+   0         X             K             mis/csub.f90,0000002,0000020
+   1         C     / 2/  U          8   /CINVPX/AAA,NCOL
+   2    5   4 D    ( 1)A U E            A(2)
+   3    1   1 R        C   E            AAA
+   4    5   5 D    ( 1)A U E            B(2)
+   5         S     ( 5) MU          6   CSUB(X,Y,Z,A,B)
+   6          D         MU E            DUM
+   7          I         MU E            I
+   8    1   2 I        C U E            NCOL
+   9          I         MU E            NCOL2
+  10    5   1 D    ( 1)A U E            X(2)
+  11    5   2 D    ( 1)A U E            Y(2)
+  12    5   3 D    ( 1)AM  E            Z(1)
+**-- END OF SYMBOL TABLE

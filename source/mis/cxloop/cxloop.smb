@@ -1,0 +1,16 @@
+**++ Symbol table for subprogram CXLOOP in file mis/cxloop.f90
+     produced by SPAG     8.01RF-40 at 14:46:56 on  2 Dec 2023
+   0         X             K             mis/cxloop.f90,0000002,0000018
+   1         E     ( 4)                 CLOOP(XX,YY,MPY,M)
+   2         S     ( 3) MU         10   CXLOOP(X,Y,N)
+   3          I         MU E            I
+   4          I        A U E            M
+   5          I         MU E            MM
+   6          D    ( 1)A U E        2   MPY(2)
+   7    2   3 I        A U E            N
+   8          I         MU E            NN
+   9    2   1 D    ( 1)AM  E            X(1)
+  10          D    ( 1)AMU E        2   XX(2)
+  11    2   2 D    ( 1)A U E            Y(1)
+  12          D    ( 1)A U E        2   YY(2)
+**-- END OF SYMBOL TABLE

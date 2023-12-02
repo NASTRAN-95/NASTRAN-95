@@ -1,0 +1,179 @@
+**++ Symbol table for subprogram INPUT in file mis/input.f90
+     produced by SPAG     8.01RF-40 at 14:46:50 on  2 Dec 2023
+   0         X             K             mis/input.f90,0000002,0001628
+   1         C     / 3/  U         12   /BLANK/PARAMA,PARAMB,PARAMC
+   2         C     / 5/  U         20   /CONDAS/PI,TWOPI,RADEG,DEGRA,S4PISQ
+   3         C     / 1/  U          4   /MACHIN/MACH
+   4         C     / 1/           400   /SYSTEM/KSYSTM
+   5         C     / 1/ ??        128   /TWO/TWO
+   6         C     / 4/  U        102   /XMSSG/UFM,UWM,UIM,SFM
+   7         C     / 1/ ??          4   /ZZZZZZ/X
+   8          C*8       MU E            CHR*8
+   9          R         MU E            CL
+  10         s     ( 2)  U              CLOSE
+     (I4V,I4E)
+  11          I    ( 1)I?? E        2   CORD2C(2)
+  12         I?    ( 1)  U I            COS
+  13          R         MU E            DDY
+  14    2   4 R        C U E            DEGRA
+  15          R         MU E            DX
+  16          R         MU E            DY
+  17          C*8      I U E            E1*8
+  18          C*8      I U E            E2*8
+  19          C*8      I U E            E3*8
+  20          I    ( 1)I?U E        3   EEE(3)
+  21          R         MU E            F
+  22          I         MU E            FIL
+  23          I         MU E            FILE
+  24          I    ( 1)I?U E        5   FILIN(5)
+  25          I    ( 1)I U E        5   FILOUT(5)
+  26         IR    ( 1)  U I            FLOAT
+  27         s     ( 4)  U              FREAD
+     (I4V,I4L,I4E,I4E)
+  28         s     ( 3)  U              GOPEN
+     (I4V,R4L,I4E)
+  29          I    ( 2) ?U E       15   HFIL(3,5)
+  30          I         MU E            I
+  31          I    ( 1)I U E       20   I1T(20)
+  32          I         MU E            I1TT
+  33          I    ( 1)I U E       20   I2T(20)
+  34          I         MU E            I2TT
+  35          I         MU E            IBUF
+  36          I         MU E            IC
+  37          I         MU E            ICEN
+  38          I         MU E            IFIL
+  39          I         ?? E            IFLAG
+  40          I         MU E            IFLG
+  41          I         MU E            IG0
+  42          I         MU E            II
+  43          I         MU E            IJ
+  44          I         MU E            IL
+  45          I         MU E            ILL
+  46          I         MU E            ILMK
+  47          L    ( 1)IMU E        5   INOPEN(5)
+  48         S                   1220   INPUT
+  49          I         MU E            IOX
+  50          I         MU E            IOY
+  51          I         MU E            IP
+  52         fI    ( 2)  U E            IUNION
+     (I4V,I4V)
+  53          I         MU E            IW
+  54          I         MU E            IWMK
+  55          I         MU E            IWW
+  56          I    ( 1)    E        1   IX(1)
+  57          I         MU E            IX0
+  58          I         MU E            IXW
+  59          I         MU E            IY0
+  60          I         MU E            IYL
+  61          I         MU E            J
+  62          I    ( 1)I?U E       20   J1T(20)
+  63          I         MU E            J1TT
+  64          I    ( 1)I U E       20   J2T(20)
+  65          I         MU E            J2TT
+  66          I         MU E            JJ
+  67          I    ( 1) MU E      100   K(100)
+  68          I    ( 1)I   E      100   K1(100)
+  69          I    ( 1)I   E      100   K2(100)
+  70          I    ( 1)I   E       70   K3(70)
+  71          I    ( 2)I U E       40   KDN(2,20)
+  72          I    ( 1)  U E      270   KDSORT(270)
+  73          I         MU E            KK
+  74          I         MU E            KKK
+  75          I    ( 1)I?? E       20   KL(20)
+  76          I    ( 1)I?U E       20   KNO(20)
+  77          I         MU E            KNOIC
+  78          I         MU E            KNOX
+  79          I         MU E            KOR
+  80         fI    ( 1)  U E            KORSZ
+     (R4A)
+  81          I         MU E            KSRT
+  82          I         MU E            KSRTX
+  83    4   1 I    ( 1)C   E      100   KSYSTM(100)
+  84          I    ( 1)I U E       20   KT(20)
+  85          I         MU E            KTT
+  86          I         MU E            L
+  87          R         MU E            LAMBDA
+  88         GI    ( 3)  U E            LF
+  89         s     ( 4)  U              LOCATE
+     (ALT,R4L,I4A,R4L)
+  90          I         MU E            M
+  91    3   1 I        C U E            MACH
+  92         s     ( 3)  U              MESAGE
+     (I4E,I4E,I4A)
+  93          I    ( 1)I?? E        2   MNAM(2)
+  94         I?    ( 2)  U I            MOD
+  95          I    ( 1)  U E        9   MODCOM(9)
+  96          I         MU E            N
+  97          I         MU E            N1
+  98          I          U E            NBUF
+  99          I         MU E            NE
+ 100          I          U E            NIN
+ 101          I         MU E            NKOR
+ 102          I         MU E            NLINES
+ 103          I         MU E            NM1
+ 104          I         MU E            NN
+ 105          I          U E            NOUT
+ 106          I         MU E            NSLOAD
+ 107          I         MU E            NX
+ 108          I         MU E            NX1
+ 109          I         MU E            NY
+ 110          I         MU E            NY1
+ 111         s     ( 4)  U              OPEN
+     (ALT,I4V,R4L,I4E)
+ 112         fI    ( 2)  UXE            ORF
+     (I4L,I4L)
+ 113         s           U              PAGE1
+ 114         s     ( 1)  U              PAGE2
+     (I4E)
+ 115          I        I U E            PARAM1
+ 116    1   1 I        C U E            PARAMA
+ 117    1   2 I        C U E            PARAMB
+ 118    1   3 I        C U E            PARAMC
+ 119          I        I U E            PARAMN
+ 120    2   1 R        C   E            PI
+ 121         s     ( 3)  U              PRELOC
+     (ALT,R4L,I4L)
+ 122          R    ( 1) M? E      100   QK(100)
+ 123          I         MU E            R
+ 124          I         MU E            R1
+ 125          I         MU E            R2
+ 126    2   3 R        C   E            RADEG
+ 127          I         ?? E            RDFLG
+ 128         s     ( 1)  U              RDTRL
+     (I4A)
+ 129         s     ( 7)  U              READ
+     (ALT,ALT,I4V,R4L,I4E,I4E,I4V)
+ 130    2   5 R        C   E            S4PISQ
+ 131    6   4 C*25     C U E            SFM*25
+ 132         I?    ( 1)  U I            SIN
+ 133         s     ( 2)  U              SKPREC
+     (I4V,I4E)
+ 134          R         MU E            SL
+ 135          I          U E            SPERLK
+ 136          I    ( 1) M? E        7   T(7)
+ 137          R         MU E            TH
+ 138    5   1 I    ( 1)C?? E       32   TWO(32)
+ 139    2   2 R        C   E            TWOPI
+ 140          R         MU E            U
+ 141    6   1 C*23     C U E            UFM*23
+ 142    6   3 C*29     C   E            UIM*29
+ 143    6   2 C*25     C U E            UWM*25
+ 144         s     ( 4)  U              WRITE
+     (I4V,I4A,I4E,I4E)
+     (   ,I4E,   ,   )
+     (   ,R4L,   ,   )
+ 145         s     ( 1)  U              WRTTRL
+     (I4A)
+ 146    7   1 R    ( 1)C?? E        1   X(1)
+ 147          R         MU E            X1
+ 148          R         MU E            X2
+ 149          R         MU E            X3
+ 150          R         MU E            XB
+ 151          R         MU E            XK1
+ 152          R         MU E            XK2
+ 153          R         MU E            XL
+ 154          R         MU E            XM
+ 155          R         MU E            XO
+ 156          R         MU E            ZK
+ 157          R         MU E            ZM
+**-- END OF SYMBOL TABLE

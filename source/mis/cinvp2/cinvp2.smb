@@ -1,0 +1,43 @@
+**++ Symbol table for subprogram CINVP2 in file mis/cinvp2.f90
+     produced by SPAG     8.01RF-40 at 14:46:41 on  2 Dec 2023
+   0         X             K             mis/cinvp2.f90,0000002,0000049
+   1         C     /11/ MU        132   /CDCMPX/FILEA,FILEL,FILEU,SR1FIL,SR2FIL,SR3FIL,DET,POWER,NZ,MINDIA,IB
+   2         C     /10/  U        180   /CINVPX/DUMM,SCR1,SCR2,SCR3,SCR4,SCR5,SCR6,SCR7,SCR8,SCR9
+   3         C     / 2/ MU         20   /CINVXX/DUM,SWITCH
+   4         C     / 2/  U         44   /NAMES/IJ,CDP
+   5         C     / 1/  U          4   /SYSTEM/SYSBUF
+   6         C     / 1/ ??          4   /ZZZZZZ/Z
+   7         s     ( 4)  U              CDCOMP
+     (ALT,R4A,R4A,R4A)
+   8    4   2 I        C U E            CDP
+   9         S                     28   CINVP2
+  10    1   7 D    ( 1)C   E        2   DET(2)
+  11    3   1 R    ( 1)C   E        4   DUM(4)
+  12    2   1 I    ( 1)C U E       36   DUMM(36)
+  13    1   1 I    ( 1)CMU E        7   FILEA(7)
+  14    1   2 I    ( 1)CM  E        7   FILEL(7)
+  15    1   3 I    ( 1)CMU E        7   FILEU(7)
+  16    1  11 I        CM  E            IB
+  17    4   1 I    ( 1)C   E       10   IJ(10)
+  18          I         MU E            IOFF
+  19         fI    ( 1)  U E            KORSZ
+     (R4A)
+  20    1  10 D        C   E            MINDIA
+  21    1   9 I        CMU E            NZ
+  22    1   8 R        C   E            POWER
+  23    2   2 I        C U E            SCR1
+  24    2   3 I        C   E            SCR2
+  25    2   4 I        C U E            SCR3
+  26    2   5 I        C U E            SCR4
+  27    2   6 I        C U E            SCR5
+  28    2   7 I        C U E            SCR6
+  29    2   8 I        C U E            SCR7
+  30    2   9 I        C U E            SCR8
+  31    2  10 I        C U E            SCR9
+  32    1   4 I        CM  E            SR1FIL
+  33    1   5 I        CM  E            SR2FIL
+  34    1   6 I        CM  E            SR3FIL
+  35    3   2 I        CMU E            SWITCH
+  36    5   1 I        C U E            SYSBUF
+  37    6   1 R    ( 1)C?? E        1   Z(1)
+**-- END OF SYMBOL TABLE

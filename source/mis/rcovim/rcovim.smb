@@ -1,0 +1,139 @@
+**++ Symbol table for subprogram RCOVIM in file mis/rcovim.f90
+     produced by SPAG     8.01RF-40 at 14:47:10 on  2 Dec 2023
+   0         X             K             mis/rcovim.f90,0000002,0000227
+   1         C     /12/  U         88   /BLANK/DRY,LOOP,STEP,FSS,RFNO,NEIGV,LUI,UINMS,NOSORT,UTHRES,PTHRES,QTHRES
+   2         C     /10/ MU        136   /MPYADX/MCBA,MCBB,MCBC,MCBD,MPYZ,TFLAG,SIGNAB,SIGNC,MPREC,SCRM
+   3         C     /17/ ?U         68   /NAMES/RD,RDREW,WRT,WRTREW,REW,NOREW,EOFNRW,RSP,RDP,CSP,CDP,SQUARE,RECT,DIAG,UPPER,LOWER,SYM
+   4         C     / 5/ MU         20   /PACKX/ITINP,ITOUTP,IRP,NRP,INCRP
+   5         C     /12/ MU         56   /RCOVCM/MRECVR,UA,PA,QA,IOPT,RSS,ENERGY,UIMPRO,RANGE,IREQ,LREQ,LBASIC
+   6         C     / 9/  U         36   /RCOVCR/ICORE,LCORE,BUF1,BUF2,BUF3,BUF4,SOF1,SOF2,SOF3
+   7         C     / 4/ MU         16   /UNPAKX/ITINU,IRU,NRU,INCRU
+   8         C     / 1/ ??          4   /ZZZZZZ/Z
+   9    6   3 I        C   E            BUF1
+  10    6   4 I        C   E            BUF2
+  11    6   5 I        C   E            BUF3
+  12    6   6 I        C   E            BUF4
+  13    3  11 R        C   E            CDP
+  14         s     ( 2)  U              CLOSE
+     (I4V,R4V)
+  15    3  10 R        C   E            CSP
+  16    3  14 R        C   E            DIAG
+  17    1   1 R        C   E            DRY
+  18    5   7 R        C   E            ENERGY
+  19    3   7 R        C   E            EOFNRW
+  20          I         M? E            FILE
+  21    1   4 I    ( 1)C   E        2   FSS(2)
+  22         s     ( 2)  U              FWDREC
+     (ALT,I4V)
+  23         s     ( 3)  U              GOPEN
+     (I4V,I4L,R4V)
+  24   79   1 I    ( 1)A?? E            HIGHER(2)
+  25          I         MU E            I
+  26    6   1 I        C   E            ICORE
+  27    4   5 I        CM  E            INCRP
+  28    7   4 I        CM  E            INCRU
+  29          I         M? E            INTYP
+  30    5   5 I        CM  E            IOPT
+  31    5  10 I        C   E            IREQ
+  32    4   3 I        CM  E            IRP
+  33    7   2 I        CM  E            IRU
+  34          I         MU E            ISK
+  35          I         M? E            ITEM
+  36    4   1 I        CM  E            ITINP
+  37    7   1 I        CM  E            ITINU
+  38    4   2 I        CM  E            ITOUTP
+  39          I         MU E            IVEC1
+  40          I         MU E            IVEC2
+  41          I         MU E            J
+  42          I         MU E            K
+  43          I        I?U E            KMTX
+  44         fI    ( 1)  U E            KORSZ
+     (I4A)
+  45    5  12 I        C   E            LBASIC
+  46    6   2 I        C   E            LCORE
+  47          I         MU E            LCOREZ
+  48    1   2 I        C   E            LOOP
+  49    3  16 I        C   E            LOWER
+  50    5  11 I        C   E            LREQ
+  51    1   7 I        C   E            LUI
+  52         s     ( 5)  U              MAKMCB
+     (I4A,I4V,I4V,R4V,I4V)
+  53    2   1 I    ( 1)CM? E        7   MCBA(7)
+  54    2   2 I    ( 1)CMU E        7   MCBB(7)
+  55    2   3 I    ( 1)CM  E        7   MCBC(7)
+  56    2   4 I    ( 1)C?U E        7   MCBD(7)
+  57         s     ( 3)  U              MESAGE
+     (I4V,I4V,I4A)
+  58          I        I?U E            MMTX
+  59    2   9 I        CM  E            MPREC
+  60         s     ( 3)  U              MPYAD
+     (I4L,I4L,I4L)
+  61    2   5 I        CM  E            MPYZ
+  62    5   1 I        C   E            MRECVR
+  63         s     ( 5)  U              MTRXI
+     (I4V,I4A,I4V,I4E,I4V)
+  64          I         M? E            N
+  65          I    ( 1)I?? E        2   NAME(2)
+  66          I         MU E            NCOL
+  67    1   6 I        C   E            NEIGV
+  68    3   6 I        C   E            NOREW
+  69    1   9 I        C   E            NOSORT
+  70    4   4 I        CMU E            NRP
+  71    7   3 I        CMU E            NRU
+  72    5   3 R        C   E            PA
+  73         s     ( 3)  U              PACK
+     (R4L,I4V,I4A)
+  74    1  11 R        C   E            PTHRES
+  75    5   4 R        C   E            QA
+  76    1  12 R        C   E            QTHRES
+  77    5   9 R    ( 1)C   E        2   RANGE(2)
+  78          I         ?U E            RC
+  79         S     ( 1) ??        148   RCOVIM(HIGHER)
+  80         s     (10)  U              RCOVVA
+     (I4V,I4V,I4E,I4V,I4V,I4E,I4A,I4L,I4L,I4L)
+  81    3   1 R        C   E            RD
+  82    3   9 R        C   E            RDP
+  83    3   2 R        C?? E            RDREW
+  84         s     ( 1)  U              RDTRL
+     (I4A)
+  85    3  13 R        C?? E            RECT
+  86    3   5 R        C?? E            REW
+  87    1   5 I        C U E            RFNO
+  88    3   8 I        C?U E            RSP
+  89    5   6 I    ( 1)C   E        2   RSS(2)
+  90          R    ( 1) MU E        1   RZ(1)
+  91          I        I?U E            SCR5
+  92          I        I?U E            SCR6
+  93          I        I?U E            SCR7
+  94          I        I?U E            SCR8
+  95          I        I?U E            SCR9
+  96    2  10 I        CM  E            SCRM
+  97    2   7 I        CM  E            SIGNAB
+  98    2   8 I        CM  E            SIGNC
+  99         s     ( 3)  U              SMSG
+     (I4E,I4V,I4A)
+ 100    6   7 I        C U E            SOF1
+ 101    6   8 I        C U E            SOF2
+ 102    6   9 I        C U E            SOF3
+ 103         s           U              SOFCLS
+ 104         s     ( 3)  U              SOFOPN
+     (I4L,I4L,I4L)
+ 105    3  12 R        C   E            SQUARE
+ 106    1   3 R        C   E            STEP
+ 107    3  17 R        C   E            SYM
+ 108    2   6 I        CM  E            TFLAG
+ 109          R         MU E            TOTAL
+ 110    5   2 I        C U E            UA
+ 111    5   8 R        C   E            UIMPRO
+ 112    1   8 R    ( 2)C   E       10   UINMS(2,5)
+ 113         s     ( 3)  U              UNPACK
+     (ALT,I4V,R4L)
+ 114    3  15 R        C   E            UPPER
+ 115    1  10 R        C   E            UTHRES
+ 116          I        I?U E            UVEC
+ 117    3   3 R        C   E            WRT
+ 118    3   4 R        C?? E            WRTREW
+ 119         s     ( 1)  U              WRTTRL
+     (I4A)
+ 120    8   1 I    ( 1)C?? E        1   Z(1)
+**-- END OF SYMBOL TABLE

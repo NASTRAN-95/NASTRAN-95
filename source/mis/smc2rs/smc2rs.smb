@@ -1,0 +1,89 @@
+**++ Symbol table for subprogram SMC2RS in file mis/smc2rs.f90
+     produced by SPAG     8.01RF-40 at 14:47:01 on  2 Dec 2023
+   0         X             K             mis/smc2rs.f90,0000003,0000599
+   1          I         MU E            I
+   2   74   8 I        A U E         Z  I1
+   3   74   9 I        A U E         Z  I2
+   4   74  10 I        A U E         Z  I3
+   5         II    ( 1)  U I            IABS
+   6          I         MU E            IAVAIL
+   7          I         MU E            IC1
+   8          I         MU E            IC2
+   9          I         MU E            IILCOL
+  10          I         MU E            IILROW
+  11          I         MU E            IILROW1
+  12          I         MU E            IILROWB
+  13          I         MU E            ILIM1
+  14          I         MU E            ILIM2
+  15          I         MU E            INCR
+  16          ?         MU I            IROWN
+  17          ?         MU I            ISKIP
+  18          ?          U I            ISPILL
+  19          I         MU E            ITEST
+  20          I         MU E            J
+  21          ?         M? I            JCOL
+  22          I         MU E            JDIR
+  23          I         MU E            JLIM1
+  24          I         MU E            JLIM2
+  25          I         MU E            JLIM4
+  26          I         MU E            JM2
+  27          I         MU E            JMIDX
+  28          ?         MU I            JRIDX
+  29          ?         MU I            JRIDXN
+  30          ?         MU I            JROW
+  31          I         MU E            JROWL
+  32          ?         MU I            JROWN
+  33          ?         MU I            JROWS
+  34          ?         MU I            JVIDX
+  35          I         MU E            JVTMP
+  36          I         MU E            K
+  37          ?         MU I            KAROWS
+  38          I         MU E            KBC
+  39          ?         MU I            KCOL
+  40          I         MU E            KDIR
+  41          ?         MU I            KFRCOL
+  42          I         MU E            KFRCOLG
+  43          I         MU E            KFRCOLP
+  44          I         MU E            KK
+  45          ?         MU I            KLSCOL
+  46          I         MU E            KLSCOLP
+  47          I         MU E            KM2
+  48          I         MU E            KMIDX
+  49          I         MU E            KR
+  50          ?         MU I            KRIDX
+  51          ?         MU I            KRIDXN
+  52          I         MU E            KRIDXS
+  53          ?         MU I            KROW
+  54          I         MU E            KROW1
+  55          I         MU E            KROWB
+  56          ?         MU I            KROWN
+  57          ?         MU I            KROWS
+  58          I         MU E            KROWSB
+  59          I         MU E            KVIDX
+  60   74   6 I    ( 1)AMU E            LASROW(I2)
+  61          I         MU E            LIMIT
+  62          I         MU E            LROW1
+  63          I         MU E            LROWN
+  64         II    ( 2)  U I            MIN0
+  65          I         MU E            MISSIN
+  66         I?    ( 2)  U I            MOD
+  67   74   5 I    ( 1)AMU E            NAR(I3)
+  68          ?          U I            NCOL
+  69          I         MU E            NROWS
+  70          I         M  E            NUM
+  71          ?          U I            NVTERM
+  72          I         MU E            NZEROS
+  73   74   7 R    ( 1)AMU E            RTEMP(I3)
+  74         S     (10) MU        325   SMC2RS(ZI,ZS,ZIL,ZOL,NAR,LASROW,RTEMP,I1,I2,I3)
+  75         s     ( 4)  U              SMCCRS
+     (R4L,R4L,I4E,R4V)
+  76         s     ( 5)  U              SMCOUT
+     (I4A,I4A,R4A,R4L,R4L)
+  77         s     ( 2)  U              SMCSPL
+     (?*V,I4A)
+  78   74   1 I    ( 1)A?U E            ZI(10)
+  79   74   3 R    ( 2)AMU E            ZIL(I1,I2)
+  80   74   4 R    ( 2)AMU E            ZOL(I2,2)
+  81          R         M? E            ZOLTMP
+  82   74   2 R    ( 1)AMU E            ZS(10)
+**-- END OF SYMBOL TABLE

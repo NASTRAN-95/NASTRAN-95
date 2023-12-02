@@ -1,0 +1,33 @@
+**++ Symbol table for subprogram CPYSTR in file mis/cpystr.f90
+     produced by SPAG     8.01RF-40 at 14:47:07 on  2 Dec 2023
+   0         X             K             mis/cpystr.f90,0000002,0000114
+   1         C     / 3/  U         40   /TYPE/PRC,WORDS,RLCMPX
+   2         C     / 1/ MU          4   /ZZZZZZ/XNS
+   3    4   4 I        A U E            COL
+   4         S     ( 4) MU         65   CPYSTR(INBLK,OUTBLK,FLAG,COL)
+   5         s     ( 1)  U              ENDGET
+     (I4A)
+   6         s     ( 1)  U              ENDPUT
+     (I4A)
+   7    4   3 I        A U E            FLAG
+   8         s     ( 2)  U              GETSTR
+     (ALT,I4A)
+   9          I         MU E            IN
+  10    4   1 I    ( 1)AMU E            INBLK(15)
+  11          I         MU E            JOUT
+  12         II    ( 2)  U I            MIN0
+  13          I         MU E            NPREV
+  14          I         MU E            NSTR
+  15          I         MU E            OUT
+  16    4   2 I    ( 1)AMU E            OUTBLK(15)
+  17    1   1 I    ( 1)C U E        2   PRC(2)
+  18          I         MU E            PREC
+  19         s     ( 1)  U              PUTSTR
+     (I4A)
+  20          I         MU E            RC
+  21    1   3 I    ( 1)C U E        4   RLCMPX(4)
+  22          I         MU E            TYPE
+  23    1   2 I    ( 1)C U E        4   WORDS(4)
+  24          D    ( 1) MU E        1   XND(1)
+  25    2   1 R    ( 1)CMU E        1   XNS(1)
+**-- END OF SYMBOL TABLE

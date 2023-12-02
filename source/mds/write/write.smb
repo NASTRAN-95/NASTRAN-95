@@ -1,0 +1,39 @@
+**++ Symbol table for subprogram WRITE in file mds/write.f90
+     produced by SPAG     7.61RG-40 at 01:00:00 on 21 Mar 2022
+   0         X             K             mds/write.f90,0000002,0000068
+   1         C     / 1/ M         640   /DDIOSV/IFLPOS
+   2         s           U              DSGEFL
+   3         s     ( 1)  U              DSMSG
+     (I4E)
+   4         s           U              DSSDCB
+   5         s           U              DSWRNB
+   6         s     ( 1)  U              DSWRT1
+     (I4A)
+   7   31   4 I        A U E            EORFLG
+   8         f?    ( 2)  U I            FCB
+     (I4E,?*V)
+   9   31   1 I        A U E            FILE
+  10          I         MU E            I
+  11         f?    ( 1) MU I            IBASE
+     (? E)
+  12          ?         MU I            IBLOCK
+  13   31   2 I    ( 1)A?U E            IDATA(2)
+  14          ?          U I            IDSC
+  15          ?          U I            IDSEB
+  16          ?          U I            IDSRH
+  17          ?          U I            IDSRT
+  18          ?         MU I            IEOR
+  19          ?         ?U I            IFILEX
+  20    1   1 I    ( 2)CM  E      160   IFLPOS(2,80)
+  21          ?          U I            INDBAS
+  22          ?         MU I            INDCBP
+  23          ?         MU I            INDCLR
+  24          ?          U I            IPRVOP
+  25          ?         MU I            LWORDS
+  26   31   3 I        A U E            N
+  27          ?         M  I            NAME
+  28          ?          U I            NBLOCK
+  29          ?          U I            NBUFF
+  30          ?         MU I            NWORDS
+  31         S     ( 4) ?U         56   WRITE(FILE,IDATA,N,EORFLG)
+**-- END OF SYMBOL TABLE

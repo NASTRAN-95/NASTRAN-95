@@ -1,0 +1,34 @@
+**++ Symbol table for subprogram SSG2A in file mis/ssg2a.f90
+     produced by SPAG     8.01RF-40 at 14:47:01 on  2 Dec 2023
+   0         X             K             mis/ssg2a.f90,0000002,0000040
+   1         C     / 7/ MU        148   /PARMEG/IA1,IA11,IA12,IA21,IA22,LCR,RULE
+   2         C     / 3/  U         24   /PATX/LCORE,N,NO
+   3         C     / 1/             4   /ZZZZZZ/ICORE
+   4          I    ( 1) M? E        6   CORE(6)
+   5          I         MU E            I
+   6    1   1 I    ( 1)CMU E        7   IA1(7)
+   7    1   2 I    ( 1)CMU E        7   IA11(7)
+   8    1   3 I    ( 1)CMU E        7   IA12(7)
+   9    1   4 I    ( 1)CM  E        7   IA21(7)
+  10    1   5 I    ( 1)CM  E        7   IA22(7)
+  11    3   1 I    ( 1)C   E        1   ICORE(1)
+  12         fI    ( 1)  U E            KORSZ
+     (I4A)
+  13    2   1 I        C   E            LCORE
+  14    1   6 I        CM  E            LCR
+  15    2   2 I        C U E            N
+  16    2   3 I    ( 1)C U E        4   NO(4)
+  17         s     ( 3)  U              PARTN
+     (I4A,I4A,I4A)
+  18   25   1 I        A U E            PG
+  19   25   3 I        A U E            PM
+  20   25   2 I        A U E            PNBAR
+  21   25   4 I        A U E            PVACT
+  22          I    ( 1) M? E        7   PVECT(7)
+  23         s     ( 1)  U              RDTRL
+     (I4A)
+  24    1   7 I        CM  E            RULE
+  25         S     ( 4)  U         25   SSG2A(PG,PNBAR,PM,PVACT)
+  26         s     ( 1)  U              WRTTRL
+     (I4A)
+**-- END OF SYMBOL TABLE

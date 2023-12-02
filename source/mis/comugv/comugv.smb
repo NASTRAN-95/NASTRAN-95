@@ -1,0 +1,74 @@
+**++ Symbol table for subprogram COMUGV in file mis/comugv.f90
+     produced by SPAG     8.01RF-40 at 14:47:10 on  2 Dec 2023
+   0         X             K             mis/comugv.f90,0000002,0000270
+   1         C     / 2/  U          8   /BLANK/NMODES,NDIR
+   2         C     / 5/ M          20   /PACKX/IIN,IOUT,II,NN,INCR
+   3         C     / 1/  U          4   /SYSTEM/IBUF
+   4         C     / 4/ M          16   /UNPAKX/JOUT,III,NNN,JNCR
+   5         C     / 1/ MU          4   /ZZZZZZ/Z
+   6         I?    ( 1)  U I            ABS
+   7          I         MU E            BUF1
+   8          I         MU E            BUF2
+   9          I         MU E            BUF3
+  10         s     ( 2)  U              CLOSE
+     (I4V,I4E)
+  11         S                    156   COMUGV
+  12         s     ( 2)  U              FWDREC
+     (ALT,I4V)
+  13         s     ( 3)  U              GOPEN
+     (I4V,R4L,I4E)
+  14          I         MU E            I
+  15    3   1 I        C U E            IBUF
+  16    2   3 I        CM  E            II
+  17    4   2 I        CM  E            III
+  18    2   1 I        CM  E            IIN
+  19    2   5 I        CM  E            INCR
+  20          I    ( 1) MU E        2   INDB(2)
+  21    2   2 I        CM  E            IOUT
+  22          I         MU E            J
+  23          I         MU E            JJ
+  24    4   4 I        CM  E            JNCR
+  25          I         MU E            JNROW
+  26    4   1 I        CM  E            JOUT
+  27          I         MU E            K
+  28          I         MU E            KK
+  29         fI    ( 1)  U E            KORSZ
+     (R4A)
+  30          I         MU E            LCORE
+  31          I         MU E            LL
+  32          I    ( 1) MU E        7   MCB(7)
+  33          I    ( 1) M? E        7   MCB1(7)
+  34          I    ( 1) M? E        7   MCB2(7)
+  35         s     ( 3)  U              MESAGE
+     (I4E,I4E,I4A)
+  36          I    ( 1)I?? E        2   NAM(2)
+  37          I         MU E            NCOL
+  38          I         MU E            ND
+  39          I         MU E            ND1
+  40    1   2 I        C U E            NDIR
+  41          I         MU E            NM1
+  42    1   1 I        C U E            NMODES
+  43    2   4 I        CM  E            NN
+  44    4   3 I        CM  E            NNN
+  45          I         MU E            NROW
+  46          I         MU E            NSKIP
+  47          I    ( 1) MU E        2   OUDB(2)
+  48         s     ( 3)  U              PACK
+     (R4L,I4V,I4A)
+  49         s     ( 1)  U              RDTRL
+     (I4A)
+  50         s     ( 1)  U              REWIND
+     (I4V)
+  51         I?    ( 1)  U I            SQRT
+  52          I        I?U E            UGV
+  53          I        I U E            UGVADC
+  54          I        I?U E            UGVADD
+  55          I        I?U E            UGVNRL
+  56          I        I U E            UGVSQC
+  57          I        I?U E            UGVSQR
+  58         s     ( 3)  U              UNPACK
+     (ALT,I4V,R4L)
+  59         s     ( 1)  U              WRTTRL
+     (I4A)
+  60    5   1 R    ( 1)CMU E        1   Z(1)
+**-- END OF SYMBOL TABLE

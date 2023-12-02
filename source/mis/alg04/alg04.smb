@@ -1,0 +1,76 @@
+**++ Symbol table for subprogram ALG04 in file mis/alg04.f90
+     produced by SPAG     8.01RF-40 at 14:46:39 on  2 Dec 2023
+   0         X             K             mis/alg04.f90,0000002,0000202
+   1         I?    ( 1)  U I            ABS
+   2         s     ( 2)  U              ALG03
+     (I4V,I4E)
+   3         S     (19) MU        188   ALG04(H,S,VW,R1,R2,X1,X2,VM,EPS,SCLFAC,G,EJ,HMIN,VMIN,PSMID,NSTRMS,LOG2,LNCT,IFAIL)
+   4         fR    ( 2)  U E            ALG2
+     (R4V,R4E)
+   5         s     ( 4)  U              ALG29
+     (R4A,R4A,R4A,I4V)
+   6         fR    ( 2)  U E            ALG3
+     (R4L,R4L)
+   7         fR    ( 2)  U E            ALG5
+     (R4E,R4E)
+   8         fR    ( 3)  U E            ALG9
+     (R4L,R4L,R4E)
+   9          R    ( 1) MU E       20   DELR(20)
+  10          R         MU E            DELZ
+  11    3  12 R        A U E            EJ
+  12    3   9 R        A U E            EPS
+  13         IR    ( 1)  U I            FLOAT
+  14          R         MU E            FLOW
+  15    3  11 R        A U E            G
+  16    3   1 R    ( 1)AMU E            H(1)
+  17          R    ( 1) MU E       21   HDN(21)
+  18    3  13 R        A U E            HMIN
+  19          R    ( 1) MU E       21   HSDN(21)
+  20          R    ( 1) MU E       21   HSUP(21)
+  21          R    ( 1) MU E       21   HUP(21)
+  22    3  19 I        AMU E            IFAIL
+  23          I         MU E            IMID
+  24          I         MU E            ISTEP
+  25          I         MU E            ITUB
+  26          I         MU E            J
+  27          I         MU E            J1
+  28          I         MU E            J2
+  29          I         MU E            JJ
+  30          I         MU E            JSTEP
+  31          I         MU E            K
+  32          I         MU E            KK
+  33          I         MU E            KSTEP
+  34    3  18 I        A?? E            LNCT
+  35    3  17 I        A U E            LOG2
+  36    3  16 I        A?U E            NSTRMS
+  37          R    ( 1) MU E       21   PSDN(21)
+  38    3  15 R        A U E            PSMID
+  39          R    ( 1) MU E       21   PSUP(21)
+  40          R         MU E            Q1
+  41          R         MU E            Q2
+  42          R    ( 1) MU E       21   R(21)
+  43    3   4 R    ( 1)A U E            R1(1)
+  44    3   5 R    ( 1)A U E            R2(1)
+  45          R    ( 1) MU E       20   RMID(20)
+  46    3   2 R    ( 1)AMU E            S(1)
+  47    3  10 R        A U E            SCLFAC
+  48          R    ( 1) MU E       21   SDN(21)
+  49         I?    ( 1)  U I            SQRT
+  50          R    ( 1) MU E       21   SUP(21)
+  51    3   8 R    ( 1)A U E            VM(1)
+  52          R         MU E            VM2
+  53    3  14 R        A U E            VMIN
+  54    3   3 R    ( 1)AMU E            VW(1)
+  55          R    ( 1) MU E       21   VWDN(21)
+  56          R    ( 1) MU E       21   VWFUN(21)
+  57          R    ( 1) MU E       21   VWUP(21)
+  58          R    ( 1) MU E       21   VZDN(21)
+  59          R    ( 1) MU E       21   VZFUN(21)
+  60          R    ( 1) MU E       21   VZUP(21)
+  61    3   6 R    ( 1)A U E            X1(1)
+  62    3   7 R    ( 1)A U E            X2(1)
+  63          R         M? E            X3
+  64          R         MU E            X4
+  65          R    ( 1) MU E       21   XX1(21)
+  66          R    ( 1) ?U E       21   XX2(21)
+**-- END OF SYMBOL TABLE

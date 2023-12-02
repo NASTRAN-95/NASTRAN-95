@@ -1,0 +1,20 @@
+**++ Symbol table for subprogram RAND1 in file mis/rand1.f90
+     produced by SPAG     8.01RF-40 at 14:46:40 on  2 Dec 2023
+   0         X             K             mis/rand1.f90,0000002,0000028
+   1         C     / 1/ ??          4   /OUTPUT/HEAD
+   2   12   5 I        A U E            COMP
+   3   12   1 I        A?? E            FILE
+   4    1   1 R    ( 1)C?? E        1   HEAD(1)
+   5          I         MU E            I
+   6   12   4 I        A U E            ID
+   7          I    ( 1)IM? E       50   IDR(50)
+   8          I         MU E            ITYPE
+   9   12   2 I        A U E            MID
+  10          I    ( 2)I U E       14   MID1(2,7)
+  11   12   6 I    ( 1)A U E            Q(2)
+  12         S     ( 6) ?U         14   RAND1(FILE,MID,TYPE,ID,COMP,Q)
+  13   12   3 I        A U E            TYPE
+  14         s     ( 4)  U              WRITE
+     (I4V,I4L,I4E,I4E)
+     (   ,R4L,   ,   )
+**-- END OF SYMBOL TABLE

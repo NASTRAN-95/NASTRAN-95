@@ -1,0 +1,97 @@
+**++ Symbol table for subprogram SHCTSS in file mis/shctss.f90
+     produced by SPAG     8.01RF-40 at 14:47:00 on  2 Dec 2023
+   0         X             K             mis/shctss.f90,0000002,0000319
+   1         C     / 4/  U         16   /CONDAS/PI,TWOPI,RADDEG,DEGRAD
+   2         C     / 3/ M          12   /MATIN/MATID,INFLAG,ELTEMP
+   3         C     / 6/  U         24   /SDR2C1/IPCMP,NPCMP,IPCMP1,NPCMP1,IPCMP2,NPCMP2
+   4          R    ( 2) MU E       36   ABBD(6,6)
+   5          R    ( 1) ?? E        3   ALPHAE(3)
+   6          R    ( 1) M? E        3   ALPHAL(3)
+   7          R         MU E            C
+   8          R         MU E            C2
+   9   72  12 R    ( 1)A U E            CORE(1)
+  10         I?    ( 1)  U I            COS
+  11    1   4 R        C U E            DEGRAD
+  12          R         MU E            DELTA
+  13          R         MU E            DELTAT
+  14          R         ?? E            DETERM
+  15          R    ( 1) ?? E        6   DUM(6)
+  16   72   2 I        A?? E            ELID
+  17    2   3 R        CM  E            ELTEMP
+  18   72  10 R    ( 1)A?? E            EPSLNT(6)
+  19   72   9 R    ( 1)AMU E            FTHERM(6)
+  20          R    ( 1) ?U E        3   GALPHA(3)
+  21          R    ( 1) ?? E        9   GBAR(9)
+  22          R    ( 1) M? E        9   GLAY(9)
+  23          R    ( 1) ?? E        9   GLAYT(9)
+  24         s     ( 9)  U              GMMATS
+     (R4L,I4E,I4E,I4E,R4L,I4E,I4E,I4E,R4L)
+  25          R    ( 1) ?U E       25   GPROP(25)
+  26   72  11 I    ( 1)A U E            ICORE(1)
+  27   72   1 I        AM  E            IERR
+  28          I         MU E            II
+  29          I    ( 2) ?? E       18   INDX(6,3)
+  30    2   2 I        CM  E            INFLAG
+  31         s     ( 8)  U              INVERS
+     (I4E,R4A,I4E,R4A,I4E,R4V,I4V,I4A)
+  32          I         MU E            IP
+  33          I         MU E            IPC11
+  34          I         MU E            IPC21
+  35    3   1 I        C U E            IPCMP
+  36    3   3 I        C U E            IPCMP1
+  37    3   5 I        C U E            IPCMP2
+  38          I         MU E            IPOINT
+  39          I         MU E            IR
+  40          I         M? E            ISING
+  41          I         MU E            ITYPE
+  42          I         MU E            K
+  43          I         MU E            LAMOPT
+  44          I         MU E            LL
+  45          I         MU E            LPC11
+  46          I         MU E            LPCOMP
+  47         s     ( 1)  U              LPROPS
+     (R4A)
+  48         s     ( 1)  U              MAT
+     (I4V)
+  49    2   1 I        CM  E            MATID
+  50          I        I U E            MEM
+  51   72   4 I    ( 1)A U E            MID(4)
+  52          R         MU E            MINRT
+  53          I         MU E            MM
+  54          I         MU E            NLAY
+  55          I         MU E            NN
+  56          L         MU E            NONMEM
+  57    3   2 I        C U E            NPCMP
+  58    3   4 I        C U E            NPCMP1
+  59    3   6 I        C U E            NPCMP2
+  60          L         MU E            PCMP
+  61          L         MU E            PCMP1
+  62          L         MU E            PCMP2
+  63          I        I U E            PCOMP
+  64          I        I U E            PCOMP1
+  65          I        I U E            PCOMP2
+  66    1   1 R        C   E            PI
+  67   72   3 I        A U E            PID
+  68          I         MU E            PIDLOC
+  69    1   3 R        C   E            RADDEG
+  70          R         MU E            S
+  71          R         MU E            S2
+  72         S     (12) MU        175   SHCTSS(IERR,ELID,PID,MID,TLAM,TMEAN,TGRAD,THETAE,FTHERM,EPSLNT,ICORE,CORE)
+  73         I?    ( 1)  U I            SIN
+  74          R    ( 1) M? E       36   STIFF(36)
+  75          I        I U E            SYM
+  76          I        I U E            SYMMEM
+  77   72   7 R        A U E            TGRAD
+  78          R         MU E            THETA
+  79   72   8 R        A U E            THETAE
+  80          R         M  E            TI
+  81   72   5 R        A U E            TLAM
+  82   72   6 R        A U E            TMEAN
+  83          R    ( 1) MU E        9   TRANSL(9)
+  84          R         MU E            TSUBO
+  85    1   2 R        C   E            TWOPI
+  86          R         MU E            ZK
+  87          R         MU E            ZK1
+  88          R         MU E            ZREF
+  89          R         MU E            ZSUBI
+**-- END OF SYMBOL TABLE

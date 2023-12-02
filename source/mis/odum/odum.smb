@@ -1,0 +1,11 @@
+**++ Symbol table for subprogram ODUM in file mis/odum.f90
+     produced by SPAG     8.01RF-40 at 14:46:38 on  2 Dec 2023
+   0         X             K             mis/odum.f90,0000002,0000007
+   1    7   1 I        A   E            I1
+   2    7   6 I        A U E            ID
+   3    7   3 I        A U E            ITYPE
+   4    7   2 I        A U E            IX
+   5    7   5 I        AM  E            NLINES
+   6    7   4 I        A U E            NMULT
+   7         S     ( 6) MU          1   ODUM(I1,IX,ITYPE,NMULT,NLINES,ID)
+**-- END OF SYMBOL TABLE

@@ -1,0 +1,18 @@
+**++ Symbol table for subprogram WRTBLK in file mds/wrtblk.f90
+     produced by SPAG     8.01RF-40 at 14:46:33 on  2 Dec 2023
+   0         X             K             mds/wrtblk.f90,0000002,0000023
+   1         s     ( 1)  U              DBMMGR
+     (I4E)
+   2         s           U              DSGEFL
+   3         G?    ( 2) M  I            FCB
+   4   12   1 I        A U E            FILE
+   5         f?    ( 1) MU I            IBASE
+     (? E)
+   6   12   2 I        A U E            IEND
+   7          ?         ?U I            IFILEX
+   8          ?          U I            INDBAS
+   9          ?         MU I            INDCLR
+  10          ?         M  I            NAME
+  11          ?         MU I            NBLOCK
+  12         S     ( 2)  U         10   WRTBLK(FILE,IEND)
+**-- END OF SYMBOL TABLE

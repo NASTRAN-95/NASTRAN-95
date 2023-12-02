@@ -1,0 +1,16 @@
+**++ Symbol table for subprogram DMATRS in file mis/dmatrs.f90
+     produced by SPAG     8.01RF-40 at 14:46:55 on  2 Dec 2023
+   0         X             K             mis/dmatrs.f90,0000002,0000083
+   1    7   3 R        A U E            C
+   2    7   4 R        A U E            CA
+   3    7   5 R        A U E            CA2
+   4    7   1 R    ( 2)AMU E            D(10,10)
+   5    7   8 R        A U E            DB
+   6    7   7 R        A U E            DM
+   7         S     ( 9) MU         60   DMATRS(D,V,C,CA,CA2,VA,DM,DB,YI)
+   8          I         MU E            I
+   9          I         MU E            J
+  10    7   2 R        A U E            V
+  11    7   6 R        A U E            VA
+  12    7   9 R    ( 2)A U E            YI(6,11)
+**-- END OF SYMBOL TABLE

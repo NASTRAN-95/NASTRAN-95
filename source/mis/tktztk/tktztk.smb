@@ -1,0 +1,11 @@
+**++ Symbol table for subprogram TKTZTK in file mis/tktztk.f90
+     produced by SPAG     8.01RF-40 at 14:46:51 on  2 Dec 2023
+   0         X             K             mis/tktztk.f90,0000002,0000025
+   1    6   4 I        A U E            L
+   2    6   5 I        A U E            M
+   3    6   6 I        A U E            N
+   4    6   3 I        A U E            NZ
+   5    6   1 D    ( 2)AMU E            TK(3,3)
+   6         S     ( 6) MU         15   TKTZTK(TK,Z,NZ,L,M,N)
+   7    6   2 D    ( 1)AMU E            Z(1)
+**-- END OF SYMBOL TABLE

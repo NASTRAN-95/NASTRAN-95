@@ -1,0 +1,72 @@
+**++ Symbol table for subprogram ATEIG in file mis/ateig.f90
+     produced by SPAG     8.01RF-40 at 14:47:19 on  2 Dec 2023
+   0         X             K             mis/ateig.f90,0000002,0000328
+   1    3   2 D    ( 1)AMU E            A(1)
+   2          D         MU E            ALPHA
+   3         S     ( 9) MU        218   ATEIG(M,A,RR,RI,IANA,IA,B,RRA,RRI)
+   4    3   7 R    ( 1)AM  E            B(1)
+   5          D         MU E            CAP
+   6          D         MU E            D
+   7         ID    ( 1)  U I            DABS
+   8          D         MU E            DELTA
+   9         ID    ( 2)  U I            DMAX1
+  10         ID    ( 1)  U I            DSQRT
+  11          D         MU E            E10
+  12          D         MU E            E6
+  13          D         MU E            E7
+  14          D         MU E            EPS
+  15          D         MU E            ETA
+  16          D         MU E            G1
+  17          D         MU E            G2
+  18          D         MU E            G3
+  19          I         MU E            I
+  20    3   6 I        A U E            IA
+  21    3   5 I    ( 1)AM  E            IANA(1)
+  22          I         MU E            II
+  23          I         MU E            II1
+  24          I         MU E            IIP
+  25          I         MU E            IJ
+  26          I         MU E            IN
+  27          I         MU E            IN1
+  28          I         MU E            IP
+  29          I         MU E            IP2J
+  30          I         MU E            IPI
+  31          I         MU E            IPIP
+  32          I         MU E            IPIP2
+  33          I         MU E            IT
+  34          I         MU E            J
+  35          I         MU E            JI
+  36          I         MU E            JIP
+  37          I         MU E            JIP2
+  38          I         MU E            K
+  39    3   1 I        A U E            M
+  40          I         MU E            MAXIT
+  41          I         MU E            N
+  42          I         MU E            N1
+  43          I         MU E            N1N
+  44          I         MU E            N1N1
+  45          I         MU E            N1N2
+  46          I         MU E            N2
+  47          I         MU E            NN
+  48          I         MU E            NN1
+  49          I         MU E            NP
+  50          I         MU E            P
+  51          I         MU E            P1
+  52          D         MU E            PAN
+  53          D         MU E            PAN1
+  54          D    ( 1) MU E        2   PRI(2)
+  55          D    ( 1) MU E        2   PRR(2)
+  56          D         MU E            PSI1
+  57          D         MU E            PSI2
+  58          I         MU E            Q
+  59          D         MU E            R
+  60    3   4 D    ( 1)AMU E            RI(1)
+  61          D         MU E            RMOD
+  62    3   3 D    ( 1)AMU E            RR(1)
+  63    3   8 R    ( 1)AM  E            RRA(1)
+  64    3   9 R    ( 1)AM  E            RRI(1)
+  65          D         MU E            S
+  66          D         MU E            T
+  67          D         MU E            U
+  68          D         MU E            V
+**-- END OF SYMBOL TABLE

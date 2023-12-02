@@ -1,0 +1,39 @@
+**++ Symbol table for subprogram DSGNRD in file mds/dsgnrd.f90
+     produced by SPAG     8.01RF-40 at 14:46:33 on  2 Dec 2023
+   0         X             K             mds/dsgnrd.f90,0000002,0000036
+   1          C*4  ( 1) M  E        2   CBUFF(2)*4
+   2         s     ( 1)  U              DSCLOS
+     (?*V)
+   3         S                     26   DSGNRD
+   4         s     ( 1)  U              DSMSG
+     (I4E)
+   5         s     ( 3)  U              DSOPEN
+     (?*E,?*V,I4V)
+   6         s     ( 4)  U              DSREAD
+     (?*V,?*E,?*V,?*V)
+   7         f?    ( 2)  U I            FCB
+     (I4E,I4V)
+   8         I?    ( 2)  U I            IAND
+   9         f?    ( 1)  U I            IBASE
+     (? E)
+  10          ?         MU I            IDSN
+  11          I         MU E            IDSNR
+  12          I         MU E            IEND
+  13          ?         ?? I            IFILEX
+  14          ?          U I            INDBAS
+  15          ?         M? I            IOBLK
+  16          I         MU E            IOP
+  17         I?    ( 2)  U I            IOR
+  18          I         MU E            ISAVE
+  19          I         MU E            ISTRB
+  20          ?          U I            MASKH1
+  21          ?          U I            MASKH2
+  22          ?          U I            MAXDSN
+  23         f?    ( 2) MU I            MDSFCB
+     (I4E,I4V)
+  24         f?    ( 1)  U I            MDSNAM
+     (?*V)
+  25          ?          U I            MULQ2
+  26          ?          U I            NBLOCK
+  27          ?         ?? I            NBUFF
+**-- END OF SYMBOL TABLE

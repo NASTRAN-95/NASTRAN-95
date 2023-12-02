@@ -1,0 +1,16 @@
+**++ Symbol table for subprogram RBMG3 in file mis/rbmg3.f90
+     produced by SPAG     8.01RF-40 at 14:46:55 on  2 Dec 2023
+   0         X             K             mis/rbmg3.f90,0000002,0000017
+   1          I        I?? E            DM
+   2          R         ?? E            EPS
+   3          I        I?? E            KLR
+   4          I        I?? E            KRR
+   5          I        I?? E            LLL
+   6         s     ( 3)  U              MESAGE
+     (I4E,I4E,R4V)
+   7         S                      2   RBMG3
+   8          I        I?? E            SCR1
+   9          I        I?? E            SCR2
+  10         s     ( 8)  U              SOLVER
+     (I4V,I4V,I4V,I4V,I4V,R4V,I4E,I4V)
+**-- END OF SYMBOL TABLE

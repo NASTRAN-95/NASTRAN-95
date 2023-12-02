@@ -1,0 +1,70 @@
+**++ Symbol table for subprogram DSCHK in file mis/dschk.f90
+     produced by SPAG     8.01RF-40 at 14:47:12 on  2 Dec 2023
+   0         X             K             mis/dschk.f90,0000002,0000189
+   1         C     / 9/ MU         36   /BLANK/EPSIO,DSEPSI,NT,TOUT,TIN,DONE,SHIFT,COUNT,BETA
+   2         C     / 4/ ?U        220   /SYSTEM/SYSBUF,NOUT,KSYSTM,IPREC
+   3         C     / 4/ M          16   /UNPAKX/ITA,II,JJ,INCR
+   4         C     / 3/  U         77   /XMSSG/UFM,UWM,UIM
+   5         C     / 1/             4   /ZZZZZZ/Z
+   6         I?    ( 1)  U I            ABS
+   7         IR    ( 1)  U I            ALOG
+   8    1   9 I        C U E            BETA
+   9         s     ( 2)  U              CLOSE
+     (I4V,I4E)
+  10    1   8 I        CMU E            COUNT
+  11    1   6 I        CMU E            DONE
+  12         S                     89   DSCHK
+  13    1   2 R        CMU E            DSEPSI
+  14          R         MU E            EPSI
+  15    1   1 R        C U E            EPSIO
+  16          I         M? E            FILE
+  17         s     ( 3)  U              GOPEN
+     (I4V,I4L,I4E)
+  18          I         MU E            IBUF1
+  19          I         MU E            IEXIT
+  20          I         MU E            IFRST
+  21    3   2 I        CM  E            II
+  22    3   4 I        CM  E            INCR
+  23    2   4 I        C?? E            IPREC
+  24          I         MU E            IRETN
+  25    3   1 I        CM  E            ITA
+  26          I    ( 1) ?? E        1   IZ(1)
+  27    3   3 I        CM  E            JJ
+  28         s     ( 1)  U              KLOCK
+     (I4V)
+  29         fI    ( 1)  U E            KORSZ
+     (I4A)
+  30    2   3 I    ( 1)C   E       52   KSYSTM(52)
+  31          I         MU E            NF
+  32          I          U E            NI
+  33    2   2 I        C U E            NOUT
+  34    1   3 I        C U E            NT
+  35         s     ( 1)  U              PAGE2
+     (I4E)
+  36          I        I?? E            PGI
+  37          I        I?? E            PGIP1
+  38          I        I?U E            SCR1
+  39          I        I?U E            SCR2
+  40          I        I?? E            SCR3
+  41    1   7 I        CMU E            SHIFT
+  42         s     ( 8)  U              SSG2B
+     (I4V,I4V,I4E,I4V,I4E,I4V,I4E,I4V)
+  43    2   1 I        C U E            SYSBUF
+  44          I         MU E            TI
+  45    1   5 I        C U E            TIN
+  46          I         ?U E            TLEFT
+  47         s     ( 1)  U              TMTOGO
+     (I4V)
+  48          I         ?U E            TNOW
+  49          I         MU E            TO
+  50    1   4 I        C U E            TOUT
+  51    4   1 C*23     C   E            UFM*23
+  52          I        I?? E            UGIP1
+  53    4   3 C*29     C U E            UIM*29
+  54         s     ( 3)  U              UNPACK
+     (ALT,I4V,R4V)
+  55    4   2 C*25     C   E            UWM*25
+  56          R         MU E            VALUE
+  57          R         MU E            XLAMA
+  58    5   1 R    ( 1)C   E        1   Z(1)
+**-- END OF SYMBOL TABLE

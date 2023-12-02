@@ -1,0 +1,47 @@
+**++ Symbol table for subprogram CONM2S in file mis/conm2s.f90
+     produced by SPAG     8.01RF-40 at 14:46:46 on  2 Dec 2023
+   0         X             K             mis/conm2s.f90,0000002,0000162
+   1         C     / 4/  U         20   /EMGDIC/DMM,NLOCS,ELID,ESTID
+   2         C     / 1/ MU        400   /EMGEST/ECPT
+   3         C     / 4/  U         80   /EMGPRM/DUM,ISMB,IPREC,NOGO
+   4         S                     83   CONM2S
+   5          I    ( 1) M? E       11   DICT(11)
+   6          R            E            DICT5
+   7    1   1 R    ( 1)C   E        2   DMM(2)
+   8    3   1 R    ( 1)C   E       15   DUM(15)
+   9    2   1 R    ( 1)CMU E      100   ECPT(100)
+  10    1   3 I        C   E            ELID
+  11         s     ( 7)  U              EMGOUT
+     (R4A,R4A,I4E,I4E,I4A,I4E,I4V)
+  12    1   4 I        C U E            ESTID
+  13         s     ( 9)  U              GMMATS
+     (R4L,I4E,I4E,I4E,R4L,I4E,I4E,I4E,R4L)
+  14          I         MU E            I
+  15          I         MU E            ICIDT1
+  16          I         MU E            ICIDT2
+  17          I    ( 1) MU E       14   IECPT(14)
+  18          I            E            IELID
+  19          I         MU E            IJ
+  20          R    ( 1)  U E        6   INER(6)
+  21          I         M? E            IP
+  22    3   3 I        C U E            IPREC
+  23    3   2 I    ( 1)C U E        3   ISMB(3)
+  24          I         MU E            IT
+  25          I         MU E            ITEMP
+  26          I         MU E            J
+  27          I         MU E            JI
+  28          R          U E            MB
+  29          R    ( 1) MU E       36   MM(36)
+  30    1   2 I        C   E            NLOCS
+  31    3   4 I        C   E            NOGO
+  32          R    ( 1) MU E       36   T(36)
+  33         s     ( 2)  U              TRANSS
+     (R4L,R4L)
+  34          R    ( 1) M? E       36   TT(36)
+  35          R         MU E            X2
+  36          R          U E            XOF
+  37          R         MU E            Y2
+  38          R          U E            YOF
+  39          R         MU E            Z2
+  40          R          U E            ZOF
+**-- END OF SYMBOL TABLE

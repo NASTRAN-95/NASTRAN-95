@@ -1,0 +1,122 @@
+**++ Symbol table for subprogram VDRA in file mis/vdra.f90
+     produced by SPAG     8.01RF-40 at 14:46:37 on  2 Dec 2023
+   0         X             K             mis/vdra.f90,0000002,0000378
+   1         C     / 6/ MU         32   /BLANK/APP,FORM,SORT2,OUTPUT,SDR2,IMODE
+   2         C     / 5/ ??         20   /NAMES/RD,RDREW,WRT,WRTREW,CLSREW
+   3         C     / 1/  U          4   /SYSTEM/SYSBUF
+   4         C     /41/ MU        404   /VDRCOM/VDRCOM,IDISP,IVEL,IACC,ISPCF,ILOADS,ISTR,IELF,IADISP,IAVEL,IAACC,IPNL,ITTL,ILSYM,IFROUT,IDLOAD,CASECC,EQDYN,USETD,INFILE,OEIGS,PP,XYCDB,PNL,OUTFLE,OPNL1,SCR1,SCR3,BUF1,BUF2,BUF3,NAM,BUF,MASKS,CEI,FRQ,TRN,DIRECT,XSET0,VDRREQ,MODAL
+   5         C     / 1/ MU          4   /ZZZZZZ/Z
+   6          I         MU E            ANYNEW
+   7    1   1 I    ( 1)C U E        2   APP(2)
+   8          I         MU E            ARG
+   9    4  33 I    ( 1)C?U E       50   BUF(50)
+  10    4  29 I        CMU E            BUF1
+  11    4  30 I        CMU E            BUF2
+  12    4  31 I        CMU E            BUF3
+  13    4  17 I        CM? E            CASECC
+  14    4  35 R    ( 1)C   E        2   CEI(2)
+  15         s     ( 2)  U              CLOSE
+     (I4V,I4V)
+  16    2   5 I        C?? E            CLSREW
+  17          I         MU E            DBNAME
+  18    4  38 R    ( 1)C   E        2   DIRECT(2)
+  19    4  18 R        C   E            EQDYN
+  20          I         M? E            FILE
+  21          R         ?? E            FLAG
+  22    1   2 R    ( 1)C   E        2   FORM(2)
+  23          I         MU E            FORMAT
+  24    4  36 I    ( 1)C   E        2   FRQ(2)
+  25         s     ( 2)  U              FWDREC
+     (ALT,I4V)
+  26         s     ( 3)  U              GOPEN
+     (I4V,I4L,I4E)
+  27          I         MU E            I
+  28    4  11 I        C   E            IAACC
+  29         II    ( 1)  U I            IABS
+  30    4   4 I        C   E            IACC
+  31    4   9 I        C   E            IADISP
+  32    4  10 I        C   E            IAVEL
+  33          I         MU E            ICC
+  34    4   2 I        C   E            IDISP
+  35    4  16 I        C   E            IDLOAD
+  36    4   8 I        C   E            IELF
+  37    4  15 I        C   E            IFROUT
+  38          I         MU E            ILIST
+  39    4   6 I        C   E            ILOADS
+  40    4  14 I        C U E            ILSYM
+  41    1   6 I        C   E            IMODE
+  42          I         MU E            IMSTR
+  43    4  20 I        C   E            INFILE
+  44    4  12 I        C   E            IPNL
+  45          I         MU E            IREQ
+  46          I         MU E            ISET
+  47          I         MU E            ISETNO
+  48    4   5 I        C   E            ISPCF
+  49    4   7 I        C   E            ISTR
+  50    4  13 I        C   E            ITTL
+  51    4   3 I        C   E            IVEL
+  52          I         MU E            IX
+  53          I         MU E            IXY
+  54          I         MU E            IXYSC
+  55          I         MU E            IXYSET
+  56          I         MU E            J
+  57          I         MU E            JX
+  58          I         MU E            K
+  59         fI    ( 1)  U E            KORSZ
+     (I4A)
+  60          I         MU E            L
+  61          I         M  E            LAST
+  62          I         MU E            LASTXY
+  63          I         MU E            LL
+  64          I         MU E            LN
+  65          I         MU E            LOOP
+  66    4  34 I    ( 1)C   E        6   MASKS(6)
+  67          I         MU E            MASTER
+  68         s     ( 3)  U              MESAGE
+     (I4E,I4E,I4A)
+  69    4  41 I    ( 1)C   E        2   MODAL(2)
+  70          I         MU E            N
+  71    4  32 I    ( 1)C?? E        2   NAM(2)
+  72          I         MU E            NCC
+  73          I         MU E            NMSTR
+  74          I         MU E            NSET
+  75          I         MU E            NXY
+  76          I         MU E            NXYSC
+  77          I         MU E            NXYSET
+  78    4  21 R        C   E            OEIGS
+  79         s     ( 4)  U              OPEN
+     (ALT,I4V,I4L,I4V)
+  80    4  26 R        C   E            OPNL1
+  81    4  25 R        C   E            OUTFLE
+  82    1   4 R        C   E            OUTPUT
+  83    4  24 R        C   E            PNL
+  84    4  22 R        C   E            PP
+  85    2   1 I        C   E            RD
+  86    2   2 I        C?? E            RDREW
+  87         s     ( 7)  U              READ
+     (ALT,ALT,I4V,I4A,I4E,I4E,R4V)
+     (   ,   ,   ,   ,   ,   ,I4V)
+  88    4  27 I        C   E            SCR1
+  89    4  28 I        C?U E            SCR3
+  90    1   5 I        CM  E            SDR2
+  91          I         MU E            SETNO
+  92    1   3 I        CM  E            SORT2
+  93         s     ( 6)  U              SORT2K
+     (I4E,I4E,I4E,I4E,I4L,I4V)
+  94          I         MU E            SUBCSE
+  95    3   1 I        C U E            SYSBUF
+  96    4  37 I    ( 1)C U E        2   TRN(2)
+  97    4  19 R        C   E            USETD
+  98         S                    268   VDRA
+  99    4   1 I    ( 1)C U E        1   VDRCOM(1)
+ 100    4  40 I        CM  E            VDRREQ
+ 101         s     ( 4)  U              WRITE
+     (I4V,I4L,I4V,I4E)
+ 102    2   3 I        C   E            WRT
+ 103    2   4 I        C   E            WRTREW
+ 104    4  39 I        C U E            XSET0
+ 105          I         MU E            XSETNO
+ 106    4  23 I        C?U E            XYCDB
+ 107          I         M? E            XYCDBF
+ 108    5   1 I    ( 1)CMU E        1   Z(1)
+**-- END OF SYMBOL TABLE

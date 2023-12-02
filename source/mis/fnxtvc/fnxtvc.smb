@@ -1,0 +1,127 @@
+**++ Symbol table for subprogram FNXTVC in file mis/fnxtvc.f90
+     produced by SPAG     8.01RF-40 at 14:47:02 on  2 Dec 2023
+   0         X             K             mis/fnxtvc.f90,0000002,0000299
+   1         C     /22/ MU        184   /FEERCX/IFKAA,IFMAA,IFLELM,IFLVEC,SR1FLE,SR2FLE,SR3FLE,SR4FLE,SR5FLE,SR6FLE,SR7FLE,SR8FLE,DMPFLE,NORD,XLMBDA,NEIG,MORD,IBK,CRITF,NORTHO,IFLRVA,IFLRVC
+   2         C     /16/ MU         72   /FEERXX/LAMBDA,CNDFLG,ITER,TIMED,L16,IOPTF,EPX,ERRC,IND,LMBDA,IFSET,NZERO,NONUL,IDIAG,MRANK,ISTART
+   3         C     / 7/ ??         28   /NAMES/RD,RDREW,WRT,WRTREW,REW,NOREW,EOFNRW
+   4         C     / 4/ ?U        112   /OPINV/MCBLT,MCBSMA,MCBVEC,MCBRM
+   5         C     / 5/ M          20   /PACKX/ITP1,ITP2,IIP,NNP,INCRP
+   6         C     / 1/           260   /SYSTEM/KSYSTM
+   7         C     / 4/ MU         16   /UNPAKX/IPRC,II,NN,INCR
+   8         C     / 2/  U         48   /XMSSG/UFM,UWM
+   9          D         MU E            AII
+  10          D    ( 1) M? E        2   B(2)
+  11         s     ( 2)  U              CLOSE
+     (I4V,R4V)
+     (   ,I4V)
+  12    2   2 I        C   E            CNDFLG
+  13         s     ( 3)  U              CONMSG
+     (I4A,I4E,I4E)
+  14    1  19 R        C   E            CRITF
+  15          D         MU E            D
+  16         ID    ( 1)  U I            DABS
+  17          D         MU E            DB
+  18          D         MU E            DBI
+  19          D         MU E            DEPX
+  20          D         MU E            DEPX2
+  21    1  13 R        C   E            DMPFLE
+  22          D         MU E            DSQ
+  23         ID    ( 1)  U I            DSQRT
+  24          D         MU E            DTMP
+  25    3   7 R        C?? E            EOFNRW
+  26    2   7 R        C U E            EPX
+  27    2   8 R        CM  E            ERRC
+  28         S     ( 7) MU        175   FNXTVC(V1,V2,V3,V4,V5,ZB,IFN)
+  29         s     ( 4)  U              FRBK2
+     (R8L,R8L,R8L,R8L)
+  30         s     ( 4)  U              FRMLTD
+     (I4L,R8L,R8L,R8L)
+  31         s     ( 4)  U              FRSW2
+     (R8L,R8L,R8L,R8L)
+  32         s     ( 3)  U              GOPEN
+     (I4V,R8L,R4V)
+  33          I         MU E            I
+  34    1  18 I        C   E            IBK
+  35    2  14 I        C   E            IDIAG
+  36          I         M? E            IFG
+  37    1   1 I    ( 1)C   E        7   IFKAA(7)
+  38    1   3 I    ( 1)C   E        7   IFLELM(7)
+  39    1  21 I        C   E            IFLRVA
+  40    1  22 I        C   E            IFLRVC
+  41    1   4 I    ( 1)C   E        7   IFLVEC(7)
+  42    1   2 I    ( 1)C   E        7   IFMAA(7)
+  43   28   7 I        AMU E            IFN
+  44    2  11 I        C   E            IFSET
+  45          I         M? E            IFV
+  46    7   2 I        CM  E            II
+  47    5   3 I        CM  E            IIP
+  48    7   4 I        CMU E            INCR
+  49    5   5 I        CM  E            INCRP
+  50    2   9 I        C   E            IND
+  51          I          U E            IO
+  52    2   6 I        C U E            IOPTF
+  53    7   1 I        CMU E            IPRC
+  54    2  16 I        C   E            ISTART
+  55    2   3 I        CMU E            ITER
+  56    5   1 I        CM  E            ITP1
+  57    5   2 I        CM  E            ITP2
+  58          I         MU E            IX
+  59          I         MU E            IY
+  60    6   1 I    ( 1)C   E       65   KSYSTM(65)
+  61    2   5 I        C U E            L16
+  62    2   1 D        C   E            LAMBDA
+  63    2  10 D        C   E            LMBDA
+  64    4   1 I    ( 1)C U E        7   MCBLT(7)
+  65    4   4 I    ( 1)C?U E        7   MCBRM(7)
+  66    4   2 I    ( 1)C?? E        7   MCBSMA(7)
+  67    4   3 I    ( 1)C?U E        7   MCBVEC(7)
+  68    1  17 I        CMU E            MORD
+  69    2  15 I        C   E            MRANK
+  70          I    ( 1)IMU E        5   NAME(5)
+  71    1  16 I        C   E            NEIG
+  72    7   3 I        CM  E            NN
+  73    5   4 I        CM  E            NNP
+  74    2  13 I        CMU E            NONUL
+  75    1  14 I        C U E            NORD
+  76          I         MU E            NORD1
+  77    3   6 I        C?? E            NOREW
+  78    1  20 I        CMU E            NORTHO
+  79    2  12 I        C U E            NZERO
+  80          D         MU E            OMDEPX
+  81          D         MU E            OPDEPX
+  82         s     ( 3)  U              PACK
+     (R8L,I4V,I4L)
+  83    3   1 R        C   E            RD
+  84    3   2 R        C?? E            RDREW
+  85    3   5 R        C   E            REW
+  86          D         MU E            SD
+  87          D         MU E            SDMAX
+  88         IR    ( 1)  U I            SNGL
+  89    1   5 R        C   E            SR1FLE
+  90    1   6 R        C   E            SR2FLE
+  91    1   7 R        C   E            SR3FLE
+  92    1   8 R        C   E            SR4FLE
+  93    1   9 I        C?? E            SR5FLE
+  94    1  10 R        C   E            SR6FLE
+  95    1  11 R        C   E            SR7FLE
+  96    1  12 R        C   E            SR8FLE
+  97          I            E            SYSBUF
+  98    2   4 R        C   E            TIMED
+  99    8   1 C*23     C   E            UFM*23
+ 100         s     ( 3)  U              UNPACK
+     (ALT,I4V,R8L)
+ 101    8   2 C*25     C U E            UWM*25
+ 102   28   1 D    ( 1)AMU E            V1(1)
+ 103   28   2 D    ( 1)AMU E            V2(1)
+ 104   28   3 D    ( 1)AMU E            V3(1)
+ 105   28   4 D    ( 1)AMU E            V4(1)
+ 106   28   5 D    ( 1)A?U E            V5(1)
+ 107          I        I U E            VCDOT
+ 108         s     ( 4)  U              WRITE
+     (I4V,R8L,I4E,I4E)
+ 109    3   3 R        C?? E            WRT
+ 110    3   4 R        C   E            WRTREW
+ 111    1  15 R        C   E            XLMBDA
+ 112   28   6 D    ( 1)A?? E            ZB(1)
+ 113          D        I U E            ZERO
+**-- END OF SYMBOL TABLE

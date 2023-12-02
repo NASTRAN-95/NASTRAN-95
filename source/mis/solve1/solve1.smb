@@ -1,0 +1,23 @@
+**++ Symbol table for subprogram SOLVE1 in file mis/solve1.f90
+     produced by SPAG     8.01RF-40 at 14:46:54 on  2 Dec 2023
+   0         X             K             mis/solve1.f90,0000002,0000050
+   1   17   1 R        A U E            A1
+   2          R         MU E            BB
+   3   17   8 R        A   E            CONT
+   4         I?    ( 1)  U I            COS
+   5          R         MU E            COSA
+   6   17   5 R        AM  E            LAM2
+   7   17   6 R        AM  E            LAM3
+   8   17   7 R        AM  E            LAM4
+   9          R         MU E            PSI1
+  10          R         MU E            PSI2
+  11   17   2 R        A U E            R1
+  12   17   3 R        A U E            RP
+  13          R         MU E            RT
+  14         I?    ( 1)  U I            SIN
+  15          R         MU E            SINA
+  16          R         MU E            SINSUM
+  17         S     ( 8) MU         31   SOLVE1(A1,R1,RP,XI,LAM2,LAM3,LAM4,CONT)
+  18          R         MU E            SUM
+  19   17   4 R        A U E            XI
+**-- END OF SYMBOL TABLE

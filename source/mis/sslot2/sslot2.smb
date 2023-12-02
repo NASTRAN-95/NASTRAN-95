@@ -1,0 +1,36 @@
+**++ Symbol table for subprogram SSLOT2 in file mis/sslot2.f90
+     produced by SPAG     8.01RF-40 at 14:47:05 on  2 Dec 2023
+   0         X             K             mis/sslot2.f90,0000002,0000066
+   1         C     / 1/            20   /CONDAS/CONSTS
+   2         C     / 2/  U        144   /SDR2X4/DUMY,IVEC
+   3         C     / 7/ MU        496   /SDR2X7/ELID,SIL,SV,ID1,VELR,ID2,VELI
+   4         C     / 1/  U          4   /ZZZZZZ/ZZ
+   5         I?    ( 1)  U I            ABS
+   6   25   3 I        A U E            BRANCH
+   7    1   1 R    ( 1)C   E        5   CONSTS(5)
+   8    2   1 R    ( 1)C   E       35   DUMY(35)
+   9   25   4 R    ( 1)A U E            EIGEN(3)
+  10    3   1 I        C U E            ELID
+  11          R         MU E            EM
+  12          I         MU E            I
+  13    3   4 I        CM  E            ID1
+  14    3   6 I        CM  E            ID2
+  15          I         MU E            IJ
+  16   25   1 I        A U E            IOPT
+  17   25   2 I        A U E            IPART
+  18    2   2 I        C U E            IVEC
+  19          I         MU E            J
+  20          I         MU E            K
+  21          I         MU E            KL
+  22          I         MU E            KL2
+  23    3   2 I    ( 1)C U E        4   SIL(4)
+  24         I?    ( 1)  U I            SQRT
+  25         S     ( 4)  U         42   SSLOT2(IOPT,IPART,BRANCH,EIGEN)
+  26    3   3 R    ( 1)C U E       95   SV(95)
+  27          R          U E            TWOPI
+  28    3   7 R    ( 1)CMU E       11   VELI(11)
+  29    3   5 R    ( 1)CMU E       11   VELR(11)
+  30          R         MU E            X
+  31          R         MU E            Y
+  32    4   1 R    ( 1)C U E        1   ZZ(1)
+**-- END OF SYMBOL TABLE

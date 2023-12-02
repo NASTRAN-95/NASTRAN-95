@@ -1,0 +1,41 @@
+**++ Symbol table for subprogram CFE1AO in file mis/cfe1ao.f90
+     produced by SPAG     8.01RF-40 at 14:47:06 on  2 Dec 2023
+   0         X             K             mis/cfe1ao.f90,0000002,0000151
+   1         C     / 5/ ??        580   /FEERAA/IK,IM,IB,DUMAA,MCBLMB
+   2         C     /13/  U         88   /FEERXC/LAMBDA,DUM01,NORD,IDIAG,EPSDUM,NORTHO,NORD2,NORD4,NORDP1,DUM02,NOB,DUM03,QPR
+   3         C     / 2/  U          8   /SYSTEM/KSYS,NOUT
+   4         s     ( 3)  U              CF1FBS
+     (L4L,R4L,R4L)
+   5         S     ( 5) MU         66   CFE1AO(TPOSE,V1,V2,V3,ZB)
+   6         s     ( 5)  U              CFE1MY
+     (L4L,R4L,R4L,I4L,R4L)
+   7    2   2 R    ( 1)C   E        2   DUM01(2)
+   8    2  10 R    ( 1)C   E        2   DUM02(2)
+   9    2  12 R    ( 1)C   E        4   DUM03(4)
+  10    1   4 R    ( 1)C   E      117   DUMAA(117)
+  11    2   5 R    ( 1)C   E        2   EPSDUM(2)
+  12          I         MU E            I
+  13    1   3 I    ( 1)C   E        7   IB(7)
+  14    2   4 I        C   E            IDIAG
+  15    1   1 I    ( 1)C   E        7   IK(7)
+  16    1   2 I    ( 1)C?? E        7   IM(7)
+  17          I         MU E            J
+  18    3   1 I        C   E            KSYS
+  19    2   1 R    ( 1)C U E        4   LAMBDA(4)
+  20    1   5 I    ( 1)C?? E        7   MCBLMB(7)
+  21          I         MU E            NI
+  22          I         MU E            NJ
+  23    2  11 L        C U E            NOB
+  24    2   3 I        C U E            NORD
+  25    2   7 I        C U E            NORD2
+  26    2   8 I        C   E            NORD4
+  27    2   9 I        C U E            NORDP1
+  28    2   6 I        C   E            NORTHO
+  29    3   2 I        C U E            NOUT
+  30    2  13 L        C U E            QPR
+  31    5   1 L    ( 1)A?U E            TPOSE(1)
+  32    5   2 R    ( 1)A?U E            V1(1)
+  33    5   3 R    ( 1)AMU E            V2(1)
+  34    5   4 R    ( 1)AMU E            V3(1)
+  35    5   5 R    ( 1)A?? E            ZB(1)
+**-- END OF SYMBOL TABLE

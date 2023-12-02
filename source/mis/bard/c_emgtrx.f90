@@ -1,0 +1,10 @@
+!*==/home/marcusmae/nasa/nastran/SPAGged/C_EMGTRX.f90  created by SPAG 8.01RF at 14:47 on  2 Dec 2023
+MODULE C_EMGTRX
+   USE ISO_FORTRAN_ENV
+   REAL(REAL64), DIMENSION(6) :: Dela, Delb, Smalvn
+   REAL(REAL64), DIMENSION(144) :: Ke, Kep, Kk, Me, Mep
+   REAL(REAL64), DIMENSION(12, 12) :: M
+   REAL(REAL64), DIMENSION(18) :: Ta
+   REAL(REAL64), DIMENSION(9) :: Tb
+   REAL(REAL64), DIMENSION(10) :: Vec
+END MODULE C_EMGTRX

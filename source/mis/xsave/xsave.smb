@@ -1,0 +1,17 @@
+**++ Symbol table for subprogram XSAVE in file mis/xsave.f90
+     produced by SPAG     7.61RG-40 at 01:00:00 on 21 Mar 2022
+   0         X             K             mis/xsave.f90,0000002,0000027
+   1         C     / 1/  U          4   /BLANK/IPAR
+   2         C     / 1/  U         28   /OSCENT/IOSCR
+   3         C     / 1/ MU          4   /XVPS/IVPS
+   4          I         MU E            I1
+   5          I         MU E            I2
+   6    2   1 I    ( 1)C U E        7   IOSCR(7)
+   7    1   1 I    ( 1)C U E        1   IPAR(1)
+   8    3   1 I    ( 1)CMU E        1   IVPS(1)
+   9          I         MU E            J
+  10          I         MU E            K
+  11          I         MU E            L
+  12          I         MU E            N
+  13         S                     11   XSAVE
+**-- END OF SYMBOL TABLE

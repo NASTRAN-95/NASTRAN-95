@@ -1,0 +1,77 @@
+**++ Symbol table for subprogram HDSKET in file mis/hdsket.f90
+     produced by SPAG     8.01RF-40 at 14:46:47 on  2 Dec 2023
+   0         X             K             mis/hdsket.f90,0000002,0000112
+   1         C     /29/  U        116   /HDPTRS/XDUM,XCC,XASOLV,YASOLV,ZASOLV,X1SKT,Y1SKT,Z1SKT,ZCOEF1,ZCOEF,ICOUNT,IRCT,X21,Y21,Z21,IIA,XE,YE,XU,YU,XI,YI,ZI,DI,IBEG,IEND,ICT,ICCT,W
+   2         C     / 8/ MU         32   /HDSC/SCX,YAW,ROL,PIT,LZ,VP,JJJ,ICORE
+   3         C     / 1/ M?          4   /ZZZZZZ/RZ
+   4          R         MU E            A
+   5          R         MU E            B
+   6          R         MU E            C
+   7    1  24 I        C U E            DI
+   8         s     (46)  U              HDLIN
+     (R4L,R4L,R4L,I4V,I4V,R4L,I4L,I4L,R4L,R4L,R4L,I4L,R4L,R4L,R4L,R4L,R4L,R4L
+     ,R4L,R4L,I4L,I4L,I4L,I4L,I4L,I4L,R4L,R4L,I4L,I4L,I4L,R4L,R4L,R4L,R4L,R4L
+     ,R4L,R4L,I4L,I4L,R4L,R4L,R4L,R4L,I4L,I4L)
+   9         S     ( 5) MU         80   HDSKET(X,Y,Z,NP,NC)
+  10          I         MU E            I
+  11    1  25 I        C U E            IBEG
+  12    1  28 I        C U E            ICCT
+  13    2   8 I        C   E            ICORE
+  14    1  11 I        C U E            ICOUNT
+  15    1  27 I        C U E            ICT
+  16    1  26 I        C U E            IEND
+  17    1  16 I        C U E            IIA
+  18          I         MU E            IK
+  19    1  12 I        C U E            IRCT
+  20          I         MU E            IS
+  21         II    ( 2)  U I            ISIGN
+  22          I         MU E            IX
+  23          I         MU E            IX1SKT
+  24          I    ( 1) ?? E        1   IZ(1)
+  25          I         MU E            J
+  26    2   7 I        C   E            JJJ
+  27          I         MU E            L
+  28          I         MU E            LI
+  29          I         MU E            LX
+  30    2   5 I        CMU E            LZ
+  31          I         MU E            M
+  32          I         MU E            M1
+  33          I         MU E            MX
+  34    9   5 I        A?? E            NC
+  35    9   4 I        AMU E            NP
+  36          I         MU E            NPX
+  37    2   4 R        C   E            PIT
+  38    2   3 R        C   E            ROL
+  39          R         MU E            RX
+  40    3   1 R    ( 1)CM? E        1   RZ(1)
+  41    2   1 R        C   E            SCX
+  42          R         MU E            T
+  43          R         MU E            U
+  44          R         MU E            V
+  45    2   6 R        C U E            VP
+  46    1  29 I        C U E            W
+  47    9   1 R    ( 1)AMU E            X(1)
+  48    1   6 I        C U E            X1SKT
+  49    1  13 I        C U E            X21
+  50    1   3 R        C   E            XASOLV
+  51    1   2 I        C U E            XCC
+  52    1   1 R        C   E            XDUM
+  53    1  17 I        C U E            XE
+  54    1  21 I        C U E            XI
+  55    1  19 I        C U E            XU
+  56    9   2 R    ( 1)AMU E            Y(1)
+  57    1   7 I        C U E            Y1SKT
+  58    1  14 I        C U E            Y21
+  59    1   4 R        C   E            YASOLV
+  60    2   2 R        C   E            YAW
+  61    1  18 I        C U E            YE
+  62    1  22 I        C U E            YI
+  63    1  20 I        C U E            YU
+  64    9   3 R    ( 1)AMU E            Z(1)
+  65    1   8 I        C U E            Z1SKT
+  66    1  15 I        C U E            Z21
+  67    1   5 R        C   E            ZASOLV
+  68    1  10 R        C   E            ZCOEF
+  69    1   9 R        C   E            ZCOEF1
+  70    1  23 I        C U E            ZI
+**-- END OF SYMBOL TABLE

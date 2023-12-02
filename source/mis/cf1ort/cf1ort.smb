@@ -1,0 +1,64 @@
+**++ Symbol table for subprogram CF1ORT in file mis/cf1ort.f90
+     produced by SPAG     8.01RF-40 at 14:47:00 on  2 Dec 2023
+   0         X             K             mis/cf1ort.f90,0000002,0000156
+   1         C     / 2/ ??        172   /FEERAA/DUMAA,ISCR7
+   2         C     / 8/ MU        112   /FEERXC/DUMXC,IDIAG,XCDUM,NORD2,XCDUM2,QPR,XCDUM3,NUMORT
+   3         C     / 7/ ??         28   /NAMES/RD,RDREW,WRT,WRTREW,REW,NOREW,EOFNRW
+   4         C     / 2/  U          8   /SYSTEM/KSYS,NOUT
+   5         C     / 4/ M          16   /UNPAKX/IPRC,II,NN,INCR
+   6          R    ( 1) MU E        2   A(2)
+   7         S     (12) MU         84   CF1ORT(SUCESS,MAXITS,TEN2MT,NZERO,IORTHO,VR,VL,V1,V1L,V2,V2L,ZB)
+   8         s     ( 5)  U              CFNOR1
+     (R4L,R4L,I4V,I4E,R4L)
+   9         s     ( 2)  U              CLOSE
+     (I4V,I4V)
+     (   ,R4V)
+  10          R         MU E            CRITF
+  11    1   1 R    ( 1)C   E       42   DUMAA(42)
+  12    2   1 R    ( 1)C   E        7   DUMXC(7)
+  13    3   7 R        C?? E            EOFNRW
+  14         s     ( 3)  U              GOPEN
+     (I4V,I4L,R4V)
+  15          I         MU E            I
+  16    2   2 I        C U E            IDIAG
+  17    5   2 I        C   E            II
+  18    5   4 I        C   E            INCR
+  19    7   5 I        A U E            IORTHO
+  20    5   1 I        C   E            IPRC
+  21    1   2 I        C?? E            ISCR7
+  22          I         MU E            J
+  23          I         MU E            K
+  24    4   1 I        C   E            KSYS
+  25          I         MU E            L
+  26          I         MU E            LL
+  27    7   2 I        A U E            MAXITS
+  28          I         MU E            MORTHO
+  29    5   3 I        CM  E            NN
+  30    2   4 I        C?U E            NORD2
+  31    3   6 I        C?? E            NOREW
+  32    4   2 I        C U E            NOUT
+  33    2   8 I        CMU E            NUMORT
+  34    7   4 I        A U E            NZERO
+  35          R    ( 1) MU E        4   OTEST(4)
+  36    2   6 L        C U E            QPR
+  37    3   1 R        C   E            RD
+  38    3   2 R        C?? E            RDREW
+  39    3   5 R        C   E            REW
+  40          L         MU E            SKIP
+  41    7   1 L        AM  E            SUCESS
+  42    7   3 R        A U E            TEN2MT
+  43         s     ( 3)  U              UNPACK
+     (ALT,I4V,R4L)
+  44    7   8 R    ( 1)A?U E            V1(1)
+  45    7   9 R    ( 1)A?U E            V1L(1)
+  46    7  10 R    ( 1)AMU E            V2(1)
+  47    7  11 R    ( 1)AMU E            V2L(1)
+  48    7   7 R    ( 1)AMU E            VL(1)
+  49    7   6 R    ( 1)AMU E            VR(1)
+  50    3   3 R        C   E            WRT
+  51    3   4 R        C   E            WRTREW
+  52    2   3 R    ( 1)C   E        3   XCDUM(3)
+  53    2   5 R    ( 1)C   E        9   XCDUM2(9)
+  54    2   7 R    ( 1)C   E        5   XCDUM3(5)
+  55    7  12 I    ( 1)A?? E            ZB(1)
+**-- END OF SYMBOL TABLE

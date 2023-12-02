@@ -1,0 +1,28 @@
+**++ Symbol table for subprogram SMCOMP in file mis/smcomp.f90
+     produced by SPAG     8.01RF-40 at 14:47:06 on  2 Dec 2023
+   0         X             K             mis/smcomp.f90,0000002,0000066
+   1          I        I U E            BEGN
+   2         s     ( 3)  U              CONMSG
+     (I4A,I4E,I4E)
+   3          I        I U E            END
+   4          ?         MU I            IERROR
+   5          I         MU E            JJ
+   6          ?         MU I            KEEP
+   7         f?    ( 1)  U I            MCB
+     (I4E)
+   8          I    ( 1)IM? E        5   MODULE(5)
+   9          ?         M  I            NCOL
+  10          ?          U I            NOUT
+  11          ?         MU I            PTSHFT
+  12          R         MU E            RS
+  13          ?         MU I            SHFTPT
+  14         S     ( 3) ??         32   SMCOMP(ZI,ZR,ZD)
+  15         s     ( 3)  U              SMCPH1
+     (I4A,R4A,R8A)
+  16         s     ( 3)  U              SMCPH2
+     (I4A,R4A,R8A)
+  17          ?         MU I            STURM
+  18   14   3 D    ( 1)A?? E            ZD(4)
+  19   14   1 I    ( 1)A?? E            ZI(4)
+  20   14   2 R    ( 1)A?? E            ZR(4)
+**-- END OF SYMBOL TABLE

@@ -1,0 +1,132 @@
+**++ Symbol table for subprogram HESS1 in file mis/hess1.f90
+     produced by SPAG     8.01RF-40 at 14:47:20 on  2 Dec 2023
+   0         X             K             mis/hess1.f90,0000002,0000310
+   1         C     / 2/ M         132   /CDCMPX/DUM32,IB
+   2         C     / 1/ ??          4   /OUTPUT/HEAD
+   3         C     / 1/           260   /SYSTEM/KSYSTM
+   4         C     / 4/ MU         16   /UNPAKX/ITC,II,JJ,INCR
+   5         C     / 2/  U         48   /XMSSG/UFM,UWM
+   6         C     / 1/ MU          4   /ZZZZZZ/Z
+   7         IR    ( 1)  U I            AIMAG
+   8         s     (11)  U              ALLMAT
+     (R4L,R4L,R4L,R4L,R4L,R4L,R4L,R4L,I4V,I4V,I4V)
+   9          R         M  E            ALPH1
+  10          R         M  E            ALPH2
+  11          I         M? E            AMAT
+  12   32   8 I        A?U E            BDD
+  13         s     ( 7)  U              CFACTR
+     (I4V,I4V,I4V,I4V,I4V,I4V,I4V)
+  14         s     ( 5)  U              CFBSOR
+     (I4V,I4V,I4V,I4V,I4V)
+  15         s     ( 2)  U              CLOSE
+     (I4V,I4E)
+  16         IX    ( 1)  U I            CSQRT
+  17          X    ( 1)  U E        1   CZ(1)
+  18          D         MU E            D1
+  19          D         MU E            D2
+  20          D         MU E            D3
+  21          D         MU E            D4
+  22          D         MU E            D5
+  23    1   1 R    ( 1)C   E       32   DUM32(32)
+  24          D    ( 1) MU E        1   DZ(1)
+  25   32  16 I        A?U E            EED
+  26          I    ( 1)I?? E        2   EIGC(2)
+  27          R         M  E            EPSI
+  28          I         M? E            FILE
+  29         s     ( 4)  U              FREAD
+     (I4V,I4A,I4E,I4E)
+  30         s     ( 3)  U              GOPEN
+     (I4V,I4L,I4E)
+  31    2   1 R    ( 1)C?? E        1   HEAD(1)
+  32         S     (17) MU        164   HESS1(KDD,MDD,LAMD,PHID,OEIGS,NFOUND,NVECD,BDD,SCR1,SCR2,SCR3,SCR4,SCR5,SCR6,SCR7,EED,METHOD)
+  33         s     ( 3)  U              HESS2
+     (I4V,I4V,I4V)
+  34          I         MU E            I
+  35          I         MU E            IA
+  36    1   2 I        CM  E            IB
+  37          I         MU E            IBDD
+  38          I         MU E            IBUF1
+  39          I         MU E            ID
+  40          I         ?? E            IFLAG
+  41          I         MU E            IH
+  42          I    ( 1)I?? E       10   IHEAD(10)
+  43          I         MU E            IHL
+  44    4   2 I        CMU E            II
+  45          I         MU E            IL
+  46          I         MU E            IM
+  47          I         M? E            IMAT1
+  48          I         M? E            IMAT2
+  49    4   4 I        CM  E            INCR
+  50          I         MU E            INORM
+  51          I         MU E            INT
+  52          I         MU E            INTH
+  53          I         ?? E            IOPT
+  54          I         ?? E            IOPT1
+  55          I         M? E            IP1
+  56          I          U E            IPREC
+  57          I         MU E            ISIL
+  58    4   1 I        CM  E            ITC
+  59          I         MU E            IV
+  60          I    ( 1) MU E        8   IZ(8)
+  61          I        I U E            IZ0
+  62          I         MU E            J
+  63    4   3 I        CMU E            JJ
+  64          I         MU E            K
+  65   32   1 I        A?U E            KDD
+  66         fI    ( 1)  U E            KORSZ
+     (I4A)
+  67    3   1 I    ( 1)C   E       65   KSYSTM(65)
+  68   32   3 I        A?U E            LAMD
+  69         s     ( 4)  U              LOCATE
+     (ALT,I4L,I4A,I4V)
+  70          I         MU E            M
+  71         II    ( 2)  U I            MAX0
+  72          I    ( 1) MU E        7   MCB(7)
+  73   32   2 I        A?U E            MDD
+  74         s     ( 9)  U              MERGED
+     (I4E,I4V,I4V,I4V,I4V,I4V,I4V,I4E,I4E)
+  75         s     ( 3)  U              MESAGE
+     (I4E,I4E,I4A)
+  76   32  17 I        A U E            METHOD
+  77          I          U E            MOUT
+  78          I    ( 1)I?? E        2   NAME(2)
+  79          I         MU E            NCOUNT
+  80   32   6 I        AMU E            NFOUND
+  81          I         MU E            NOUT
+  82          I         MU E            NROW
+  83   32   7 I        AMU E            NVECD
+  84          I         MU E            NZ
+  85   32   5 I        A?U E            OEIGS
+  86         s     ( 4)  U              OPEN
+     (ALT,I4V,I4L,I4E)
+  87   32   4 I        A?U E            PHID
+  88          I        I U E            POIN
+  89         s     ( 3)  U              PRELOC
+     (ALT,I4L,I4V)
+  90         s     ( 1)  U              RDTRL
+     (I4A)
+  91         IR    ( 1)  U I            REAL
+  92   32   9 I        A?? E            SCR1
+  93   32  10 I        A?? E            SCR2
+  94   32  11 I        A?U E            SCR3
+  95   32  12 I        A?U E            SCR4
+  96   32  13 I        A?? E            SCR5
+  97   32  14 I        A?? E            SCR6
+  98   32  15 I        A?U E            SCR7
+  99          I          U E            SYSBUF
+ 100          D    ( 1) M? E        2   TEMP(2)
+ 101          X         MU E            TZ
+ 102    5   1 C*23     C   E            UFM*23
+ 103         s     ( 3)  U              UNPACK
+     (ALT,I4V,R4L)
+ 104    5   2 C*25     C U E            UWM*25
+ 105          R         M  E            W1
+ 106          R         M  E            W2
+ 107         s     ( 4)  U              WRITE
+     (I4V,R8A,I4E,I4E)
+     (   ,I4A,   ,   )
+     (   ,R4A,   ,   )
+ 108         s     ( 1)  U              WRTTRL
+     (I4A)
+ 109    6   1 R    ( 1)CMU E        1   Z(1)
+**-- END OF SYMBOL TABLE

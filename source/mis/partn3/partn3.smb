@@ -1,0 +1,74 @@
+**++ Symbol table for subprogram PARTN3 in file mis/partn3.f90
+     produced by SPAG     8.01RF-40 at 14:46:38 on  2 Dec 2023
+   0         X             K             mis/partn3.f90,0000002,0000127
+   1         C     / 6/ MU         36   /BLANK/SYM,TYPE,FORM,CPCOL,RPCOL,IREQCL
+   2         C     / 6/ ??         24   /NAMES/RD,RDREW,WRT,WRTREW,CLSREW,CLS
+   3         C     / 4/  U        160   /SYSTEM/SYSBUF,OUTPT,XXX,NBPW
+   4         C     / 5/  U        129   /XMSSG/UFM,UWM,UIM,SFM,SWM
+   5         C     / 3/ MU         24   /ZNTPKX/ELEM,ROW,EOL
+   6         C     / 1/ M?          4   /ZZZZZZ/Z
+   7          I    ( 1) M? E       64   BIT(64)
+   8   35   7 I    ( 1)A?? E            BUF(4)
+   9         s     ( 2)  U              CLOSE
+     (I4V,I4V)
+  10    2   6 I        C   E            CLS
+  11    2   5 I        C?? E            CLSREW
+  12   35   8 I        A U E            CORE
+  13    1   4 I        C   E            CPCOL
+  14    5   1 I    ( 1)C   E        4   ELEM(4)
+  15    5   3 I        CMU E            EOL
+  16   35   1 I        A?U E            FILE
+  17    1   3 I    ( 1)C   E        4   FORM(4)
+  18   35   6 L        AM  E            HERE
+  19          I         MU E            I
+  20         s     ( 5)  U              INTPK
+     (ALT,I4V,I4E,I4E,I4E)
+  21    1   6 I        CMU E            IREQCL
+  22   35   4 I        A U E            IZ
+  23          I         M? E            J
+  24          I         MU E            K
+  25         fI    ( 2)  UXE            LSHIFT
+     (I4E,I4V)
+  26          I    ( 1) M? E        7   MCB(7)
+  27         s     ( 3)  U              MESAGE
+     (I4E,I4E,I4A)
+  28         I?    ( 2)  U I            MOD
+  29    3   4 I        C U E            NBPW
+  30   35   5 I        AMU E            NZ
+  31   35   3 I        AMU E            ONES
+  32         s     ( 4)  U              OPEN
+     (ALT,I4V,I4A,I4V)
+  33         fI    ( 2)  UXE            ORF
+     (I4L,I4L)
+  34    3   2 I        C U E            OUTPT
+  35         S     ( 8) MU         57   PARTN3(FILE,SIZE,ONES,IZ,NZ,HERE,BUF,CORE)
+  36          L        IMU E            PASS
+  37    2   1 I        C   E            RD
+  38    2   2 I        C?? E            RDREW
+  39         s     ( 1)  U              RDTRL
+     (I4A)
+  40    5   2 I        C U E            ROW
+  41    1   5 I        C   E            RPCOL
+  42         fI    ( 2)  UXE            RSHIFT
+     (I4V,I4E)
+  43    4   4 C*25     C U E            SFM*25
+  44   35   2 I        AMU E            SIZE
+  45         s     ( 2)  U              SKPREC
+     (I4V,I4V)
+  46          I    ( 1)I?? E        2   SUBR(2)
+  47    4   5 C*27     C U E            SWM*27
+  48    1   1 I        C   E            SYM
+  49    3   1 I        C   E            SYSBUF
+  50          I    ( 1)  U E        6   TRL(6)
+  51    1   2 I        C   E            TYPE
+  52    4   1 C*23     C   E            UFM*23
+  53    4   3 C*29     C   E            UIM*29
+  54    4   2 C*25     C   E            UWM*25
+  55    2   3 I        C   E            WRT
+  56    2   4 I        C   E            WRTREW
+  57    3   3 I    ( 1)C   E       37   XXX(37)
+  58    6   1 I    ( 1)CM? E        1   Z(1)
+  59          I         MU E            ZBIT
+  60         s           U              ZNTPKI
+  61          I         MU E            ZWORD
+**-- END OF SYMBOL TABLE

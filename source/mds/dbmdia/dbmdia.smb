@@ -1,0 +1,21 @@
+**++ Symbol table for subprogram DBMDIA in file mds/dbmdia.f90
+     produced by SPAG     7.61RG-40 at 01:00:00 on 21 Mar 2022
+   0         X             K             mds/dbmdia.f90,0000002,0000051
+   1         C     / 2/  U          8   /SYSTEM/ISYSBF,IWR
+   2         S                     26   DBMDIA
+   3         f?    ( 2) MU I            FCB
+     (I4E,I4E)
+   4          I         MU E            I
+   5          I         M  E            IBLKSZ
+   6          I         MU E            IEXTB
+   7          ?         ?? I            IFILEX
+   8          I         MU E            IINTB
+   9          I         MU E            INDEX
+  10    1   1 I        C U E            ISYSBF
+  11          I         MU E            ITOTI
+  12          I         MU E            ITOTX
+  13    1   2 I        C U E            IWR
+  14         f?    ( 1)  U I            MEM
+     (I4E)
+  15          I    ( 1)I U E        2   SCRATCH(2)
+**-- END OF SYMBOL TABLE

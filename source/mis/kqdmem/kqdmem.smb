@@ -1,0 +1,85 @@
+**++ Symbol table for subprogram KQDMEM in file mis/kqdmem.f90
+     produced by SPAG     7.61RG-40 at 01:00:00 on 21 Mar 2022
+   0         X             K             mis/kqdmem.f90,0000002,0000306
+   1         C     / 1/            20   /CONDAS/CONSTS
+   2         C     / 6/ MU         24   /MATIN/MATID,INFLAG,ELTEMP,STRESS,SINTH,COSTH
+   3         C     / 3/  U         72   /MATOUT/DUM99,GSUBE,DUM88
+   4         C     / 8/ MU         92   /SMA1CL/IOPT4,K4GGSW,NPVT,DUMCL,LINK,IDETCK,DODET,NOGO
+   5         C     /23/ MU       2400   /SMA1DP/KIJ,DUM7,KSUM,TEMP,COSANG,SINANG,VECL,IVEC,JVEC,KVEC,PVEC,VSUBK,V,SI,NPIVOT,MPOINT,MI,NSUBSC,NGRID,U1,U2,COORD,DUMM8
+   6         C     / 1/ MU        400   /SMA1ET/ECPT
+   7         C     / 1/  U          4   /SMA1HT/HEAT
+   8         C     / 5/ ??        144   /SMA1IO/DUM1,IFKGG,DUM2,IF4GG,DUM3
+   9         I?    ( 1)  U I            ABS
+  10          R         MU E            ANGL
+  11    1   1 R    ( 1)C   E        5   CONSTS(5)
+  12    5  22 R    ( 1)CMU E       16   COORD(16)
+  13         I?    ( 1)  U I            COS
+  14    5   5 R        CMU E            COSANG
+  15    2   6 R        CM  E            COSTH
+  16          R          U E            DEGRA
+  17    4   7 R        C   E            DODET
+  18    8   1 R    ( 1)C   E       10   DUM1(10)
+  19    8   3 R    ( 1)C   E        1   DUM2(1)
+  20    8   5 R    ( 1)C   E       23   DUM3(23)
+  21    5   2 R    ( 1)C   E      156   DUM7(156)
+  22    3   3 R    ( 1)C   E        6   DUM88(6)
+  23    3   1 R    ( 1)C   E       11   DUM99(11)
+  24    4   4 R    ( 1)C   E        7   DUMCL(7)
+  25    5  23 R    ( 1)C   E      248   DUMM8(248)
+  26    6   1 R    ( 1)CMU E      100   ECPT(100)
+  27    2   3 R        C   E            ELTEMP
+  28    3   2 R        C U E            GSUBE
+  29    7   1 L        C U E            HEAT
+  30          L         MU E            HRING
+  31          I         MU E            I
+  32    4   6 I        C   E            IDETCK
+  33    8   4 I        C?? E            IF4GG
+  34    8   2 I        C?? E            IFKGG
+  35    2   2 I        C   E            INFLAG
+  36    4   1 I        C U E            IOPT4
+  37    5   8 R    ( 1)CMU E        3   IVEC(3)
+  38          I         MU E            J
+  39          I         MU E            JNOT
+  40    5   9 R    ( 1)CMU E        3   JVEC(3)
+  41          I         MU E            K
+  42          D    ( 1)  U E       27   K3X3(27)
+  43    4   2 I        CM  E            K4GGSW
+  44    5   1 D    ( 1)CM? E       36   KIJ(36)
+  45         S                    139   KQDMEM
+  46    5   3 D    ( 1)CMU E       36   KSUM(36)
+  47         s     ( 1)  U              KTRMEM
+     (I4E)
+  48    5  10 R    ( 1)CMU E        3   KVEC(3)
+  49    4   5 I    ( 1)C   E       10   LINK(10)
+  50          I    ( 1)I U E       12   M(12)
+  51    2   1 I        C   E            MATID
+  52         s     ( 3)  U              MESAGE
+     (I4E,I4E,R4L)
+  53    5  17 I        CMU E            MI
+  54    5  16 I        CMU E            MPOINT
+  55          I    ( 1) MU E        8   NECPT(8)
+  56    5  19 I    ( 1)CMU E        4   NGRID(4)
+  57    4   8 I        CM  E            NOGO
+  58    5  15 I        CMU E            NPIVOT
+  59          I         MU E            NPT1
+  60          I         MU E            NPT2
+  61          I         MU E            NPT3
+  62    4   3 I        C?U E            NPVT
+  63    5  18 I        CMU E            NSUBSC
+  64          R        I U E            PIOVR3
+  65    5  11 R    ( 1)CMU E        3   PVEC(3)
+  66    5  14 R    ( 1)CMU E        3   SI(3)
+  67         I?    ( 1)  U I            SIN
+  68    5   6 R        CMU E            SINANG
+  69    2   5 R        CMU E            SINTH
+  70         s     ( 5)  U              SMA1B
+     (R8L,I4L,I4E,I4V,R8E)
+  71         I?    ( 1)  U I            SQRT
+  72    2   4 R        C   E            STRESS
+  73    5   4 D        CM? E            TEMP
+  74    5  20 R        CMU E            U1
+  75    5  21 R        CMU E            U2
+  76    5  13 R    ( 1)CMU E        3   V(3)
+  77    5   7 R        CMU E            VECL
+  78    5  12 R    ( 1)CMU E        3   VSUBK(3)
+**-- END OF SYMBOL TABLE

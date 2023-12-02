@@ -1,0 +1,172 @@
+**++ Symbol table for subprogram DIS2D8 in file mis/dis2d8.f90
+     produced by SPAG     8.01RF-40 at 14:46:40 on  2 Dec 2023
+   0         X             K             mis/dis2d8.f90,0000002,0000529
+   1         C     / 3/  U         12   /DS1AAA/NPVT,ICSTM,NCSTM
+   2         C     /16/ MU       1720   /DS1ADP/KIJ,XX,DNC,DNL,XXJB,XJB,PT,H,G,B,BT,TB,DETERM,GSUBE,DUMARG,TSAVE
+   3         C     /43/ ?U        320   /DS1AET/NECPT,NGRID,ID1,TH,MATID1,T,ISYS1,X1,Y1,Z1,ISYS2,X2,Y2,Z2,ISYS3,X3,Y3,Z3,ISYS4,X4,Y4,Z4,ISYS5,X5,Y5,Z5,ISYS6,X6,Y6,Z6,ISYS7,X7,Y7,Z7,ISYS8,X8,Y8,Z8,TTEMP,EDT,ISETNO,TGRID,DISP
+   4         C     / 6/ MU         24   /MATIN/MATID,INFLAG,ELTEMP,STRESS,SINTH,COSTH
+   5         C     /15/  U         60   /MATOUT/G11,G12,G13,G22,G23,G33,RHO,ALPHA1,ALPHA2,ALP12,TREF,GE,KX,KY,C
+   6    5  10 R        C   E            ALP12
+   7    5   8 R        C   E            ALPHA1
+   8    5   9 R        C   E            ALPHA2
+   9          R    ( 1) ?? E        3   ALPHAS(3)
+  10    2  10 D    ( 1)C   E       12   B(12)
+  11          R    ( 1) M? E       72   BB(72)
+  12    2  11 D    ( 1)C   E       12   BT(12)
+  13    5  15 R        C   E            C
+  14          D    ( 1) M? E       18   CID(18)
+  15          D    ( 1) M? E       18   CJD(18)
+  16         I?    ( 1)  U I            COS
+  17    4   6 R        CM  E            COSTH
+  18          R    ( 1) ?? E       72   DB(72)
+  19    2  13 D        C?U E            DETERM
+  20          D         MU E            DHH
+  21         S                    283   DIS2D8
+  22    3  43 R    ( 1)C?? E       24   DISP(24)
+  23          R    ( 1) MU E        8   DN(8)
+  24    2   3 D    ( 1)C?? E       16   DNC(16)
+  25          D    ( 1) M  E        1   DNETA(1)
+  26    2   4 D    ( 1)C?? E       16   DNL(16)
+  27          D    ( 1)  U E        1   DNX(1)
+  28          D    ( 1) M  E        1   DNXI(1)
+  29          D    ( 1)  U E        1   DNY(1)
+  30         s     ( 2)  U              DS1B
+     (R8A,I4L)
+  31    2  15 D        C?? E            DUMARG
+  32          D    ( 1) MU E        9   E1T(9)
+  33          R    ( 1) ?U E        1   ECPT(1)
+  34    3  40 R        C   E            EDT
+  35    4   3 R        CMU E            ELTEMP
+  36          D    ( 1)I U E        8   ETA(8)
+  37    2   9 D    ( 1)CMU E        9   G(9)
+  38    5   1 R        C   E            G11
+  39    5   2 R        C   E            G12
+  40    5   3 R        C   E            G13
+  41    5   4 R        C   E            G22
+  42    5   5 R        C   E            G23
+  43    5   6 R        C   E            G33
+  44    5  12 R        C   E            GE
+  45         s     ( 9)  U              GMMATD
+     (R8A,I4E,I4E,I4E,R8A,I4E,I4E,I4E,R8A)
+  46         s     ( 9)  U              GMMATS
+     (R4A,I4E,I4E,I4E,R4A,I4E,I4E,I4E,R4A)
+  47          R         MU E            GSTEMP
+  48    2  14 D        C   E            GSUBE
+  49    2   8 D    ( 1)CMU E        3   H(3)
+  50          I         MU E            I
+  51    1   2 I        C   E            ICSTM
+  52    3   3 I        C U E            ID1
+  53          I         MU E            IDTEMP
+  54          I         MU E            III
+  55    4   2 I        CM  E            INFLAG
+  56         s     ( 8)  U              INVERD
+     (I4E,R8A,I4E,R8V,I4E,R8V,I4V,I4A)
+  57    3  41 I        C U E            ISETNO
+  58          I         ?U E            ISING
+  59          I         MU E            ISUB
+  60    3   7 I        C   E            ISYS1
+  61    3  11 I        C   E            ISYS2
+  62    3  15 I        C   E            ISYS3
+  63    3  19 I        C   E            ISYS4
+  64    3  23 I        C   E            ISYS5
+  65    3  27 I        C   E            ISYS6
+  66    3  31 I        C   E            ISYS7
+  67    3  35 I        C   E            ISYS8
+  68          I    ( 2) ?? E        6   IWS(2,3)
+  69          I         MU E            IXX
+  70          I         MU E            J
+  71          I         MU E            JJJ
+  72          I         MU E            K
+  73    2   1 D    ( 1)CM? E       36   KIJ(36)
+  74          I         MU E            KK
+  75          D    ( 1) ?? E       18   KMULT(18)
+  76          D    ( 1) M? E       36   KWD(36)
+  77    5  13 R        C   E            KX
+  78    5  14 R        C   E            KY
+  79          I         MU E            L
+  80          I         MU E            LL
+  81         s     ( 1)  U              MAT
+     (R4L)
+  82    4   1 I        CM  E            MATID
+  83    3   5 I        C U E            MATID1
+  84         s     ( 3)  U              MESAGE
+     (I4E,I4E,R4L)
+  85          I         MU E            N
+  86          I         MU E            N3
+  87    1   3 I        C   E            NCSTM
+  88    3   1 I    ( 1)C?U E        1   NECPT(1)
+  89    3   2 I    ( 1)C U E        8   NGRID(8)
+  90          I         M  E            NOGO
+  91    1   1 I        C U E            NPVT
+  92          D    ( 1) M? E        9   PREMUL(9)
+  93          D    ( 1) M? E        9   PSTMUL(9)
+  94    2   7 D    ( 1)CMU E        3   PT(3)
+  95          R    ( 1)  U E       15   QQ(15)
+  96          R    ( 1) M? E        9   R(9)
+  97          R         MU E            RGTEMP
+  98    5   7 R        C   E            RHO
+  99          R    ( 1) M? E        6   S(6)
+ 100          D    ( 1) MU E       72   SAVE(72)
+ 101          R    ( 1) MU E        6   SE1T(6)
+ 102          R    ( 1) MU E        9   SEMP(9)
+ 103          R    ( 1) MU E        3   SIG(3)
+ 104         I?    ( 1)  U I            SIN
+ 105    4   5 R        CM  E            SINTH
+ 106         I?    ( 1)  U I            SQRT
+ 107          R    ( 1) ?U E        3   ST(3)
+ 108          R    ( 1) M? E        9   STB(9)
+ 109    4   4 R        C   E            STRESS
+ 110    3   6 R        C U E            T
+ 111    2  12 D    ( 1)C?? E        9   TB(9)
+ 112          D    ( 1) ?U E        9   TEMP(9)
+ 113          D    ( 1) MU E        1   TEMPAR(1)
+ 114    3  42 R    ( 1)C U E        8   TGRID(8)
+ 115    3   4 R        C U E            TH
+ 116          D         MU E            THICK
+ 117         s     ( 2)  U              TRANSD
+     (I4L,R8A)
+ 118         s     ( 2)  U              TRANSS
+     (I4L,R4A)
+ 119    5  11 R        C U E            TREF
+ 120    2  16 D    ( 1)CM? E       72   TSAVE(72)
+ 121          R    ( 1) ?? E        9   TTB(9)
+ 122    3  39 R        C U E            TTEMP
+ 123          R         MU E            TTH
+ 124          R    ( 1) MU E        3   VEC(3)
+ 125          R    ( 1) MU E        3   VECI(3)
+ 126          R         MU E            VECIL
+ 127          R    ( 1) MU E        3   VECJ(3)
+ 128          R    ( 1) MU E        3   VECK(3)
+ 129          R         MU E            VECKL
+ 130          R    ( 1) MU E        3   VVEC(3)
+ 131    3   8 R        C U E            X1
+ 132    3  12 R        C   E            X2
+ 133    3  16 R        C   E            X3
+ 134    3  20 R        C U E            X4
+ 135    3  24 R        C   E            X5
+ 136    3  28 R        C   E            X6
+ 137    3  32 R        C   E            X7
+ 138    3  36 R        C   E            X8
+ 139          D    ( 1)I U E        8   XI(8)
+ 140    2   6 D    ( 1)CMU E        4   XJB(4)
+ 141    2   2 D    ( 1)CM? E       16   XX(16)
+ 142    2   5 D    ( 2)CMU E        4   XXJB(2,2)
+ 143          R    ( 1)  U E        3   XY1(3)
+ 144          R    ( 1)  U E        3   XY2(3)
+ 145    3   9 R        C U E            Y1
+ 146    3  13 R        C   E            Y2
+ 147    3  17 R        C   E            Y3
+ 148    3  21 R        C U E            Y4
+ 149    3  25 R        C   E            Y5
+ 150    3  29 R        C   E            Y6
+ 151    3  33 R        C   E            Y7
+ 152    3  37 R        C   E            Y8
+ 153    3  10 R        C U E            Z1
+ 154    3  14 R        C   E            Z2
+ 155    3  18 R        C   E            Z3
+ 156    3  22 R        C U E            Z4
+ 157    3  26 R        C   E            Z5
+ 158    3  30 R        C   E            Z6
+ 159    3  34 R        C   E            Z7
+ 160    3  38 R        C   E            Z8
+**-- END OF SYMBOL TABLE

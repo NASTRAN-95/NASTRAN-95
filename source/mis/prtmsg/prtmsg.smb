@@ -1,0 +1,20 @@
+**++ Symbol table for subprogram PRTMSG in file mis/prtmsg.f90
+     produced by SPAG     8.01RF-40 at 14:47:18 on  2 Dec 2023
+   0         X             K             mis/prtmsg.f90,0000002,0000022
+   1         C     / 1/ M         768   /OUTPUT/TITLE
+   2         C     / 1/ ??          4   /ZZZZZZ/BUF
+   3          R        I U E            BLANK
+   4    2   1 R    ( 1)C?? E        1   BUF(1)
+   5          I         MU E            I
+   6          I        I?? E            INPREW
+   7          I         MU E            J
+   8          I        I?? E            MSG
+   9         s     ( 4)  U              OPEN
+     (ALT,I4V,R4A,I4V)
+  10         S                      9   PRTMSG
+  11         s     ( 7)  U              READ
+     (ALT,ALT,I4V,I4E,I4E,I4E,I4V)
+  12    1   1 R    ( 2)CM  E      192   TITLE(32,6)
+  13         s     ( 1)  U              WRTMSG
+     (I4V)
+**-- END OF SYMBOL TABLE

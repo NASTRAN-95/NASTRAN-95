@@ -1,0 +1,105 @@
+**++ Symbol table for subprogram MTRAPR in file mis/mtrapr.f90
+     produced by SPAG     8.01RF-40 at 14:46:51 on  2 Dec 2023
+   0         X             K             mis/mtrapr.f90,0000002,0000362
+   1         C     / 1/            40   /CONDAD/CONSTD
+   2         C     / 6/ M          24   /MATIN/MATIDC,MATFLG,ELTEMP,STRESS,SINTH,COSTH
+   3         C     / 6/  U         56   /MATOUT/E,ANU,RHO,G,ALF,TZERO
+   4         C     / 5/ MU         84   /SMA2CL/DUM3,NPVT,DUM4,LINK,NOGO
+   5         C     /16/ MU       2220   /SMA2DP/D,GAMBQ,R,Z,DELINT,AK,AKI,AKT,DGAMA,ZMIN,RHOD,TWOPI,IGP,ICS,SP,TEMPE
+   6         C     / 2/  U        400   /SMA2ET/ECPT,DUM5
+   7         C     / 3/ ??        144   /SMA2IO/DUM1,IFMGG,DUM2
+   8         C     / 2/             8   /SYSTEM/IBUF,IOUT
+   9    5   6 D    ( 1)C?U E       64   AK(64)
+  10    5   7 D    ( 1)CM? E       36   AKI(36)
+  11    5   8 D    ( 1)CMU E        9   AKT(9)
+  12    3   5 R    ( 1)C   E        3   ALF(3)
+  13          D    ( 1) MU E       64   AM(64)
+  14    3   2 R    ( 1)C   E        3   ANU(3)
+  15    1   1 D    ( 1)C   E        5   CONSTD(5)
+  16    2   6 R        C   E            COSTH
+  17    5   1 D    ( 1)CMU E       64   D(64)
+  18          D          U E            D2PI
+  19         ID    ( 1)  U I            DABS
+  20    5   5 D    ( 1)CMU E       12   DELINT(12)
+  21    5   9 D        CM  E            DGAMA
+  22         ID    ( 4)  U I            DMAX1
+  23         ID    ( 4)  U I            DMIN1
+  24    7   1 R    ( 1)C   E       10   DUM1(10)
+  25    7   3 R    ( 1)C   E       25   DUM2(25)
+  26    4   1 R    ( 1)C   E        2   DUM3(2)
+  27    4   3 R    ( 1)C   E        7   DUM4(7)
+  28    6   2 R    ( 1)C   E       76   DUM5(76)
+  29    3   1 R    ( 1)C   E        3   E(3)
+  30    6   1 R    ( 1)C U E       24   ECPT(24)
+  31    2   3 R        CM  E            ELTEMP
+  32    3   4 R    ( 1)C   E        3   G(3)
+  33    5   2 D    ( 1)CMU E       64   GAMBQ(64)
+  34         s     ( 9)  U              GMMATD
+     (R8A,I4E,I4E,I4E,R8A,I4E,I4E,I4E,R8A)
+  35          I         MU E            I
+  36          I         MU E            I1
+  37          I         MU E            IAI
+  38          I         MU E            IAPP
+  39    8   1 I        C   E            IBUF
+  40          I         MU E            IC1
+  41          I         MU E            ICORE
+  42    5  14 I    ( 1)CMU E        4   ICS(4)
+  43          I         M? E            IDEL
+  44          I    ( 1)  U E       24   IECPT(24)
+  45    7   2 I        C?? E            IFMGG
+  46    5  13 I    ( 1)CMU E        4   IGP(4)
+  47         s     ( 8)  U              INVERD
+     (I4E,R8L,I4E,R8L,I4E,R8L,I4V,R4A)
+  48    8   2 I        C   E            IOUT
+  49          I         M? E            IP
+  50          I         MU E            IPP
+  51          I         M? E            IQ
+  52          I         MU E            IR1
+  53          I         MU E            IRC
+  54          I         MU E            ISING
+  55          I         MU E            J
+  56          I         MU E            J1
+  57          I         MU E            J2
+  58          I         MU E            JJ1
+  59          I         MU E            JJ2
+  60          I    ( 1) MU E        2   JRZ(2)
+  61          I         MU E            K
+  62    4   4 I    ( 1)C   E       10   LINK(10)
+  63         s     ( 1)  U              MAT
+     (I4V)
+  64    2   2 I        CM  E            MATFLG
+  65          I         MU E            MATID
+  66    2   1 I        CM  E            MATIDC
+  67         s     ( 3)  U              MESAGE
+     (I4E,I4E,I4V)
+  68         S                    221   MTRAPR
+  69    4   5 I        CM  E            NOGO
+  70    4   2 I        C U E            NPVT
+  71    5   3 D    ( 1)CMU E        4   R(4)
+  72          D         MU E            R1
+  73          D         MU E            R2
+  74          D         MU E            R3
+  75          D         MU E            R4
+  76    3   3 R        C U E            RHO
+  77    5  11 D        CMU E            RHOD
+  78          D         MU E            RMAX
+  79          D         MU E            RMIN
+  80         fD    ( 5)  U E            RZINTD
+     (I4V,I4V,R8A,R8A,I4E)
+  81    2   5 R        C   E            SINTH
+  82         s     ( 5)  U              SMA2B
+     (R8L,I4L,I4E,I4V,R8E)
+  83    5  15 R    ( 1)C?? E       24   SP(24)
+  84    2   4 R        C   E            STRESS
+  85    5  16 R        CMU E            TEMPE
+  86         s     ( 2)  U              TRANSD
+     (I4L,R8L)
+  87    5  12 D        CMU E            TWOPI
+  88    3   6 R        C   E            TZERO
+  89    5   4 D    ( 1)CM? E        4   Z(4)
+  90          D         MU E            Z1
+  91          D         MU E            Z2
+  92          D         MU E            Z3
+  93          D         MU E            Z4
+  94    5  10 D        CMU E            ZMIN
+**-- END OF SYMBOL TABLE

@@ -1,0 +1,19 @@
+**++ Symbol table for subprogram GPTSYM in file mis/gptsym.f90
+     produced by SPAG     8.01RF-40 at 14:46:53 on  2 Dec 2023
+   0         X             K             mis/gptsym.f90,0000002,0000033
+   1         C     / 1/  U          4   /BLANK/NGP
+   2    4   5 I        A U E            DEFORM
+   3    4   1 I    ( 1)A U E            GPLST(1)
+   4         S     ( 5) ?U         15   GPTSYM(GPLST,X,U,SYM,DEFORM)
+   5          I         MU E            I
+   6          I         MU E            J
+   7    1   1 I        C U E            NGP
+   8    4   4 I    ( 1)A?? E            SYM(2)
+   9         s     ( 4)  U              SYMBOL
+     (I4E,I4E,I4E,I4E)
+     (R4V,R4V,I4A,   )
+  10    4   3 R    ( 2)A U E            U(2,1)
+  11    4   2 R    ( 2)A U E            X(3,1)
+  12          R         M? E            XX
+  13          R         M? E            YY
+**-- END OF SYMBOL TABLE

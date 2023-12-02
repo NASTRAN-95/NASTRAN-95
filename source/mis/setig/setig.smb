@@ -1,0 +1,33 @@
+**++ Symbol table for subprogram SETIG in file mis/setig.f90
+     produced by SPAG     8.01RF-40 at 14:47:03 on  2 Dec 2023
+   0         X             K             mis/setig.f90,0000002,0000052
+   1         C     / 7/ MU         40   /BANDS/NN,MM,DUM2,MAXGRD,MAXDEG,DUM3,NEDGE
+   2         C     / 2/  U          8   /SYSTEM/IBUF,NOUT
+   3         s     ( 4)  U              BPACK
+     (I4A,I4V,I4V,I4V)
+   4         fI    ( 3)  U E            BUNPK
+     (I4A,I4V,I4V)
+   5    1   3 R    ( 1)C   E        2   DUM2(2)
+   6    1   6 R    ( 1)C   E        3   DUM3(3)
+   7    2   1 I        C   E            IBUF
+   8   25   3 I    ( 1)A?? E            IG(1)
+   9          I         MU E            IS
+  10          I         MU E            K
+  11   25   1 I        A U E            KG1
+  12   25   2 I        A U E            KG2
+  13          I         MU E            L
+  14          I         MU E            LOOP
+  15          I         MU E            M
+  16         II    ( 2)  U I            MAX0
+  17    1   5 I        C U E            MAXDEG
+  18    1   4 I        C   E            MAXGRD
+  19         s     ( 3)  U              MESAGE
+     (I4E,I4E,R4A)
+  20    1   2 I        CMU E            MM
+  21    1   7 I        CMU E            NEDGE
+  22    1   1 I        C   E            NN
+  23   25   4 I    ( 1)A U E            NORIG(1)
+  24    2   2 I        C U E            NOUT
+  25         S     ( 4) ?U         28   SETIG(KG1,KG2,IG,NORIG)
+  26          R    ( 1)I?? E        2   SUB(2)
+**-- END OF SYMBOL TABLE

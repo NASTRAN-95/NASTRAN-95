@@ -1,0 +1,25 @@
+**++ Symbol table for subprogram GPWG1C in file mis/gpwg1c.f90
+     produced by SPAG     8.01RF-40 at 14:47:02 on  2 Dec 2023
+   0         X             K             mis/gpwg1c.f90,0000002,0000096
+   1   13   1 D    ( 2)AMU E            B(3,3)
+   2          D         MU E            BMAX
+   3          D    ( 2) MU E        9   BP(3,3)
+   4          D         MU E            C
+   5         ID    ( 1)  U I            DABS
+   6          D         MU E            DETB
+   7         ID    ( 3)  U I            DMAX1
+   8         ID    ( 1)  U I            DSQRT
+   9   13   2 D    ( 2)AMU E            E(3,3)
+  10   13   3 D    ( 1)AM  E            EIG(3)
+  11          D    ( 2) MU E        9   EP(3,3)
+  12          D         MU E            EPSIL
+  13         S     ( 4) MU         81   GPWG1C(B,E,EIG,IFLAG)
+  14          I         MU E            I
+  15   13   4 I        AM  E            IFLAG
+  16          I         MU E            II
+  17          I         MU E            J
+  18          I         MU E            K
+  19          D         MU E            R
+  20          D         MU E            S
+  21          D         MU E            T
+**-- END OF SYMBOL TABLE

@@ -1,0 +1,17 @@
+**++ Symbol table for subprogram TABPT in file mis/tabpt.f90
+     produced by SPAG     8.01RF-40 at 14:46:41 on  2 Dec 2023
+   0         X             K             mis/tabpt.f90,0000002,0000023
+   1         C     / 3/ M          16   /BLANK/OP,IRC,IWD
+   2          R        I U E            BLANK
+   3          I         MU E            I
+   4          I    ( 1)I?U E        5   IN(5)
+   5    1   2 I        CM  E            IRC
+   6          I    ( 1) MU E        7   ITRL(7)
+   7    1   3 I        CM  E            IWD
+   8    1   1 R    ( 1)CM  E        2   OP(2)
+   9         s     ( 1)  U              RDTRL
+     (I4L)
+  10         s     ( 1)  U              TABPRT
+     (I4L)
+  11         S                      9   TABPT
+**-- END OF SYMBOL TABLE

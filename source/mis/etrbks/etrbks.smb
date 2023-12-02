@@ -1,0 +1,129 @@
+**++ Symbol table for subprogram ETRBKS in file mis/etrbks.f90
+     produced by SPAG     7.61RG-40 at 01:00:00 on 21 Mar 2022
+   0         X             K             mis/etrbks.f90,0000002,0000696
+   1         C     / 1/            20   /CONDAS/CONSTS
+   2         C     /23/ ?U        400   /EMGEST/IELID,NGRID,ANGLE,MATID1,EYE,MATID2,T2,FMU,Z11,Z22,DUMMY1,X1,Y1,Z1,DUMMY2,X2,Y2,Z2,DUMMY3,X3,Y3,Z3,DUMB
+   3         C     / 4/ M          80   /EMGPRM/DUM,SMB,IPREC,NOGO
+   4         C     /10/ MU       3652   /EMGTRX/A,PROD9,TEMP9,XSUBB,XSUBC,YSUBC,DICT5,E,K,AOUT
+   5         C     / 6/ MU         24   /MATIN/MATID,INFLAG,ELTEMP,STRESS,SINTH,COSTH
+   6         C     /18/  U         72   /MATOUT/G11,G12,G13,G22,G23,G33,RHO,ALPHA1,ALPHA2,ALP12,TSUB0,GSUBE,SIGTEN,SIGCOM,SIGSHE,G2X211,G2X212,G2X222
+   7    4   1 R    ( 1)CMU E      225   A(225)
+   8         I?    ( 1)  U I            ABS
+   9    6  10 R        C   E            ALP12
+  10    6   8 R        C   E            ALPHA1
+  11    6   9 R        C   E            ALPHA2
+  12    2   3 R        C U E            ANGLE
+  13    4  10 R    ( 1)CM  E      324   AOUT(324)
+  14          R         MU E            AREA
+  15    1   1 R    ( 1)C   E        5   CONSTS(5)
+  16         I?    ( 1)  U I            COS
+  17    5   6 R        CM  E            COSTH
+  18          R    ( 1) MU E        9   D(9)
+  19          R          U E            DEGRA
+  20          R         MU E            DETERM
+  21    4   7 R        CM  E            DICT5
+  22    3   1 R    ( 1)C   E       15   DUM(15)
+  23    2  23 R    ( 1)C   E       76   DUMB(76)
+  24    2  11 R        C   E            DUMMY1
+  25    2  15 R        C   E            DUMMY2
+  26    2  19 R        C   E            DUMMY3
+  27    4   8 R    ( 1)CMU E       18   E(18)
+  28          R    ( 1) ?U E       25   ECPT(25)
+  29    5   3 R        CM  E            ELTEMP
+  30         S     ( 1)  U        317   ETRBKS(IOPT)
+  31    2   5 R        C U E            EYE
+  32    2   8 R        C   E            FMU
+  33          R    ( 1) MU E        9   G(9)
+  34    6   1 R        C U E            G11
+  35    6   2 R        C U E            G12
+  36    6   3 R        C U E            G13
+  37    6   4 R        C U E            G22
+  38    6   5 R        C U E            G23
+  39          R    ( 1) MU E        4   G2X2(4)
+  40    6  16 R        C U E            G2X211
+  41    6  17 R        C U E            G2X212
+  42    6  18 R        C U E            G2X222
+  43    6   6 R        C U E            G33
+  44         s     ( 9)  U              GMMATS
+     (R4L,I4E,I4E,I4E,R4A,I4E,I4E,I4E,R4L)
+  45    6  12 R        C U E            GSUBE
+  46          I         MU E            I
+  47          I         MU E            IA
+  48    2   1 I        C?? E            IELID
+  49          I         MU E            II
+  50    5   2 I        CM  E            INFLAG
+  51         s     ( 8)  U              INVERS
+     (I4E,R4L,I4E,R4L,I4E,R4V,I4V,R4L)
+  52   30   1 I        A U E            IOPT
+  53          I         MU E            IOUT
+  54    3   3 I        C   E            IPREC
+  55          I         MU E            ISING
+  56          I         MU E            J
+  57          R    ( 1) MU E        4   J2X2(4)
+  58          I         MU E            JJ
+  59    4   9 R    ( 1)C   E      324   K(324)
+  60          I         MU E            LOOPND
+  61         s     ( 1)  U              MAT
+     (R4L)
+  62    5   1 I        CM  E            MATID
+  63    2   4 I        C U E            MATID1
+  64    2   6 I        C U E            MATID2
+  65         s     ( 3)  U              MESAGE
+     (I4E,I4E,R4L)
+     (   ,   ,I4V)
+  66          I    ( 1) ?U E       26   NECPT(26)
+  67    2   2 I    ( 1)C   E        3   NGRID(3)
+  68          I    ( 1)I U E        2   NO(2)
+  69    3   4 L        CM  E            NOGO
+  70          I         MU E            NPIVOT
+  71          I         MU E            NPT1
+  72          I         MU E            NPT2
+  73          I         MU E            NTYPE
+  74    4   2 R    ( 1)C   E        9   PROD9(9)
+  75          R         MU E            PX2
+  76          R         MU E            PXY2
+  77          R         MU E            PY2
+  78    6   7 R        C   E            RHO
+  79          R    ( 1) M? E       18   S(18)
+  80    6  14 R        C   E            SIGCOM
+  81    6  15 R        C   E            SIGSHE
+  82    6  13 R        C   E            SIGTEN
+  83         I?    ( 1)  U I            SIN
+  84    5   5 R        CMU E            SINTH
+  85    3   2 R    ( 1)C   E        3   SMB(3)
+  86         I?    ( 1)  U I            SQRT
+  87    5   4 R        C   E            STRESS
+  88    2   7 R        C U E            T2
+  89          R         MU E            TEMP
+  90    4   3 R    ( 1)C   E        9   TEMP9(9)
+  91          R         MU E            THETA
+  92          R    ( 1) ?? E        9   TI(9)
+  93          R    ( 1) M? E       18   TITE(18)
+  94          R    ( 1) M? E       18   TJTE(18)
+  95         s     ( 2)  U              TRANSS
+     (I4L,R4A)
+  96    6  11 R        C   E            TSUB0
+  97    2  12 R        C U E            X1
+  98    2  16 R        C U E            X2
+  99    2  20 R        C U E            X3
+ 100          R         MU E            XBAR
+ 101          R         MU E            XBAR3
+ 102          R         MU E            XBSQ
+ 103          R         MU E            XCSQ
+ 104          R         MU E            XCYC
+ 105    4   4 R        CMU E            XSUBB
+ 106    4   5 R        CMU E            XSUBC
+ 107    2  13 R        C U E            Y1
+ 108    2  17 R        C U E            Y2
+ 109    2  21 R        C U E            Y3
+ 110          R         MU E            YBAR
+ 111          R         MU E            YBAR2
+ 112          R         MU E            YBAR3
+ 113          R         MU E            YCSQ
+ 114    4   6 R        CMU E            YSUBC
+ 115    2  14 R        C U E            Z1
+ 116    2   9 R        C   E            Z11
+ 117    2  18 R        C U E            Z2
+ 118    2  10 R        C   E            Z22
+ 119    2  22 R        C U E            Z3
+**-- END OF SYMBOL TABLE

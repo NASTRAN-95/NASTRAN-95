@@ -1,0 +1,161 @@
+**++ Symbol table for subprogram PLTOPR in file mis/pltopr.f90
+     produced by SPAG     8.01RF-40 at 14:47:12 on  2 Dec 2023
+   0         X             K             mis/pltopr.f90,0000002,0000425
+   1         C     / 2/ ??         84   /BLANK/SKPCOM,PRNT
+   2         C     /13/  U        136   /PLTDAT/MODEL,PLOTER,SKPPLT,CSCALE,SKPA,CNTSIN,SKPB,NOPENS,SKPC,PLTYPE,SKPD,EOF,CNTIN3
+   3         C     /38/ MU        940   /XXPARM/PBUFSZ,CAMERA,BFRAMS,PLTMDL,TAPDEN,NPENS,PAPSIZ,PAPTYP,PENSIZ,PENCLR,PENPAP,SCALE,SKPSCL,AXIS,DAXIS,VANGLE,VANTX1,R0,S0L,S0R,T0,D0,VANTX2,PRJECT,S0S,FOR,ORG,NORG,ORIGIN,ORIGX3,XY,NCNTR,CNTR,ICNTVL,IWHERE,IDIREC,SKIP23,LAYER
+   4          I    ( 1)I?? E        9   A1(9)
+   5          I    ( 1)I?? E       12   A2(12)
+   6          I    ( 1)I?? E       25   A3(25)
+   7          I    ( 1)I?? E       13   A4(13)
+   8          I    ( 1)I?? E       17   A5(17)
+   9          I    ( 1)I?? E        6   A6(6)
+  10          R    ( 1) M  E       20   ALST(20)
+  11    3  14 I    ( 1)C U E        3   AXIS(3)
+  12          I    ( 1)I?? E       16   B1(16)
+  13          I    ( 1)I?? E       16   B2(16)
+  14          I    ( 1)I?? E       10   B5(10)
+  15    3   3 I        C U E            BFRAMS
+  16          I        I U E            BLANK
+  17          I    ( 1)I?? E       16   C1(16)
+  18          I    ( 1)I?? E       17   C2(17)
+  19          I    ( 1)I?? E       24   C3(24)
+  20    3   2 I        C U E            CAMERA
+  21    2  13 R        C U E            CNTIN3
+  22    3  33 R    ( 1)C U E       50   CNTR(50)
+  23    2   6 R        C U E            CNTSIN
+  24    2   4 R        C U E            CSCALE
+  25    3  22 R        C U E            D0
+  26          I    ( 1)I?? E       11   D1(11)
+  27          I    ( 1)I?? E        6   D2(6)
+  28          I    ( 1)I?? E       29   D3(29)
+  29    3  15 I    ( 1)C U E        3   DAXIS(3)
+  30          I    ( 1)I U E       10   DISPLA(10)
+  31          I    ( 1)I U E       12   DIST(12)
+  32          I    ( 1)I?? E       12   E1(12)
+  33          I    ( 1)I?? E       20   E2(20)
+  34          I    ( 1)I?? E       14   E3(14)
+  35          I    ( 1)I?? E       18   E4(18)
+  36    2  12 I        C U E            EOF
+  37          I    ( 1)I?? E       22   F1(22)
+  38          I    ( 1)I?? E       25   F2(25)
+  39          I    ( 1)I?? E       12   F3(12)
+  40          I    ( 1)I?? E       23   F4(23)
+  41          I    ( 1)I U E        2   FILM(2)
+  42    3  26 R        C   E            FOR
+  43          I    ( 1)I?? E       13   G1(13)
+  44          I    ( 1)I?? E       11   G2(11)
+  45          I    ( 1)I?? E       16   G3(16)
+  46          I    ( 1)I?? E        6   G4(6)
+  47          I    ( 1)I?? E       11   G5(11)
+  48          I    ( 1)I?? E        8   G6(8)
+  49          I    ( 1)I?? E        4   G7(4)
+  50          I    ( 1)I?? E       11   H1(11)
+  51          I         MU E            I
+  52         II    ( 1)  U I            IABS
+  53    3  34 I        C U E            ICNTVL
+  54    3  36 I        C U E            IDIREC
+  55          I    ( 1)I U E       20   ILAY(20)
+  56          I    ( 1)I U E        4   ITYPE(4)
+  57    3  35 I        C U E            IWHERE
+  58          I         MU E            J
+  59          I         MU E            K
+  60          I         MU E            L
+  61    3  38 I        C U E            LAYER
+  62          I    ( 1) MU E       20   LIST(20)
+  63          I         MU E            M
+  64         II    ( 2)  U I            MIN0
+  65          I        I U E            MINUS
+  66          I         MU E            MM
+  67    2   1 I        C   E            MODEL
+  68          I         MU E            N
+  69          I        I?? E            NA1
+  70          I        I?? E            NA2
+  71          I        I?? E            NA3
+  72          I        I?? E            NA4
+  73          I        I?? E            NA5
+  74          I        I?? E            NA6
+  75          I        I?? E            NB1
+  76          I        I?? E            NB2
+  77          I        I?? E            NB5
+  78          I        I?? E            NC1
+  79          I        I?? E            NC2
+  80          I        I?? E            NC3
+  81    3  32 I        C U E            NCNTR
+  82          I        I?? E            ND1
+  83          I        I?? E            ND2
+  84          I        I?? E            ND3
+  85          I        I?? E            NE1
+  86          I        I?? E            NE2
+  87          I        I?? E            NE3
+  88          I        I?? E            NE4
+  89          I        I?? E            NF1
+  90          I        I?? E            NF2
+  91          I        I?? E            NF3
+  92          I        I?? E            NF4
+  93          I        I?? E            NG1
+  94          I        I?? E            NG2
+  95          I        I?? E            NG3
+  96          I        I?? E            NG4
+  97          I        I?? E            NG5
+  98          I        I?? E            NG6
+  99          I        I?? E            NG7
+ 100          I        I?? E            NH1
+ 101    2   8 I        C U E            NOPENS
+ 102    3  28 I        C   E            NORG
+ 103          I        I?? E            NP6
+ 104    3   6 I        C U E            NPENS
+ 105          I        I?? E            NSKIP
+ 106    3  27 I        C U E            ORG
+ 107    3  29 I    ( 1)C U E       11   ORIGIN(11)
+ 108    3  30 R    ( 2)C   E       44   ORIGX3(11,4)
+ 109          I    ( 1)I?? E       23   P6(23)
+ 110          I    ( 1)I U E        2   PAPER(2)
+ 111    3   7 R    ( 1)C U E        2   PAPSIZ(2)
+ 112    3   8 I    ( 1)C U E        2   PAPTYP(2)
+ 113    3   1 R        C   E            PBUFSZ
+ 114    3  10 I    ( 2)C U E       16   PENCLR(8,2)
+ 115    3  11 R        C   E            PENPAP
+ 116    3   9 I    ( 1)C U E        8   PENSIZ(8)
+ 117    2   2 I        C   E            PLOTER
+ 118    3   4 I    ( 1)C   E        2   PLTMDL(2)
+ 119         S                    230   PLTOPR
+ 120          I    ( 2)I U E        9   PLTTYP(3,3)
+ 121    2  10 I        C U E            PLTYPE
+ 122          I        I U E            PLUS
+ 123          I    ( 2)I U E        9   PRJ(3,3)
+ 124    3  24 I        C U E            PRJECT
+ 125    1   2 I        C?? E            PRNT
+ 126    3  18 R        C U E            R0
+ 127    3  19 R        C U E            S0L
+ 128    3  20 R        C U E            S0R
+ 129    3  25 R        C U E            S0S
+ 130    3  12 R    ( 1)C U E        2   SCALE(2)
+ 131          I        I?? E            SKIP
+ 132    3  37 R    ( 1)C   E       23   SKIP23(23)
+ 133    2   5 R    ( 1)C   E        2   SKPA(2)
+ 134    2   7 R    ( 1)C   E        3   SKPB(3)
+ 135    2   9 R    ( 1)C   E        2   SKPC(2)
+ 136    1   1 R    ( 1)C   E       20   SKPCOM(20)
+ 137    2  11 R    ( 1)C   E        2   SKPD(2)
+ 138    2   3 R    ( 1)C   E       17   SKPPLT(17)
+ 139    3  13 R    ( 1)C   E        3   SKPSCL(3)
+ 140          I        I U E            SPACE
+ 141          I    ( 1)I U E        4   STRAIN(4)
+ 142          I    ( 1)I U E       34   STRESS(34)
+ 143          I    ( 1)I U E        4   SYMM(4)
+ 144    3  21 R        C U E            T0
+ 145    3   5 I        C U E            TAPDEN
+ 146    3  16 R    ( 1)CMU E        9   VANGLE(9)
+ 147    3  17 R        C   E            VANTX1
+ 148    3  23 R    ( 1)C   E        2   VANTX2(2)
+ 149          I    ( 1)I U E        4   WAY(4)
+ 150         s     ( 4)  U              WRITE
+     (I4V,I4A,I4E,I4E)
+ 151         s     ( 4)  U              WRTPRT
+     (I4V,I4A,I4A,I4V)
+     (   ,I4E,   ,   )
+     (   ,   ,I4V,   )
+ 152    3  31 R    ( 2)C U E       33   XY(11,3)
+ 153          I    ( 1)I U E        3   XYZ(3)
+**-- END OF SYMBOL TABLE

@@ -1,0 +1,83 @@
+**++ Symbol table for subprogram PSQPL1 in file mis/psqpl1.f90
+     produced by SPAG     8.01RF-40 at 14:46:39 on  2 Dec 2023
+   0         X             K             mis/psqpl1.f90,0000002,0000325
+   1         C     / 1/            20   /CONDAS/CONSTS
+   2         C     / 6/ MU         24   /MATIN/MATID,INFLAG,ELTEMP,STRESS,SINTH,COSTH
+   3         C     /40/ MU       1200   /PLA32S/A,TEMP15,PROD15,T,TITE,V,D1,D2,SPDUM1,U1,U2,SINANG,COSANG,SSUM,R,XSUBB,XSUBC,YSUBC,E,TEMP,VV1,VV2,H,A1,NPOINT,SPDUM2,IVECT,JVECT,KVECT,SPDUM3,THETA,NSUBC,SPDUM4,SUBSCA,SUBSCB,SUBSCC,SPDUM5,XC,YC,SPDUM6
+   4         C     / 2/ MU       1200   /PLA3ES/ECPT,PH1OUT
+   5    3   1 R    ( 1)C?? E       45   A(45)
+   6    3  24 R    ( 1)CMU E        3   A1(3)
+   7         I?    ( 1)  U I            ABS
+   8    1   1 R    ( 1)C   E        5   CONSTS(5)
+   9         I?    ( 1)  U I            COS
+  10    3  13 R        CMU E            COSANG
+  11    2   6 R        CM  E            COSTH
+  12    3   7 R    ( 1)CMU E        3   D1(3)
+  13    3   8 R    ( 1)CMU E        3   D2(3)
+  14          R          U E            DEGRA
+  15    3  19 R    ( 1)CMU E       18   E(18)
+  16    4   1 R    ( 1)CMU E      100   ECPT(100)
+  17    2   3 R        C   E            ELTEMP
+  18          R         MU E            FTEMP
+  19         s     ( 9)  U              GMMATS
+     (R4A,I4E,I4E,I4E,R4A,I4E,I4E,I4E,R4A)
+  20    3  23 R        C   E            H
+  21          I         MU E            I
+  22    2   2 I        C   E            INFLAG
+  23    3  27 R    ( 1)CMU E        3   IVECT(3)
+  24          I         MU E            J
+  25    3  28 R    ( 1)CMU E        3   JVECT(3)
+  26          I         MU E            K
+  27          I         MU E            KM
+  28    3  29 R    ( 1)CMU E        3   KVECT(3)
+  29          I    ( 1)I U E       12   M(12)
+  30    2   1 I        C   E            MATID
+  31         s     ( 3)  U              MESAGE
+     (I4E,I4E,R4L)
+  32          I    ( 1) ?U E      100   NECPT(100)
+  33    3  25 I        CMU E            NPOINT
+  34    3  32 I        CMU E            NSUBC
+  35    4   2 R    ( 1)CM? E      200   PH1OUT(200)
+  36    3   3 R    ( 1)C?U E       15   PROD15(15)
+  37         S                    157   PSQPL1
+  38         s     ( 1)  U              PSTRB1
+     (I4E)
+  39    3  15 R    ( 2)CMU E       10   R(2,5)
+  40          R    ( 1) M  E       10   REQUIV(10)
+  41         I?    ( 1)  U I            SIN
+  42    3  12 R        CMU E            SINANG
+  43    2   5 R        CMU E            SINTH
+  44    3   9 R    ( 1)C   E       18   SPDUM1(18)
+  45    3  26 R    ( 1)C   E        5   SPDUM2(5)
+  46    3  30 R    ( 1)C   E       15   SPDUM3(15)
+  47    3  33 R    ( 1)C   E        1   SPDUM4(1)
+  48    3  37 R    ( 1)C   E        2   SPDUM5(2)
+  49    3  40 R    ( 1)C   E        5   SPDUM6(5)
+  50         I?    ( 1)  U I            SQRT
+  51    3  14 R    ( 1)CMU E       60   SSUM(60)
+  52    2   4 R        C   E            STRESS
+  53    3  34 I        CMU E            SUBSCA
+  54    3  35 I        CMU E            SUBSCB
+  55    3  36 I        CMU E            SUBSCC
+  56    3   4 R    ( 1)CM? E        9   T(9)
+  57    3  20 R        CMU E            TEMP
+  58    3   2 R    ( 1)C?? E       15   TEMP15(15)
+  59    3  31 R        CMU E            THETA
+  60    3   5 R    ( 1)CM? E       18   TITE(18)
+  61         s     ( 2)  U              TRANSS
+     (I4L,R4A)
+  62    3  10 R        CMU E            U1
+  63    3  11 R        CMU E            U2
+  64    3   6 R    ( 1)CMU E       25   V(25)
+  65          R    ( 1)  U E        3   VQ1(3)
+  66          R    ( 1)  U E        3   VQ2(3)
+  67          R    ( 1)  U E        3   VQ3(3)
+  68          R    ( 1)  U E        3   VQ4(3)
+  69    3  21 R    ( 1)CMU E        2   VV1(2)
+  70    3  22 R    ( 1)CMU E        2   VV2(2)
+  71    3  38 R        CM  E            XC
+  72    3  16 R        CMU E            XSUBB
+  73    3  17 R        CM  E            XSUBC
+  74    3  39 R        CM  E            YC
+  75    3  18 R        CM  E            YSUBC
+**-- END OF SYMBOL TABLE

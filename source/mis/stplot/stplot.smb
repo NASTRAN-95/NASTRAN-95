@@ -1,0 +1,53 @@
+**++ Symbol table for subprogram STPLOT in file mis/stplot.f90
+     produced by SPAG     8.01RF-40 at 14:46:55 on  2 Dec 2023
+   0         X             K             mis/stplot.f90,0000002,0000087
+   1         C     / 1/  U        240   /CHAR94/CHAR
+   2         C     /12/ MU        132   /PLTDAT/MODEL,PLOTER,REG,XYMAX,CHRSCL,SKPA1,CNTX,SKPA2,PLTYPE,PLTAPE,SKPA3,EOF
+   3         C     / 1/           260   /SYSTEM/KSYSTM
+   4         C     / 3/ ?U         12   /XXPARM/PBUFSZ,CAMERA,BFRAMS
+   5    4   3 I        C U E            BFRAMS
+   6    4   2 I        C?U E            CAMERA
+   7    1   1 I    ( 1)C U E       60   CHAR(60)
+   8    2   5 R        C U E            CHRSCL
+   9    2   7 R        C?? E            CNTX
+  10          I    ( 1)  U E        3   DATE(3)
+  11    2  12 I        C U E            EOF
+  12          I         MU E            I
+  13         II    ( 1)  U I            IABS
+  14          I         ?U E            ID
+  15         s     ( 1)  U              IDPLOT
+     (I4V)
+  16          I    ( 1)IM? E        8   IDTE(8)
+  17          I         MU E            J
+  18    3   1 I    ( 1)C   E       65   KSYSTM(65)
+  19          I        IMU E            LSTPLT
+  20          I        IMU E            M
+  21         II    ( 2) ?? I            MAX0
+  22    2   1 I        C   E            MODEL
+  23          I         MU E            N
+  24    4   1 R        C   E            PBUFSZ
+  25    2   2 I        C U E            PLOTER
+  26    2  10 I        C?? E            PLTAPE
+  27   38   1 I        A?U E            PLTNUM
+  28    2   9 I        C U E            PLTYPE
+  29    2   3 R    ( 2)CMU E        4   REG(2,2)
+  30          R    ( 2) MU E        4   SAVE(2,2)
+  31         s     ( 1)  U              SCLOSE
+     (I4V)
+  32         s     ( 3)  U              SELCAM
+     (I4E,I4E,I4E)
+  33         s     ( 1)  U              SEOF
+     (I4V)
+  34    2   6 R    ( 1)C   E        3   SKPA1(3)
+  35    2   8 R    ( 1)C   E        5   SKPA2(5)
+  36    2  11 R        C   E            SKPA3
+  37         s     ( 1)  U              SKPFRM
+     (I4E)
+  38         S     ( 1) ?U         49   STPLOT(PLTNUM)
+  39         s     ( 6)  U              TIPE
+     (R4E,R4E,I4E,I4L,I4E,I4E)
+  40         s     ( 6)  U              TYPINT
+     (I4E,I4E,I4E,I4E,I4E,I4E)
+     (R4E,R4E,   ,   ,   ,   )
+  41    2   4 R    ( 1)C U E       13   XYMAX(13)
+**-- END OF SYMBOL TABLE

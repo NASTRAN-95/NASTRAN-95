@@ -1,0 +1,220 @@
+**++ Symbol table for subprogram XOSGEN in file mis/xosgen.f90
+     produced by SPAG     7.61RG-40 at 01:00:00 on 21 Mar 2022
+   0         X             K             mis/xosgen.f90,0000002,0001516
+   1         C     / 3/ MU        408   /AUTOCM/PREFLG,NNAMES,PRENAM
+   2         C     / 2/ MU        404   /AUTOSM/NWORDS,SAVNAM
+   3         C     / 2/ MU        128   /MODDMP/IFLG,NAMOPT
+   4         C     / 2/ MU          8   /PASSER/ISTOPF,MODNAM
+   5         C     / 8/ MU        328   /SYSTEM/BUFSZ,OPTAPE,NOGO,DUM,ICFIAT,JUNK,ISWTCH,ICPFLG
+   6         C     / 1/ MU        168   /XCEITB/CEITBL
+   7         C     / 1/  U         12   /XFIAT/FIAT
+   8         C     / 3/ MU         12   /XGPI2/LMPL,MPLPNT,MPL
+   9         C     / 1/ MU        800   /XGPI3/PVT
+  10         C     /15/ MU         60   /XGPI4/IRTURN,INSERT,ISEQN,DMPCNT,IDMPNT,DMPPNT,BCDCNT,LENGTH,ICRDTP,ICHAR,NEWCRD,MODIDX,LDMAP,ISAVDW,DMAP
+  11         C     /11/ MU         48   /XGPI5/IAPP,START,ALTER,SOL,SUBSET,IFLAG,IESTIM,ICFTOP,ICFPNT,LCTLFL,ICTLFL
+  12         C     /12/ MU        124   /XGPI6/MEDTP,FNMTP,CNMTP,MEDPNT,LMED,IPLUS,DIAG14,DIAG17,DIAG4,DIAG25,IFIRST,IBUFF
+  13         C     / 3/ MU         12   /XGPI7/FPNT,LFILE,FILE
+  14         C     /23/ ?U        124   /XGPIC/ICOLD,ISLSH,IEQUL,NBLANK,NXEQUI,NMED,NSOL,NDMAP,NESTM1,NESTM2,NEXIT,NBEGIN,NEND,NJUMP,NCOND,NREPT,NTYPEE,MASKHI,MASKLO,ISGNON,NOSGN,IALLON,MASKS
+  15         C     /11/  U         44   /XGPID/ICST,IUNST,IMST,IHAPP,IDSAPP,IDMAPP,ISAVE,ITAPE,IAPPND,INTGR,LOSGN
+  16         C     / 1/ ??          4   /XGPIE/NSCR
+  17         C     / 2/            20   /XOLDPT/XX,SEQNO
+  18         C     / 1/ MU          8   /XVPS/VPS
+  19         C     / 1/             4   /ZZZZZZ/CORE
+  20   11   3 I    ( 1)CMU E        2   ALTER(2)
+  21         fI    ( 2)  UXE            ANDF
+     (I4E,I4E)
+  22         s     ( 1)  U              AUTOCK
+     (I4V)
+  23         s           U              AUTOSV
+  24   10   7 I        C   E            BCDCNT
+  25    5   1 I        C U E            BUFSZ
+  26          I    ( 1)I U E        3   CDCOMP(3)
+  27    6   1 I    ( 1)CMU E       42   CEITBL(42)
+  28         s     ( 2)  U              CLOSE
+     (I4V,I4E)
+  29   12   3 I        C   E            CNMTP
+  30   19   1 I    ( 1)C   E        1   CORE(1)
+  31          I    ( 1)I U E        3   DECLAR(3)
+  32   12   7 I        CMU E            DIAG14
+  33   12   8 I        CMU E            DIAG17
+  34   12  10 I        CMU E            DIAG25
+  35   12   9 I        CMU E            DIAG4
+  36   10  15 I    ( 1)CMU E        1   DMAP(1)
+  37   10   4 I        CMU E            DMPCNT
+  38          I    ( 1)    E        1   DMPCRD(1)
+  39   10   6 I        C?U E            DMPPNT
+  40    5   4 I    ( 1)C   E       20   DUM(20)
+  41          I         M? E            FCODE
+  42    7   1 I    ( 1)C U E        3   FIAT(3)
+  43   13   3 I    ( 1)CMU E        1   FILE(1)
+  44   12   2 I        C   E            FNMTP
+  45          I    ( 1)I U E        3   FPARAM(3)
+  46   13   1 I        CMU E            FPNT
+  47          I         MU E            I
+  48          I         MU E            I1
+  49         II    ( 1)  U I            IABS
+  50   14  22 I        C?? E            IALLON
+  51   11   1 I        C U E            IAPP
+  52   15   9 I        C U E            IAPPND
+  53   12  12 I    ( 1)C?? E       20   IBUFF(20)
+  54    5   5 I        C U E            ICFIAT
+  55   11   9 I        C   E            ICFPNT
+  56   11   8 I        C   E            ICFTOP
+  57   10  10 I        C   E            ICHAR
+  58   14   1 I        C   E            ICOLD
+  59    5   8 I        C U E            ICPFLG
+  60   10   9 I        CMU E            ICRDTP
+  61   15   1 I        C U E            ICST
+  62   11  11 I    ( 1)C U E        1   ICTLFL(1)
+  63          I         MU E            IDLHSS
+  64   15   6 I        C U E            IDMAPP
+  65   10   5 I        C   E            IDMPNT
+  66          I         M  E            IDPBUF
+  67   15   5 I        C   E            IDSAPP
+  68          I        IMU E            IENDF
+  69   14   3 I        C U E            IEQUL
+  70   11   7 I        C U E            IESTIM
+  71   12  11 I        CMU E            IFIRST
+  72   11   6 I        C   E            IFLAG
+  73    3   1 I    ( 1)CMU E        6   IFLG(6)
+  74   15   4 I        C   E            IHAPP
+  75          I         MU E            ILEVEL
+  76   15   3 I        C U E            IMST
+  77          I         MU E            INDEX
+  78   10   2 I        CMU E            INSERT
+  79   15  10 I        C U E            INTGR
+  80          I         MU E            IOLD
+  81          I         MU E            ION
+  82          I         MU E            IOSDAV
+  83          I         MU E            IOSPNT
+  84   12   6 I        C U E            IPLUS
+  85          I        IM  E            IPRCFO
+  86          I         MU E            IPRIME
+  87   10   1 I        CMU E            IRTURN
+  88   10  14 I        C   E            ISAVDW
+  89   15   7 I        C U E            ISAVE
+  90   10   3 I        C U E            ISEQN
+  91   14  20 I        C?? E            ISGNON
+  92   14   2 I        C U E            ISLSH
+  93    4   1 I        C?U E            ISTOPF
+  94    5   7 I    ( 1)C   E        3   ISWTCH(3)
+  95   15   8 I        C U E            ITAPE
+  96          I    ( 1)I U E        6   ITYPE(6)
+  97   15   2 I        C   E            IUNST
+  98          I         MU E            IVREPT
+  99          I         MU E            IX
+ 100          I         MU E            IY
+ 101          I         MU E            J
+ 102          I         MU E            J1
+ 103    5   6 I    ( 1)C   E       54   JUNK(54)
+ 104          I         MU E            JX
+ 105          I         MU E            K
+ 106          I         MU E            K1
+ 107          I         MU E            K2
+ 108          I         MU E            KDH
+ 109          I         MU E            KK
+ 110         fI    ( 1)  U E            KORSZ
+     (I4A)
+ 111          I         MU E            L
+ 112          I         MU E            LBLBOT
+ 113          I         M  E            LBLERR
+ 114          I    ( 1) MU E        1   LBLTBL(1)
+ 115          I         MU E            LBLTOP
+ 116   11  10 I        C   E            LCTLFL
+ 117          I         MU E            LDEF
+ 118   10  13 I        C   E            LDMAP
+ 119   10   8 I        CMU E            LENGTH
+ 120   13   2 I        C U E            LFILE
+ 121   12   5 I        C   E            LMED
+ 122    8   1 I        C U E            LMPL
+ 123          I         MU E            LOOKUP
+ 124          I         MU E            LOSCAR
+ 125   15  11 I        C   E            LOSGN
+ 126         fI    ( 2)  UXE            LSHIFT
+     (I4V,I4E)
+ 127          I         MU E            LSTLBL
+ 128          I         MU E            LSTLSV
+ 129          I         MU E            LSTPAR
+ 130          I         MU E            M
+ 131   14  18 I        C?? E            MASKHI
+ 132   14  19 I        C   E            MASKLO
+ 133   14  23 I    ( 1)C   E        1   MASKS(1)
+ 134          I    ( 1)  U E        1   MED(1)
+ 135   12   4 I        CMU E            MEDPNT
+ 136   12   1 I        C U E            MEDTP
+ 137   10  12 I        CMU E            MODIDX
+ 138    4   2 I        CM  E            MODNAM
+ 139    8   3 I    ( 1)C U E        1   MPL(1)
+ 140    8   2 I        CMU E            MPLPNT
+ 141          I         MU E            N1
+ 142          I         MU E            N2
+ 143          I         MU E            N3
+ 144    3   2 I    ( 1)C U E       26   NAMOPT(26)
+ 145          I    ( 1)I U E       12   NAMTBL(12)
+ 146   14  12 I        C   E            NBEGIN
+ 147   14   4 I        C?U E            NBLANK
+ 148          I        I?? E            NCEIT1
+ 149          I        I?? E            NCEIT2
+ 150   14  15 I        C U E            NCOND
+ 151   14   8 I        C   E            NDMAP
+ 152   14  13 I        C U E            NEND
+ 153   14   9 I        C   E            NESTM1
+ 154   14  10 I        C   E            NESTM2
+ 155   10  11 I        CM  E            NEWCRD
+ 156   14  11 I        C U E            NEXIT
+ 157          I        I?? E            NFILE
+ 158   14  14 I        C U E            NJUMP
+ 159          I        I?? E            NLBLT1
+ 160          I        I?? E            NLBLT2
+ 161   14   6 I        C   E            NMED
+ 162    1   2 I        CMU E            NNAMES
+ 163    5   3 I        CMU E            NOGO
+ 164   14  21 I        C?? E            NOSGN
+ 165          I         MU E            NOSPNT
+ 166   14  16 I        C U E            NREPT
+ 167   16   1 I        C?? E            NSCR
+ 168          I    ( 2)IMU E       10   NSKIP(5,2)
+ 169   14   7 I        C   E            NSOL
+ 170   14  17 I    ( 1)C U E        9   NTYPEE(9)
+ 171          I        I?? E            NVPS
+ 172    2   1 I        CMU E            NWORDS
+ 173   14   5 I        C U E            NXEQUI
+ 174          I          U E            NXPURG
+ 175    5   2 I        C U E            OPTAPE
+ 176         fI    ( 2)  UXE            ORF
+     (I4E,I4V)
+ 177          I    ( 1)    E        5   OS(5)
+ 178          I         MU E            OS2B4
+ 179          I         MU E            OSBOT
+ 180          I    ( 1) MU E        1   OSCAR(1)
+ 181          I         MU E            OSPNT
+ 182          I         MU E            OSPRC
+ 183          I    ( 1)I U E        2   PRECHK(2)
+ 184    1   1 I        CMU E            PREFLG
+ 185    1   3 I    ( 1)CM  E      100   PRENAM(100)
+ 186    9   1 I    ( 1)CMU E      200   PVT(200)
+ 187         fI    ( 2)  UXE            RSHIFT
+     (I4V,I4E)
+ 188    2   2 I    ( 1)C   E      100   SAVNAM(100)
+ 189   17   2 I        C   E            SEQNO
+ 190          L         MU E            SKIP
+ 191   11   4 I        C   E            SOL
+ 192   11   2 I        C U E            START
+ 193   11   5 I        C   E            SUBSET
+ 194          I         M  E            VARFLG
+ 195   18   1 I    ( 1)CMU E        2   VPS(2)
+ 196          I        I U E            XCHK
+ 197          I    ( 1)I U E        2   XDMAP(2)
+ 198         s     ( 4)  U              XGPIDG
+     (I4E,I4E,I4E,I4E)
+ 199         s     ( 4)  U              XGPIMW
+     (I4E,I4E,I4E,I4A)
+     (   ,   ,   ,I4E)
+ 200         s           U              XIPFL
+ 201         s           U              XLNKHD
+ 202         s           U              XOPFL
+ 203         S                    921   XOSGEN
+ 204         s           U              XPARAM
+ 205         s           U              XSCNDM
+ 206   17   1 I    ( 1)C   E        4   XX(4)
+**-- END OF SYMBOL TABLE

@@ -1,0 +1,89 @@
+**++ Symbol table for subprogram ALGPO in file mis/algpo.f90
+     produced by SPAG     8.01RF-40 at 14:46:54 on  2 Dec 2023
+   0         X             K             mis/algpo.f90,0000002,0000189
+   1         C     / 6/ MU         24   /BLANK/APRESS,ATEMP,STRML,PGEOM,IPRTK,IFAIL
+   2         C     / 6/ ??         24   /NAMES/RD,RDREW,WRT,WRTREW,REW,NOREW
+   3         C     / 2/  U          8   /SYSTEM/SYSBUF,NOUT
+   4         C     / 1/ ??        128   /TWO/TWO
+   5         C     / 2/  U         48   /XMSSG/UFM,UWM
+   6         C     / 1/ M?          4   /ZZZZZZ/IZ
+   7         S     ( 1) ?U        111   ALGPO(SCR1)
+   8    1   1 I        CMU E            APRESS
+   9    1   2 I        CMU E            ATEMP
+  10          I        I?U E            CASECA
+  11          I        I?U E            CASECC
+  12         s     ( 2)  U              CLOSE
+     (I4V,I4E)
+  13         fI    ( 2)  U E            CORWDS
+     (I4L,I4L)
+  14          R         MU E            DTEMP
+  15         s     ( 2)  U              FWDREC
+     (ALT,I4V)
+  16          I        I?U E            GEOM3A
+  17         s     ( 3)  U              GOPEN
+     (I4V,I4L,I4V)
+  18          I         MU E            I1
+  19          I         MU E            I2
+  20          I         MU E            IBIT
+  21          I         MU E            IBUF1
+  22          I         MU E            IBUF2
+  23          I         MU E            IDP
+  24          I         MU E            IDT
+  25    1   6 I        CM  E            IFAIL
+  26          I         M? E            IFILE
+  27    1   5 I        C   E            IPRTK
+  28          I         MU E            ITPD
+  29          I    ( 1) M? E        7   ITRL(7)
+  30    6   1 I    ( 1)CM? E        1   IZ(1)
+  31          I         MU E            IZX
+  32          I         MU E            KAPERR
+  33          I         MU E            KATERR
+  34         fI    ( 1)  U E            KORSZ
+     (I4A)
+  35          I        I U E            LABP
+  36          I        I U E            LABT
+  37          I         MU E            LAST
+  38          I         M? E            LEFT
+  39          I    ( 1)I?? E        3   LEND(3)
+  40          I    ( 1) ?U E        5   LREC(5)
+  41         s     ( 3)  U              MESAGE
+     (I4E,I4E,I4A)
+  42          I    ( 1)I?? E        2   NAME(2)
+  43    2   6 I        C   E            NOREW
+  44    3   2 I        C U E            NOUT
+  45          I         ?? E            NWAR
+  46          I         ?? E            NWDS
+  47          I         MU E            NZ
+  48         s     ( 4)  U              OPEN
+     (ALT,I4V,I4L,I4V)
+  49         fI    ( 2)  UXE            ORF
+     (I4L,I4L)
+  50    1   4 I        C   E            PGEOM
+  51          I    ( 1)I?? E        3   PLOAD2(3)
+  52    2   1 I        C   E            RD
+  53    2   2 I        C?? E            RDREW
+  54         s     ( 1)  U              RDTRL
+     (I4A)
+  55         s     ( 7)  U              READ
+     (ALT,ALT,I4V,I4A,I4E,I4E,I4V)
+  56    2   5 I        C   E            REW
+  57         s     ( 1)  U              REWIND
+     (I4V)
+  58          R    ( 1)  U E        5   RREC(5)
+  59    7   1 I        A?U E            SCR1
+  60    1   3 I        C   E            STRML
+  61    3   1 I        C U E            SYSBUF
+  62          I    ( 1)I?? E        3   TEMP(3)
+  63          I    ( 1)I?? E        3   TEMPD(3)
+  64    4   1 I    ( 1)C?? E       32   TWO(32)
+  65    5   1 C*23     C   E            UFM*23
+  66    5   2 C*25     C U E            UWM*25
+  67         s     ( 4)  U              WRITE
+     (I4V,I4A,I4E,I4E)
+     (   ,I4V,   ,   )
+     (   ,R4V,   ,   )
+  68    2   3 I        C   E            WRT
+  69    2   4 I        C?? E            WRTREW
+  70         s     ( 1)  U              WRTTRL
+     (I4A)
+**-- END OF SYMBOL TABLE

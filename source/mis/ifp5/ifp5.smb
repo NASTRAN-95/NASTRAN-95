@@ -1,0 +1,152 @@
+**++ Symbol table for subprogram IFP5 in file mis/ifp5.f90
+     produced by SPAG     8.01RF-40 at 14:46:59 on  2 Dec 2023
+   0         X             K             mis/ifp5.f90,0000002,0000709
+   1         C     / 1/            20   /CONDAS/CONSTS
+   2         C     / 6/ ??         24   /NAMES/RD,RDREW,WRT,WRTREW,CLSREW,CLS
+   3         C     / 1/           260   /SYSTEM/KSYSTM
+   4         C     / 1/ MU          4   /ZZZZZZ/Z
+   5         IR    ( 1)  U I            ALOG
+   6          R         MU E            ALPHA
+   7         IR    ( 2)  U I            AMAX1
+   8          L         ?U E            ANY
+   9          I        I?U E            AXIC
+  10          I    ( 1)I?? E        2   AXSLOT(2)
+  11          R         M  E            BD
+  12          R         MU E            BETA
+  13         s     ( 6)  U              BISLOC
+     (ALT,I4V,I4L,I4E,I4V,I4V)
+  14          R         MU E            BL1
+  15          R         MU E            BP1
+  16          I    ( 1) MU E       24   BUF(24)
+  17          I         MU E            BUF1
+  18          I         MU E            BUF2
+  19          I         MU E            BUF3
+  20          I         MU E            BUF4
+  21          I    ( 1) M? E       10   CARD(10)
+  22          I    ( 1)I?? E        6   CAXIF(6)
+  23          I    ( 1)I?? E        2   CELAS2(2)
+  24         s     ( 2)  U              CLOSE
+     (I4V,I4V)
+  25    2   6 I        C   E            CLS
+  26    2   5 I        C?? E            CLSREW
+  27         s     ( 3)  U              CONMSG
+     (I4A,I4E,I4E)
+  28    1   1 R    ( 1)C   E        5   CONSTS(5)
+  29          I         MU E            CORE
+  30          I    ( 1)I?? E        4   CSLOT(4)
+  31          I         MU E            ENTRYS
+  32          I        I?? E            EOR
+  33          R         MU E            FI
+  34          I         M? E            FILE
+  35          I         ?? E            FLAG
+  36         IR    ( 1)  U I            FLOAT
+  37          L         ?? E            G1EOF
+  38          L         ?? E            G2EOF
+  39          I        I?U E            GEOM1
+  40          I        I?U E            GEOM2
+  41          I    ( 1)I?? E        2   GRID(2)
+  42          I    ( 1)I?? E        2   GRIDF(2)
+  43          I    ( 1)I?? E        2   GRIDS(2)
+  44          I         MU E            I
+  45          I         MU E            IBASE
+  46          I         MU E            ICRQ
+  47          I         MU E            IDE
+  48          I         MU E            IDF
+  49          I         MU E            IDG
+  50          I         MU E            IDGF
+  51          I         MU E            IDGS
+  52          I         MU E            IDS
+  53          I         MU E            IDSL1
+  54          I         ?U E            IDSP1
+  55          I         M? E            IER
+  56         s     ( 7)  U              IFP4B
+     (I4V,I4V,L4V,I4L,I4E,I4A,L4V)
+     (   ,   ,   ,   ,   ,I4E,   )
+  57         s     ( 5)  U              IFP4C
+     (I4V,I4V,I4L,I4L,L4V)
+  58         s     ( 3)  U              IFP4F
+     (I4L,I4V,L4V)
+  59         S                    392   IFP5
+  60         s     ( 1)  U              IFP5A
+     (I4E)
+  61          I         MU E            IGF
+  62          I         MU E            IGRIDF
+  63          I         MU E            IGRIDS
+  64          I         MU E            IGS
+  65          I         MU E            IS1
+  66          I         MU E            IS3
+  67          I         MU E            ISLBDY
+  68          I         MU E            J
+  69          I         MU E            JJ
+  70          I         ?U E            JPOINT
+  71          I         MU E            K
+  72          I         M? E            K4
+  73          I         M? E            K6
+  74          R         MU E            KF
+  75          I         M? E            KID
+  76         fI    ( 1)  U E            KORSZ
+     (I4A)
+  77    3   1 I    ( 1)C   E       65   KSYSTM(65)
+  78          R         MU E            L1
+  79          R         MU E            L1L2
+  80          R         MU E            L2
+  81          R         MU E            L3
+  82          R         MU E            LC
+  83          R         MU E            LE
+  84         s     ( 4)  U              LOCATE
+     (ALT,I4L,I4A,I4V)
+  85          I         MU E            M
+  86          I         M  E            MD
+  87         s     ( 3)  U              MESAGE
+     (I4V,I4V,I4A)
+  88          I    ( 1)I?? E        2   MSG1(2)
+  89          I    ( 1)I?? E        2   MSG2(2)
+  90          I         MU E            N
+  91          I         MU E            NGRIDF
+  92          I         MU E            NGRIDS
+  93          I         MU E            NLINES
+  94          I        I?? E            NOEOR
+  95          I         MU E            NSLBDY
+  96          I         MU E            NTEMP
+  97         s     ( 4)  U              OPEN
+     (ALT,I4V,I4L,I4V)
+  98          I          U E            OUTPUT
+  99          L         MU E            PLOTEL
+ 100          I    ( 1)I?? E        2   PLOTLS(2)
+ 101         s     ( 3)  U              PRELOC
+     (ALT,I4L,I4V)
+ 102          R         MU E            RBAR
+ 103          R    ( 1) MU E       24   RBUF(24)
+ 104          R    ( 1) M  E       10   RCARD(10)
+ 105    2   1 I        C   E            RD
+ 106    2   2 I        C?? E            RDREW
+ 107         s     ( 7)  U              READ
+     (ALT,ALT,I4V,I4A,I4E,I4V,I4V)
+     (   ,   ,   ,I4V,   ,   ,   )
+ 108          R         MU E            RHO
+ 109          R         M  E            RHOD
+ 110          R    ( 1) MU E        3   RR(3)
+ 111          R    ( 1) MU E        4   RZ(4)
+ 112          I        I?U E            SCRT1
+ 113          I        I?? E            SCRT2
+ 114         I?    ( 1)  U I            SIN
+ 115          I    ( 1)I?? E        2   SLBDY(2)
+ 116         s     ( 6)  U              SORT
+     (I4E,I4E,I4E,I4E,I4L,I4E)
+ 117         I?    ( 1)  U I            SQRT
+ 118          I    ( 1)I?? E        2   SUBR(2)
+ 119          I          U E            SYSBUF
+ 120          R         MU E            TERM
+ 121          R          U E            TWOPI
+ 122          R         MU E            WBAR
+ 123          R         MU E            WD
+ 124          I         ?U E            WORDS
+ 125         s     ( 4)  U              WRITE
+     (I4V,I4E,I4E,I4V)
+     (   ,I4A,   ,   )
+ 126    2   3 I        C   E            WRT
+ 127    2   4 I        C?? E            WRTREW
+ 128          R    ( 1) MU E        3   WW(3)
+ 129    4   1 I    ( 1)CMU E        1   Z(1)
+ 130          R    ( 1) MU E        3   ZZ(3)
+**-- END OF SYMBOL TABLE

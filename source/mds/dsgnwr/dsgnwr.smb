@@ -1,0 +1,57 @@
+**++ Symbol table for subprogram DSGNWR in file mds/dsgnwr.f90
+     produced by SPAG     7.61RG-40 at 01:00:00 on 21 Mar 2022
+   0         X             K             mds/dsgnwr.f90,0000002,0000085
+   1         C     / 2/  U          8   /SYSTEM/ISYBUF,IWR
+   2          C*4  ( 1) M  E        3   CBUFF(3)*4
+   3         f?    ( 1)  U I            DEV
+     (I4E)
+   4         s     ( 1)  U              DSCLOS
+     (?*V)
+   5         S                     70   DSGNWR
+   6         s     ( 1)  U              DSMSG
+     (I4E)
+   7         s     ( 3)  U              DSOPEN
+     (?*L,?*V,I4V)
+   8         s     ( 5)  U              DSWRIT
+     (?*V,?*E,?*V,?*V,I4V)
+   9         f?    ( 2) MU I            FCB
+     (I4E,I4E)
+  10          I         MU E            I
+  11          I         MU E            IALLOC
+  12         I?    ( 2)  U I            IAND
+  13          I         MU E            IAVAIL
+  14         f?    ( 1)  U I            IBASE
+     (? E)
+  15          I         ?U E            ICCER
+  16          I         M  E            IDEVIC
+  17          ?         MU I            IDSN
+  18          I         MU E            IDSNR
+  19          ?         ?? I            IFILEX
+  20          I         MU E            IFIRST
+  21          ?          U I            INDBAS
+  22         II    ( 2)  U I            INDEX
+  23          I         MU E            INEXT
+  24          ?         M? I            IOBLK
+  25          I         MU E            IOP
+  26         I?    ( 2)  U I            IOR
+  27          I         MU E            ISAVE
+  28          I         MU E            ISTRB
+  29    1   1 I        C   E            ISYBUF
+  30          I         MU E            ITEST
+  31    1   2 I        C U E            IWR
+  32          I         MU E            KK
+  33          I         MU E            LASBLK
+  34          ?          U I            MASKH1
+  35          ?          U I            MASKH2
+  36          ?          U I            MAXDSN
+  37          ?          U I            MAXFCB
+  38          I         MU E            MAXPR1
+  39          ?          U I            MAXPRI
+  40         f?    ( 2) MU I            MDSFCB
+     (I4E,I4E)
+  41          ?    ( 1) MU I            MDSNAM
+  42          ?          U I            MULQ2
+  43          ?          U I            NBLOCK
+  44          ?         ?? I            NBUFF
+  45          ?          U I            NUMDEV
+**-- END OF SYMBOL TABLE

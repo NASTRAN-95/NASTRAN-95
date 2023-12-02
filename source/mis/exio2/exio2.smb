@@ -1,0 +1,43 @@
+**++ Symbol table for subprogram EXIO2 in file mis/exio2.f90
+     produced by SPAG     8.01RF-40 at 14:47:07 on  2 Dec 2023
+   0         X             K             mis/exio2.f90,0000002,0000090
+   1         C     /13/ MU        112   /BLANK/DRY,XBLK,DEVICE,UNAME,FORMT,MODE,POS,DATYPE,NAMES,UNIT,UNIVAC,LBUF,IADD
+   2         C     / 6/  U        164   /SYSTEM/SYSBUF,NOUT,X1,NBPC,NBPW,NCPW
+   3         C     / 2/  U         48   /XMSSG/UFM,UWM
+   4    1   8 R    ( 1)C   E        2   DATYPE(2)
+   5    1   3 R    ( 1)C   E        2   DEVICE(2)
+   6    1   1 I        CM  E            DRY
+   7          I        I U E            EQF
+   8         s           U              EXI2
+   9         S                     36   EXIO2
+  10         s           U              EXO2
+  11    1   5 R    ( 1)C   E        2   FORMT(2)
+  12          I        I U E            FORT
+  13          I         MU E            I
+  14    1  13 I        CM  E            IADD
+  15          I         MU E            IOMODE
+  16    1  12 I        CMU E            LBUF
+  17         I?    ( 2)  U I            MOD
+  18    1   6 I    ( 1)C U E        2   MODE(2)
+  19    1   9 I    ( 1)C   E       10   NAMES(10)
+  20    2   4 I        C   E            NBPC
+  21    2   5 I        C   E            NBPW
+  22    2   6 I        C U E            NCPW
+  23          I         MU E            NOGO
+  24    2   2 I        C U E            NOUT
+  25          I    ( 1)I U E       32   NUM(32)
+  26         s     ( 1)  U              PAGE2
+     (I4E)
+  27    1   7 I    ( 1)C U E        2   POS(2)
+  28          I        I U E            REWI
+  29          I        I U E            SOFIN
+  30          I        I U E            SOFOUT
+  31    2   1 R        C   E            SYSBUF
+  32    3   1 C*23     C   E            UFM*23
+  33    1   4 I    ( 1)C U E        2   UNAME(2)
+  34    1  10 I        CMU E            UNIT
+  35    1  11 L        CM  E            UNIVAC
+  36    3   2 C*25     C U E            UWM*25
+  37    2   3 R    ( 1)C   E       36   X1(36)
+  38    1   2 I        CMU E            XBLK
+**-- END OF SYMBOL TABLE

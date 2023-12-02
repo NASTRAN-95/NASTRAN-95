@@ -1,0 +1,7 @@
+**++ Symbol table for subprogram ANULLSUB in file mis/anullsub.f90
+     produced by SPAG     8.01RF-40 at 14:46:38 on  2 Dec 2023
+   0         X             K             mis/anullsub.f90,0000002,0000007
+   1         S     ( 1)  U          1   ANULLSUB(IWRD)
+   2    1   1 I        A U E            IWRD
+   3          I         M  E            IX
+**-- END OF SYMBOL TABLE

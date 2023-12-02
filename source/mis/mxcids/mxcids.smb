@@ -1,0 +1,12 @@
+**++ Symbol table for subprogram MXCIDS in file mis/mxcids.f90
+     produced by SPAG     8.01RF-40 at 14:47:04 on  2 Dec 2023
+   0         X             K             mis/mxcids.f90,0000002,0000031
+   1    3   2 I        A U E            MSET
+   2    3   3 I        A   E            MSZE
+   3         S     ( 7)  U          2   MXCIDS(Z,MSET,MSZE,NWDS,USET,NSTRT,SNAM)
+   4    3   6 I        A   E            NSTRT
+   5    3   4 I        A   E            NWDS
+   6    3   7 R        A   E            SNAM
+   7    3   5 R        A   E            USET
+   8    3   1 R        A   E            Z
+**-- END OF SYMBOL TABLE

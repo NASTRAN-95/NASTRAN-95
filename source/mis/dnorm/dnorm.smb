@@ -1,0 +1,9 @@
+**++ Symbol table for subprogram DNORM in file mis/dnorm.f90
+     produced by SPAG     8.01RF-40 at 14:47:05 on  2 Dec 2023
+   0         X             K             mis/dnorm.f90,0000002,0000018
+   1          D         MU E            A
+   2         S     ( 2) MU          7   DNORM(X,MAG)
+   3         ID    ( 1)  U I            DSQRT
+   4    2   2 D        AMU E            MAG
+   5    2   1 D    ( 1)AMU E            X(3)
+**-- END OF SYMBOL TABLE

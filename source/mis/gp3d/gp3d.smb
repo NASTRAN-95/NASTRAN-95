@@ -1,0 +1,152 @@
+**++ Symbol table for subprogram GP3D in file mis/gp3d.f90
+     produced by SPAG     8.01RF-40 at 14:46:56 on  2 Dec 2023
+   0         X             K             mis/gp3d.f90,0000002,0000743
+   1         C     / 3/ MU         12   /BLANK/NOGRAV,NOLOAD,NOTEMP
+   2         C     /28/ MU       1400   /GP3COM/GEOM3,EQEXIN,GEOM2,SLT,ETT,SCR1,SCR2,BUF1,BUF2,BUF,CARDID,IDNO,CARDDT,MASK,STATUS,NTYPES,IPLOAD,IGRAV,PLOAD2,LOAD,NOPLD2,TEMP,TEMPD,TEMPP1,TEMPP2,TEMPP3,TEMPRB,BUF3
+   3         C     / 4/  U         16   /GPTA1/NELEM,LAST,INCR,ELEM
+   4         C     / 6/ ??         24   /NAMES/RD,RDREW,WRT,WRTREW,REW,NOREW
+   5         C     / 1/           252   /SYSTEM/KSYSTM
+   6         C     / 1/  U         23   /XMSSG/UFM
+   7         C     / 1/ MU          4   /ZZZZZZ/Z
+   8          L         MU E            ANY
+   9          L         MU E            ANYET
+  10          L         MU E            ANYGPT
+  11         s     ( 6)  U              BISLOC
+     (ALT,I4L,I4L,I4E,I4E,I4V)
+  12    2  10 I    ( 1)CMU E       50   BUF(50)
+  13    2   8 I        C U E            BUF1
+  14    2   9 I        C U E            BUF2
+  15    2  28 I        C   E            BUF3
+  16    2  13 I    ( 1)C   E       60   CARDDT(60)
+  17    2  11 I    ( 1)C   E       60   CARDID(60)
+  18         s     ( 2)  U              CLOSE
+     (I4V,I4V)
+  19          I         MU E            DEFALT
+  20          R          U E            DEFTMP
+  21         s     ( 4)  U              ECTLOC
+     (ALT,I4V,I4A,I4V)
+  22          I         M? E            ECTWDS
+  23    3   4 I    ( 1)C U E        1   ELEM(1)
+  24    2   2 I        C   E            EQEXIN
+  25    2   5 I        C?U E            ETT
+  26          R         MU E            FACTOR
+  27          R         MU E            FGRIDS
+  28          I         M? E            FILE
+  29          I         ?U E            FLAG
+  30         s     ( 2)  U              FNAME
+     (I4V,I4A)
+  31         s     ( 2)  U              FWDREC
+     (ALT,I4V)
+  32    2   3 I        C?U E            GEOM2
+  33    2   1 I        C?U E            GEOM3
+  34         s     ( 3)  U              GOPEN
+     (I4V,I4L,I4V)
+  35         S                    424   GP3D
+  36          I         MU E            GPTREC
+  37          R         MU E            H
+  38          L         MU E            HEAT
+  39          R         MU E            HOVER2
+  40          I         MU E            I
+  41          I         MU E            ID
+  42    2  12 I    ( 1)C   E       30   IDNO(30)
+  43          I         MU E            IELTYP
+  44          I         MU E            IET1
+  45          I         MU E            IET2
+  46          I         MU E            IGPT
+  47          I         MU E            IGPTT
+  48    2  18 I        C   E            IGRAV
+  49          I         MU E            IGRID
+  50          I          U E            IHEAT
+  51          I         MU E            II
+  52          I         MU E            ILIST
+  53    3   3 I        C   E            INCR
+  54          I         MU E            INREC
+  55    2  17 I        C   E            IPLOAD
+  56          I         MU E            IRECS
+  57          I         MU E            IRETRN
+  58          I         MU E            J
+  59          I         MU E            JTEMP
+  60          I         MU E            K
+  61    5   1 I    ( 1)C   E       63   KSYSTM(63)
+  62    3   2 I        C   E            LAST
+  63          I         MU E            LET1
+  64          I         MU E            LET2
+  65          L         MU E            LFLAG
+  66          I         M? E            LGPT
+  67          I         MU E            LIST1
+  68          I         MU E            LIST2
+  69    2  20 I    ( 1)C   E        2   LOAD(2)
+  70         s     ( 4)  U              LOCATE
+     (ALT,I4L,I4A,I4V)
+  71    2  14 I    ( 1)C   E       60   MASK(60)
+  72         II    ( 2)  U I            MAX0
+  73         s     ( 3)  U              MESAGE
+     (I4E,I4E,I4A)
+     (   ,   ,I4E)
+  74          I         MU E            MOVE
+  75          I         MU E            N
+  76          I    ( 1)I?? E        2   NAM(2)
+  77    3   1 I        C   E            NELEM
+  78          I         MU E            NET1
+  79          I         MU E            NET2
+  80          I         MU E            NGPT
+  81          I         MU E            NGPTT
+  82          I         MU E            NGRID
+  83          I         MU E            NLIST
+  84    1   1 I        C   E            NOGRAV
+  85    1   2 I        C   E            NOLOAD
+  86    2  21 I        C   E            NOPLD2
+  87    4   6 I        C?? E            NOREW
+  88    1   3 I        CMU E            NOTEMP
+  89          I         MU E            NSETS
+  90    2  16 I        C   E            NTYPES
+  91          I         MU E            NWORDS
+  92         s     ( 4)  U              OPEN
+     (ALT,I4V,I4L,I4V)
+  93          I          U E            OUTPT
+  94          I         MU E            OUTWDS
+  95    2  19 I    ( 1)C   E        2   PLOAD2(2)
+  96         s     ( 3)  U              PRELOC
+     (ALT,I4L,I4V)
+  97          R    ( 1) MU E       50   RBUF(50)
+  98    4   1 I        C?? E            RD
+  99    4   2 I        C?? E            RDREW
+ 100         s     ( 7)  U              READ
+     (ALT,ALT,I4V,I4A,I4E,I4E,I4V)
+ 101          I         MU E            RECORD
+ 102    4   5 I        C?? E            REW
+ 103         s     ( 1)  U              REWIND
+     (I4V)
+ 104          R         MU E            RTEMP
+ 105          R    ( 1)  U E        1   RZ(1)
+ 106    2   6 I        C?U E            SCR1
+ 107    2   7 I        C?U E            SCR2
+ 108          I         MU E            SETID
+ 109    2   4 I        C   E            SLT
+ 110         s     ( 6)  U              SORT
+     (I4E,I4E,I4E,I4E,I4L,I4E)
+ 111    2  15 I    ( 1)C   E       60   STATUS(60)
+ 112          R         MU E            SUM
+ 113          I            E            SYSBUF
+ 114          R         MU E            T1
+ 115          R         MU E            T2
+ 116          R         MU E            TBAR
+ 117    2  22 R    ( 1)C   E        2   TEMP(2)
+ 118    2  23 I    ( 1)C   E        2   TEMPD(2)
+ 119    2  24 I    ( 1)C?? E        2   TEMPP1(2)
+ 120    2  25 I    ( 1)C?? E        2   TEMPP2(2)
+ 121    2  26 I    ( 1)C?? E        2   TEMPP3(2)
+ 122    2  27 I    ( 1)C?? E        2   TEMPRB(2)
+ 123          R    ( 1) MU E       32   TGRID(32)
+ 124          R         MU E            TPRIME
+ 125          I         MU E            TWOI
+ 126    6   1 C*23     C U E            UFM*23
+ 127         s     ( 4)  U              WRITE
+     (I4V,I4E,I4E,I4E)
+     (   ,I4A,   ,   )
+ 128    4   3 I        C?? E            WRT
+ 129    4   4 I        C?? E            WRTREW
+ 130         s     ( 1)  U              WRTTRL
+     (I4A)
+ 131    7   1 I    ( 1)CMU E        1   Z(1)
+**-- END OF SYMBOL TABLE

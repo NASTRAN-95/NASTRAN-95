@@ -1,0 +1,159 @@
+**++ Symbol table for subprogram XCHK in file mis/xchk.f90
+     produced by SPAG     7.61RG-40 at 01:00:00 on 21 Mar 2022
+   0         X             K             mis/xchk.f90,0000002,0000729
+   1         C     / 1/  U          4   /MACHIN/MACH
+   2         C     / 1/ ?U         28   /OSCENT/OSCAR
+   3         C     / 1/ M           4   /OUTPUT/PGHDG
+   4         C     / 2/  U          8   /RESDIC/IRDICT,IROPEN
+   5         C     / 1/            24   /STAPID/TAPID
+   6         C     / 1/           364   /SYSTEM/ZSYS
+   7         C     / 1/ ??        168   /XCEITB/CEITBL
+   8         C     / 1/ ?U         12   /XDPL/DPL
+   9         C     / 1/ ?U         12   /XFIAT/FIAT
+  10         C     / 1/ MU          8   /XFIST/FIST
+  11         C     / 4/  U        102   /XMSSG/UFM,UWM,UIM,SFM
+  12         C     / 1/  U          4   /XPFIST/IPFST
+  13         C     / 1/ ??          8   /XVPS/VPS
+  14         C     / 1/ ??          4   /ZZZZZZ/GBUF
+  15          I         M? E            ALLON
+  16         fI    ( 2)  UXE            ANDF
+     (I4V,I4E)
+  17          I    ( 1)I?U E       90   BLKCNT(90)
+  18          I         ?U E            BLKSIZ
+  19          I         ?U E            BUFSZ
+  20    7   1 I    ( 1)C?? E       42   CEITBL(42)
+  21         s     ( 2)  U              CLOSE
+     (I4A,I4E)
+     (I4V,   )
+  22         fI    ( 1)  UXE            COMPLF
+     (I4E)
+  23          I         MU E            CPPGCT
+  24         s     ( 5)  U              CPYFIL
+     (I4V,I4V,I4L,I4V,I4V)
+  25          I    ( 1)I?U E        2   DCPARM(2)
+  26          I         ?U E            DIAG09
+  27          I    ( 1) MU E      400   DICT(400)
+  28          I         MU E            DPFCT
+  29    8   1 I    ( 1)C?U E        3   DPL(3)
+  30          I         MU E            DPLFLG
+  31          I         MU E            DPPNT
+  32          I        I?U E            DPT
+  33         s     ( 1)  U              EOF
+     (I4V)
+  34          I         M  E            EORFLG
+  35          I         M  E            EOTFLG
+  36          I         M? E            EQFLG
+  37          I    ( 1) MU E      400   FDICT(400)
+  38    9   1 I    ( 1)C?U E        3   FIAT(3)
+  39          I         MU E            FILCNT
+  40   10   1 I    ( 1)CMU E        2   FIST(2)
+  41          I         MU E            FNASS
+  42          I         MU E            FPNT
+  43         s     ( 2)  U              FWDREC
+     (ALT,I4V)
+  44   14   1 I    ( 1)C?? E        1   GBUF(1)
+  45          I    ( 1)I U E       32   HDG(32)
+  46          I    ( 1) ?U E        2   HEAD(2)
+  47          I         MU E            I
+  48          I         MU E            I1
+  49          I         MU E            I2
+  50          I          U E            ICFIAT
+  51          I         MU E            IFSTMP
+  52          I         MU E            II
+  53          I    ( 1) ?? E        1   IOBUF(1)
+  54          I         MU E            IOPNT
+  55   12   1 I        C U E            IPFST
+  56    4   1 I        C U E            IRDICT
+  57    4   2 I        C   E            IROPEN
+  58          I         MU E            J
+  59          I         MU E            J1
+  60          I         MU E            J2
+  61          I         MU E            K
+  62         fI    ( 1)  U E            KORSZ
+     (I4A)
+  63          I         MU E            LCPTP
+  64          I         MU E            LDC
+  65          I        I U E            LIMIT
+  66          I         MU E            LIOBUF
+  67          I         MU E            LPTDIC
+  68          I        I U E            LPURGE
+  69         fI    ( 2)  UXE            LSHIFT
+     (I4E,I4E)
+  70    1   1 I        C U E            MACH
+  71          I         MU E            MASKHI
+  72         s     ( 3)  U              MESAGE
+     (I4E,I4E,I4A)
+  73         II    ( 2)  U I            MIN0
+  74          I         MU E            MINFN
+  75          I         MU E            N
+  76          I         MU E            N1
+  77          I         M  E            NAME
+  78          I        I U E            NBLANK
+  79          I          U E            NBPW
+  80          I         MU E            NFILE
+  81          I         MU E            NFLAGS
+  82          I         MU E            NGINO
+  83          I         MU E            NLINES
+  84          I          U E            NLPP
+  85          I         M? E            NOFLGS
+  86          I        I U E            NOSCAR
+  87          I         M? E            NOSGN
+  88          I          U E            NPAGES
+  89          I         MU E            NPTFN
+  90          I        I?U E            NPTP
+  91          I         MU E            NPTPNT
+  92          I         MU E            NREEL
+  93          I         MU E            NRLFL
+  94          I    ( 1)I?U E        2   NVPS(2)
+  95          I    ( 1)I?? E        2   NXCHK(2)
+  96          I    ( 1)I?U E        2   NXPTDC(2)
+  97         s     ( 4)  U              OPEN
+     (ALT,I4A,I4L,I4E)
+     (   ,I4V,   ,   )
+  98         fI    ( 2)  UXE            ORF
+     (I4E,I4E)
+  99    2   1 I    ( 1)C?U E        7   OSCAR(7)
+ 100          I         MU E            OSCFN
+ 101          I          U E            OTPE
+ 102         s           U              PAGE
+ 103         s     ( 1)  U              PAGE2
+     (I4E)
+ 104    3   1 I    ( 1)CM  E        1   PGHDG(1)
+ 105          I         MU E            PRGPNT
+ 106          I         MU E            PTDBOT
+ 107          I    ( 1) MU E        1   PTDIC(1)
+ 108          I         MU E            PTDTOP
+ 109          I    ( 1) MU E      100   PURGE(100)
+ 110         s     ( 7)  U              READ
+     (ALT,ALT,I4A,I4A,I4E,I4E,I4V)
+     (   ,   ,I4V,   ,   ,   ,   )
+ 111          I         MU E            RECSZ
+ 112          I         M  E            REELCT
+ 113          I         MU E            RETURN
+ 114         s     ( 1)  U              REWIND
+     (I4V)
+ 115         fI    ( 2)  UXE            RSHIFT
+     (I4E,I4E)
+ 116          I         MU E            SEQNO
+ 117          I         MU E            SETEOR
+ 118   11   4 C*25     C U E            SFM*25
+ 119         s     ( 2)  U              SKPFIL
+     (I4V,I4E)
+ 120         s     ( 2)  U              SSWTCH
+     (I4E,I4V)
+ 121          I    ( 1) MU E        2   SVFST(2)
+ 122    5   1 I    ( 1)C   E        6   TAPID(6)
+ 123          I         MU E            UCBPNT
+ 124   11   1 C*23     C U E            UFM*23
+ 125   11   3 C*29     C   E            UIM*29
+ 126   11   2 C*25     C   E            UWM*25
+ 127   13   1 I    ( 1)C?? E        2   VPS(2)
+ 128         s     ( 4)  U              WRITE
+     (I4V,I4A,I4E,I4E)
+     (   ,I4V,   ,   )
+     (I4A,   ,   ,   )
+ 129         S                    392   XCHK
+ 130         s     ( 3)  U              XFLSZD
+     (I4E,I4V,I4E)
+ 131    6   1 I    ( 1)C   E       91   ZSYS(91)
+**-- END OF SYMBOL TABLE

@@ -1,0 +1,50 @@
+**++ Symbol table for subprogram DIAG36 in file mis/diag36.f90
+     produced by SPAG     8.01RF-40 at 14:46:49 on  2 Dec 2023
+   0         X             K             mis/diag36.f90,0000002,0000111
+   1         C     / 4/ ??         20   /NAMES/RD,RDREW,SKIP,REW
+   2         C     / 4/  U         36   /SYSTEM/IBUF,L,DUMMY,NLPP
+   3    5   2 I        A U E            BUF
+   4         s     ( 2)  U              CLOSE
+     (I4V,R4V)
+   5         S     ( 5) MU         75   DIAG36(Z,BUF,GPL,SIL,EQEXIN)
+   6    2   3 R    ( 1)C   E        6   DUMMY(6)
+   7    5   5 I        A U E            EQEXIN
+   8          I         M? E            FILE
+   9         s     ( 2)  U              FWDREC
+     (ALT,I4V)
+  10    5   3 I        A U E            GPL
+  11          I         MU E            I
+  12    2   1 I        C   E            IBUF
+  13          I         MU E            IM1
+  14          I         MU E            J
+  15          I         MU E            J1
+  16          I         MU E            J2
+  17          I         MU E            J3
+  18          I         MU E            K
+  19    2   2 I        C U E            L
+  20         s     ( 3)  U              MESAGE
+     (I4V,I4V,I4A)
+  21          I         MU E            N
+  22          I         MU E            N1
+  23          I         MU E            N2
+  24          I         MU E            N3
+  25          I    ( 1)I?? E        2   NAM(2)
+  26    2   4 I        C U E            NLPP
+  27          I         MU E            NLPX
+  28         s     ( 4)  U              OPEN
+     (ALT,I4V,I4L,R4V)
+  29         s           U              PAGE1
+  30         s           U              PEXIT
+  31    1   1 R        C   E            RD
+  32    1   2 R        C?? E            RDREW
+  33         s     ( 1)  U              RDTRL
+     (I4L)
+  34         s     ( 7)  U              READ
+     (ALT,ALT,I4V,I4L,I4V,I4E,I4V)
+  35    1   4 R        C?? E            REW
+  36    5   4 I        A U E            SIL
+  37    1   3 R    ( 1)C   E        2   SKIP(2)
+  38         s     ( 2)  U              SSWTCH
+     (I4E,I4V)
+  39    5   1 I    ( 1)AMU E            Z(2)
+**-- END OF SYMBOL TABLE

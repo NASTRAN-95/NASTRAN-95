@@ -1,0 +1,62 @@
+**++ Symbol table for subprogram SSOLD2 in file mis/ssold2.f90
+     produced by SPAG     8.01RF-40 at 14:46:50 on  2 Dec 2023
+   0         X             K             mis/ssold2.f90,0000002,0000124
+   1         C     / 5/  U        156   /SDR2X4/DUMMY,IVEC,IVECN,LDTEMP,DEFORM
+   2         C     / 3/ MU        900   /SDR2X7/PHIOUT,STRES,FORVEC
+   3         C     / 9/ MU        132   /SDR2X8/TEMP,FACTOR,NPTS,NPOINT,KS,KBETA,SIGMA,CTMP,CSIG
+   4         C     / 6/  U         28   /SDR2X9/NCHK,ISUB,ILD,FRTMEI,TWOTOP,FNCHK
+   5         C     / 4/ MU         48   /SYSTEM/IBFSZ,NOUT,IDM,LINE
+   6         C     / 1/ ??          4   /ZZZZZZ/Z
+   7    3   9 R    ( 1)CMU E        7   CSIG(7)
+   8    3   8 R    ( 1)C?U E        6   CTMP(6)
+   9    1   5 R        C   E            DEFORM
+  10    1   1 R    ( 1)C   E       35   DUMMY(35)
+  11         fI    ( 1)  U E            EJECT
+     (I4E)
+  12    3   2 R        CMU E            FACTOR
+  13    4   6 R        C   E            FNCHK
+  14    2   3 R    ( 1)C   E       25   FORVEC(25)
+  15          R    ( 1)IMU E        2   FRLAST(2)
+  16    4   4 R    ( 1)C U E        2   FRTMEI(2)
+  17   49   2 R    ( 1)A U E            FTEMP(8)
+  18          I         MU E            I
+  19    5   1 I        C   E            IBFSZ
+  20    5   3 I    ( 1)C   E        9   IDM(9)
+  21    4   3 I        C U E            ILD
+  22          I    ( 1) ?? E        7   ISHD(7)
+  23          I    ( 1) MU E        2   ISTYP(2)
+  24    4   2 I        C U E            ISUB
+  25   49   1 I        A U E            ITYPE
+  26    1   2 I        C U E            IVEC
+  27    1   3 I        C   E            IVECN
+  28          I         MU E            J
+  29          I         MU E            K
+  30    3   6 I        CMU E            KBETA
+  31    3   5 I        CMU E            KS
+  32    1   4 I        C U E            LDTEMP
+  33    5   4 I        CMU E            LINE
+  34          I        IMU E            LLD
+  35          I        IMU E            LSUB
+  36          I         MU E            N
+  37    4   1 I        C U E            NCHK
+  38    5   2 I        C U E            NOUT
+  39          I    ( 1)  U E        1   NPHI(1)
+  40    3   4 I        CMU E            NPOINT
+  41    3   3 I        CMU E            NPTS
+  42         s           U              PAGE1
+  43    2   1 R    ( 1)C?U E      100   PHIOUT(100)
+  44         s     ( 2)  U              SD2RHD
+     (I4A,I4V)
+  45         s     ( 4)  U              SDRCHK
+     (R4L,R4L,I4E,I4V)
+  46    3   7 R    ( 1)CMU E        9   SIGMA(9)
+  47         s     (10)  U              SMMATS
+     (R4L,I4E,I4E,I4E,R4L,I4E,I4E,I4E,R4A,R4A)
+  48         I?    ( 1)  U I            SQRT
+  49         S     ( 2)  U         59   SSOLD2(ITYPE,FTEMP)
+  50    2   2 R    ( 1)CM  E      100   STRES(100)
+  51    3   1 R    ( 1)C?U E        6   TEMP(6)
+  52    4   5 R        C   E            TWOTOP
+  53          I    ( 1)I U E        8   TYP(8)
+  54    6   1 R    ( 1)C?? E        1   Z(1)
+**-- END OF SYMBOL TABLE

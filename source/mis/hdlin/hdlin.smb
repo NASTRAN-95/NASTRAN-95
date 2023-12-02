@@ -1,0 +1,270 @@
+**++ Symbol table for subprogram HDLIN in file mis/hdlin.f90
+     produced by SPAG     8.01RF-40 at 14:47:06 on  2 Dec 2023
+   0         X             K             mis/hdlin.f90,0000002,0000841
+   1         C     /16/ MU         64   /GO3/L0,L1,L00,L01,L2,L3,L4,L5,L6,L7,L8,L9,L10,L11,L12,L13
+   2         C     / 8/ MU         32   /HDSC/SCX,YAW,ROLL,PIT,LZ,VP,JJJ,ICORE
+   3         C     / 8/ MU         32   /HEDG/JAT,ME,JT,VX,VX1,VX2,VX3,NN
+   4          R         MU E            A
+   5          R         MU E            A1
+   6          R         M  E            A3
+   7         I?    ( 1)  U I            ABS
+   8         IR    ( 1)  U I            ALOG
+   9         IR    ( 2)  U I            AMAX1
+  10          R         MU E            AMAXX
+  11          R         MU E            AMAXY
+  12         IR    ( 2)  U I            AMIN1
+  13          R         MU E            AMINX
+  14          R         MU E            AMINY
+  15          R         MU E            AVA
+  16          R         MU E            B
+  17          R         MU E            B1
+  18          R         M  E            B3
+  19          R         MU E            C
+  20          R         MU E            C3
+  21          R         MU E            C4
+  22   38  28 R    ( 1)A?U E            CCC(1)
+  23   38  43 R    ( 1)AMU E            COORD(1)
+  24         I?    ( 1)  U I            COS
+  25          R         MU E            COSX
+  26          R         MU E            COSY
+  27          R         MU E            COSZ
+  28          R         MU E            CRX
+  29          R         MU E            CRY
+  30          R         M  E            D3
+  31   38  20 R    ( 1)AMU E            DI(1)
+  32          R         MU E            DY
+  33          R         MU E            E
+  34          R         MU E            EN
+  35          R    ( 1) M? E       15   H(15)
+  36         s     (16)  U              HDCHK
+     (R4A,R4A,I4A,I4V,R4A,R4A,I4A,R4A,R4A,R4A,R4A,R4A,R4A,R4A,I4V,R4A)
+  37         s     ( 8)  U              HDCOEF
+     (R4A,R4A,R4A,R4A,I4V,I4V,R4A,I4V)
+  38         S     (46) MU        701   HDLIN(X,Y,Z,NP,NC,XCC,ICOUNT,IRCT,X21,Y21,Z21,IIA,XE,YE,XU,YU,XI,YI,ZI,DI,IBEG,IEND,ICT,ICCT,IND,NIND,XXX,CCC,IN,IN1,IN2,TGM,TGMT,TGI,ZM,ZMI,RV,RVI,NNO,NOCT,YMIN,ZMIN,COORD,SNDT,NEH,KEEP)
+  39         s     ( 4)  U              HDPLT
+     (R4A,R4A,I4V,I4V)
+  40         s     (15)  U              HDSOLV
+     (I4V,I4E,R4A,R4A,I4V,I4A,I4V,R4A,R4A,R4A,I4A,I4V,R4A,R4A,I4V)
+  41         s     (18)  U              HDSTUS
+     (R4V,R4V,R4A,R4A,R4A,R4A,R4A,R4A,I4A,I4V,R4A,I4V,I4V,R4V,I4V,R4A,R4A,I4V
+     )
+  42         s     ( 3)  U              HDVS1
+     (I4L,I4V,I4L)
+  43         s     ( 3)  U              HDVSR
+     (R4L,I4V,I4L)
+  44          R         MU E            HH
+  45          R         MU E            HOLD
+  46          R         MU E            HOLD1
+  47          R         MU E            HOLD2
+  48          R         MU E            HOLD3
+  49          R         MU E            HX1
+  50          R         MU E            HXX
+  51          I         MU E            I
+  52          I         MU E            I1
+  53          I    ( 1) MU E        2   I2(2)
+  54          I    ( 1) MU E        2   I3(2)
+  55          I         MU E            IA
+  56          I         MU E            IABC
+  57          I         MU E            IAUG
+  58          I         MU E            IB
+  59          I         MU E            IBB
+  60   38  21 I    ( 1)AMU E            IBEG(1)
+  61          I         MU E            IBL
+  62   38  24 I    ( 1)AMU E            ICCT(1)
+  63    2   8 I        CMU E            ICORE
+  64   38   7 I    ( 1)AMU E            ICOUNT(1)
+  65   38  23 I    ( 1)AMU E            ICT(1)
+  66          I         MU E            IDAV
+  67   38  22 I    ( 1)AMU E            IEND(1)
+  68          I         MU E            IEXP
+  69          I         MU E            IGX
+  70          I         MU E            IGY
+  71          I         MU E            II
+  72   38  12 I    ( 1)AMU E            IIA(1)
+  73          I         M? E            IJ
+  74          I         MU E            IK
+  75          I         MU E            IKK
+  76          I         M  E            IKT
+  77          I         MU E            IL
+  78          I         MU E            IM
+  79   38  29 I    ( 1)AMU E            IN(1)
+  80   38  30 I    ( 1)AMU E            IN1(1)
+  81   38  31 I    ( 1)AMU E            IN2(1)
+  82   38  25 I    ( 1)AMU E            IND(1)
+  83          I         MU E            IR
+  84   38   8 I    ( 1)AMU E            IRCT(1)
+  85          I         MU E            IS
+  86          I         MU E            ISAVE
+  87         II    ( 2)  U I            ISIGN
+  88          I         MU E            IT
+  89          I         MU E            IV
+  90          I         MU E            IX
+  91          I         MU E            IX1
+  92          I         MU E            IXR
+  93          I         MU E            IXT
+  94          I         MU E            IXU
+  95          I         MU E            IXXX
+  96          I         MU E            J
+  97    3   1 I        CMU E            JAT
+  98          I         MU E            JB
+  99          I         MU E            JH
+ 100          I         MU E            JJ
+ 101    2   7 I        C U E            JJJ
+ 102          I         MU E            JK
+ 103          I         MU E            JM
+ 104          I         MU E            JO
+ 105          I         MU E            JS
+ 106    3   3 I        CMU E            JT
+ 107          I         MU E            JTT
+ 108          I         MU E            JV
+ 109          I         MU E            JX
+ 110          I         ?? E            JXT
+ 111          I         MU E            JXX
+ 112          I         MU E            K
+ 113          I         MU E            K1
+ 114          I         MU E            K2
+ 115          I         MU E            KE
+ 116   38  46 I    ( 1)AMU E            KEEP(1)
+ 117          I         M  E            KR
+ 118          I         MU E            KS
+ 119          I         MU E            KU
+ 120          I         MU E            KV
+ 121          I         MU E            L
+ 122    1   1 I        CMU E            L0
+ 123    1   3 I        CMU E            L00
+ 124    1   4 I        CMU E            L01
+ 125    1   2 I        CMU E            L1
+ 126    1  13 I        CMU E            L10
+ 127    1  14 I        CMU E            L11
+ 128    1  15 I        CMU E            L12
+ 129    1  16 I        CMU E            L13
+ 130          I         MU E            L14
+ 131          I         MU E            L15
+ 132          I         MU E            L16
+ 133          I         MU E            L17
+ 134          I         MU E            L18
+ 135    1   5 I        CMU E            L2
+ 136    1   6 I        CMU E            L3
+ 137    1   7 I        CMU E            L4
+ 138    1   8 I        CMU E            L5
+ 139    1   9 I        CMU E            L6
+ 140    1  10 I        CMU E            L7
+ 141    1  11 I        CMU E            L8
+ 142    1  12 I        CMU E            L9
+ 143          I         MU E            LC
+ 144          I         MU E            LG
+ 145          I         MU E            LT
+ 146          I         MU E            LX
+ 147    2   5 I        CMU E            LZ
+ 148          I         MU E            M
+ 149    3   2 I        CM  E            ME
+ 150         II    ( 2)  U I            MIN0
+ 151          I         MU E            MND
+ 152         I?    ( 2)  U I            MOD
+ 153          I         MU E            MS
+ 154          I         MU E            MU
+ 155          I         MU E            MX
+ 156          I         MU E            N
+ 157          I         MU E            NB
+ 158   38   5 I        AMU E            NC
+ 159   38  45 I    ( 1)AMU E            NEH(1)
+ 160          I         MU E            NG
+ 161          I    ( 1) ?U E       15   NGX(15)
+ 162          I         MU E            NI
+ 163          I         MU E            NII
+ 164   38  26 I    ( 1)AMU E            NIND(1)
+ 165          I         MU E            NIT
+ 166    3   8 I        CM  E            NN
+ 167   38  39 I    ( 1)AMU E            NNO(1)
+ 168   38  40 I    ( 1)AMU E            NOCT(1)
+ 169   38   4 I        A U E            NP
+ 170          I         MU E            NPX
+ 171          I         MU E            NS
+ 172          I         MU E            NT
+ 173          I         MU E            NV
+ 174          R         MU E            OJ
+ 175          R         MU E            PI
+ 176    2   4 R        C U E            PIT
+ 177          R         MU E            PK
+ 178          R         MU E            PPPPP
+ 179          R         MU E            PS
+ 180          R         MU E            PT
+ 181          R         MU E            R
+ 182          R         MU E            R1
+ 183          R         MU E            R2
+ 184    2   3 R        C U E            ROLL
+ 185          R    ( 1) MU E       20   RRX(20)
+ 186   38  37 R    ( 1)AMU E            RV(1)
+ 187   38  38 R    ( 1)AMU E            RVI(1)
+ 188          R         MU E            RX
+ 189          R         MU E            S
+ 190          R         MU E            S1
+ 191          R         MU E            SCT
+ 192    2   1 R        CMU E            SCX
+ 193          R         MU E            SD
+ 194         I?    ( 2)  U I            SIGN
+ 195         I?    ( 1)  U I            SIN
+ 196          R         MU E            SINX
+ 197          R         MU E            SINY
+ 198          R         MU E            SINZ
+ 199   38  44 R    ( 1)AM? E            SNDT(1)
+ 200          R         MU E            SW
+ 201          R         MU E            SW1
+ 202          R         MU E            T
+ 203          R         MU E            T1
+ 204   38  34 R    ( 1)AMU E            TGI(1)
+ 205   38  32 R    ( 1)AMU E            TGM(1)
+ 206   38  33 R    ( 1)AMU E            TGMT(1)
+ 207          R         MU E            TMAX
+ 208          R         MU E            TMJ
+ 209          R         MU E            TW
+ 210          R         MU E            TY
+ 211          R         MU E            TZ
+ 212          R    ( 1) MU E        6   U(6)
+ 213          R         MU E            UX
+ 214          R    ( 1) MU E        6   V(6)
+ 215          R         MU E            VL
+ 216    2   6 R        CMU E            VP
+ 217          R         MU E            VPX
+ 218    3   4 R        CMU E            VX
+ 219    3   5 R        CMU E            VX1
+ 220    3   6 R        CMU E            VX2
+ 221    3   7 R        CM  E            VX3
+ 222          R    ( 1) M  E        6   W(6)
+ 223   38   1 R    ( 1)A U E            X(1)
+ 224          R    ( 1) MU E       10   X1(10)
+ 225   38   9 R    ( 1)AMU E            X21(1)
+ 226   38   6 R    ( 1)A?? E            XCC(1)
+ 227   38  13 R    ( 1)AMU E            XE(1)
+ 228   38  17 R    ( 1)AMU E            XI(1)
+ 229          R         MU E            XJ
+ 230          R         MU E            XMAT
+ 231          R         MU E            XMD
+ 232          R         MU E            XMIT
+ 233   38  15 R    ( 1)AMU E            XU(1)
+ 234          R         MU E            XX
+ 235   38  27 R    ( 1)AMU E            XXX(1)
+ 236   38   2 R    ( 1)A U E            Y(1)
+ 237          R    ( 1) MU E       10   Y1(10)
+ 238   38  10 R    ( 1)AMU E            Y21(1)
+ 239    2   2 R        C U E            YAW
+ 240   38  14 R    ( 1)AMU E            YE(1)
+ 241          R         MU E            YG
+ 242   38  18 R    ( 1)AMU E            YI(1)
+ 243          R         MU E            YJ
+ 244          R         MU E            YMAT
+ 245   38  41 R    ( 1)AMU E            YMIN(1)
+ 246          R         MU E            YMIT
+ 247   38  16 R    ( 1)AMU E            YU(1)
+ 248          R         MU E            YY
+ 249   38   3 R    ( 1)A U E            Z(1)
+ 250   38  11 R    ( 1)AMU E            Z21(1)
+ 251   38  19 R    ( 1)AMU E            ZI(1)
+ 252          R         MU E            ZJ
+ 253   38  35 R    ( 1)AMU E            ZM(1)
+ 254   38  36 R    ( 1)AMU E            ZMI(1)
+ 255   38  42 R    ( 1)AMU E            ZMIN(1)
+ 256          R         MU E            ZS
+ 257          R         MU E            ZS1
+ 258          R         MU E            ZZ
+**-- END OF SYMBOL TABLE

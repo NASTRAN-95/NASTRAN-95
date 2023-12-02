@@ -1,0 +1,158 @@
+**++ Symbol table for subprogram TIMEEQ in file mis/timeeq.f90
+     produced by SPAG     8.01RF-40 at 14:46:47 on  2 Dec 2023
+   0         X             K             mis/timeeq.f90,0000002,0000037
+   1         C     / 2/            64   /NTIME/LNTIME,TCONS
+   2         C     / 1/           260   /SYSTEM/KSYSTM
+   3          R          U E            AAIO
+   4          R          U E            AAPAK
+   5          R            E            AB
+   6          R            E            ABBAR
+   7          R            E            AC
+   8          R            E            ACBAR
+   9          R         MU E            AIO
+  10          R         MU E            AMB
+  11          R         MU E            AMC
+  12          R            E            ANCOL
+  13          R         MU E            APAK
+  14          R            E            AR
+  15   48   1 R        A U E            B
+  16   48   2 R        A U E            BBAR
+  17   48   3 R        A U E            C
+  18   48   4 R        A U E            CBAR
+  19         IR    ( 1)  U I            FLOAT
+  20          I            E            IB
+  21          I            E            IBBAR
+  22          I            E            IC
+  23          I            E            ICBAR
+  24          I         MU E            IENTR
+  25   48   6 I        A U E            IENTRY
+  26          I            E            INCOL
+  27          I          U E            IPREC
+  28          I            E            IR
+  29          I            E            IRET
+  30          I            E            JENTRY
+  31          R            E            K1
+  32          R            E            K2
+  33          R            E            K3
+  34          R            E            K4
+  35          R            E            K5
+  36          I            E            KENTRY
+  37    2   1 I    ( 1)C   E       65   KSYSTM(65)
+  38    1   1 I        C   E            LNTIME
+  39          R    ( 1)  U E        1   MB(1)
+  40          R    ( 1)  U E        1   MC(1)
+  41          I          U E            NBPW
+  42   48   7 I        A U E            NCOL
+  43          I            E            NX
+  44   48   5 R        A U E            R
+  45          I            E            SYSBUF
+  46    1   2 R    ( 1)C   E       15   TCONS(15)
+  47   48   8 R        AM  E            TIM
+  48         S     ( 8) MU         17   TIMEEQ(B,BBAR,C,CBAR,R,IENTRY,NCOL,TIM)
+  49          R            E            TIMEX
+**-- END OF SYMBOL TABLE
+**++ Symbol table for subprogram TFIN in file mis/timeeq.f90
+     produced by SPAG     8.01RF-40 at 14:46:47 on  2 Dec 2023
+   0         X             K             mis/timeeq.f90,0000040,0000096
+   1         C     / 2/            64   /NTIME/LNTIME,TCONS
+   2         C     / 1/           260   /SYSTEM/KSYSTM
+   3          R          U E            AAIO
+   4          R          U E            AAPAK
+   5   46   1 R        A U E            AB
+   6   46   2 R        A U E            ABBAR
+   7   46   3 R        A U E            AC
+   8   46   4 R        A U E            ACBAR
+   9          R         MU E            AIO
+  10          R         MU E            AMB
+  11          R         MU E            AMC
+  12   46   7 R        A U E            ANCOL
+  13          R         MU E            APAK
+  14   46   5 R        A U E            AR
+  15          R            E            B
+  16          R            E            BBAR
+  17          R            E            C
+  18          R            E            CBAR
+  19          I            E            IB
+  20          I            E            IBBAR
+  21          I            E            IC
+  22          I            E            ICBAR
+  23          I         MU E            IENTR
+  24          I            E            IENTRY
+  25          I            E            INCOL
+  26          I          U E            IPREC
+  27          I            E            IR
+  28          I            E            IRET
+  29   46   6 I        A U E            JENTRY
+  30          R         MU E            K1
+  31          R         MU E            K2
+  32          R         MU E            K3
+  33          R         MU E            K4
+  34          R         MU E            K5
+  35          I            E            KENTRY
+  36    2   1 I    ( 1)C   E       65   KSYSTM(65)
+  37    1   1 I        C   E            LNTIME
+  38          R    ( 1)  U E        1   MB(1)
+  39          R    ( 1)  U E        1   MC(1)
+  40          I          U E            NBPW
+  41          I            E            NCOL
+  42          I            E            NX
+  43          R            E            R
+  44          I            E            SYSBUF
+  45    1   2 R    ( 1)C   E       15   TCONS(15)
+  46         S     ( 8) MU         38   TFIN(AB,ABBAR,AC,ACBAR,AR,JENTRY,ANCOL,TIMEX)
+  47          R            E            TIM
+  48   46   8 R        AMU E            TIMEX
+**-- END OF SYMBOL TABLE
+**++ Symbol table for subprogram RCORE in file mis/timeeq.f90
+     produced by SPAG     8.01RF-40 at 14:46:47 on  2 Dec 2023
+   0         X             K             mis/timeeq.f90,0000099,0000119
+   1         C     / 2/            64   /NTIME/LNTIME,TCONS
+   2         C     / 1/           260   /SYSTEM/KSYSTM
+   3          R            E            AAIO
+   4          R            E            AAPAK
+   5          R            E            AB
+   6          R            E            ABBAR
+   7          R            E            AC
+   8          R            E            ACBAR
+   9          R            E            AIO
+  10          R            E            AMB
+  11          R            E            AMC
+  12          R            E            ANCOL
+  13          R            E            APAK
+  14          R            E            AR
+  15          R            E            B
+  16          R            E            BBAR
+  17          R            E            C
+  18          R            E            CBAR
+  19   45   1 I        A U E            IB
+  20   45   2 I        A U E            IBBAR
+  21   45   3 I        A U E            IC
+  22   45   4 I        A U E            ICBAR
+  23          I            E            IENTR
+  24          I            E            IENTRY
+  25   45   5 I        A U E            INCOL
+  26          I            E            IPREC
+  27   45   8 I        AM  E            IR
+  28          I            E            IRET
+  29          I            E            JENTRY
+  30          R            E            K1
+  31          R            E            K2
+  32          R            E            K3
+  33          R            E            K4
+  34          R            E            K5
+  35   45   6 I        A U E            KENTRY
+  36    2   1 I    ( 1)C   E       65   KSYSTM(65)
+  37    1   1 I        C   E            LNTIME
+  38          R    ( 1)    E        1   MB(1)
+  39          R    ( 1)    E        1   MC(1)
+  40         II    ( 2)  U I            MIN0
+  41          I            E            NBPW
+  42          I            E            NCOL
+  43   45   7 I        A U E            NX
+  44          R            E            R
+  45         S     ( 8) MU          1   RCORE(IB,IBBAR,IC,ICBAR,INCOL,KENTRY,NX,IR)
+  46          I          U E            SYSBUF
+  47    1   2 R    ( 1)C   E       15   TCONS(15)
+  48          R            E            TIM
+  49          R            E            TIMEX
+**-- END OF SYMBOL TABLE

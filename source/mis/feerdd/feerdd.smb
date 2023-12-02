@@ -1,0 +1,12 @@
+**++ Symbol table for subprogram FEERDD in file mis/feerdd.f90
+     produced by SPAG     7.61RG-40 at 01:00:00 on 21 Mar 2022
+   0         X             K             mis/feerdd.f90,0000002,0000028
+   1         C     / 1/ M         148   /FEERCX/IFRCX
+   2         S                      8   FEERDD
+   3          I         MU E            I
+   4    1   1 I    ( 1)CM  E       37   IFRCX(37)
+   5          I    ( 1)I U E       28   JFRCX(28)
+   6          I    ( 1)I U E        4   KFRCX(4)
+   7          I    ( 1)I U E        4   LFRCX(4)
+   8          I        I U E            MFRCX
+**-- END OF SYMBOL TABLE

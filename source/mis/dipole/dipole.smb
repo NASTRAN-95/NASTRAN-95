@@ -1,0 +1,31 @@
+**++ Symbol table for subprogram DIPOLE in file mis/dipole.f90
+     produced by SPAG     8.01RF-40 at 14:47:21 on  2 Dec 2023
+   0         X             K             mis/dipole.f90,0000002,0000066
+   1    5   1 R    ( 1)A U E            BUF(50)
+   2          R         MU E            CX
+   3          R         MU E            CY
+   4          R         MU E            CZ
+   5         S     ( 8) MU         32   DIPOLE(BUF,IBUF,XX,YY,ZZ,HC1,HC2,HC3)
+   6          R        I U E            FPI
+   7    5   6 R        AMU E            HC1
+   8    5   7 R        AMU E            HC2
+   9    5   8 R        AMU E            HC3
+  10    5   2 I    ( 1)A U E            IBUF(50)
+  11          I         M  E            ICID
+  12          R         MU E            MAX
+  13          R         MU E            MIN
+  14          R         MU E            MX
+  15          R         MU E            MXA
+  16          R         MU E            MY
+  17          R         MU E            MYB
+  18          R         MU E            MZ
+  19          R         MU E            MZC
+  20          R         MU E            R3
+  21          R         MU E            R5
+  22          R         MU E            RMR1
+  23         I?    ( 1)  U I            SQRT
+  24          R         MU E            XNUM
+  25    5   3 R        A U E            XX
+  26    5   4 R        A U E            YY
+  27    5   5 R        A U E            ZZ
+**-- END OF SYMBOL TABLE

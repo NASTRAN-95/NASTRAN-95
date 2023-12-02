@@ -1,0 +1,24 @@
+**++ Symbol table for subprogram KDUMX in file mis/kdumx.f90
+     produced by SPAG     7.61RG-40 at 01:00:00 on 21 Mar 2022
+   0         X             K             mis/kdumx.f90,0000002,0000087
+   1         C     / 2/  U          8   /SYSTEM/IBUF,NOUT
+   2         C     / 2/  U         48   /XMSSG/UFM,UWM
+   3    1   1 I        C   E            IBUF
+   4          I    ( 1)IMU E        9   II(9)
+   5          I         MU E            J
+   6          I        I U E            JJ
+   7         E                          KDUM1
+   8         E                          KDUM2
+   9         E                          KDUM3
+  10         E                          KDUM4
+  11         E                          KDUM5
+  12         E                          KDUM6
+  13         E                          KDUM7
+  14         E                          KDUM8
+  15         E                          KDUM9
+  16         S                     23   KDUMX
+  17          I    ( 1)I U E        9   KK(9)
+  18    1   2 I        C U E            NOUT
+  19    2   1 C*23     C   E            UFM*23
+  20    2   2 C*25     C U E            UWM*25
+**-- END OF SYMBOL TABLE

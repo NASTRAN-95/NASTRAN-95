@@ -1,0 +1,144 @@
+**++ Symbol table for subprogram XRECPS in file mis/xrecps.f90
+     produced by SPAG     8.01RF-40 at 14:47:00 on  2 Dec 2023
+   0         X             K             mis/xrecps.f90,0000002,0000488
+   1         C     / 3/ M?         12   /IFPX0/LBD,LCC,IBITS
+   2         C     / 2/  U         12   /IFPX1/NUM,ICARDS
+   3         C     / 1/  U          4   /MACHIN/MACH
+   4         C     /10/ ?U        164   /SYSTEM/B,OUTTAP,D1,NLPP,D2,LCNT,D3,NBPC,NBPW,NCPW
+   5         C     / 1/ ??        128   /TWO/ITWO
+   6         C     / 4/  U        102   /XMSSG/UFM,UWM,UIM,SFM
+   7         C     /22/ MU        192   /XSRTCM/BIMSK1,BIMSK2,BIMSK3,BIMSK4,BIMSK5,BIMSK6,BKMSK1,BKMSK2,SHIFTS,ICON1,ICON2,STAR,PLUS,DOLLAR,STARL,SLASH,SFTM,MASK,BLANK,MKA,IS,MBIT4
+   8         fI    ( 2)  UXE            ANDF
+     (I4E,I4E)
+   9    4   1 I        C   E            B
+  10          I    ( 1)AM? E        2   BA(2)
+  11         s     ( 1)  U              BCKREC
+     (I4V)
+  12          I    ( 1)A?U E        1   BF(1)
+  13          I    ( 1)AMU E        2   BFF(2)
+  14          I         M? E            BFI
+  15    7   1 I    ( 1)CMU E        6   BIMSK1(6)
+  16    7   2 I    ( 1)CMU E        5   BIMSK2(5)
+  17    7   3 I    ( 1)CM? E        4   BIMSK3(4)
+  18    7   4 I    ( 1)CM? E        4   BIMSK4(4)
+  19    7   5 I    ( 1)CMU E        2   BIMSK5(2)
+  20    7   6 I        CM? E            BIMSK6
+  21    7   7 I    ( 1)CMU E        8   BKMSK1(8)
+  22    7   8 I        CM? E            BKMSK2
+  23    7  19 I        CMU E            BLANK
+  24          I    ( 1)I U E        7   C10C(7)
+  25          I    ( 1)A U E        4   CARD(4)
+  26         fI    ( 1)  UXE            COMPLF
+     (I4E)
+  27          I    ( 1)IMU E       38   CON(38)
+  28         E     ( 1)                 CRDFLG(CARD)
+  29    4   3 I    ( 1)C   E        6   D1(6)
+  30    4   5 I    ( 1)C   E        2   D2(2)
+  31    4   7 I    ( 1)C   E       26   D3(26)
+  32          L         MU E            DEC
+  33    7  14 I        CM  E            DOLLAR
+  34          I    ( 1) ?U E       37   EXTAB(37)
+  35         E     ( 1)                 EXTINT(EXTWRD)
+  36          I    ( 1)AMU E        1   EXTWRD(1)
+  37          I         MU E            EXWRDI
+  38         s     ( 2)  U              FWDREC
+     (ALT,I4V)
+  39          I         MU E            I
+  40         II    ( 1)  U I            IABS
+  41          I         MU E            IBA
+  42    1   3 I    ( 1)CM? E        1   IBITS(1)
+  43    2   2 I    ( 1)C U E        2   ICARDS(2)
+  44          I         MU E            ICHAR
+  45    7  10 I        CM  E            ICON1
+  46    7  11 I        CM  E            ICON2
+  47          I         MU E            ICYCL
+  48          I         MU E            IDIF
+  49          I        I?? E            IDOLLR
+  50          I         MU E            II
+  51  128   1 I        A U E            INEW
+  52         E                          INITCO
+  53         E     ( 1)                 INTEXT(INTWRD)
+  54          I    ( 1)AMU E        2   INTWRD(2)
+  55          I         MU E            INWRDI
+  56  128   2 I        AMU E            IOLD
+  57          I        I?? E            IPLS
+  58          I         MU E            IPOS
+  59          I         MU E            IRET
+  60    7  21 I        CM  E            IS
+  61          I        I?? E            ISLSH
+  62          I        I?? E            ISTR
+  63          I        I?? E            ISTRL
+  64          I        I?? E            ITAPE4
+  65          I         MU E            ITEMP
+  66          I         MU E            ITST
+  67    5   1 I    ( 1)C?? E       32   ITWO(32)
+  68          I         MU E            IVAR
+  69          I         MU E            IVAX
+  70          I        I?? E            IZERO
+  71          I         MU E            J
+  72          I         MU E            JI
+  73          I         M? E            JTEMP
+  74          I         MU E            K
+  75          I         MU E            KARD1
+  76          I         MU E            KARD2
+  77          I    ( 1)I?U E        8   KBMSK1(8)
+  78          I         MU E            KBRN
+  79         fI    ( 4)  U E            KHRFN1
+     (I4V,I4E,I4V,I4E)
+  80         fI    ( 4)  U E            KHRFN3
+     (I4V,I4L,I4E,I4E)
+  81          I        AM  E            KK
+  82          I        I U E            KPRET1
+  83          I        I U E            KPRET2
+  84    1   1 I        C   E            LBD
+  85    1   2 I        C   E            LCC
+  86    4   6 I        C   E            LCNT
+  87          I         MU E            LMT
+  88         fI    ( 2)  UXE            LSHIFT
+     (I4V,I4E)
+  89    3   1 I        C U E            MACH
+  90    7  18 I        CM? E            MASK
+  91    7  22 I        CM? E            MBIT4
+  92          I         MU E            MBITS
+  93         s     ( 3)  U              MESAGE
+     (I4E,I4E,I4A)
+  94          I    ( 1) ?? E        4   MK(4)
+  95    7  20 I        CM? E            MKA
+  96         I?    ( 2)  U I            MOD
+  97    4   8 I        C?U E            NBPC
+  98    4   9 I        C   E            NBPW
+  99    4  10 I        C U E            NCPW
+ 100    4   4 I        C   E            NLPP
+ 101          I    ( 1)I?? E        2   NRECPS(2)
+ 102    2   1 I        C U E            NUM
+ 103         fI    ( 2)  UXE            ORF
+     (I4E,I4E)
+ 104    4   2 I        C U E            OUTTAP
+ 105          I        I U E            PAR1
+ 106          I        I U E            PAR2
+ 107    7  13 I        CM  E            PLUS
+ 108         s     ( 1)  U              REWIND
+     (I4V)
+ 109         fI    ( 2)  UXE            RSHIFT
+     (I4E,I4E)
+ 110          I        A?U E            SD
+ 111    6   4 C*25     C U E            SFM*25
+ 112          I    ( 1) ?U E        4   SFT(4)
+ 113          I         ?? E            SFT1
+ 114          I         MU E            SFTJI
+ 115    7  17 I        CMU E            SFTM
+ 116    7   9 I    ( 1)CM  E        4   SHIFTS(4)
+ 117    7  16 I        CM  E            SLASH
+ 118    7  12 I        CMU E            STAR
+ 119    7  15 I        CM  E            STARL
+ 120          I         MU E            TEST
+ 121    6   1 C*23     C   E            UFM*23
+ 122    6   3 C*29     C   E            UIM*29
+ 123    6   2 C*25     C   E            UWM*25
+ 124         E     ( 1)                 XBCDBI(BA)
+ 125         E     ( 3)                 XFADJ(BF,SD,KK)
+ 126         s     ( 3)  U              XFADJ1
+     (I4A,I4F,I4E)
+ 127         E     ( 1)                 XPRETY(BFF)
+ 128         S     ( 2) MU        270   XRECPS(INEW,IOLD)
+**-- END OF SYMBOL TABLE

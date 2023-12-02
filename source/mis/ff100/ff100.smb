@@ -1,0 +1,34 @@
+**++ Symbol table for subprogram FF100 in file mis/ff100.f90
+     produced by SPAG     8.01RF-40 at 14:47:01 on  2 Dec 2023
+   0         X             K             mis/ff100.f90,0000002,0000060
+   1   14   2 R        A U E            A
+   2         I?    ( 1)  U I            ABS
+   3         IR    ( 1)  U I            ALOG
+   4          R         MU E            AM1F
+   5          R         MU E            AMN2F
+   6          R         MU E            AMN2SF
+   7          R         MU E            AN1
+   8          R         MU E            AN1F
+   9          R         MU E            AN1P1
+  10          R         MU E            AN2
+  11   14   3 R        A U E            B
+  12          R         MU E            CAPX
+  13          R         MU E            F100
+  14         FR    ( 6) MU E       50   FF100(I,A,B,M,N,X)
+  15   14   1 I        A U E            I
+  16          I         MU E            IFAC
+  17          I         MU E            IRET
+  18          I         MU E            IS
+  19          I         MU E            LFAC
+  20   14   4 I        A U E            M
+  21   14   5 I        A U E            N
+  22          I         MU E            N1
+  23          I         MU E            N2
+  24          I         MU E            N3
+  25          I         MU E            N4
+  26          I         MU E            NFAC
+  27          R         MU E            S
+  28          R         MU E            SF
+  29   14   6 R    ( 1)A U E            X(1)
+  30          R         MU E            XX
+**-- END OF SYMBOL TABLE

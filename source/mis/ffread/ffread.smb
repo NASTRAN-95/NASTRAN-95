@@ -1,0 +1,161 @@
+**++ Symbol table for subprogram FFREAD in file mis/ffread.f90
+     produced by SPAG     7.61RG-40 at 01:00:00 on 21 Mar 2022
+   0         X             K             mis/ffread.f90,0000002,0000988
+   1         C     / 1/  U          4   /MACHIN/MCHN
+   2         C     / 4/ MU         97   /QMARKQ/QMARK,TMP,SPILL,SAVE
+   3         C     / 4/ MU         16   /SYSTEM/IBUF,NOUT,NOGO,IN
+   4         C     / 9/ MU         40   /XECHOX/FFFLAG,IECHOU,IECHOS,IECHOP,XSORT,WASFF,NCARD,DUM,NOECHO
+   5         C     /11/ MU        172   /XREADX/SCREEN,LOOP,KOUNT,PROM,NOTYET,STAR,PCT,JC,L,RC,F
+   6         C     / 5/ MU         20   /XXREAD/INFLAG,INSAVE,LOOP4,IBMCDC,IERR
+   7          I    ( 1)IMU E       94   A(94)
+   8          I          U E            A1
+   9          C*48      MU E            A48*48
+  10          C*5        U E            A5*5
+  11          C*8  ( 1) MU E       10   A8(10)*8
+  12          C*8        U E            A81*8
+  13          C*8  ( 1) MU E       12   A8X(12)*8
+  14          I         MU E            AII
+  15          I        I?? E            AT
+  16          C*8      I U E            BLANK*8
+  17          C*1  ( 1) MU E       80   C(80)*1
+  18          C*1      I   E            C1*1
+  19          C*1      I?? E            CA*1
+  20          C*8      I U E            CANCEL*8
+  21   45   1 C*8  ( 1)AMU E            CARD(10)*8
+  22          C*1      I?U E            CB*1
+  23          C*1      I?U E            CC*1
+  24          C*1      I?? E            CD*1
+  25          C*1      I?? E            CE*1
+  26          C*1      I?? E            CG*1
+  27          C*1      I?U E            CH*1
+  28          C*1      I?? E            CL*1
+  29          C*1      I?U E            CM*1
+  30          C*1      I?U E            CP*1
+  31          C*1      I?? E            CR*1
+  32          C*1      I?? E            CS*1
+  33          C*1      I?? E            CT*1
+  34          C*1  ( 1) MU E       94   CX(94)*1
+  35          C*8      I U E            DBGN*8
+  36          C*8      I U E            DEND*8
+  37          I         ?U E            DOT
+  38          C*1      I?? E            DOTC*1
+  39    4   8 R    ( 1)C   E        2   DUM(2)
+  40          C*4      I U E            ECHO*4
+  41    5  11 R    ( 1)CMU E        9   F(9)
+  42         fR    ( 1)  U E            FACSF
+     (I4A)
+  43    4   1 I        C U E            FFFLAG
+  44         s     ( 3)  U              FFHELP
+     (ALT,ALT,I4E)
+  45         S     ( 1) MU        699   FFREAD(CARD)
+  46          R          U E            FKK
+  47         IR    ( 1)  U I            FLOAT
+  48          L         MU E            FP
+  49         s     ( 3)  U              FP2K8
+     (ALT,R4L,C8L)
+  50          C*8      I U E            FROM*8
+  51          C*8      I U E            HELP*8
+  52          I        IMU E            I
+  53          I         ?U E            IA
+  54          I        I?U E            IB
+  55    6   4 I        C U E            IBMCDC
+  56    3   1 I        C   E            IBUF
+  57          I         ?U E            IC
+  58          I         ?U E            ID
+  59          I         ?U E            IE
+  60    4   4 I        C   E            IECHOP
+  61    4   3 I        C U E            IECHOS
+  62    4   2 I        C U E            IECHOU
+  63    6   5 I        CMU E            IERR
+  64          I         ?U E            IG
+  65          I         ?U E            IH
+  66          I        IMU E            II
+  67          I         MU E            IISAVE
+  68          I         ?U E            IL
+  69          I         ?U E            IM
+  70    3   4 I        C U E            IN
+  71         II    ( 2)  U I            INDEX
+  72          I         MU E            INDX
+  73    6   1 I        CMU E            INFLAG
+  74    6   2 I        C   E            INSAVE
+  75          I         MU E            INT
+  76         s     ( 3)  U              INT2K8
+     (ALT,I4V,C*V)
+  77          I         ?U E            IP
+  78          I         ?U E            IR
+  79          I         ?U E            IS
+  80          I        IMU E            IWO
+  81          I         MU E            J
+  82          I         MU E            J1
+  83    5   8 I    ( 1)CMU E        9   JC(9)
+  84          I         MU E            JE
+  85          I        IMU E            JJ
+  86          I         MU E            K
+  87         s     ( 3)  U              K2B
+     (C1V,I4V,I4E)
+     (C8A,I4A,   )
+  88         s     ( 5)  U              K82FP
+     (ALT,C8L,I4E,R4L,I4V)
+  89         s     ( 5)  U              K82INT
+     (ALT,C8L,I4E,I4L,I4V)
+  90          I         MU E            KE
+  91         s     ( 4)  U              KHRFN1
+     (I4L,I4E,I4V,I4E)
+  92          I        IMU E            KK
+  93          I         ?? E            KKF
+  94    5   3 I        CMU E            KOUNT
+  95    5   9 I    ( 1)CMU E        9   L(9)
+  96          I        IMU E            L12
+  97          I        IMU E            L94
+  98          I         MU E            LASH
+  99          C*8      I U E            LIST*8
+ 100    5   2 I        CMU E            LOOP
+ 101    6   3 I        CMU E            LOOP4
+ 102          I        I U E            LOUT
+ 103          I         MU E            MACH
+ 104    1   1 I        C U E            MCHN
+ 105    4   7 I        CMU E            NCARD
+ 106         s     ( 5)  U              NK12IF
+     (ALT,C1L,I4E,I4V,I4V)
+ 107         s     ( 5)  U              NK12K8
+     (ALT,C1L,I4E,C8V,I4E)
+ 108          I         MU E            NOEC
+ 109    4   9 I        CMU E            NOECHO
+ 110    3   3 I        CM  E            NOGO
+ 111          I        I U E            NONE
+ 112          C*8      I U E            NOPRT*8
+ 113    5   5 L        CMU E            NOTYET
+ 114    3   2 I        C U E            NOUT
+ 115          C*4      I U E            OFF*4
+ 116          C*4      I U E            ON*4
+ 117         s     ( 1)  U              PAGE2
+     (I4E)
+ 118    5   7 L        CMU E            PCT
+ 119    5   4 I        CMU E            PROM
+ 120          C*4      I U E            PROMPT*4
+ 121          I         ?U E            PT
+ 122    2   1 C*1      C   E            QMARK*1
+ 123    5  10 R    ( 1)CMU E        9   RC(9)
+ 124          C*8      I U E            RDFL*8
+ 125    2   4 C*8  ( 1)CMU E       10   SAVE(10)*8
+ 126          C*8      I U E            SCALE1*8
+ 127          C*8      I U E            SCALE8*8
+ 128    5   1 I        C U E            SCREEN
+ 129          C*5      I U E            SEQEP*5
+ 130          C*5      I U E            SEQGP*5
+ 131          C*8      I U E            SKFL*8
+ 132          C*8      I U E            SLASH*8
+ 133          I         MU E            SP
+ 134    2   3 C*8      C?? E            SPILL*8
+ 135    5   6 L        CMU E            STAR
+ 136          C*8      I U E            STOP*8
+ 137          C*8       MU E            TEMP*8
+ 138          C*4        U E            TEMP4*4
+ 139    2   2 C*1  ( 1)CMU E        8   TMP(8)*1
+ 140          L         MU E            TWODOT
+ 141          I    ( 1)IM? E       11   UNIVC(11)
+ 142    4   6 I        CM  E            WASFF
+ 143    4   5 I        C U E            XSORT
+ 144          R        I U E            XXXX
+ 145          C*4      I U E            YES*4
+**-- END OF SYMBOL TABLE

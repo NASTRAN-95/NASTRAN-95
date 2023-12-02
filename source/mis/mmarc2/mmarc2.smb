@@ -1,0 +1,26 @@
+**++ Symbol table for subprogram MMARC2 in file mis/mmarc2.f90
+     produced by SPAG     7.61RG-40 at 01:00:00 on 21 Mar 2022
+   0         X             K             mis/mmarc2.f90,0000002,0000067
+   1         C     / 1/  U          8   /ZZZZZZ/DXL
+   2    1   1 D    ( 1)C U E        1   DXL(1)
+   3         s     ( 1)  U              ENDGET
+     (I4A)
+   4         s     ( 2)  U              GETSTR
+     (ALT,I4A)
+   5          I         MU E            I
+   6          I    ( 1) MU E       15   IBLK(15)
+   7          I         MU E            II
+   8          I         MU E            INDEX
+   9          ?          U I            IRFILE
+  10          ?         MU I            ITYPE
+  11          I         MU E            JROW
+  12          ?         M  I            LASIND
+  13          I         MU E            MEM
+  14          I         MU E            MINDEX
+  15         S     ( 2) M          31   MMARC2(ZI,ZD)
+  16          I         MU E            NTMS
+  17          R    ( 1)  U E        1   RXL(1)
+  18          ?          U I            SIGN
+  19   15   2 D    ( 1)AM  E            ZD(1)
+  20   15   1 I    ( 1)AM  E            ZI(1)
+**-- END OF SYMBOL TABLE

@@ -1,0 +1,49 @@
+**++ Symbol table for subprogram READ6 in file mis/read6.f90
+     produced by SPAG     8.01RF-40 at 14:46:52 on  2 Dec 2023
+   0         X             K             mis/read6.f90,0000002,0000072
+   1         C     / 5/ M?         20   /PACKX/IT1,IT2,II,JJ,INCR1
+   2         C     / 1/  U          4   /SYSTEM/SYSBUF
+   3         C     / 4/ MU         16   /UNPAKX/IT2U,IIU,JJU,INCR1U
+   4         C     / 1/             4   /ZZZZZZ/IZ
+   5         s     ( 2)  U              CLOSE
+     (I4V,I4E)
+   6          I         M  E            FILE
+   7         s     ( 3)  U              GOPEN
+     (I4V,R4L,I4E)
+   8   31   2 I        A?U E            GPHIA
+   9          I         MU E            I
+  10          I         MU E            IBUF1
+  11          I         MU E            IBUF2
+  12    1   3 I        CM  E            II
+  13    3   2 I        CMU E            IIU
+  14    1   5 I        CM  E            INCR1
+  15    3   4 I        CM  E            INCR1U
+  16   31   1 I        A?U E            IRIG
+  17    1   1 I        CM? E            IT1
+  18    1   2 I        CM  E            IT2
+  19    3   1 I        CM  E            IT2U
+  20    4   1 I    ( 1)C   E        1   IZ(1)
+  21    1   4 I        CM? E            JJ
+  22    3   3 I        C U E            JJU
+  23         fI    ( 1)  U E            KORSZ
+     (R4A)
+  24         s     ( 5)  U              MAKMCB
+     (I4A,I4V,I4V,I4L,I4V)
+  25          I    ( 1) MU E        7   MCB(7)
+  26          I         MU E            NCOL
+  27   31   3 I        A?U E            NR
+  28         s     ( 3)  U              PACK
+     (R4A,I4V,I4A)
+  29   31   4 I        A?? E            PHIA
+  30         s     ( 1)  U              RDTRL
+     (I4A)
+  31         S     ( 4) ?U         53   READ6(IRIG,GPHIA,NR,PHIA)
+  32         s     ( 2)  U              SKPREC
+     (I4V,I4V)
+  33    2   1 I        C U E            SYSBUF
+  34         s     ( 3)  U              UNPACK
+     (ALT,I4V,R4L)
+  35         s     ( 1)  U              WRTTRL
+     (I4A)
+  36          R    ( 1) M? E        3   Z(3)
+**-- END OF SYMBOL TABLE

@@ -1,0 +1,787 @@
+!*==invp3.f90 processed by SPAG 8.01RF 14:47  2 Dec 2023
+!!SPAG Open source Personal, Educational or Academic User  NON-COMMERCIAL USE - Not for use on proprietary or closed source code
+ 
+SUBROUTINE invp3(norm1,sub,mtimsu,xtrnsy)
+USE C_DCOMPX
+USE C_FBSX
+USE C_INFBSX
+USE C_INVPWX
+USE C_INVPXX
+USE C_NAMES
+USE C_PACKX
+USE C_REGEAN
+USE C_REIGKR
+USE C_SYSTEM
+USE C_TRDXX
+USE C_UNPAKX
+USE C_ZZZZZZ
+USE ISO_FORTRAN_ENV                 
+   IMPLICIT NONE
+!
+! Dummy argument declarations rewritten by SPAG
+!
+   EXTERNAL norm1
+   EXTERNAL sub
+   EXTERNAL mtimsu
+   EXTERNAL xtrnsy
+!
+! Local variable declarations rewritten by SPAG
+!
+   REAL :: a , deltm1 , ep1 , ep2 , ep3 , gamma , xxx
+   REAL(REAL64) :: aln , alnm1 , cn , delta , dtemp , eta , etanm1 , freq , h2n , h2nm1 , lam1 , lam1d , lam2 , lm1nm1 , lm2nm1
+   REAL(REAL64) , DIMENSION(1) :: dz
+   INTEGER :: end , i , ibuf1 , ibuf2 , ibuf3 , icurnt , idum , iend , iep2 , iepcnt , ifile , ii , ii1 , ii2 , iijjkk , ijkk ,     &
+            & in1 , intsub , iobuf , ioutpt , iprec , irapid , iter , ix , ixx , ixz , j , jj1 , jj2 , jj3 , jj4 , jj5 , k , kep2 , &
+            & khr , klocal , kold , kount , ksave , l16 , navg , ncol , ncol2 , nlns , nlpp , no , nz , sysbuf , t1 , t2 , timeit
+   INTEGER , DIMENSION(7) :: mcbvc
+   INTEGER , DIMENSION(2) , SAVE :: name
+   INTEGER , SAVE :: opt2
+   EXTERNAL bckrec , close , fbsinv , gopen , intfbs , invfbs , klock , korsz , makmcb , mesage , pack , page1 , read , sswtch ,    &
+          & tmtogo , unpack , write , wrttrl
+!
+! End of declarations rewritten by SPAG
+!
+   INTEGER :: spag_nextblock_1
+   INTEGER :: spag_nextblock_2
+   INTEGER :: spag_nextblock_3
+!
+!     SUBROUTINE INVP3, THE MAIN LINK OF INVPWR, SOLVES FOR THE
+!     EIGENVALUES AND EIGENVECTORS OF (K-LAMBDA*M)
+!     THIS ROUTINE HANDLES BOTH SINGLE AND DOUBLE PRECISION VERSIONS
+!
+   !>>>>EQUIVALENCE (Dz(1),Z(1)) , (Ksystm(1),Sysbuf) , (Ksystm(2),Ioutpt) , (Ksystm(9),Nlpp) , (Ksystm(12),Nlns) , (Ksystm(55),Iprec)
+   DATA name/4HINVP , 4H3   / , opt2/4HUINV/
+   spag_nextblock_1 = 1
+   SPAG_DispatchLoop_1: DO
+      SELECT CASE (spag_nextblock_1)
+      CASE (1)
+!
+!     DEFINITION OF LOCAL PARAMETERS
+!
+!     ITER     =  NUMBER OF ITERATIONS FROM THE CURRENT SHIFT POINT
+!     IRAPID   =  1 = RAPID CONVERGENCE DO ONE MORE ITERATION
+!     IEP2     =  1 = EPSILON 2 TEST FAILED
+!     A        =  CONVERGENCE SAFETY FACTOR
+!     EP1      =  EPSILON FOR DETERMINING IF IT IS POSSIBLE TO SHIFT
+!     EP2      =  EPSILON TO DETERMINE IF LAMBDA 2 IS VALID
+!     EP3      =  EPSILON TO DETERMINE IF EIGENVALUE IS TOO CLOSE TO SHI
+!     GAMMA    =  CLOSE ROOT CRITERION
+!     II1      =  POINTER TO U(N)
+!     II2      =  POINTER TO U(N-1) OR DELTA U(N)
+!     JJ1      =  POINTER TO F(N)
+!     JJ2      =  POINTER TO DELTA F(N-1)
+!     JJ3      =  POINTER TO F(N-1) OR DELTA F(N)
+!     ALN      =  ALPHA(N)
+!     ALNM1    =  ALPHA(N-1)
+!     CN       =  NORMALIZATION FACTOR FOR LAST EIGENVECTOR
+!
+         Iopen = -10
+         CALL sswtch(16,l16)
+         khr = 0
+         nz = korsz(Z)
+         ncol = Filek(2)
+         ncol2 = ncol*iprec
+         CALL makmcb(mcbvc,Filevc,ncol,2,iprec)
+         Itu = iprec
+         Iiu = 1
+         Jju = ncol
+         Incru = 1
+         Itp1 = iprec
+         Itp2 = iprec
+         Iip = 1
+         Jjp = ncol
+         Incrp = 1
+!
+!     INITIALIZE
+!
+         iter = 0
+         irapid = 0
+         iep2 = 0
+         kep2 = 0
+         kold = -1
+         kount = 0
+         spag_nextblock_1 = 2
+      CASE (2)
+!
+         iepcnt = 0
+         IF ( Switch==1 ) THEN
+            Filel(1) = Sr7fil
+            Filelt(1) = Sr8fil
+         ELSE
+            Filel(1) = Sr2fil(1)
+            Filelt(1) = Sr3fil
+         ENDIF
+!
+         DO i = 2 , 7
+            Lfile(i) = Filek(i)
+            Filel(i) = Filek(i)
+         ENDDO
+         Lfile(5) = iprec
+         Filel(5) = iprec
+         Lfile(1) = Filel(1)
+         Filelt(7) = Iofff
+!
+!     SET CONVERGENCE CRITERIA
+!
+         a = .1
+         ep1 = .003
+         ep2 = .00001
+         ep2 = .02
+         ep3 = .05
+         gamma = .01
+         IF ( l16/=0 .AND. khr==0 ) THEN
+            CALL page1
+            nlns = nlns + 10
+            WRITE (ioutpt,99001)
+99001       FORMAT (85H0D I A G   1 6   O U T P U T   F R O M    R O U T I N E   I N V P 3   F O L L O W S .,//)
+            WRITE (ioutpt,99002) Rzero , Eps , gamma , a , ep1 , ep2 , ep3
+99002       FORMAT (8H0RZERO =,1P,E13.5,4X,5HEPS =,1P,E13.5,4X,7HGAMMA =,1P,E13.5,4X,3HA =,1P,E13.5,/,8H EP1   =,1P,E13.5,4X,       &
+                  & 5HEP2 =,1P,E13.5,4X,7HEP3   =,1P,E13.5)
+            WRITE (ioutpt,99003)
+99003       FORMAT (5H0ITER,5H CFLG,11X,3HSTP,11X,3HSHP,10X,4HLAM1,10X,4HLAM2,11X,3HETA,9X,5HDELTA,4X,1HK,11X,3HH2N,9X,5HLAM1D,/1X, &
+                  & 126(1H=))
+         ENDIF
+!
+!     INITIALIZE POINTERS TO VECTORS
+!
+         ii1 = 1
+         ii2 = ii1 + ncol2
+         jj1 = ii2 + ncol2
+         jj2 = jj1 + ncol2
+         jj3 = jj2 + ncol2
+         jj4 = jj3 + ncol2
+         jj5 = jj4 + ncol2
+         end = jj5 + ncol2
+         iend = end
+         end = iend + ncol
+         ibuf1 = nz - sysbuf
+         ibuf2 = ibuf1 - sysbuf
+         ibuf3 = ibuf2 - sysbuf
+         iobuf = ibuf3 - sysbuf
+         IF ( end>=iobuf ) THEN
+!
+!     ERROR EXITS
+!
+            no = -8
+            ifile = end - iobuf
+            spag_nextblock_1 = 11
+            CYCLE SPAG_DispatchLoop_1
+         ELSE
+!
+!     GET ORTHOGONALITY FLAGS FOR PREVIOUS EIGENVECTORS
+!
+            IF ( Iterto/=0 ) THEN
+               IF ( Northo/=0 ) THEN
+                  ifile = Dmpfil
+                  CALL gopen(Dmpfil,Z(iobuf),Rdrew)
+                  CALL read(*60,*80,Dmpfil,Z(iend),Northo,1,idum)
+                  CALL close(Dmpfil,1)
+               ENDIF
+            ELSEIF ( Northo/=0 ) THEN
+               CALL gopen(Filevc,Z(iobuf),Rdrew)
+               CALL gopen(Filem,Z(ibuf1),Rdrew)
+               DO i = 1 , Northo
+                  spag_nextblock_2 = 1
+                  SPAG_DispatchLoop_2: DO
+                     SELECT CASE (spag_nextblock_2)
+                     CASE (1)
+                        ix = iend + i - 1
+                        Z(ix) = 1.0
+                        CALL unpack(*2,Filevc,Z(ii1))
+                        spag_nextblock_2 = 2
+                        CYCLE SPAG_DispatchLoop_2
+ 2                      j = ncol2
+                        IF ( iprec==2 ) THEN
+                           SPAG_Loop_2_1: DO
+                              dz(j) = 0.0D0
+                              j = j - 1
+                              IF ( j<=0 ) EXIT SPAG_Loop_2_1
+                           ENDDO SPAG_Loop_2_1
+                        ELSE
+                           SPAG_Loop_2_2: DO
+                              Z(j) = 0.0
+                              j = j - 1
+                              IF ( j<=0 ) EXIT SPAG_Loop_2_2
+                           ENDDO SPAG_Loop_2_2
+                        ENDIF
+                        spag_nextblock_2 = 2
+                     CASE (2)
+                        CALL mtimsu(Z(ii1),Z(jj1),Z(ibuf1))
+                        CALL xtrnsy(Z(ii1),Z(jj1),dtemp)
+                        IF ( dtemp<0.0D0 ) Z(ix) = -1.0
+                        EXIT SPAG_DispatchLoop_2
+                     END SELECT
+                  ENDDO SPAG_DispatchLoop_2
+               ENDDO
+               CALL close(Filem,Rew)
+               CALL close(Filevc,Rew)
+            ENDIF
+            ifile = Filem(1)
+            CALL gopen(ifile,Z(ibuf3),Rdrew)
+            ifile = Filel(1)
+            CALL gopen(ifile,Z(ibuf1),Rdrew)
+!WKBNB 1/95    FILELT NOT NEEDED FOR SMCOMP OR SDCOMP - ONLY DECOMP
+            IF ( Option==opt2 ) THEN
+               ifile = Filelt(1)
+               CALL gopen(ifile,Z(ibuf2),Rdrew)
+            ENDIF
+!WKBNE 1/95
+!
+!     GENERATE A STARTING VECTOR
+!
+            IF ( Ivect==1 ) THEN
+!
+!      USE PREVIOUSLY STORED VECTOR AS A STARTING VECTOR
+!
+               ifile = Filevc
+               CALL gopen(Filevc,Z(iobuf),Rd)
+               CALL bckrec(Filevc)
+               in1 = 1
+               IF ( Comflg==1 ) THEN
+                  in1 = jj5
+                  CALL bckrec(Filevc)
+               ENDIF
+               CALL unpack(*20,Filevc,Z(in1))
+               spag_nextblock_1 = 3
+               CYCLE SPAG_DispatchLoop_1
+            ELSE
+               ksave = k
+               k = iabs(Ind)
+               IF ( iprec==2 ) THEN
+                  DO i = 1 , ncol
+                     dz(i) = 1.0D0/float((mod(k,13)+1)*(1+5*i/ncol))
+                     k = k + 1
+                  ENDDO
+               ELSE
+                  DO i = 1 , ncol
+                     Z(i) = 1.0/float((mod(k,13)+1)*(1+5*i/ncol))
+                     k = k + 1
+                  ENDDO
+               ENDIF
+               k = ksave
+               intsub = 1
+               spag_nextblock_1 = 6
+               CYCLE SPAG_DispatchLoop_1
+            ENDIF
+         ENDIF
+ 20      j = in1 + ncol2
+         IF ( iprec==2 ) THEN
+            SPAG_Loop_1_3: DO
+               j = j - 1
+               dz(j) = 0.0D0
+               IF ( j<=in1 ) EXIT SPAG_Loop_1_3
+            ENDDO SPAG_Loop_1_3
+         ELSE
+            SPAG_Loop_1_4: DO
+               j = j - 1
+               Z(j) = 0.0
+               IF ( j<=in1 ) EXIT SPAG_Loop_1_4
+            ENDDO SPAG_Loop_1_4
+         ENDIF
+         spag_nextblock_1 = 3
+      CASE (3)
+         IF ( Comflg==1 ) THEN
+!
+!     PICK UP THE LAST ITERATED VECTOR FOR A STARTING VECTOR
+!
+            CALL unpack(*40,Filevc,Z)
+            spag_nextblock_1 = 4
+            CYCLE SPAG_DispatchLoop_1
+         ELSE
+            CALL bckrec(Filevc)
+            CALL close(Filevc,Norew)
+            Ivect = 0
+            intsub = 1
+            spag_nextblock_1 = 6
+            CYCLE SPAG_DispatchLoop_1
+         ENDIF
+ 40      j = ncol2
+         IF ( iprec==2 ) THEN
+            SPAG_Loop_1_5: DO
+               dz(j) = 0.0D0
+               j = j - 1
+               IF ( j<=0 ) EXIT SPAG_Loop_1_5
+            ENDDO SPAG_Loop_1_5
+         ELSE
+            SPAG_Loop_1_6: DO
+               Z(j) = 0.0
+               j = j - 1
+               IF ( j<=0 ) EXIT SPAG_Loop_1_6
+            ENDDO SPAG_Loop_1_6
+         ENDIF
+         spag_nextblock_1 = 4
+      CASE (4)
+         CALL bckrec(Filevc)
+         CALL bckrec(Filevc)
+         CALL close(Filevc,Norew)
+         intsub = 1
+         spag_nextblock_1 = 6
+         CYCLE SPAG_DispatchLoop_1
+      CASE (5)
+!
+!     SHIFT POINTERS TO VECTORS
+!
+         ii = ii1
+         ii1 = ii2
+         ii2 = ii
+         ii = jj1
+         jj1 = jj2
+         jj2 = jj3
+         jj3 = ii
+         IF ( l16/=0 .AND. khr/=0 ) THEN
+            IF ( nlns>=nlpp ) CALL page1
+            nlns = nlns + 1
+            WRITE (ioutpt,99006) Iterto , Comflg , Lmbda , Lambda , lam1 , lam2 , eta , delta , k , h2n , lam1d
+         ENDIF
+         khr = 1
+!
+!     SAVE N-1 VECTOR
+!
+         IF ( Switch==0 ) THEN
+            ixx = jj5 + ncol2 - 1
+            ixz = ii2
+            IF ( iprec/=2 ) THEN
+               DO i = jj5 , ixx
+                  Z(i) = Z(ixz)
+                  ixz = ixz + 1
+               ENDDO
+            ELSE
+               DO i = jj5 , ixx , 2
+                  Z(i) = Z(ixz)
+                  Z(i+1) = Z(ixz+1)
+                  ixz = ixz + 2
+               ENDDO
+            ENDIF
+         ENDIF
+!
+!     SHIFT PARAMETERS
+!
+         alnm1 = aln
+         etanm1 = eta
+         h2nm1 = h2n
+         lm1nm1 = lam1
+         lm2nm1 = lam2
+!
+!     CALL INVFBS TO MAKE ONE ITERATION
+!
+         CALL klock(t1)
+         IF ( Option/=opt2 ) THEN
+            CALL fbsinv(Z(jj3),Z(ii1),Z(iobuf))
+         ELSE
+            IF ( Filel(5)==2 ) CALL invfbs(Z(jj3),Z(ii1),Z(iobuf))
+            IF ( Filel(5)==1 ) CALL intfbs(Z(jj3),Z(ii1),Z(iobuf))
+         ENDIF
+         Iterto = Iterto + 1
+         iter = iter + 1
+         iepcnt = iepcnt + 1
+         CALL tmtogo(ijkk)
+         IF ( ijkk<=0 ) THEN
+            Comflg = 8
+            spag_nextblock_1 = 8
+            CYCLE SPAG_DispatchLoop_1
+         ELSE
+            intsub = 2
+         ENDIF
+         spag_nextblock_1 = 6
+      CASE (6)
+         IF ( Northo/=0 ) THEN
+!
+!     NORMALIZE CURRENT ITERANT WITH RESPECT TO VECTORS FOUND IN THE
+!     CURRENT AND PREVIOUS SEARCH REGIONS
+!
+            CALL mtimsu(Z(ii1),Z(jj1),Z(iobuf))
+            ifile = Filevc
+            CALL gopen(Filevc,Z(iobuf),Rdrew)
+            DO i = 1 , Northo
+               spag_nextblock_3 = 1
+               SPAG_DispatchLoop_3: DO
+                  SELECT CASE (spag_nextblock_3)
+                  CASE (1)
+                     CALL unpack(*42,Filevc,Z(jj4))
+                     spag_nextblock_3 = 2
+                     CYCLE SPAG_DispatchLoop_3
+ 42                  j = jj4 + ncol2
+                     IF ( iprec==2 ) THEN
+                        SPAG_Loop_2_7: DO
+                           j = j - 1
+                           dz(j) = 0.0D0
+                           IF ( j<=jj4 ) EXIT SPAG_Loop_2_7
+                        ENDDO SPAG_Loop_2_7
+                     ELSE
+                        SPAG_Loop_2_8: DO
+                           j = j - 1
+                           Z(j) = 0.0
+                           IF ( j<=jj4 ) EXIT SPAG_Loop_2_8
+                        ENDDO SPAG_Loop_2_8
+                     ENDIF
+                     spag_nextblock_3 = 2
+                  CASE (2)
+                     CALL xtrnsy(Z(jj4),Z(jj1),dtemp)
+                     ix = iend + i - 1
+                     dtemp = -dtemp*Z(ix)
+                     CALL sub(Z(jj4),Z(ii1),dtemp,-1.0D0)
+                     EXIT SPAG_DispatchLoop_3
+                  END SELECT
+               ENDDO SPAG_DispatchLoop_3
+            ENDDO
+            CALL close(Filevc,Norew)
+         ENDIF
+         CALL norm1(Z(ii1),cn)
+!
+!     BEGIN TESTING CONVERGENCE CRITERIA
+!
+!     COMPUTE F(N)
+!
+         CALL mtimsu(Z(ii1),Z(jj1),Z(iobuf))
+!
+!     COMPUTE ALPHA(N)
+!
+         CALL xtrnsy(Z(ii1),Z(jj1),aln)
+         aln = dsqrt(dabs(aln))
+!
+!     COMPUTE DELTA U(N)
+!
+         IF ( intsub==1 ) THEN
+            spag_nextblock_1 = 5
+            CYCLE SPAG_DispatchLoop_1
+         ENDIF
+         CALL sub(Z(ii1),Z(ii2),1.0D0/aln,1.0D0/alnm1)
+!
+!     COMPUTE DELTA F(N)
+!
+         CALL sub(Z(jj1),Z(jj3),1.0D0/aln,1.0D0/alnm1)
+         lam1 = alnm1/(cn*aln)
+         IF ( irapid/=1 ) THEN
+            CALL xtrnsy(Z(ii2),Z(jj3),eta)
+            eta = dsqrt(dabs(eta))
+!
+!     RAPID CONVERGENCE TEST
+!
+            IF ( eta>=a*Eps*gamma*dabs(1.0D0+Lambda/lam1) ) THEN
+               IF ( iter==1 ) THEN
+                  spag_nextblock_1 = 5
+                  CYCLE SPAG_DispatchLoop_1
+               ENDIF
+               IF ( etanm1<1.E-6 ) THEN
+                  IF ( eta>1.01*etanm1 ) THEN
+                     irapid = 1
+                     spag_nextblock_1 = 5
+                     CYCLE SPAG_DispatchLoop_1
+                  ENDIF
+               ENDIF
+!
+!     EPSILON 2 TEST
+!
+               IF ( iep2/=1 ) THEN
+                  IF ( eta==0.D0 ) THEN
+                     spag_nextblock_1 = 7
+                     CYCLE SPAG_DispatchLoop_1
+                  ENDIF
+                  CALL xtrnsy(Z(ii2),Z(jj2),dtemp)
+                  lam2 = lam1*dtemp/eta**2
+                  h2n = (lam2-lm2nm1)/Lambda
+!WKBI 3/94 THE FOLLOWING LINE ADDED TO GET AROUND AN APPARENT COMPILER BUG ON
+!          ULTRIX
+                  IF ( eta==0.D0 ) PRINT * , ' invp3,lam1,dtemp,eta=' , lam1 , dtemp , eta
+                  IF ( iter>=4 ) THEN
+                     IF ( ep2>dabs(h2n) .AND. dabs(h2n)>dabs(h2nm1) ) THEN
+                        iep2 = 1
+                        lam2 = lm2nm1
+                     ENDIF
+                  ENDIF
+               ENDIF
+               deltm1 = delta
+               delta = eta**2/dmin1((1.0D0-lam2/lam1)**2,10.0D0)
+!
+!     VECTOR CONVERGENCE TEST
+!
+               IF ( dsqrt(delta)>a*Eps ) THEN
+                  IF ( iter<=3 ) THEN
+                     spag_nextblock_1 = 5
+                     CYCLE SPAG_DispatchLoop_1
+                  ENDIF
+!
+!     EPSILON 1 TEST
+!
+                  IF ( iepcnt>=100 ) THEN
+                     spag_nextblock_1 = 10
+                     CYCLE SPAG_DispatchLoop_1
+                  ENDIF
+                  IF ( iepcnt<10 ) THEN
+                     lam1d = dabs(lam1-lm1nm1)/Rzero
+                     IF ( lam1d>=dble(ep1) ) THEN
+                        spag_nextblock_1 = 5
+                        CYCLE SPAG_DispatchLoop_1
+                     ENDIF
+                  ENDIF
+!
+!     SHIFT DECISION
+!
+                  IF ( iepcnt<=5 .OR. delta<=deltm1 ) THEN
+                     IF ( dabs(lam2/lam1)>1. ) THEN
+                        kep2 = 0
+                        CALL klock(t2)
+                        timeit = t2 - t1
+                        k = dlog(dsqrt(dabs(delta))/(a*Eps))/dabs(dlog(dabs(lam2/lam1))) + 1.
+                        k = min0(k,9999)
+                        IF ( k/=kold ) THEN
+                           kold = k
+                           kount = 0
+                        ELSE
+                           kount = kount + 1
+                           IF ( kount>=6 ) THEN
+                           ENDIF
+                        ENDIF
+                     ELSEIF ( kep2>=0 ) THEN
+                        kep2 = -1
+                        spag_nextblock_1 = 5
+                        CYCLE SPAG_DispatchLoop_1
+                     ENDIF
+                  ENDIF
+                  Lambda = Lambda + lam1
+                  k = 0
+                  kold = -1
+                  kount = 0
+                  iepcnt = 0
+                  IF ( l16/=0 ) THEN
+                     IF ( nlns>=nlpp ) CALL page1
+                     nlns = nlns + 3
+                     WRITE (ioutpt,99004) Lambda
+99004                FORMAT (18H0NEW SHIFT POINT =,1P,D14.5,/)
+                  ENDIF
+!
+!     STORE THE LAST VECTOR BEFORE A SHIFT FOR USE AS A STARTING VECTOR
+!
+                  IF ( Switch==1 ) THEN
+                     in1 = jj5
+                  ELSE
+                     in1 = ii1
+                  ENDIF
+                  ifile = Filevc
+                  CALL gopen(Filevc,Z(iobuf),Wrt)
+                  CALL pack(Z(in1),Filevc,mcbvc)
+                  Ivect = 1
+                  Comflg = 1
+!
+!     STORE THE CURRENT VECTOR ON THE EIGENVECTOR FILE SO IT CAN BE
+!     USED AS A STARTING VECTOR
+!
+                  CALL pack(Z(ii1),Filevc,mcbvc)
+                  CALL close(Filevc,Eofnrw)
+                  spag_nextblock_1 = 8
+                  CYCLE SPAG_DispatchLoop_1
+               ENDIF
+            ELSE
+               irapid = 1
+               spag_nextblock_1 = 5
+               CYCLE SPAG_DispatchLoop_1
+            ENDIF
+!
+!     MAKE EPSILON 1 TEST
+!
+         ELSEIF ( dabs(lam1-lm1nm1)/Rzero>=dble(ep1) ) THEN
+            spag_nextblock_1 = 5
+            CYCLE SPAG_DispatchLoop_1
+         ENDIF
+         spag_nextblock_1 = 7
+      CASE (7)
+!
+!     CONVERGENCE ACHIEVED, NORMALIZE THE EIGENVECTOR
+!
+         CALL mtimsu(Z(ii1),Z(jj1),Z(iobuf))
+         CALL xtrnsy(Z(ii1),Z(jj1),dtemp)
+         ix = iend + Northo
+         Z(ix) = 1.0
+         IF ( dtemp<0.0D0 ) Z(ix) = -1.0
+         dtemp = 1.0D0/dsqrt(dabs(dtemp))
+         j = ii1
+         klocal = ii1 + ncol2 - 1
+         IF ( iprec/=2 ) THEN
+            DO i = j , klocal
+               Z(i) = Z(i)*dtemp
+            ENDDO
+         ELSE
+            j = (j+1)/2
+            klocal = klocal/2
+            DO i = j , klocal
+               dz(i) = dz(i)*dtemp
+            ENDDO
+         ENDIF
+!
+!     STORE THE EIGENVECTOR AND EIGENVALUE ON THE OUTPUT FILES
+!
+         lam1 = lam1 + Lambda
+         IF ( l16/=0 ) THEN
+            IF ( nlns>=nlpp ) CALL page1
+            nlns = nlns + 3
+            freq = (1.0D0/(8.0D0*datan(1.0D0)))*dsqrt(dabs(lam1))
+            WRITE (ioutpt,99005) lam1 , freq
+99005       FORMAT (32H0CONVERGENCE ACHIEVED AND LAM1 =,1P,D14.5,7X,'FREQ =',1P,D14.5,'HZ',/)
+         ENDIF
+         ifile = Filevc
+         CALL gopen(Filevc,Z(iobuf),Wrt)
+         CALL pack(Z(ii1),Filevc,mcbvc)
+         CALL close(Filevc,Eofnrw)
+         CALL gopen(Filelm,Z(iobuf),Wrt)
+         CALL write(Filelm,lam1,2,1)
+         CALL close(Filelm,Eofnrw)
+         CALL close(Sr7fil,Eofnrw)
+         CALL close(Filel,Rew)
+         CALL close(Filelt,Rew)
+         CALL close(Filem,Rew)
+         Northo = Northo + 1
+         iep2 = 0
+         irapid = 0
+         Nochng = 0
+         IF ( lam1>=0 ) THEN
+            IF ( lam1<=Lammax ) Nopos = Nopos + 1
+         ELSEIF ( Ibuck/=3 ) THEN
+            IF ( lam1<=Lammax ) Nopos = Nopos + 1
+         ELSE
+            IF ( lam1>=Lammin ) Noneg = Noneg + 1
+         ENDIF
+         IF ( Nopos>=Ndplus .AND. Noneg>=Ndmnus ) THEN
+            Comflg = 6
+         ELSEIF ( Northo>=ncol-Nzero ) THEN
+            Comflg = 5
+         ELSE
+            IF ( Northo>=3*Noest ) THEN
+               Comflg = 4
+               spag_nextblock_1 = 8
+               CYCLE SPAG_DispatchLoop_1
+            ELSE
+               Comflg = 0
+               IF ( Switch==0 ) THEN
+                  Ivect = 0
+                  IF ( iter<=5 ) GOTO 50
+               ELSE
+                  Switch = 0
+                  Lambda = Lmbda
+               ENDIF
+               in1 = jj5
+               CALL gopen(Filevc,Z(iobuf),Wrt)
+               CALL pack(Z(in1),Filevc,mcbvc)
+               CALL close(Filevc,Eofnrw)
+               Ivect = 1
+            ENDIF
+ 50         iter = 0
+!
+!     TEST IF REGION IS EXHAUSTED
+!
+            IF ( Neg<0 ) THEN
+!
+!     ON NEGATIVE SIDE
+!
+               IF ( Noneg>=Ndmnus .OR. lam1<Lammin ) THEN
+                  Comflg = 7
+                  spag_nextblock_1 = 8
+                  CYCLE SPAG_DispatchLoop_1
+               ENDIF
+            ELSEIF ( Neg==0 ) THEN
+!
+!     NO NEGATIVE REGION
+!
+               IF ( lam1>Lammax ) THEN
+                  Comflg = 7
+                  spag_nextblock_1 = 8
+                  CYCLE SPAG_DispatchLoop_1
+               ENDIF
+!
+!     ON POSITIVE SIDE
+!
+            ELSEIF ( Nopos>=Ndplus .OR. lam1>Lammax ) THEN
+!
+!     SWITCH TO NEGATIVE SIDE
+!
+               Comflg = 3
+               spag_nextblock_1 = 8
+               CYCLE SPAG_DispatchLoop_1
+            ENDIF
+!
+!     CONTINUE ON SAME SIDE
+!
+            IF ( lam1<=Lambda+Rzero .AND. lam1>=Lambda-Rzero ) THEN
+               Ind = iabs(Ind)
+               Ireg = 1
+               xxx = lam1 - Lambda
+               IF ( Eps*abs(Rzero)>=ep3*abs(xxx) ) THEN
+                  spag_nextblock_1 = 10
+                  CYCLE SPAG_DispatchLoop_1
+               ENDIF
+               spag_nextblock_1 = 9
+               CYCLE SPAG_DispatchLoop_1
+            ELSEIF ( Ireg/=0 .AND. Ind>0 ) THEN
+!
+               Ind = -(Ind+1)
+               Ivect = 0
+               IF ( Ind==-13 ) Ind = -1
+               spag_nextblock_1 = 9
+               CYCLE SPAG_DispatchLoop_1
+            ELSE
+               Comflg = 0
+               Ind = -Ind
+            ENDIF
+         ENDIF
+         spag_nextblock_1 = 8
+      CASE (8)
+         CALL close(Filel,Rew)
+         CALL close(Filelt,Rew)
+         CALL close(Filem,Rew)
+         CALL wrttrl(mcbvc)
+         IF ( l16/=0 ) THEN
+            IF ( nlns>=nlpp ) CALL page1
+            nlns = nlns + 1
+            WRITE (ioutpt,99006) Iterto , Comflg , Lmbda , Lambda , lam1 , lam2 , eta , delta , k , h2n , lam1d
+         ENDIF
+         IF ( Northo==0 ) RETURN
+!
+         CALL gopen(Dmpfil,Z(iobuf),Wrtrew)
+         CALL write(Dmpfil,Z(iend),Northo,1)
+         CALL close(Dmpfil,1)
+         RETURN
+      CASE (9)
+         IF ( Northo/=0 ) THEN
+            CALL gopen(Dmpfil,Z(iobuf),Wrtrew)
+            CALL write(Dmpfil,Z(iend),Northo,1)
+            CALL close(Dmpfil,1)
+         ENDIF
+!
+         IF ( Northo==0 ) THEN
+            spag_nextblock_1 = 2
+            CYCLE SPAG_DispatchLoop_1
+         ENDIF
+         CALL klock(icurnt)
+         CALL tmtogo(iijjkk)
+         navg = (icurnt-Istart)/Northo
+         IF ( iijjkk>=2*navg ) THEN
+            spag_nextblock_1 = 2
+            CYCLE SPAG_DispatchLoop_1
+         ENDIF
+         Comflg = 8
+         spag_nextblock_1 = 8
+         CYCLE SPAG_DispatchLoop_1
+      CASE (10)
+!
+!     CURRENT SHIFT POINT TOO CLOSE TO THE EIGENVALUE
+!
+         IF ( Comflg/=2 ) THEN
+            xxx = lam1 - Lambda
+            Lambda = Lambda + sign(.02,xxx)*Rzero
+            Comflg = 2
+         ELSE
+            Comflg = 9
+         ENDIF
+         spag_nextblock_1 = 8
+         CYCLE SPAG_DispatchLoop_1
+ 60      no = -2
+         spag_nextblock_1 = 11
+         CYCLE SPAG_DispatchLoop_1
+ 80      no = -3
+         spag_nextblock_1 = 11
+      CASE (11)
+         CALL mesage(no,ifile,name(1))
+         EXIT SPAG_DispatchLoop_1
+      END SELECT
+   ENDDO SPAG_DispatchLoop_1
+99006 FORMAT (2I5,6(1P,D14.5),I5,2(1P,D14.5))
+END SUBROUTINE invp3

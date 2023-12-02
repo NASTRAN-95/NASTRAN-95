@@ -1,0 +1,120 @@
+**++ Symbol table for subprogram TRD1E in file mis/trd1e.f90
+     produced by SPAG     8.01RF-40 at 14:47:17 on  2 Dec 2023
+   0         X             K             mis/trd1e.f90,0000002,0000492
+   1         C     / 2/  U         20   /BLANK/DUMMY,NCOL
+   2         C     / 5/ M          20   /PACKX/IT1,IT2,II,JJ,INCUR
+   3         C     / 1/  U          4   /SYSTEM/SYSBUF
+   4         C     / 4/ M          16   /UNPAKX/IT3,III,JJJ,INCUR1
+   5         C     / 1/ MU          4   /ZZZZZZ/Z
+   6         I?    ( 1)  U I            ABS
+   7          R         MU E            BETA
+   8          R         MU E            BETASQ
+   9          R         MU E            BH
+  10   97   2 I        A U E            BHH
+  11          R         MU E            BI
+  12         s     ( 2)  U              CLOSE
+     (I4V,I4E)
+  13         I?    ( 1)  U I            COS
+  14         I?    ( 1)  U I            COSH
+  15          R         MU E            COSWH
+  16    1   1 R    ( 1)C   E        4   DUMMY(4)
+  17          R        I U E            EPSI
+  18         I?    ( 1)  U I            EXP
+  19          R         MU E            EXPBH
+  20          I         M? E            FILE
+  21         s     ( 3)  U              GOPEN
+     (I4V,I4L,I4E)
+  22          R         MU E            H
+  23          I         MU E            I
+  24          I         MU E            IA
+  25          I         MU E            IAPR
+  26          I         MU E            IB
+  27          I         MU E            IBII
+  28          I         MU E            IBPR
+  29          I         MU E            IBUF1
+  30          I         MU E            IBUF2
+  31          I         MU E            ICRQ
+  32          I         MU E            IF
+  33          I         MU E            IFPR
+  34          I         MU E            IG
+  35          I         MU E            IGPR
+  36          I         MU E            IGROUP
+  37    2   3 I        CM  E            II
+  38    4   2 I        CM  E            III
+  39          I         MU E            IKII
+  40          I         MU E            IMII
+  41    2   5 I        CM  E            INCUR
+  42    4   4 I        CM  E            INCUR1
+  43          I         M? E            IP1
+  44          I         MU E            IPHJ
+  45          I         MU E            IPHJ1
+  46          I         MU E            IRETN
+  47          I         MU E            IST
+  48    2   1 I        CM  E            IT1
+  49    2   2 I        CM  E            IT2
+  50    4   1 I        CM  E            IT3
+  51          I         MU E            IUDJ
+  52          I         MU E            IUDJ1
+  53          I    ( 1) MU E        7   IUHV(7)
+  54          I         MU E            IUJ
+  55          I         MU E            IUJ1
+  56          I    ( 1) ?U E        1   IZ(1)
+  57          I         MU E            J
+  58    2   4 I        CM  E            JJ
+  59    4   3 I        CM  E            JJJ
+  60          I         MU E            JK
+  61          I         MU E            K
+  62          I         MU E            KD
+  63          I         MU E            KD1
+  64          I         MU E            KD2
+  65          I         MU E            KD3
+  66   97   3 I        A U E            KHH
+  67          R         MU E            KI
+  68          I         MU E            KK
+  69          I         MU E            KKK
+  70         fI    ( 1)  U E            KORSZ
+     (R4A)
+  71          I         MU E            L
+  72          I         MU E            LC
+  73         s     ( 5)  U              MAKMCB
+     (I4A,I4V,I4V,I4E,I4E)
+  74         s     ( 3)  U              MESAGE
+     (I4V,I4V,I4A)
+  75   97   1 I        A U E            MHH
+  76          R         MU E            MI
+  77         I?    ( 2)  U I            MOD
+  78          I    ( 1)I?? E        2   NAME(2)
+  79    1   2 I        C U E            NCOL
+  80   97   6 I        A U E            NGROUP
+  81          I         MU E            NMODES
+  82          I         MU E            NOUT
+  83          I         MU E            NSTEP
+  84         s     ( 4)  U              OPEN
+     (ALT,I4V,I4L,I4E)
+  85         s     ( 3)  U              PACK
+     (R4L,I4V,I4A)
+  86   97   4 I        A?? E            PH
+  87         s     ( 1)  U              RDTRL
+     (I4A)
+  88         I?    ( 1)  U I            SIN
+  89         I?    ( 1)  U I            SINH
+  90          R         MU E            SINWH
+  91         s     ( 2)  U              SKPREC
+     (I4V,I4E)
+  92         I?    ( 1)  U I            SQRT
+  93    3   1 I        C U E            SYSBUF
+  94          R         MU E            T1
+  95          R         MU E            T2
+  96          R         MU E            T3
+  97         S     ( 6) ?U        291   TRD1E(MHH,BHH,KHH,PH,UHV,NGROUP)
+  98   97   5 I        A?? E            UHV
+  99         s     ( 3)  U              UNPACK
+     (ALT,I4V,R4L)
+ 100          R         MU E            W
+ 101          R         MU E            WH
+ 102          R         MU E            WOSQ
+ 103         s     ( 1)  U              WRTTRL
+     (I4A)
+ 104          R         MU E            WSQ
+ 105    5   1 R    ( 1)CMU E        1   Z(1)
+**-- END OF SYMBOL TABLE

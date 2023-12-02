@@ -1,0 +1,19 @@
+**++ Symbol table for subprogram MBGAW in file mis/mbgaw.f90
+     produced by SPAG     8.01RF-40 at 14:47:01 on  2 Dec 2023
+   0         X             K             mis/mbgaw.f90,0000002,0000016
+   1         IR    ( 2)  U I            AMIN0
+   2    8   1 R        A U E            BOXL
+   3    8   2 X        A U E            DPHI
+   4    8  11 I        A U E            KC
+   5    8  12 I        A U E            KC1
+   6    8  13 I        A U E            KC2
+   7    8  10 I        A U E            M
+   8         S     (13) MU          4   MBGAW(BOXL,DPHI,WS,PAW,PAF1,PAF2,Q,Q1,Q2,M,KC,KC1,KC2)
+   9    8   5 R        A U E            PAF1
+  10    8   6 R        A U E            PAF2
+  11    8   4 R        A U E            PAW
+  12    8   7 X    ( 1)AM  E            Q(1)
+  13    8   8 X    ( 1)AM  E            Q1(1)
+  14    8   9 X    ( 1)AM  E            Q2(1)
+  15    8   3 X        AMU E            WS
+**-- END OF SYMBOL TABLE

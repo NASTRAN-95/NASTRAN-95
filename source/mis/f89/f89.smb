@@ -1,0 +1,30 @@
+**++ Symbol table for subprogram F89 in file mis/f89.f90
+     produced by SPAG     8.01RF-40 at 14:46:56 on  2 Dec 2023
+   0         X             K             mis/f89.f90,0000002,0000063
+   1   12   2 R        A U E            A
+   2         I?    ( 1)  U I            ABS
+   3         IR    ( 1)  U I            ALOG
+   4          R         MU E            AMF
+   5          R         MU E            AMMSF
+   6          R         MU E            AMN1F
+   7          R         MU E            AN1
+   8          R         MU E            AN2
+   9          R         MU E            ANM1F
+  10   12   3 R        A U E            B
+  11          R         MU E            CAPX
+  12         FR    ( 6) MU E       49   F89(I,A,B,M,N,X)
+  13   12   1 I        A U E            I
+  14          I         MU E            IFAC
+  15          I         MU E            IRET
+  16          I         MU E            IS
+  17          I         MU E            LFAC
+  18   12   4 I        A U E            M
+  19   12   5 I        A U E            N
+  20          I         MU E            N1
+  21          I         MU E            N2
+  22          I         MU E            N3
+  23          I         MU E            NFAC
+  24          R         MU E            S
+  25          R         MU E            SF
+  26   12   6 R    ( 1)A U E            X(1)
+**-- END OF SYMBOL TABLE

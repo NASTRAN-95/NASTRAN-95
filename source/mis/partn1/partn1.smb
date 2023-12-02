@@ -1,0 +1,132 @@
+**++ Symbol table for subprogram PARTN1 in file mis/partn1.f90
+     produced by SPAG     8.01RF-40 at 14:46:53 on  2 Dec 2023
+   0         X             K             mis/partn1.f90,0000002,0000312
+   1         C     / 6/ MU         36   /BLANK/SYM,TYPE,FORM,CPCOL,RPCOL,IREQCL
+   2         C     / 1/             4   /MAHCIN/MACHX
+   3         C     / 6/ ??         24   /NAMES/RD,RDREW,WRT,WRTREW,CLSREW,CLS
+   4         C     /12/ MU         48   /PRTMRG/CPSIZE,RPSIZE,CPONES,RPONES,CPNULL,RPNULL,CPHERE,RPHERE,ICP,NCP,IRP,NRP
+   5         C     / 4/  U        160   /SYSTEM/SYSBUF,OUTPT,XXX,NBPW
+   6         C     / 5/  U        129   /XMSSG/UFM,UWM,UIM,SFM,SWM
+   7         C     / 3/ ?U         24   /ZNTPKX/ELEM,ROW,EOL
+   8         C     / 1/ MU          4   /ZZZZZZ/Z
+   9          I        I?U E            A
+  10          I    ( 1)I U E        4   AIJ(4)
+  11         fI    ( 2)  UXE            ANDF
+     (I4V,I4E)
+  12          I         M? E            BIT
+  13          I         MU E            BITWD
+  14         s     ( 5)  U              BLDPK
+     (I4V,I4L,I4L,I4L,I4E)
+  15         s     ( 4)  U              BLDPKI
+     (I4A,I4V,I4L,I4L)
+  16         s     ( 3)  U              BLDPKN
+     (I4L,I4L,I4L)
+  17          I    ( 1) ?? E       80   BLOCK(80)
+  18          I         MU E            BUFF
+  19          I    ( 1) MU E        5   BUFFS(5)
+  20         s     ( 2)  U              CLOSE
+     (I4V,I4V)
+  21    3   6 I        C   E            CLS
+  22    3   5 I        C?? E            CLSREW
+  23          I         MU E            COLS
+  24          I         MU E            CORE
+  25          I        I?? E            CP
+  26    1   4 I        C   E            CPCOL
+  27    4   7 L        C   E            CPHERE
+  28    4   5 L        C U E            CPNULL
+  29    4   3 I        C U E            CPONES
+  30    4   1 I        CMU E            CPSIZE
+  31          I         MU E            CPZERO
+  32    7   1 I    ( 1)C?? E        4   ELEM(4)
+  33    7   3 I        C U E            EOL
+  34          I        I?? E            EOR
+  35          I         M? E            FILE
+  36         s     ( 2)  U              FNAME
+     (I4V,I4A)
+  37    1   3 I    ( 1)CMU E        4   FORM(4)
+  38          I    ( 1) ?U E        2   HEAD(2)
+  39          I         MU E            I
+  40          I         MU E            IBLOCK
+  41    4   9 I        C U E            ICP
+  42          I         MU E            IFILE
+  43          I         MU E            IL1
+  44          I         MU E            INFORM
+  45         s     ( 5)  U              INTPK
+     (ALT,I4V,I4E,I4V,I4E)
+  46    1   6 I        C   E            IREQCL
+  47    4  11 I        C U E            IRP
+  48          I         MU E            IZ
+  49          I         MU E            IZM1
+  50          I         MU E            J
+  51          I         MU E            JJ
+  52          I         M? E            JROW
+  53          I         MU E            JZ
+  54          I         MU E            K
+  55          I         MU E            KBLOCK
+  56          I         MU E            KFILE
+  57         fI    ( 1)  U E            KORSZ
+     (I4A)
+  58          I         MU E            L
+  59          I         MU E            M
+  60    2   1 I        C   E            MACHX
+  61         s     ( 5)  U              MAKMCB
+     (I4L,I4V,I4V,I4V,I4V)
+  62          I    ( 2) MU E       28   MCB(7,4)
+  63          I    ( 1) MU E        7   MCBA(7)
+  64         s     ( 3)  U              MESAGE
+     (I4E,I4E,I4A)
+  65         I?    ( 2)  U I            MOD
+  66          I        I U E            NAFORM
+  67          I        I U E            NATYPE
+  68    5   4 I        C U E            NBPW
+  69    4  10 I        C   E            NCP
+  70          I         MU E            NFORM
+  71    4  12 I        C U E            NRP
+  72          I         MU E            NTYPE
+  73          I         MU E            NZ
+  74          I         MU E            ONES
+  75         s     ( 4)  U              OPEN
+     (ALT,I4V,I4L,I4V)
+  76    5   2 I        C U E            OUTPT
+  77         S                    160   PARTN1
+  78         s     ( 4)  U              PARTN2
+     (I4V,I4V,I4V,I4L)
+  79    3   1 I        C   E            RD
+  80    3   2 I        C?? E            RDREW
+  81         s     ( 1)  U              RDTRL
+     (I4A)
+  82          I    ( 1)I U E        3   REFUS(3)
+  83    7   2 I        C U E            ROW
+  84          I         MU E            ROWS
+  85          I        I?? E            RP
+  86    1   5 I        C   E            RPCOL
+  87    4   8 L        C   E            RPHERE
+  88    4   6 L        C U E            RPNULL
+  89    4   4 I        C U E            RPONES
+  90    4   2 I        CMU E            RPSIZE
+  91          I         MU E            RPZERO
+  92         fI    ( 2)  UXE            RSHIFT
+     (I4L,I4V)
+  93    6   4 C*25     C   E            SFM*25
+  94          I         M? E            SHIFT
+  95         s     ( 2)  U              SKPREC
+     (I4V,I4E)
+  96          I    ( 1)I?U E        2   SUBR(2)
+  97    6   5 C*27     C U E            SWM*27
+  98    1   1 I        C U E            SYM
+  99    5   1 I        C U E            SYSBUF
+ 100    1   2 I        CMU E            TYPE
+ 101    6   1 C*23     C   E            UFM*23
+ 102    6   3 C*29     C   E            UIM*29
+ 103    6   2 C*25     C   E            UWM*25
+ 104         s     ( 4)  U              WRITE
+     (I4V,I4A,I4E,I4V)
+ 105    3   3 I        C   E            WRT
+ 106    3   4 I        C?? E            WRTREW
+ 107         s     ( 1)  U              WRTTRL
+     (I4L)
+ 108    5   3 I    ( 1)C   E       37   XXX(37)
+ 109    8   1 I    ( 1)CMU E        1   Z(1)
+ 110          I         MU E            ZERO
+ 111         s           U              ZNTPKI
+**-- END OF SYMBOL TABLE

@@ -1,0 +1,12 @@
+**++ Symbol table for subprogram CURVPS in file mis/curvps.f90
+     produced by SPAG     8.01RF-40 at 14:46:59 on  2 Dec 2023
+   0         X             K             mis/curvps.f90,0000002,0000024
+   1         I?    ( 1)  U I            ABS
+   2         I?    ( 2)  U I            ATAN2
+   3         S     ( 2) MU         13   CURVPS(SIGS,PRIN)
+   4          R         MU E            DELTA
+   5    3   2 R    ( 1)AMU E            PRIN(4)
+   6    3   1 R    ( 1)A U E            SIGS(3)
+   7         I?    ( 1)  U I            SQRT
+   8          R         MU E            TEMP
+**-- END OF SYMBOL TABLE

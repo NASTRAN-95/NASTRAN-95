@@ -1,0 +1,108 @@
+**++ Symbol table for subprogram XREAD in file mis/xread.f90
+     produced by SPAG     7.61RG-40 at 01:00:00 on 21 Mar 2022
+   0         X             K             mis/xread.f90,0000002,0000700
+   1         C     / 1/  U          4   /MACHIN/MACH
+   2         C     / 3/ MU         12   /SYSTEM/BUFSZ,NOUT,NOGO
+   3         C     / 8/ MU         36   /XECHOX/DUMMY,ECHOU,OSOP,XSORT,WASFF,DUM,F3LONG,LARGE
+   4         C     / 1/  U         23   /XMSSG/UFM
+   5         C     / 2/ MU       1036   /XSORTX/IBUF,TABLE
+   6          L         MU E            ALPHA
+   7          L         MU E            BCD2
+   8          L         MU E            BCD3
+   9         s     ( 2)  U              BCDKH8
+     (I4A,C+V)
+  10          I          U E            BLANK1
+  11          I        I U E            BLANK4
+  12          C*8      I U E            BLANK8*8
+  13          C*1      I U E            BLANKK*1
+  14    2   1 I        C   E            BUFSZ
+  15   93   1 I    ( 1)A?U E            BUFX(20)
+  16          I    ( 1) MU E       80   CARD1(80)
+  17          C*8  ( 1) ?U E       10   CARD8(10)*8
+  18          C*80      ?U E            CARD80*80
+  19          C*8        U E            CARD81*8
+  20          I         MU E            CDC
+  21         fI    ( 1)  UXE            COMPLF
+     (I4E)
+  22          I          U E            D1
+  23          I        IMU E            DERR
+  24          I          U E            DOLLR1
+  25          L         MU E            DOUBLE
+  26    3   6 I        C   E            DUM
+  27    3   1 I        C   E            DUMMY
+  28          I          U E            E1
+  29    3   2 I        C U E            ECHOU
+  30          C*8  ( 1)I U E        3   END8(3)*8
+  31          C*1      I U E            EQU1*1
+  32          I        I U E            EQUAL4
+  33          I         MU E            ER
+  34    3   7 I        CM  E            F3LONG
+  35         s     ( 2)  U              FFREAD
+     (ALT,C8A)
+  36          I         MU E            FP
+  37          I         MU E            FROMY
+  38          I         MU E            I
+  39         II    ( 1)  U I            IABS
+  40          I         MU E            IB
+  41    5   1 I    ( 1)CMU E        4   IBUF(4)
+  42         II    ( 1)  U I            ICHAR
+  43          I         MU E            IE
+  44          I         MU E            IOO
+  45          I         MU E            IOOOO
+  46          I         MU E            J
+  47          I         MU E            J1
+  48          I         MU E            JE
+  49          I         MU E            K
+  50         s     ( 3)  U              K2B
+     (C+V,I4A,I4E)
+  51          C*1  ( 1) MU E       80   KARD1(80)*1
+  52          I    ( 1) ?U E       43   KHR1(43)
+  53          C*43     I?? E            KHR43*43
+  54         s     ( 2)  U              KHRBCD
+     (C+V,I4A)
+  55          C*1  ( 1)  U E       43   KHRK(43)*1
+  56          I         MU E            L
+  57    3   8 I        CMU E            LARGE
+  58    1   1 I        C U E            MACH
+  59         s     ( 3)  U              MESAGE
+     (I4E,I4E,I4A)
+  60          I          U E            MINUS1
+  61         I?    ( 2)  U I            MOD
+  62          I        I U E            N1
+  63          I        I U E            N2
+  64          I        I U E            N3
+  65          I        I U E            N4
+  66          I        I U E            N5
+  67          I        I U E            N6
+  68          I        I U E            N7
+  69          C*8  ( 1)I U E       15   NAME8(15)*8
+  70          I        I U E            NNAME
+  71    2   3 I        CM  E            NOGO
+  72    2   2 I        C U E            NOUT
+  73          L         MU E            NUMRIC
+  74    3   3 I    ( 1)C   E        2   OSOP(2)
+  75         s           U              PAGE
+  76         s     ( 1)  U              PAGE2
+     (I4E)
+  77          I        I U E            PLUS1
+  78          I          U E            POINT1
+  79         E     ( 1)                 RMVEQ(BUFX)
+  80         fI    ( 2)  UXE            RSHIFT
+     (I4E,I4E)
+  81          I         MU E            SIGN
+  82          I         MU E            SIGX
+  83          I          U E            SLASH1
+  84          C*8      I U E            SLASH8*8
+  85          I          U E            STAR1
+  86          I    ( 1)I?? E        2   SUB(2)
+  87          I         MU E            SUM
+  88    5   2 I    ( 1)CMU E      255   TABLE(255)
+  89          I         MU E            TYPE
+  90    4   1 C*23     C U E            UFM*23
+  91    3   5 I        C U E            WASFF
+  92          I         MU E            WORD
+  93         S     ( 1) ?U        419   XREAD(BUFX)
+  94    3   4 I        CMU E            XSORT
+  95         E     ( 1)                 YREAD(BUFX)
+  96          I          U E            ZERO1
+**-- END OF SYMBOL TABLE

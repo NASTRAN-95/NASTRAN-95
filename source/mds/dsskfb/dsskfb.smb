@@ -1,0 +1,17 @@
+**++ Symbol table for subprogram DSSKFB in file mds/dsskfb.f90
+     produced by SPAG     8.01RF-40 at 14:46:32 on  2 Dec 2023
+   0         X             K             mds/dsskfb.f90,0000002,0000022
+   1         s           U              DSBRC1
+   2         S     ( 1)  U         14   DSSKFB(NN)
+   3         I?    ( 2)  U I            IAND
+   4         f?    ( 1)  U I            IBASE
+     (?*V)
+   5          I         MU E            ID
+   6          ?          U I            IDSEF
+   7          ?          U I            INDBAS
+   8          ?         ?U I            INDCLR
+   9          ?          U I            MASKQ1
+  10          I         MU E            N
+  11          ?          U I            NBLOCK
+  12    2   1 I        A U E            NN
+**-- END OF SYMBOL TABLE

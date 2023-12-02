@@ -1,0 +1,70 @@
+**++ Symbol table for subprogram Q4BMGD in file mis/q4bmgd.f90
+     produced by SPAG     8.01RF-40 at 14:46:41 on  2 Dec 2023
+   0         X             K             mis/q4bmgd.f90,0000002,0000213
+   1         C     / 7/  U        372   /Q4COMD/ANGLEI,EDGSHR,EDGEL,UNV,UEV,ROWFLG,IORDER
+   2         C     / 6/  U        100   /Q4DT/DETJ,HZTA,PSITRN,NNODE,BADJ,N1
+   3         C     / 5/  U         20   /TERMS/MEMBRN,BENDNG,SHRFLX,MBCOUP,NORPTH
+   4    1   1 D    ( 1)C   E        4   ANGLEI(4)
+   5          D    ( 1) MU E        6   ATRANS(6)
+   6    2   5 L        C   E            BADJ
+   7          D         MU E            BB1
+   8          D         MU E            BB2
+   9          D         MU E            BB3
+  10          D    ( 1) MU E      120   BBAR(120)
+  11    3   2 L        C U E            BENDNG
+  12   58   3 R    ( 2)A   E            BGPDT(4,1)
+  13   58   6 D    ( 1)AM  E            BMATRX(1)
+  14          D    ( 1) MU E       48   BSBAR(48)
+  15          D    ( 1) M? E        6   BSBAR1(6)
+  16          D         MU E            DERIV
+  17    2   1 D        C   E            DETJ
+  18   58   1 D    ( 1)A U E            DSHP(1)
+  19    1   3 D    ( 1)C U E        4   EDGEL(4)
+  20    1   2 D    ( 2)C U E       12   EDGSHR(3,4)
+  21         s     ( 9)  U              GMMATD
+     (R8A,I4E,I4E,I4E,R8A,I4E,I4E,I4E,R8L)
+  22   58   4 R    ( 2)A U E            GPNORM(4,1)
+  23   58   2 D    ( 1)A U E            GPTH(1)
+  24    2   2 D        C U E            HZTA
+  25          I         MU E            I
+  26          I         MU E            IB
+  27          I         MU E            IBAR
+  28          I         MU E            IJI
+  29    1   7 I    ( 1)C U E        4   IORDER(4)
+  30          I         MU E            IPOINT
+  31          I         MU E            ITOT
+  32          I         MU E            J
+  33          I         MU E            K
+  34          I         MU E            KA
+  35          I         MU E            KBAR
+  36          I         MU E            KK
+  37          I         MU E            KKK
+  38          I         MU E            KP1
+  39          I         MU E            KP2
+  40          I         MU E            KPOINT
+  41          I         MU E            M
+  42    3   4 L        C   E            MBCOUP
+  43    3   1 L        C U E            MEMBRN
+  44          I         MU E            N
+  45    2   6 I        C U E            N1
+  46          I         MU E            ND2
+  47          I         MU E            ND3
+  48          I         MU E            ND4
+  49          I         M  E            ND5
+  50          I         MU E            ND6
+  51          I         MU E            NDOF
+  52          I         M  E            NDOF3
+  53          I         MU E            NN
+  54    2   4 I        C U E            NNODE
+  55    3   5 L        C U E            NORPTH
+  56   58   5 D    ( 1)A U E            PHI(9)
+  57    2   3 D    ( 1)C U E        9   PSITRN(9)
+  58         S     ( 6) MU        143   Q4BMGD(DSHP,GPTH,BGPDT,GPNORM,PHI,BMATRX)
+  59    1   6 I        C U E            ROWFLG
+  60    3   3 L        C   E            SHRFLX
+  61          D    ( 1) MU E        9   TEE(9)
+  62          D         MU E            TERM
+  63          D         MU E            THICK
+  64    1   5 D    ( 2)C U E       12   UEV(3,4)
+  65    1   4 D    ( 2)C U E       12   UNV(3,4)
+**-- END OF SYMBOL TABLE

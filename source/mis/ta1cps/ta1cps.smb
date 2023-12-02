@@ -1,0 +1,292 @@
+**++ Symbol table for subprogram TA1CPS in file mis/ta1cps.f90
+     produced by SPAG     8.01RF-40 at 14:47:13 on  2 Dec 2023
+   0         X             K             mis/ta1cps.f90,0000002,0001517
+   1         C     / 6/            24   /BLANK/LUSET,NOSIMP,NOSUP,NOGENL,GENL,COMPS
+   2         C     / 4/  U         16   /CONDAS/PI,TWOPI,RADDEG,DEGRAD
+   3         C     / 3/ MU         12   /MATIN/MATID,INFLAG,ELTEMP
+   4         C     / 1/           100   /MATOUT/RMTOUT
+   5         C     / 6/ ??         24   /NAMES/RD,RDREW,WRT,WRTREW,CLSREW,CLS
+   6         C     / 5/ MU         96   /SYSTEM/SYSBUF,NOUT,NOGO,DM,ICFIAT
+   7         C     /20/ ?U         80   /TA1COM/NSIL,ECT,EPT,BGPDT,SIL,GPTT,CSTM,MPT,EST,GEI,GPECT,ECPT,GPCT,MPTX,PCOMPS,EPTX,SCR1,SCR2,SCR3,SCR4
+   8         C     / 1/ ??        128   /TWO/TWO
+   9         C     / 1/ ?U          4   /ZZZZZZ/Z
+  10         I?    ( 1)  U I            ABS
+  11          R         MU E            ALFA1
+  12          R         MU E            ALFA12
+  13          R         MU E            ALFA2
+  14         fI    ( 2)  UXE            ANDF
+     (I4V,I4E)
+  15         s     ( 1)  U              BCKREC
+     (I4V)
+  16    7   4 R        C   E            BGPDT
+  17          I        I U E            BLANK
+  18          I         MU E            BUF0
+  19          I         MU E            BUF1
+  20          I         MU E            BUF2
+  21          I         MU E            BUF3
+  22          I         MU E            BUF4
+  23          I         MU E            BUF5
+  24          R         MU E            C
+  25          R         MU E            C2
+  26          R         M  E            C4
+  27         s     ( 2)  U              CLOSE
+     (I4V,I4E)
+  28    5   6 I        C   E            CLS
+  29    5   5 I        C?? E            CLSREW
+  30    1   6 I        C   E            COMPS
+  31          R         MU E            CONST
+  32         I?    ( 1)  U I            COS
+  33    7   7 R        C   E            CSTM
+  34    2   4 R        C U E            DEGRAD
+  35          R         ?? E            DETERM
+  36          R         MU E            DETRMN
+  37          R         ?? E            DIT
+  38    6   4 R    ( 1)C   E       20   DM(20)
+  39          R    ( 1) ?? E        6   DUM(6)
+  40          R    ( 1) ?? E        3   DUMMY(3)
+  41          R    ( 1) MU E        2   E(2)
+  42    7  12 R        C   E            ECPT
+  43    7   2 R        C   E            ECT
+  44          R    ( 1) MU E        2   EI(2)
+  45          R         M? E            EIXX
+  46          R         M? E            EIYY
+  47          I         M? E            ELID
+  48    3   3 R        C   E            ELTEMP
+  49          I        I?? E            EOE
+  50          I         MU E            EOELOC
+  51          I         MU E            EOF
+  52          R        I U E            EPSI
+  53    7   3 I        C?U E            EPT
+  54          I         M? E            EPTWDS
+  55    7  16 I        C?U E            EPTX
+  56    7   9 R        C   E            EST
+  57          R         MU E            EX
+  58          R         M? E            EXX
+  59          R         MU E            EY
+  60          R         M? E            EYY
+  61          R    ( 1) MU E        2   FI(2)
+  62          R    ( 1) MU E        2   FII(2)
+  63          I         M? E            FILE
+  64         s     ( 2)  U              FILPOS
+     (I4V,I4V)
+  65          I         ?? E            FLAG
+  66         s     ( 2)  U              FNAME
+     (I4V,I4A)
+  67         s     ( 2)  U              FWDREC
+     (ALT,I4V)
+  68          R    ( 1) ?U E       25   G(25)
+  69          R    ( 2) MU E        9   G1(3,3)
+  70          R    ( 2) MU E        9   G2(3,3)
+  71          R    ( 2) MU E        4   G3(2,2)
+  72          R    ( 2) MU E        9   G3BAR(3,3)
+  73          R    ( 1) ?U E        9   G3BR(9)
+  74          R    ( 1) M? E        9   G3I(9)
+  75          R    ( 2) MU E        4   G3INVD(2,2)
+  76          R    ( 1) ?? E        9   G3IU(9)
+  77          R    ( 2) MU E        9   G4(3,3)
+  78          R    ( 2) MU E        9   GBAR(3,3)
+  79          R    ( 1) MU E       17   GBENDG(17)
+  80          R    ( 1) ?U E        9   GBR(9)
+  81          R    ( 1) M? E        9   GD(9)
+  82          R    ( 2) MU E        9   GD1(3,3)
+  83          R    ( 2) MU E        9   GD2(3,3)
+  84          R    ( 2) MU E        9   GD4(3,3)
+  85          R    ( 2) MU E        9   GDBAR(3,3)
+  86          R    ( 1) ?U E        9   GDBR(9)
+  87          R    ( 1) ?? E        9   GDT(9)
+  88    7  10 R        C   E            GEI
+  89    1   5 R        C   E            GENL
+  90          R    ( 1) MU E       25   GLAY(25)
+  91          R    ( 1) MU E       17   GMEMBD(17)
+  92          R    ( 1) MU E       17   GMEMBR(17)
+  93         s     ( 9)  U              GMMATS
+     (R4L,I4E,I4E,I4E,R4L,I4E,I4E,I4E,R4L)
+  94    7  13 R        C   E            GPCT
+  95    7  11 R        C   E            GPECT
+  96    7   6 R        C   E            GPTT
+  97          R         MU E            GSUBE
+  98          R    ( 1) ?? E        9   GT(9)
+  99          R    ( 2) MU E        4   GTRFLX(2,2)
+ 100          R    ( 1) MU E       17   GTRSHR(17)
+ 101          I        I U E            I1ST
+ 102          I    ( 1) MU E       17   IBENDG(17)
+ 103          I         MU E            IC
+ 104    6   5 I        C U E            ICFIAT
+ 105          I         MU E            ICORE
+ 106          I         MU E            ICOUNT
+ 107          I         MU E            IEPT
+ 108          I    ( 1) M? E        7   IEPTX(7)
+ 109          I         MU E            IFINIS
+ 110          I         MU E            II
+ 111          I         MU E            IIK
+ 112          I         MU E            IMAT
+ 113          I    ( 1) MU E       17   IMEMBD(17)
+ 114          I    ( 1) MU E       17   IMEMBR(17)
+ 115          I    ( 1) M? E        7   IMPTX(7)
+ 116          I    ( 2) ?? E       18   INDEX(6,3)
+ 117          I    ( 2) ?? E        9   INDEXX(3,3)
+ 118    3   2 I        CM  E            INFLAG
+ 119         s     ( 8)  U              INVERS
+     (I4E,R4A,I4E,R4A,I4E,R4V,I4V,I4A)
+ 120          I         MU E            IPC
+ 121          I         MU E            IPC1
+ 122          I         MU E            IPC2
+ 123          I    ( 1) M? E        7   IPCOMP(7)
+ 124          I    ( 1) M? E       17   IPSHEL(17)
+ 125          I         MU E            IR
+ 126          I         MU E            IREC
+ 127          I         MU E            IRED
+ 128          I         M? E            ISING
+ 129          I         MU E            ISTART
+ 130          I    ( 1) MU E       17   ITRSHR(17)
+ 131          I         MU E            ITYPE
+ 132          I         MU E            JJ
+ 133          I         MU E            K
+ 134          I         MU E            K1
+ 135          I         MU E            K2
+ 136          I         MU E            KK
+ 137         fI    ( 1)  U E            KORSZ
+     (I4A)
+ 138          I         MU E            KPC
+ 139          I         MU E            KT721
+ 140          I         ?U E            L40
+ 141          I         MU E            LAMOPT
+ 142          I         MU E            LEN
+ 143          I         MU E            LL
+ 144         s     ( 4)  U              LOCATE
+     (ALT,I4L,I4A,I4V)
+ 145          I         MU E            LPCOMP
+ 146         s     ( 1)  U              LPROPS
+     (R4A)
+ 147    1   1 I        C   E            LUSET
+ 148         s     ( 1)  U              MAT
+     (I4V)
+ 149          I         MU E            MAT2PR
+ 150    3   1 I        CMU E            MATID
+ 151          I    ( 1)I?? E        3   MATNAM(3)
+ 152          I         M? E            MATWDS
+ 153          I        I U E            MEM
+ 154         s     ( 3)  U              MESAGE
+     (I4E,I4E,I4A)
+ 155          I         MU E            MID
+ 156          I         MU E            MM
+ 157    7   8 I        C?U E            MPT
+ 158    7  14 I        C?U E            MPTX
+ 159          I        I?? E            MT2BIT
+ 160          I         MU E            N
+ 161          I         M? E            N1MAT
+ 162          I         ?U E            N2MAT
+ 163          I    ( 1)I?? E        2   NAM(2)
+ 164          I    ( 1) ?? E        2   NAM1(2)
+ 165          I    ( 1)I?? E        2   NAM2(2)
+ 166          I         MU E            NLAY
+ 167          I         MU E            NN
+ 168    1   4 I        C   E            NOGENL
+ 169    6   3 I        CM  E            NOGO
+ 170    1   2 I        C   E            NOSIMP
+ 171    1   3 I        C   E            NOSUP
+ 172    6   2 I        C U E            NOUT
+ 173          I         MU E            NPC
+ 174          I         MU E            NPC1
+ 175          I         MU E            NPC2
+ 176          I    ( 1)I?? E        3   NPCMP(3)
+ 177          I    ( 1)I?? E        3   NPCMP1(3)
+ 178          I    ( 1)I?? E        3   NPCMP2(3)
+ 179    7   1 I        C   E            NSIL
+ 180          I         MU E            NWDPC
+ 181          L        I U E            OKUAI
+ 182         s     ( 4)  U              OPEN
+     (ALT,I4V,I4L,I4V)
+ 183         fI    ( 2)  UXE            ORF
+     (I4L,R4L)
+ 184         s     ( 1)  U              PAGE2
+     (I4E)
+ 185          I    ( 1)IM? E        3   PCBIT(3)
+ 186          I    ( 1)I?? E        2   PCOMP(2)
+ 187          I    ( 1)I?? E        2   PCOMP1(2)
+ 188          I    ( 1)I?? E        2   PCOMP2(2)
+ 189          I         M  E            PCOMPR
+ 190    7  15 I        C?U E            PCOMPS
+ 191    2   1 R        C   E            PI
+ 192          I         MU E            PIDLOC
+ 193          I         ?? E            POS
+ 194          I         ?? E            POS1
+ 195         s     ( 3)  U              PRELOC
+     (ALT,I4L,I4V)
+ 196         s     ( 7)  U              PREMAT
+     (I4L,I4L,I4L,I4V,I4V,I4V,R4V)
+ 197          I        I?? E            PSHBIT
+ 198          I         MU E            PSHLPR
+ 199          I    ( 1)I?? E        3   PSHNAM(3)
+ 200    2   3 R        C   E            RADDEG
+ 201    5   1 I        C   E            RD
+ 202    5   2 I        C?? E            RDREW
+ 203         s     ( 1)  U              RDTRL
+     (I4A)
+ 204         s     ( 7)  U              READ
+     (ALT,ALT,I4V,I4L,I4V,I4E,I4V)
+ 205         s     ( 1)  U              REWIND
+     (I4V)
+ 206          R         MU E            RHO
+ 207          R    ( 1) MU E        2   RI(2)
+ 208    4   1 R    ( 1)C   E       25   RMTOUT(25)
+ 209          R    ( 1) M  E       17   RPSHEL(17)
+ 210          R    ( 1)  U E        1   RZ(1)
+ 211          R         MU E            S
+ 212          R         MU E            S2
+ 213          R         M  E            S4
+ 214         s     ( 2)  U              SAVPOS
+     (I4V,I4V)
+ 215    7  17 R        C   E            SCR1
+ 216    7  18 R        C   E            SCR2
+ 217    7  19 R        C   E            SCR3
+ 218    7  20 R        C   E            SCR4
+ 219    7   5 R        C   E            SIL
+ 220         I?    ( 1)  U I            SIN
+ 221         s     ( 2)  U              SSWTCH
+     (I4E,I4V)
+ 222          R    ( 2) MU E       36   STIFF(6,6)
+ 223          I        I U E            SYM
+ 224          I        I U E            SYMMEM
+ 225    6   1 I        C U E            SYSBUF
+ 226          R    ( 1) M? E        9   T(9)
+ 227         S                    864   TA1CPS
+ 228          R         MU E            THETA
+ 229          R         MU E            THETAR
+ 230          R         MU E            TI
+ 231          R         MU E            TLAM
+ 232          R         MU E            TREF
+ 233          R    ( 2) M  E        4   TRFLX(2,2)
+ 234    8   1 R    ( 1)C?? E       32   TWO(32)
+ 235    2   2 R        C   E            TWOPI
+ 236          I         MU E            TYPC
+ 237          I         MU E            TYPC1
+ 238          I         MU E            TYPC2
+ 239          R    ( 1) M? E        9   U(9)
+ 240         s     ( 4)  U              WRITE
+     (I4V,I4A,I4E,I4E)
+     (   ,I4E,   ,   )
+     (   ,R4V,   ,   )
+ 241    5   3 I        C   E            WRT
+ 242    5   4 I        C?? E            WRTREW
+ 243         s     ( 1)  U              WRTTRL
+     (I4A)
+ 244    9   1 I    ( 1)C?U E        1   Z(1)
+ 245          R    ( 1) MU E        2   ZBAR(2)
+ 246          R         MU E            ZBARX
+ 247          R         MU E            ZBARXB
+ 248          R         MU E            ZBARXT
+ 249          R         MU E            ZBARY
+ 250          R         MU E            ZBARYB
+ 251          R         MU E            ZBARYT
+ 252          R         MU E            ZG1
+ 253          R         MU E            ZG2
+ 254          R         MU E            ZG4
+ 255          R         MU E            ZI
+ 256          R         MU E            ZK
+ 257          R         MU E            ZK1
+ 258          R         MU E            ZOFFS
+ 259          R         MU E            ZREF
+ 260          R         M? E            ZX
+ 261          R         M? E            ZY
+**-- END OF SYMBOL TABLE

@@ -1,0 +1,52 @@
+**++ Symbol table for subprogram ALG06 in file mis/alg06.f90
+     produced by SPAG     8.01RF-40 at 14:46:38 on  2 Dec 2023
+   0         X             K             mis/alg06.f90,0000002,0000127
+   1          R         MU E            A
+   2         s     ( 9)  U              ALG01
+     (R4A,R4A,I4V,R4A,R4V,R4A,I4E,I4E,I4E)
+     (   ,   ,   ,   ,R4A,R4V,   ,   ,   )
+   3         S     (19) MU        112   ALG06(R1,R2,X1,X2,H,S,VM,TB1,TB2,W,XK,SCLFAC,SPEED,SPDFAC,G,EJ,HMIN,NSTRMS,PI)
+   4         s     ( 2)  U              ALG30
+     (R4A,R4A)
+   5         fR    ( 2)  U E            ALG4
+     (R4V,R4L)
+   6         fR    ( 2)  U E            ALG5
+     (R4V,R4L)
+   7          R    ( 1) MU E      150   B(150)
+   8          R         MU E            DR
+   9    3  16 R        A U E            EJ
+  10    3  15 R        A U E            G
+  11    3   5 R    ( 1)A U E            H(1)
+  12    3  17 R        A U E            HMIN
+  13          I         MU E            J
+  14          I         MU E            JJ
+  15          I         MU E            JJJ
+  16          I         MU E            L
+  17          I         MU E            LL
+  18          I         MU E            NKEEP
+  19    3  18 I        AMU E            NSTRMS
+  20          I         MU E            NTUB
+  21    3  19 R        A U E            PI
+  22          R         MU E            Q1
+  23          R         MU E            Q2
+  24          R    ( 1) MU E      150   R(150)
+  25    3   1 R    ( 1)A U E            R1(1)
+  26    3   2 R    ( 1)A?U E            R2(1)
+  27    3   6 R    ( 1)A?? E            S(1)
+  28    3  12 R        A U E            SCLFAC
+  29    3  14 R        A U E            SPDFAC
+  30    3  13 R        A U E            SPEED
+  31    3   8 R    ( 1)A U E            TB1(1)
+  32    3   9 R    ( 1)A U E            TB2(1)
+  33    3   7 R    ( 1)A U E            VM(1)
+  34    3  10 R    ( 1)AM? E            W(1)
+  35          R    ( 1) MU E      150   W2D(150)
+  36          R    ( 1) MU E      150   W3D(150)
+  37    3   3 R    ( 1)A U E            X1(1)
+  38    3   4 R    ( 1)A U E            X2(1)
+  39    3  11 R        A U E            XK
+  40          R    ( 1) MU E      150   XX1(150)
+  41          R    ( 1) MU E      150   XX2(150)
+  42          R    ( 1) MU E      150   XX3(150)
+  43          R    ( 2) MU E       81   XX5(9,9)
+**-- END OF SYMBOL TABLE

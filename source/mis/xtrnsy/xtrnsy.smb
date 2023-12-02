@@ -1,0 +1,12 @@
+**++ Symbol table for subprogram XTRNSY in file mis/xtrnsy.f90
+     produced by SPAG     8.01RF-40 at 14:46:41 on  2 Dec 2023
+   0         X             K             mis/xtrnsy.f90,0000002,0000017
+   1         C     / 2/  U          8   /INVPWX/AAA,NCOL
+   2    1   1 R        C   E            AAA
+   3    7   3 D        AMU E            ALPHA
+   4          I         MU E            I
+   5    1   2 I        C U E            NCOL
+   6    7   1 D    ( 1)A U E            X(1)
+   7         S     ( 3) MU          4   XTRNSY(X,Y,ALPHA)
+   8    7   2 D    ( 1)A U E            Y(1)
+**-- END OF SYMBOL TABLE

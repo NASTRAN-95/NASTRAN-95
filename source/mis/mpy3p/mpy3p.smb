@@ -1,0 +1,61 @@
+**++ Symbol table for subprogram MPY3P in file mis/mpy3p.f90
+     produced by SPAG     8.01RF-40 at 14:46:44 on  2 Dec 2023
+   0         X             K             mis/mpy3p.f90,0000002,0000118
+   1         C     /11/ MU        156   /MPY3CP/ITRL,ICORE,N,NCB,M,DUM1,ZPNTRS,LAEND,DUM2,KA,KB
+   2         C     /17/  U        188   /MPY3TL/FILEA,FILEB,FILEE,FILEC,SCR1,SCR2,SCR,LKORE,CODE,PREC,LCORE,SCR3,BUF1,BUF2,BUF3,BUF4,E
+   3    2  13 R        C   E            BUF1
+   4    2  14 R        C   E            BUF2
+   5    2  15 R        C   E            BUF3
+   6    2  16 R        C   E            BUF4
+   7    2   9 I        C U E            CODE
+   8          D         MU E            DFACT
+   9    1   6 R    ( 1)C   E        3   DUM1(3)
+  10    1   9 R    ( 1)C   E        6   DUM2(6)
+  11   48   3 D    ( 1)AMU E            DZ(1)
+  12    2  17 R        C   E            E
+  13          R         MU E            FACT
+  14    2   1 R    ( 1)C   E        7   FILEA(7)
+  15    2   2 R    ( 1)C   E        7   FILEB(7)
+  16    2   4 R    ( 1)C   E        7   FILEC(7)
+  17    2   3 R    ( 1)C   E        7   FILEE(7)
+  18          I         MU E            I
+  19          I         MU E            I1
+  20          I         MU E            I2
+  21          I         MU E            IAC
+  22          I          U E            IACOLS
+  23          I          U E            IAKJ
+  24          I         MU E            IAT
+  25          I          U E            IBCOLS
+  26          I          U E            IC
+  27    1   2 I        C U E            ICORE
+  28          I         MU E            II
+  29          I         M  E            III
+  30          I          U E            IPOINT
+  31          I          U E            ITRANS
+  32    1   1 I        C   E            ITRL
+  33   48   2 I    ( 1)A U E            IZ(1)
+  34    1  10 I        C U E            KA
+  35    1  11 I        CMU E            KB
+  36          I         MU E            KB2
+  37          I         MU E            KJ
+  38          I         MU E            KJ2
+  39          I         MU E            L
+  40          I         MU E            L1
+  41    1   8 I        C U E            LAEND
+  42    2  11 I        C   E            LCORE
+  43    2   8 I        C   E            LKORE
+  44          I         MU E            LL
+  45          I         MU E            LLP
+  46          I         MU E            LP
+  47    1   5 I        C   E            M
+  48         S     ( 3) MU         65   MPY3P(Z,IZ,DZ)
+  49    1   3 I        C U E            N
+  50    1   4 I        C   E            NCB
+  51    2  10 I        C U E            PREC
+  52    2   7 R        C   E            SCR
+  53    2   5 R        C   E            SCR1
+  54    2   6 R        C   E            SCR2
+  55    2  12 R    ( 1)C   E        7   SCR3(7)
+  56   48   1 R    ( 1)AMU E            Z(1)
+  57    1   7 I    ( 1)C   E       22   ZPNTRS(22)
+**-- END OF SYMBOL TABLE

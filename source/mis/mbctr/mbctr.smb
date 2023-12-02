@@ -1,0 +1,90 @@
+**++ Symbol table for subprogram MBCTR in file mis/mbctr.f90
+     produced by SPAG     8.01RF-40 at 14:47:13 on  2 Dec 2023
+   0         X             K             mis/mbctr.f90,0000002,0000361
+   1         C     / 5/  U        216   /MBOXA/XX,YY,TG,ANG,COTG
+   2         C     /30/  U        120   /MBOXC/NJJ,CRANK1,CRANK2,CNTRL1,CNTRL2,NBOX,NPTS0,NPTS1,NPTS2,ASYM,GC,CR,MACH,BETA,EK,EKBAR,EKM,BOXL,BOXW,BOXA,NCB,NSB,NSBD,NTOTE,KC,KC1,KC2,KCT,KC1T,KC2T
+   3         IR    ( 2)  U I            AMAX1
+   4         IR    ( 2)  U I            AMIN1
+   5         IR    ( 2)  U I            AMOD
+   6    1   4 R    ( 1)C   E       10   ANG(10)
+   7    2  10 L        C   E            ASYM
+   8    2  14 R        C   E            BETA
+   9    2  20 R        C U E            BOXA
+  10    2  18 R        C U E            BOXL
+  11    2  19 R        C U E            BOXW
+  12    2   4 L        C   E            CNTRL1
+  13    2   5 L        C   E            CNTRL2
+  14          R    ( 1) MU E        5   COTANG(5)
+  15    1   5 R    ( 1)C U E       10   COTG(10)
+  16    2  12 R        C   E            CR
+  17    2   2 L        C   E            CRANK1
+  18    2   3 L        C U E            CRANK2
+  19    2  15 R        C   E            EK
+  20    2  16 R        C   E            EKBAR
+  21    2  17 R        C   E            EKM
+  22         IR    ( 1)  U I            FLOAT
+  23    2  11 R        C   E            GC
+  24          I         MU E            I
+  25   39   1 I        A U E            ICTR
+  26   39   2 I        AMU E            IL1
+  27   39   3 I        AMU E            IR1
+  28          I         MU E            J
+  29          I         MU E            JB
+  30          I         MU E            JT
+  31    2  25 I        C   E            KC
+  32    2  26 I        C   E            KC1
+  33    2  29 I        C   E            KC1T
+  34    2  27 I        C   E            KC2
+  35    2  30 I        C   E            KC2T
+  36    2  28 I        C   E            KCT
+  37    2  13 I        C   E            MACH
+  38         II    ( 2)  U I            MAX0
+  39         S     ( 8) MU        220   MBCTR(ICTR,IL1,IR1,NCN,NC1,NWN,NW1,PAREA)
+  40    2   6 I        C   E            NBOX
+  41   39   5 I    ( 1)AMU E            NC1(1)
+  42    2  21 I        C   E            NCB
+  43   39   4 I    ( 1)AM  E            NCN(1)
+  44    2   1 I        C   E            NJJ
+  45    2   7 I        C   E            NPTS0
+  46    2   8 I        C   E            NPTS1
+  47    2   9 I        C   E            NPTS2
+  48    2  22 I        C   E            NSB
+  49    2  23 I        C   E            NSBD
+  50    2  24 I        C   E            NTOTE
+  51   39   7 I    ( 1)A U E            NW1(1)
+  52   39   6 I    ( 1)A U E            NWN(1)
+  53          R         MU E            PA
+  54   39   8 R    ( 3)AMU E            PAREA(50,50,3)
+  55          R    ( 1) MU E        5   TANG(5)
+  56    1   3 R    ( 1)C U E       10   TG(10)
+  57          R    ( 1) MU E        5   X(5)
+  58          R         MU E            XB
+  59          R         MU E            XF
+  60          R         MU E            XF1
+  61          R         MU E            XF2
+  62          R         MU E            XLH
+  63          R         MU E            XLL
+  64          R         MU E            XLL1
+  65          R         MU E            XLR
+  66          R         MU E            XLT
+  67          R         MU E            XRH
+  68          R         MU E            XRL
+  69          R         MU E            XRR
+  70          R         MU E            XRT
+  71          R         MU E            XT
+  72    1   1 R    ( 1)C U E       12   XX(12)
+  73          R    ( 1) MU E        5   Y(5)
+  74          R         MU E            YBH
+  75          R         MU E            YBL
+  76          R         MU E            YBR
+  77          R         MU E            YBT
+  78          R         MU E            YC
+  79          R         MU E            YL
+  80          R         MU E            YL1
+  81          R         MU E            YR
+  82          R         MU E            YTH
+  83          R         MU E            YTL
+  84          R         MU E            YTR
+  85          R         MU E            YTT
+  86    1   2 R    ( 1)C U E       12   YY(12)
+**-- END OF SYMBOL TABLE

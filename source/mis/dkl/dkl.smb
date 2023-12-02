@@ -1,0 +1,49 @@
+**++ Symbol table for subprogram DKL in file mis/dkl.f90
+     produced by SPAG     8.01RF-40 at 14:46:56 on  2 Dec 2023
+   0         X             K             mis/dkl.f90,0000002,0000134
+   1          D         MU E            A
+   2          D         MU E            AJ
+   3          D         MU E            AR
+   4          D         MU E            BETA
+   5         ID    ( 1)  U I            DABS
+   6          D         MU E            DFACT
+   7         FD    ( 5) MU E       73   DKL(NP,I,L,R,Z)
+   8          D         MU E            DL1
+   9         ID    ( 1)  U I            DLOG
+  10          D         MU E            DR
+  11          D         MU E            DZ
+  12          D         MU E            DZJ
+  13          D        I U E            EPS
+  14          D         MU E            FACT
+  15          R         MU E            FACTL
+  16         IR    ( 1)  U I            FLOAT
+  17          D         MU E            GKL
+  18    7   2 I        A U E            I
+  19          I         MU E            J
+  20          I         MU E            JFACT
+  21          I         MU E            K
+  22    7   3 I        A U E            L
+  23          I         MU E            L1
+  24          I         MU E            L2
+  25          I         MU E            LFACT
+  26          I         MU E            LK
+  27          I         MU E            LMJF
+  28          I         MU E            M
+  29         s     ( 3)  U              MESAGE
+     (I4E,I4V,I4A)
+  30          I    ( 1)I?? E        2   NAM(2)
+  31    7   1 I        A U E            NP
+  32          D        I U E            ONE
+  33          D         MU E            PR
+  34    7   4 D    ( 1)A U E            R(1)
+  35          D         MU E            RA
+  36          D         MU E            RAK
+  37          D         MU E            RB
+  38          D         MU E            RBK
+  39          D        I U E            THREE
+  40          D        I U E            TWO
+  41    7   5 D    ( 1)A U E            Z(1)
+  42          D         MU E            ZA
+  43          D         MU E            ZB
+  44          D        I U E            ZERO
+**-- END OF SYMBOL TABLE

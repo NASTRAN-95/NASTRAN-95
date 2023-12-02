@@ -1,0 +1,15 @@
+**++ Symbol table for subprogram SELAS1 in file mis/selas1.f90
+     produced by SPAG     8.01RF-40 at 14:47:22 on  2 Dec 2023
+   0         X             K             mis/selas1.f90,0000002,0000086
+   1         C     / 6/ MU        900   /SDR2X5/ECPT,JELID,ISILNO,STIFF,SCOEFF,DUMMY
+   2    1   6 R    ( 1)C   E      120   DUMMY(120)
+   3    1   1 R    ( 1)C U E      100   ECPT(100)
+   4   10   1 I        A U E            IARG
+   5          I         M  E            ICOEFF
+   6          I    ( 1)  U E        6   IECPT(6)
+   7    1   3 I    ( 1)CMU E        2   ISILNO(2)
+   8    1   2 I        CM  E            JELID
+   9    1   5 R        CM  E            SCOEFF
+  10         S     ( 1)  U         26   SELAS1(IARG)
+  11    1   4 R        CM  E            STIFF
+**-- END OF SYMBOL TABLE

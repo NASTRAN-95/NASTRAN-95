@@ -1,0 +1,90 @@
+**++ Symbol table for subprogram STRME1 in file mis/strme1.f90
+     produced by SPAG     8.01RF-40 at 14:47:11 on  2 Dec 2023
+   0         X             K             mis/strme1.f90,0000002,0000249
+   1         C     / 2/  U         44   /BLANK/IDUMMY,STRAIN
+   2         C     / 1/            20   /CONDAS/CONSTS
+   3         C     / 6/ MU         24   /MATIN/MATID,INFLAG,ELTEMP,STRESS,SINTH,COSTH
+   4         C     /16/ ?U         72   /MATOUT/G11,G12,G13,G22,G23,G33,RHO,ALPHAS,TSUB0,GSUBE,SIGTEN,SIGCOM,SIGSHE,G2X211,G2X212,G2X222
+   5         C     /21/ MU        900   /SDR2X5/NECPT,NGRID,ANGLE,MATID1,T,FMU,DUMMY1,X1,Y1,Z1,DUMMY2,X2,Y2,Z2,DUMMY3,X3,Y3,Z3,DUMB,PH1OUT,FORVEC
+   6         C     /14/ MU       1200   /SDR2X6/C,E,TI,TEMPAR,TEMP,XSUBB,XSUBC,YSUBC,VOL,REELMU,DELTA,FLAMDA,THETA,DUMMY
+   7         I?    ( 1)  U I            ABS
+   8    4   8 R    ( 1)C?? E        3   ALPHAS(3)
+   9    5   3 R        C U E            ANGLE
+  10    6   1 R    ( 1)CMU E       18   C(18)
+  11    2   1 R    ( 1)C   E        5   CONSTS(5)
+  12         I?    ( 1)  U I            COS
+  13    3   6 R        CM  E            COSTH
+  14          R          U E            DEGRA
+  15    6  11 R        CMU E            DELTA
+  16    5  19 R    ( 1)C   E       80   DUMB(80)
+  17    6  14 R    ( 1)C   E      219   DUMMY(219)
+  18    5   7 R        C   E            DUMMY1
+  19    5  11 R        C   E            DUMMY2
+  20    5  15 R        C   E            DUMMY3
+  21    6   2 R    ( 1)CMU E       18   E(18)
+  22          R    ( 1) ?U E       21   ECPT(21)
+  23    3   3 R        CM  E            ELTEMP
+  24    6  12 R        CMU E            FLAMDA
+  25    5   6 R        C   E            FMU
+  26    5  21 R    ( 1)C   E       25   FORVEC(25)
+  27          R    ( 1) M? E        9   G(9)
+  28    4   1 R        C U E            G11
+  29    4   2 R        C U E            G12
+  30    4   3 R        C U E            G13
+  31    4   4 R        C U E            G22
+  32    4   5 R        C U E            G23
+  33    4  14 R        C   E            G2X211
+  34    4  15 R        C   E            G2X212
+  35    4  16 R        C   E            G2X222
+  36    4   6 R        C U E            G33
+  37         s     ( 9)  U              GMMATS
+     (R4A,I4E,I4E,I4E,R4A,I4E,I4E,I4E,R4L)
+  38    4  10 R        C   E            GSUBE
+  39          I         MU E            I
+  40    1   1 I    ( 1)C   E       10   IDUMMY(10)
+  41    3   2 I        CM  E            INFLAG
+  42          I         MU E            J
+  43         s     ( 1)  U              MAT
+     (R4L)
+  44    3   1 I        CM  E            MATID
+  45    5   4 I        C U E            MATID1
+  46         s     ( 3)  U              MESAGE
+     (I4E,I4E,R4L)
+  47    5   1 I    ( 1)C?U E        1   NECPT(1)
+  48    5   2 I    ( 1)C   E        3   NGRID(3)
+  49          I         MU E            NPT1
+  50   62   1 I        A U E            NTYPE
+  51    5  20 R    ( 1)CM? E      100   PH1OUT(100)
+  52    6  10 R        CMU E            REELMU
+  53    4   7 R        C   E            RHO
+  54    4  12 R        C   E            SIGCOM
+  55    4  13 R        C   E            SIGSHE
+  56    4  11 R        C   E            SIGTEN
+  57         I?    ( 1)  U I            SIN
+  58    3   5 R        CMU E            SINTH
+  59         I?    ( 1)  U I            SQRT
+  60    1   2 L        C U E            STRAIN
+  61    3   4 R        C   E            STRESS
+  62         S     ( 1)  U        100   STRME1(NTYPE)
+  63    5   5 R        C   E            T
+  64    6   5 R        CMU E            TEMP
+  65    6   4 R    ( 1)C?U E       27   TEMPAR(27)
+  66    6  13 R        CMU E            THETA
+  67    6   3 R    ( 1)C?? E        9   TI(9)
+  68         s     ( 2)  U              TRANSS
+     (I4L,R4A)
+  69    4   9 R        C U E            TSUB0
+  70    6   9 R        C   E            VOL
+  71    5   8 R        C U E            X1
+  72    5  12 R        C U E            X2
+  73    5  16 R        C U E            X3
+  74    6   6 R        CMU E            XSUBB
+  75    6   7 R        CMU E            XSUBC
+  76    5   9 R        C U E            Y1
+  77    5  13 R        C U E            Y2
+  78    5  17 R        C U E            Y3
+  79    6   8 R        CMU E            YSUBC
+  80    5  10 R        C U E            Z1
+  81    5  14 R        C U E            Z2
+  82    5  18 R        C U E            Z3
+**-- END OF SYMBOL TABLE

@@ -1,0 +1,108 @@
+**++ Symbol table for subprogram TKER in file mis/tker.f90
+     produced by SPAG     8.01RF-40 at 14:47:20 on  2 Dec 2023
+   0         X             K             mis/tker.f90,0000002,0000252
+   1         C     / 8/ MU         32   /DLM/K10,K20,K1RT1,K1IT1,K2RT2P,K2IT2P,K10T1,K20T2P
+   2         C     / 5/ MU         20   /KDS/IND,KD1R,KD1I,KD2R,KD2I
+   3         I?    ( 1)  U I            ABS
+   4          R         MU E            BETA2
+   5          R         MU E            BIGR
+   6  101   5 R        A U E            BR
+   7          R         MU E            C1
+   8          R         MU E            C10
+   9          R         MU E            C11
+  10          R         MU E            C2
+  11          R         MU E            C3
+  12          R         MU E            C4
+  13          R         MU E            C5
+  14          R         MU E            C6
+  15          R         MU E            C7
+  16          R         MU E            C8
+  17          R         MU E            C9
+  18          R         MU E            CAR
+  19  101   7 R        A U E            CGR
+  20  101   9 R        A U E            CGS
+  21          R         MU E            CK1I
+  22          R         MU E            CK1R
+  23          R         MU E            CK2I
+  24          R         MU E            CK2R
+  25         I?    ( 1)  U I            COS
+  26          R         MU E            DK1I
+  27          R         MU E            DK1R
+  28          R         MU E            DK2I
+  29          R         MU E            DK2R
+  30          R         MU E            E
+  31          R         MU E            EPS
+  32          R         MU E            EXARG
+  33         I?    ( 1)  U I            EXP
+  34         IR    ( 1)  U I            FLOAT
+  35          R         MU E            I00I
+  36          R         MU E            I00R
+  37          R         MU E            I0UI
+  38          R         MU E            I0UR
+  39          R         MU E            I10I
+  40          R         MU E            I10R
+  41          R         MU E            I1UI
+  42          R         MU E            I1UR
+  43          R         MU E            I20I3
+  44          R         MU E            I20R3
+  45          R         MU E            I2UI3
+  46          R         MU E            I2UR3
+  47          I         MU E            ICHUZ
+  48    2   1 I        C U E            IND
+  49          R         MU E            J00I
+  50          R         MU E            J00R
+  51          R         MU E            J0UI
+  52          R         MU E            J0UR
+  53          R         MU E            K1
+  54    1   1 R        CMU E            K10
+  55    1   7 R        CMU E            K10T1
+  56    1   4 R        CMU E            K1IT1
+  57    1   3 R        CMU E            K1RT1
+  58          R         MU E            K2
+  59    1   2 R        CMU E            K20
+  60    1   8 R        CMU E            K20T2P
+  61    1   6 R        CMU E            K2IT2P
+  62    1   5 R        CMU E            K2RT2P
+  63    2   3 R        CM  E            KD1I
+  64    2   2 R        CM  E            KD1R
+  65    2   5 R        CM  E            KD2I
+  66    2   4 R        CM  E            KD2R
+  67  101   4 R        A U E            KR
+  68  101  12 R        A U E            M
+  69          R         MU E            MU
+  70          R         MU E            MU1
+  71          R         MU E            Q1
+  72          R         MU E            Q10
+  73          R         MU E            Q11
+  74          R         MU E            Q2
+  75          R         MU E            Q3
+  76          R         MU E            Q4
+  77          R         MU E            Q5
+  78          R         MU E            Q6
+  79          R         MU E            Q7
+  80          R         MU E            Q8
+  81          R         MU E            Q9
+  82          R         MU E            R1
+  83          R         MU E            R10
+  84          R         MU E            R11
+  85          R         MU E            R1S
+  86          R         MU E            R2
+  87          R         MU E            R3
+  88          R         MU E            R4
+  89          R         MU E            R5
+  90          R         MU E            R6
+  91          R         MU E            R7
+  92          R         MU E            R8
+  93          R         MU E            R9
+  94  101   6 R        A U E            SGR
+  95  101   8 R        A U E            SGS
+  96         I?    ( 1)  U I            SIN
+  97         I?    ( 1)  U I            SQRT
+  98  101  10 R        AMU E            T1
+  99  101  11 R        AMU E            T2
+ 100          R         MU E            T2P
+ 101         S     (12) MU        200   TKER(X0,Y0,Z0,KR,BR,SGR,CGR,SGS,CGS,T1,T2,M)
+ 102  101   1 R        A U E            X0
+ 103  101   2 R        A U E            Y0
+ 104  101   3 R        A U E            Z0
+**-- END OF SYMBOL TABLE

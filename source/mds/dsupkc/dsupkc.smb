@@ -1,0 +1,26 @@
+**++ Symbol table for subprogram DSUPKC in file mds/dsupkc.f90
+     produced by SPAG     8.01RF-40 at 14:46:33 on  2 Dec 2023
+   0         X             K             mds/dsupkc.f90,0000002,0000086
+   1         C     / 2/             8   /SYSTEM/ISYSBF,IWR
+   2    6   3 R    ( 1)A U E            A(4)
+   3          R    ( 1) MU E        4   AA(4)
+   4    6   4 R    ( 1)AM  E            B(4)
+   5          R    ( 1) MU E        4   BB(4)
+   6         S     ( 4) MU         69   DSUPKC(ITIN,ITOUT,A,B)
+   7    1   1 I        C   E            ISYSBF
+   8    6   1 I        A U E            ITIN
+   9    6   2 I        A U E            ITOUT
+  10          I         MU E            ITOUT2
+  11    1   2 I        C   E            IWR
+  12          I         MU E            IWRD1
+  13          I         MU E            IWRD2
+  14          I         MU E            K
+  15          I    ( 1)I U E        4   NWORDS(4)
+  16          D          U E            RD1
+  17          D         M  E            RD2
+  18          D          U E            RDI1
+  19          D         M  E            RDI2
+  20          R          U E            RS1
+  21          R         M  E            RS2
+  22          R         MU E            SSIGN
+**-- END OF SYMBOL TABLE

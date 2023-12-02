@@ -1,0 +1,46 @@
+**++ Symbol table for subprogram BORDER in file mis/border.f90
+     produced by SPAG     8.01RF-40 at 14:46:49 on  2 Dec 2023
+   0         X             K             mis/border.f90,0000002,0000084
+   1         C     / 4/ ??        112   /BLANK/SKIP,SCR2,SCR3,SCR4
+   2    3   6 I        A U E            B1
+   3         S     ( 7) MU         69   BORDER(GPLST,X,U,ISTORE,DEFORM,B1,OPCOR)
+   4         s     ( 2)  U              CLOSE
+     (I4V,I4E)
+   5    3   5 I        A U E            DEFORM
+   6          I         ?? E            ELID
+   7         s     ( 4)  U              FREAD
+     (I4V,I4A,I4E,I4E)
+   8         s     ( 2)  U              FWDREC
+     (ALT,I4V)
+   9    3   1 I    ( 1)A?U E            GPLST(1)
+  10          I         MU E            I
+  11         II    ( 1)  U I            IABS
+  12          I         MU E            IE
+  13          I         MU E            IE1
+  14          I         ?U E            IFLAG
+  15          I         MU E            IG
+  16          I          U E            IGDPT
+  17          I         MU E            IONE
+  18          I         MU E            IP1
+  19    3   4 I    ( 1)AMU E            ISTORE(2)
+  20          I         MU E            ITWO
+  21          I         MU E            J
+  22          I         M  E            LCOR
+  23         s     ( 6)  U              LINE
+     (R4E,R4E,R4E,R4E,I4E,I4E)
+  24          I         ?? E            M
+  25          I          U E            NELMT
+  26    3   7 I        A U E            OPCOR
+  27         s     ( 4)  U              OPEN
+     (ALT,I4V,I4L,I4E)
+  28          R    ( 2) M? E        6   PT(2,3)
+  29         s     ( 7)  U              READ
+     (ALT,ALT,I4V,I4V,I4E,I4E,I4V)
+  30    1   2 I        C?? E            SCR2
+  31    1   3 R        C   E            SCR3
+  32    1   4 I        C   E            SCR4
+  33    1   1 R    ( 1)C   E       25   SKIP(25)
+  34    3   3 R    ( 2)A U E            U(2,1)
+  35          I    ( 1) ?? E        2   WORDS(2)
+  36    3   2 R    ( 2)A U E            X(3,1)
+**-- END OF SYMBOL TABLE

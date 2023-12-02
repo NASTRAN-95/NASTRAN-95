@@ -1,0 +1,135 @@
+**++ Symbol table for subprogram KTRAPR in file mis/ktrapr.f90
+     produced by SPAG     8.01RF-40 at 14:46:57 on  2 Dec 2023
+   0         X             K             mis/ktrapr.f90,0000002,0000497
+   1         C     / 1/            40   /CONDAD/CONSTD
+   2         C     / 6/ M          24   /MATIN/MATIDC,MATFLG,ELTEMP,STRESS,SINTH,COSTH
+   3         C     / 7/  U         60   /MATOUT/E,ANU,RHO,G,ALF,TZERO,GSUBE
+   4         C     / 3/  U         24   /MSGX/NMSG,MMSG,MSG
+   5         C     / 8/ MU         92   /SMA1CL/IOPT4,K4GGSW,NPVT,DUM4,LINK,IDETCK,DODET,NOGO
+   6         C     /28/ MU       2212   /SMA1DP/D,GAMBQ,R,Z,TEO,EE,DELINT,AK,DGAMA,ZMIN,ER,ET,EZ,VRT,VTR,VTZ,VZT,VZR,VRZ,GRZ,DEL,COSG,SING,DGAMR,IGP,ICS,SP,TEMPE
+   7         C     / 2/  U        400   /SMA1ET/ECPT,DUM5
+   8         C     / 5/ ??        136   /SMA1IO/DUM1,IFKGG,IGKGG,IF4GG,DUM2
+   9         C     / 2/             8   /SYSTEM/IBUF,IOUT
+  10    6   8 D    ( 1)CMU E       64   AK(64)
+  11          D    ( 1) M? E       36   AKI(36)
+  12          D    ( 1) MU E        9   AKT(9)
+  13    3   5 R    ( 1)C   E        3   ALF(3)
+  14    3   2 R    ( 1)C U E        3   ANU(3)
+  15    1   1 D    ( 1)C   E        5   CONSTD(5)
+  16    6  22 D        CMU E            COSG
+  17    2   6 R        C   E            COSTH
+  18    6   1 D    ( 1)CMU E       64   D(64)
+  19         ID    ( 1)  U I            DABS
+  20          D         M? E            DAMPC
+  21         ID    ( 1)  U I            DCOS
+  22          D          U E            DEGRAD
+  23    6  21 D        CMU E            DEL
+  24    6   7 D    ( 1)CMU E       12   DELINT(12)
+  25    6   9 D        CMU E            DGAMA
+  26    6  24 D        CMU E            DGAMR
+  27         ID    ( 4)  U I            DMAX1
+  28         ID    ( 4)  U I            DMIN1
+  29    5   7 R        C   E            DODET
+  30         ID    ( 1)  U I            DSIN
+  31    8   1 R    ( 1)C   E       10   DUM1(10)
+  32    8   5 R    ( 1)C   E       21   DUM2(21)
+  33    5   4 R    ( 1)C   E        7   DUM4(7)
+  34    7   2 R    ( 1)C   E       76   DUM5(76)
+  35    3   1 R    ( 1)C U E        3   E(3)
+  36    7   1 R    ( 1)C U E       24   ECPT(24)
+  37    6   6 D    ( 1)CMU E       16   EE(16)
+  38          D         MU E            EE48
+  39    2   3 R        CM  E            ELTEMP
+  40    6  11 D        CMU E            ER
+  41    6  12 D        CMU E            ET
+  42    6  13 D        CMU E            EZ
+  43    3   4 R    ( 1)C U E        3   G(3)
+  44    6   2 D    ( 1)CMU E       64   GAMBQ(64)
+  45         s     ( 9)  U              GMMATD
+     (R8A,I4E,I4E,I4E,R8A,I4E,I4E,I4E,R8A)
+  46    6  20 D        CMU E            GRZ
+  47    3   7 R        C U E            GSUBE
+  48          I         MU E            I
+  49          I         MU E            I1
+  50          I         MU E            IAI
+  51          I         MU E            IAPP
+  52    9   1 I        C   E            IBUF
+  53          I         MU E            IC1
+  54          I         MU E            ICORE
+  55    6  26 I    ( 1)CMU E        4   ICS(4)
+  56          I         MU E            IDEL
+  57    5   6 I        C   E            IDETCK
+  58          I    ( 1)  U E       24   IECPT(24)
+  59    8   4 I        C?? E            IF4GG
+  60    8   2 I        C?? E            IFKGG
+  61    8   3 I        C   E            IGKGG
+  62    6  25 I    ( 1)CMU E        4   IGP(4)
+  63         s     ( 8)  U              INVERD
+     (I4E,R8L,I4E,R8L,I4E,R8L,I4V,R4A)
+  64    5   1 I        C U E            IOPT4
+  65    9   2 I        C   E            IOUT
+  66          I         M? E            IP
+  67          I         MU E            IPP
+  68          I         M? E            IQ
+  69          I         MU E            IR1
+  70          I         MU E            IRC
+  71          I        I U E            IRG
+  72          I         MU E            ISING
+  73          I         MU E            J
+  74          I         MU E            J1
+  75          I         MU E            J2
+  76          I         MU E            JJ1
+  77          I         MU E            JJ2
+  78          I    ( 1) MU E        2   JRZ(2)
+  79          I         MU E            K
+  80    5   2 I        CM  E            K4GGSW
+  81         S                    335   KTRAPR
+  82    5   5 I    ( 1)C   E       10   LINK(10)
+  83         s     ( 1)  U              MAT
+     (I4V)
+  84    2   2 I        CM  E            MATFLG
+  85          I         MU E            MATID
+  86    2   1 I        CM  E            MATIDC
+  87         s     ( 3)  U              MESAGE
+     (I4E,I4E,I4V)
+     (   ,   ,I4A)
+  88    4   2 I        C U E            MMSG
+  89    4   3 I    ( 2)C U E        4   MSG(4,1)
+  90    4   1 I        C U E            NMSG
+  91    5   8 I        CM  E            NOGO
+  92    5   3 I        C U E            NPVT
+  93    6   3 D    ( 1)CMU E        4   R(4)
+  94          D         MU E            R1
+  95          D          U E            R2
+  96          D          U E            R3
+  97          D         MU E            R4
+  98    3   3 R        C   E            RHO
+  99          D         MU E            RMAX
+ 100          D         MU E            RMIN
+ 101         fD    ( 5)  U E            RZINTD
+     (I4V,I4V,R8A,R8A,I4E)
+ 102    6  23 D        CMU E            SING
+ 103    2   5 R        C   E            SINTH
+ 104         s     ( 5)  U              SMA1B
+     (R8L,I4L,I4E,I4V,R8E)
+ 105    6  27 R    ( 1)C?? E       24   SP(24)
+ 106    2   4 R        C   E            STRESS
+ 107    6  28 R        CMU E            TEMPE
+ 108    6   5 D    ( 1)CMU E       16   TEO(16)
+ 109         s     ( 2)  U              TRANSD
+     (I4L,R8L)
+ 110          D          U E            TWOPI
+ 111    3   6 R        C   E            TZERO
+ 112    6  14 D        CMU E            VRT
+ 113    6  19 D        CMU E            VRZ
+ 114    6  15 D        CMU E            VTR
+ 115    6  16 D        CMU E            VTZ
+ 116    6  18 D        CMU E            VZR
+ 117    6  17 D        CMU E            VZT
+ 118    6   4 D    ( 1)CM? E        4   Z(4)
+ 119          D         MU E            Z1
+ 120          D         MU E            Z2
+ 121          D         MU E            Z3
+ 122          D         MU E            Z4
+ 123    6  10 D        CMU E            ZMIN
+**-- END OF SYMBOL TABLE

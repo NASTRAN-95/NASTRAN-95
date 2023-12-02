@@ -1,0 +1,17 @@
+**++ Symbol table for subprogram KHRFN2 in file mis/khrfn2.f90
+     produced by SPAG     8.01RF-40 at 14:47:20 on  2 Dec 2023
+   0         X             K             mis/khrfn2.f90,0000002,0000024
+   1         C     / 2/  U        164   /SYSTEM/DUMMY,NCPW
+   2          I        I U E            BLANK
+   3    1   1 R    ( 1)C   E       40   DUMMY(40)
+   4          I         M? E            I
+   5         II    ( 1)  U I            IABS
+   6          I         M? E            IJ
+   7   10   3 I        A U E            IZB
+   8   10   2 I        A U E            J
+   9         fI    ( 4)  U E            KHRFN1
+     (I4V,I4V,I4L,I4V)
+  10         FI    ( 3) MU E        6   KHRFN2(WORD,J,IZB)
+  11    1   2 I        C U E            NCPW
+  12   10   1 I    ( 1)A?? E            WORD(1)
+**-- END OF SYMBOL TABLE

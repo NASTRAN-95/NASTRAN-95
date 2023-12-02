@@ -1,0 +1,123 @@
+**++ Symbol table for subprogram MMA321 in file mis/mma321.f90
+     produced by SPAG     7.61RG-40 at 01:00:00 on 21 Mar 2022
+   0         X             K             mis/mma321.f90,0000002,0000253
+   1         C     /11/ MU        140   /MPYADX/FILEA,FILEB,FILEC,FILED,NZ,T,SIGNAB,SIGNC,PREC1,SCRTCH,TIME
+   2         C     / 6/            24   /NAMES/RD,RDREW,WRT,WRTREW,CLSREW,CLS
+   3         C     / 5/            20   /PACKX/TYPEI,TYPEP,IPROW1,IPROWN,INCRP
+   4         C     / 1/           608   /SYSTEM/KSYSTM
+   5         C     / 3/            40   /TYPE/IPRC,NWORDS,IRC
+   6         C     / 4/            16   /UNPAKX/TYPEU,IUROW1,IUROWN,INCRU
+   7         C     / 2/ MU         20   /ZBLPKX/D,KDROW
+   8         s     ( 5)  U              BLDPK
+     (I4V,I4V,?*V,I4E,I4E)
+   9         s     ( 3)  U              BLDPKN
+     (?*V,I4E,I4A)
+  10    2   6 I        C   E            CLS
+  11    2   5 I        C   E            CLSREW
+  12    7   1 R    ( 1)CMU E        4   D(4)
+  13          D    ( 1)    E        2   DD(2)
+  14          R         MU E            DTEMP
+  15    1   1 I    ( 1)C   E        7   FILEA(7)
+  16    1   2 I    ( 1)C U E        7   FILEB(7)
+  17    1   3 I    ( 1)C   E        7   FILEC(7)
+  18    1   4 I    ( 1)CM? E        7   FILED(7)
+  19          I         MU E            I
+  20         II    ( 1)  U I            IABS
+  21          ?          U I            IAX
+  22          ?          U I            IBROW
+  23          I         MU E            ICOLA
+  24          I         MU E            ICROWS
+  25          I         MU E            IDROW
+  26          ?          U I            IDX
+  27          ?          U I            IFILE
+  28          I         MU E            II
+  29    3   5 I        C   E            INCRP
+  30    6   4 I        C   E            INCRU
+  31          I         MU E            INDXA
+  32          I         MU E            INDXAL
+  33          I         MU E            INDXAV
+  34          I         MU E            INDXB
+  35          I         MU E            INDXBV
+  36          I         MU E            INDXC
+  37          I         MU E            INDXCV
+  38          ?          U I            IPASS
+  39    5   1 I    ( 1)C   E        2   IPRC(2)
+  40    3   3 I        C   E            IPROW1
+  41    3   4 I        C   E            IPROWN
+  42    5   3 I    ( 1)C   E        4   IRC(4)
+  43          ?         M  I            IRFILE
+  44          I         MU E            IROW1
+  45          I         MU E            IROWA1
+  46          I         MU E            IROWAN
+  47          I         MU E            IROWB1
+  48          I         MU E            IROWBN
+  49          I         MU E            IROWC1
+  50          I         MU E            IROWCN
+  51          I         MU E            IROWN
+  52          I         MU E            IROWS
+  53    6   2 I        C   E            IUROW1
+  54    6   3 I        C   E            IUROWN
+  55          I          U E            IWR
+  56          I         MU E            K
+  57    7   2 I        CMU E            KDROW
+  58    4   1 I    ( 1)C   E      152   KSYSTM(152)
+  59          ?          U I            LASIND
+  60          I         MU E            LASINDB
+  61          I         MU E            LASINDC
+  62         II    ( 2)  U I            MAX0
+  63         s     ( 3)  U              MESAGE
+     (I4E,I4E,I4E)
+  64         II    ( 2)  U I            MIN0
+  65         S     ( 2) ?U        167   MMA321(ZI,ZR)
+  66         s     ( 2)  U              MMARC1
+     (I4A,R4A)
+  67          I            E            NAC
+  68          I            E            NADENS
+  69          I            E            NAFORM
+  70          I            E            NANZWD
+  71          I            E            NAR
+  72          I            E            NATYPE
+  73          I          U E            NBC
+  74          I            E            NBDENS
+  75          I            E            NBFORM
+  76          I            E            NBNZWD
+  77          I            E            NBR
+  78          I            E            NBTYPE
+  79          I            E            NCC
+  80          I            E            NCDENS
+  81          I            E            NCFORM
+  82          I            E            NCNZWD
+  83          ?          U I            NCOLPP
+  84          I            E            NCR
+  85          I            E            NCTYPE
+  86          I            E            NDC
+  87          I            E            NDDENS
+  88          I            E            NDFORM
+  89          I            E            NDNZWD
+  90          I          U E            NDR
+  91          I         ?? E            NDTYPE
+  92          I         MU E            NROWS
+  93          I         MU E            NTMS
+  94          ?          U I            NWDD
+  95    5   2 I    ( 1)C   E        4   NWORDS(4)
+  96    1   5 I        C   E            NZ
+  97          ?         ?? I            OFILE
+  98    1   9 R        C   E            PREC1
+  99    2   1 I        C   E            RD
+ 100    2   2 I        C   E            RDREW
+ 101    1  10 R        C   E            SCRTCH
+ 102          ?         M  I            SIGN
+ 103    1   7 I        C   E            SIGNAB
+ 104    1   8 I        C U E            SIGNC
+ 105          R            E            SYSBUF
+ 106    1   6 I        C   E            T
+ 107    1  11 R        C   E            TIME
+ 108    3   1 I        C   E            TYPEI
+ 109    3   2 I        C   E            TYPEP
+ 110    6   1 I        C   E            TYPEU
+ 111    2   3 I        C   E            WRT
+ 112    2   4 I        C   E            WRTREW
+ 113         s           U              ZBLPKI
+ 114   65   1 I    ( 1)A?U E            ZI(2)
+ 115   65   2 R    ( 1)A?U E            ZR(2)
+**-- END OF SYMBOL TABLE

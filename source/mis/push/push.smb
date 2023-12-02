@@ -1,0 +1,56 @@
+**++ Symbol table for subprogram PUSH in file mis/push.f90
+     produced by SPAG     8.01RF-40 at 14:46:43 on  2 Dec 2023
+   0         X             K             mis/push.f90,0000002,0000155
+   1         C     / 7/ MU        164   /SYSTEM/ISYS,IOUT,NOGO,IDUM,NBPC,NBPW,NCPW
+   2         C     / 1/  U         23   /XMSSG/UFM
+   3   48   2 I    ( 1)AM? E            BCD(1)
+   4          I        I?U E            BLANK
+   5          I        I U E            CPERWD
+   6          I         MU E            DIGIT
+   7          L        IMU E            FIRST
+   8   48   5 I        A U E            FLAG
+   9          I         MU E            I
+  10         II    ( 1)  U I            IABS
+  11          I         M? E            IADD
+  12          I         M? E            IADD1
+  13          I         M? E            IB1
+  14          I         M? E            IBL
+  15          I         MU E            IC
+  16          I         MU E            ICL
+  17   48   3 I        A U E            ICOL
+  18    1   4 I    ( 1)C   E       35   IDUM(35)
+  19          I    ( 1) M? E       18   II(18)
+  20          I         MU E            IJ
+  21   48   1 I    ( 1)A U E            IN(1)
+  22    1   2 I        C U E            IOUT
+  23          I         M? E            ISAVE
+  24          I         M? E            ISH
+  25    1   1 I        C   E            ISYS
+  26          I         MU E            IWRD
+  27          I         MU E            IX
+  28          I         MU E            IXTRA
+  29          I         MU E            K
+  30         fI    ( 2)  U E            KLSHFT
+     (I4V,I4E)
+  31         fI    ( 2)  U E            KRSHFT
+     (I4V,I4E)
+  32          I         MU E            LCOL
+  33          I         MU E            LWRD
+  34          I         MU E            M
+  35          I         MU E            M1
+  36          I         MU E            M2
+  37          I         MU E            M3
+  38          I        IM? E            MINUS
+  39    1   5 I        C?U E            NBPC
+  40    1   6 I        C   E            NBPW
+  41   48   4 I        A U E            NCHAR
+  42    1   7 I        C U E            NCPW
+  43          I         MU E            NIN
+  44    1   3 I        CM  E            NOGO
+  45          I    ( 1)IMU E       10   NUMBS(10)
+  46          I         MU E            NX
+  47         fI    ( 2)  UXE            ORF
+     (I4E,I4E)
+  48         S     ( 5) MU         92   PUSH(IN,BCD,ICOL,NCHAR,FLAG)
+  49    2   1 C*23     C U E            UFM*23
+**-- END OF SYMBOL TABLE

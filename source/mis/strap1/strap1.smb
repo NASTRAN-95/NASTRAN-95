@@ -1,0 +1,110 @@
+**++ Symbol table for subprogram STRAP1 in file mis/strap1.f90
+     produced by SPAG     8.01RF-40 at 14:46:42 on  2 Dec 2023
+   0         X             K             mis/strap1.f90,0000002,0000471
+   1         C     / 1/            20   /CONDAS/CONSTS
+   2         C     / 6/ M          24   /MATIN/MATIDC,MATFLG,ELTEMP,STRESS,SINTH,COSTH
+   3         C     / 6/  U         56   /MATOUT/E,ANU,RHO,G,ALF,TZERO
+   4         C     / 8/ MU       1976   /SDR2X5/ECPT,DUM5,IDEL,IGP,TZ,SEL,TS,AK
+   5         C     / 4/ MU       1192   /SDR2X6/D,GAMBL,R,Z
+   6         C     / 2/  U          8   /SYSTEM/IBUF,IOUT
+   7         C     / 1/  U         23   /XMSSG/UFM
+   8    4   8 R    ( 1)CMU E      144   AK(144)
+   9    3   5 R    ( 1)C U E        3   ALF(3)
+  10          R    ( 1) M? E        4   ALFB(4)
+  11         IR    ( 4)  U I            AMAX1
+  12         IR    ( 4)  U I            AMIN1
+  13    3   2 R    ( 1)C U E        3   ANU(3)
+  14    1   1 R    ( 1)C   E        5   CONSTS(5)
+  15         I?    ( 1)  U I            COS
+  16          R         MU E            COSG
+  17    2   6 R        C   E            COSTH
+  18    5   1 R    ( 1)CMU E      144   D(144)
+  19          R          U E            DEGRA
+  20          R         MU E            DEL
+  21          R    ( 1) MU E       12   DELINT(12)
+  22          R         MU E            DGAMA
+  23          R         MU E            DGAMR
+  24    4   2 R    ( 1)C   E       76   DUM5(76)
+  25          R    ( 1) M? E       32   DZERO(32)
+  26    3   1 R    ( 1)C U E        3   E(3)
+  27    4   1 R    ( 1)C U E       24   ECPT(24)
+  28          R    ( 1) MU E       16   EE(16)
+  29          R         MU E            EE48
+  30    2   3 R        CM  E            ELTEMP
+  31          R         MU E            ER
+  32          R         MU E            ET
+  33          R         MU E            EZ
+  34    3   4 R    ( 1)C U E        3   G(3)
+  35    5   2 R    ( 1)CM? E      144   GAMBL(144)
+  36          R    ( 1) MU E       64   GAMBQ(64)
+  37          R    ( 1) M? E       96   GAMQS(96)
+  38         s     ( 9)  U              GMMATS
+     (R4A,I4E,I4E,I4E,R4A,I4E,I4E,I4E,R4A)
+  39          R         MU E            GRZ
+  40          I         MU E            I
+  41          I         MU E            I1
+  42    6   1 I        C   E            IBUF
+  43          I         MU E            ICORE
+  44          I    ( 1) M? E        4   ICS(4)
+  45    4   3 I        CMU E            IDEL
+  46          I    ( 1)  U E       24   IECPT(24)
+  47    4   4 I    ( 1)CM  E        4   IGP(4)
+  48         s     ( 8)  U              INVERS
+     (I4E,R4L,I4E,R4L,I4E,R4L,I4V,R4A)
+  49    6   2 I        C U E            IOUT
+  50          I         M? E            IP
+  51          I         M? E            IQ
+  52          I         MU E            ISING
+  53          I         MU E            J
+  54          I         MU E            JJ
+  55          I         MU E            JJ1
+  56          I         MU E            JJ2
+  57          I    ( 1) MU E        2   JRZ(2)
+  58          I         MU E            K
+  59          I         MU E            KK
+  60         s     ( 1)  U              MAT
+     (I4V)
+  61    2   2 I        CM  E            MATFLG
+  62          I         MU E            MATID
+  63    2   1 I        CM  E            MATIDC
+  64         s     ( 3)  U              MESAGE
+     (I4E,I4E,I4V)
+  65    5   3 R    ( 1)CMU E        5   R(5)
+  66          R          U E            R1
+  67          R          U E            R2
+  68          R          U E            R3
+  69          R          U E            R4
+  70    3   3 R        C   E            RHO
+  71          R         MU E            RMAX
+  72          R         MU E            RMIN
+  73         fR    ( 5)  U E            RZINTS
+     (I4V,I4V,R4A,R4A,I4E)
+  74    4   6 R    ( 1)C?? E      240   SEL(240)
+  75         I?    ( 1)  U I            SIN
+  76          R         MU E            SING
+  77    2   5 R        C   E            SINTH
+  78          R    ( 1) ?? E       24   SP(24)
+  79         S                    303   STRAP1
+  80    2   4 R        C   E            STRESS
+  81          R         MU E            TEMPE
+  82          R    ( 1) MU E       16   TEO(16)
+  83         s     ( 2)  U              TRANSS
+     (I4L,R4L)
+  84    4   7 R    ( 1)C?? E        4   TS(4)
+  85          R          U E            TWOPI
+  86    4   5 R        CM  E            TZ
+  87    3   6 R        C U E            TZERO
+  88    7   1 C*23     C U E            UFM*23
+  89          R         MU E            VRT
+  90          R         MU E            VRZ
+  91          R         MU E            VTR
+  92          R         MU E            VTZ
+  93          R         MU E            VZR
+  94          R         MU E            VZT
+  95    5   4 R    ( 1)CMU E        5   Z(5)
+  96          R         MU E            Z1
+  97          R         MU E            Z2
+  98          R         MU E            Z3
+  99          R         MU E            Z4
+ 100          R         MU E            ZMIN
+**-- END OF SYMBOL TABLE

@@ -1,0 +1,130 @@
+**++ Symbol table for subprogram AMGB1B in file mis/amgb1b.f90
+     produced by SPAG     8.01RF-40 at 14:47:15 on  2 Dec 2023
+   0         X             K             mis/amgb1b.f90,0000002,0000312
+   1         C     / 6/  U         52   /AMGMN/MCB,NROW,DUM,REFC,SIGMA,RFREQ
+   2         C     /26/  U        104   /BAMG1L/IREF,MINMAC,MAXMAC,NLINES,NSTNS,REFSTG,REFCRD,REFMAC,REFDEN,REFVEL,REFFLO,SLN,NSTNSX,STAG,CHORD,RADIUS,BSPACE,MACH,DEN,VEL,FLOWA,AMACH,REDF,BLSPC,AMACHR,TSONIC
+   3         C     / 2/  U          8   /SYSTEM/IBUF,IOUT
+   4         C     / 1/  U         23   /XMSSG/UFM
+   5          X    ( 2) MU E      600   A(20,30)
+   6          X    ( 1) MU E      401   AB(401)
+   7    2  22 R        C U E            AMACH
+   8    2  25 R        C   E            AMACHR
+   9         S     ( 1) M         277   AMGB1B(Q)
+  10          X    ( 1) MU E      401   AN(401)
+  11         I?    ( 1)  U I            ATAN
+  12          R         MU E            B
+  13          R         MU E            B2
+  14          R         MU E            BETA
+  15    2  24 R        C U E            BLSPC
+  16    2  17 R        C   E            BSPACE
+  17         IR    ( 1)  U I            CABS
+  18          X    ( 1) MU E      401   CB(401)
+  19          R         MU E            CC
+  20         IX    ( 1)  U I            CEXP
+  21    2  15 R        C   E            CHORD
+  22          R         MU E            CJ
+  23          R         MU E            CK
+  24          R         MU E            CL
+  25         IX    ( 2)  U I            CMPLX
+  26          X    ( 1) MU E      401   CN(401)
+  27          R         MU E            CON
+  28          R         MU E            CON2
+  29         I?    ( 1)  U I            COS
+  30          R         MU E            CT
+  31          R         MU E            D
+  32          R         MU E            DELTA
+  33          R         MU E            DELTM
+  34    2  19 R        C   E            DEN
+  35          R    ( 2) MU E      200   DISP(20,10)
+  36    1   3 R    ( 1)C   E        2   DUM(2)
+  37          X         MU E            FF
+  38          X         MU E            FG
+  39          X    ( 1) MU E      401   FK(401)
+  40    2  21 R        C   E            FLOWA
+  41          X         MU E            FO
+  42          X         MU E            FS
+  43         s     ( 3)  U              GAUSS2
+     (X8A,I4V,I4V)
+  44          R         MU E            H
+  45          R         MU E            HH
+  46          I         MU E            I
+  47    3   1 I        C   E            IBUF
+  48    3   2 I        C U E            IOUT
+  49    2   1 I        C   E            IREF
+  50          I         MU E            J
+  51          I         MU E            JJ
+  52          I         MU E            JK
+  53          I         MU E            K
+  54          R         MU E            KAPPA
+  55          I         MU E            KKK
+  56          I         MU E            L
+  57          R         MU E            LAMDA
+  58          R         MU E            LAMDM
+  59          X    ( 1) MU E       21   LOADS(21)
+  60          R         MU E            M
+  61    2  18 I        C   E            MACH
+  62    2   3 I        C   E            MAXMAC
+  63    1   1 I    ( 1)C   E        7   MCB(7)
+  64         s     ( 3)  U              MESAGE
+     (I4E,I4E,I4E)
+  65    2   2 I        C   E            MINMAC
+  66          R         MU E            MU
+  67          R         MU E            MUS
+  68          I         MU E            N
+  69          I         MU E            N1
+  70          I         MU E            N11
+  71          I         MU E            N1M
+  72          I         MU E            N1N
+  73          I         MU E            N2
+  74          I         MU E            N22
+  75          I         MU E            NF
+  76          I         MU E            NK
+  77          I         MU E            NK1
+  78          I         MU E            NK2
+  79    2   4 I        C   E            NLINES
+  80          I         MU E            NM
+  81          I         MU E            NNN
+  82    1   2 I        C   E            NROW
+  83    2   5 I        C U E            NSTNS
+  84    2  13 I        C   E            NSTNSX
+  85          R         MU E            NU
+  86          R         MU E            OMEGA
+  87          X    ( 1) MU E       50   P(50)
+  88          X    ( 1) MU E      401   PD(401)
+  89          R         MU E            PI
+  90          R         MU E            PI2
+  91    9   1 X    ( 2)AM  E            Q(Nstns,Nstns)
+  92    2  16 R        C   E            RADIUS
+  93    2  23 R        C U E            REDF
+  94    1   4 R        C   E            REFC
+  95    2   7 R        C   E            REFCRD
+  96    2   9 R        C   E            REFDEN
+  97    2  11 R        C   E            REFFLO
+  98    2   8 R        C   E            REFMAC
+  99    2   6 R        C   E            REFSTG
+ 100    2  10 R        C   E            REFVEL
+ 101    1   6 R        C   E            RFREQ
+ 102          R         MU E            S
+ 103          X    ( 1) MU E      100   S1(100)
+ 104    1   5 R        C U E            SIGMA
+ 105         I?    ( 1)  U I            SIN
+ 106          R         MU E            SL
+ 107    2  12 I        C U E            SLN
+ 108          X         MU E            SLOPE
+ 109          X    ( 1) MU E      100   SO(100)
+ 110         I?    ( 1)  U I            SQRT
+ 111          R         MU E            SS
+ 112          X         MU E            ST
+ 113    2  14 R        C U E            STAG
+ 114          X         MU E            STP
+ 115          X    ( 1) MU E       20   STT(20)
+ 116          X         MU E            SUM
+ 117    2  26 R        C   E            TSONIC
+ 118    4   1 C*23     C U E            UFM*23
+ 119    2  20 R        C   E            VEL
+ 120          R    ( 1)I U E        8   W(8)
+ 121          R    ( 1) MU E       20   X(20)
+ 122          R         MU E            XL
+ 123          R         MU E            XLAM
+ 124          R         MU E            ZER
+**-- END OF SYMBOL TABLE

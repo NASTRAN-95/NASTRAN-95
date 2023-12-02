@@ -1,0 +1,65 @@
+**++ Symbol table for subprogram MRED1D in file mis/mred1d.f90
+     produced by SPAG     8.01RF-40 at 14:46:44 on  2 Dec 2023
+   0         X             K             mis/mred1d.f90,0000002,0000210
+   1         C     /15/ MU        160   /BLANK/OLDNAM,DRY,IDUM1,TYPE,IDUM5,GBUF1,GBUF2,IDUM2,KORLEN,IDUM7,IEIG,IDUM3,KORBGN,IDUM6,USRMOD
+   2         C     / 2/  U          8   /SYSTEM/IDUM4,IPRNTR
+   3         C     / 1/           128   /TWO/ITWO
+   4         C     / 1/  U         23   /XMSSG/UFM
+   5         C     / 1/ MU          4   /ZZZZZZ/Z
+   6         s     ( 2)  U              CLOSE
+     (I4V,I4E)
+   7          I        I?? E            DNAMIC
+   8    1   2 I        CMU E            DRY
+   9          I        I?U E            EEDX
+  10          I    ( 2)I U E        9   EIG(3,3)
+  11          I         MU E            EIGCP
+  12          I    ( 1) MU E        3   EIGCPR(3)
+  13          I    ( 1) MU E        7   EIGTRL(7)
+  14          I         MU E            EIGTYP
+  15    1   6 I        C U E            GBUF1
+  16    1   7 I        C U E            GBUF2
+  17         s     ( 3)  U              GOPEN
+     (I4V,I4L,I4E)
+  18          I         MU E            I
+  19    1   3 I    ( 1)C   E        3   IDUM1(3)
+  20    1   8 I    ( 1)C   E        3   IDUM2(3)
+  21    1  12 I    ( 1)C   E        6   IDUM3(6)
+  22    2   1 I        C   E            IDUM4
+  23    1   5 I        C   E            IDUM5
+  24    1  14 I    ( 1)C   E       12   IDUM6(12)
+  25    1  10 I    ( 1)C   E        4   IDUM7(4)
+  26    1  11 I        C U E            IEIG
+  27          I         M? E            IMSG
+  28    2   2 I        C U E            IPRNTR
+  29          I         ?? E            ITEST
+  30    3   1 I    ( 1)C   E       32   ITWO(32)
+  31          I        I U E            KOMPLX
+  32    1  13 I        C U E            KORBGN
+  33    1   9 I        C   E            KORLEN
+  34          I        I U E            KREAL
+  35          I    ( 1)I U E        3   LETR(3)
+  36         s     ( 4)  U              LOCATE
+     (ALT,I4L,I4A,I4V)
+  37         s     ( 3)  U              MESAGE
+     (I4V,I4V,I4A)
+  38          I    ( 1)I?? E        2   MODNAM(2)
+  39         S                     91   MRED1D
+  40          I         ?? E            NOWDSR
+  41          I         M? E            NWDS2R
+  42    1   1 I    ( 1)C U E        2   OLDNAM(2)
+  43         fI    ( 2)  UXE            ORF
+     (I4L,I4E)
+  44         s     ( 3)  U              PRELOC
+     (ALT,I4L,I4V)
+  45         s     ( 7)  U              READ
+     (ALT,ALT,I4V,I4L,I4E,I4E,I4V)
+  46         s           U              SOFCLS
+  47    1   4 I    ( 1)C U E        2   TYPE(2)
+  48    4   1 C*23     C U E            UFM*23
+  49    1  15 L        C U E            USRMOD
+  50         s     ( 4)  U              WRITE
+     (I4V,I4L,I4E,I4E)
+  51         s     ( 1)  U              WRTTRL
+     (I4A)
+  52    5   1 I    ( 1)CMU E        1   Z(1)
+**-- END OF SYMBOL TABLE

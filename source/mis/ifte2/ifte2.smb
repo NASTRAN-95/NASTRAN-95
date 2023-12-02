@@ -1,0 +1,23 @@
+**++ Symbol table for subprogram IFTE2 in file mis/ifte2.f90
+     produced by SPAG     8.01RF-40 at 14:47:17 on  2 Dec 2023
+   0         X             K             mis/ifte2.f90,0000002,0000049
+   1         I?    ( 1)  U I            ABS
+   2         I?    ( 1)  U I            COS
+   3    7   3 R        AM  E            CP
+   4          R         MU E            D
+   5          R        I U E            EPSI
+   6          I         MU E            I
+   7         S     ( 3) MU         38   IFTE2(THA,RP,CP)
+   8          I         MU E            IT
+   9          R         MU E            RN
+  10    7   2 R        AM  E            RP
+  11          R         MU E            RPS
+  12          R         MU E            SIGN
+  13         I?    ( 1)  U I            SIN
+  14          R         MU E            T1
+  15          R         MU E            T2
+  16    7   1 R        A U E            THA
+  17          R        I U E            THAO
+  18          R         MU E            TRM
+  19          R         MU E            TSQ
+**-- END OF SYMBOL TABLE

@@ -1,0 +1,71 @@
+**++ Symbol table for subprogram MATWRT in file mis/matwrt.f90
+     produced by SPAG     8.01RF-40 at 14:46:50 on  2 Dec 2023
+   0         X             K             mis/matwrt.f90,0000002,0000164
+   1         C     / 2/ M         768   /OUTPUT/HEAD1,HEAD2
+   2         C     / 6/ MU         48   /SYSTEM/SYSBUF,OTPE,INX,NLPP,INX1,LINE
+   3         C     / 4/ MU         16   /UNPAKX/IT,K,L,INCR
+   4         C     / 1/ ?U          4   /ZZZZZZ/COL
+   5          R        I U E            BLANK
+   6          R        I U E            BSTR
+   7         s     ( 2)  U              CLOSE
+     (I4V,I4E)
+   8    4   1 R    ( 1)C?U E        1   COL(1)
+   9          R        I U E            CONT
+  10          D    ( 1)  U E        1   DCOL(1)
+  11          R        I U E            DX
+  12          R        I U E            EM
+  13          R    ( 1)I U E       18   FORM(18)
+  14         s     ( 3)  U              GOPEN
+     (I4V,R4L,I4E)
+  15    1   1 R    ( 1)C   E       96   HEAD1(96)
+  16    1   2 R    ( 1)CM  E       96   HEAD2(96)
+  17          I         MU E            I
+  18          I    ( 1) MU E        7   IA(7)
+  19          I         MU E            IA7A
+  20          I         MU E            IA7B
+  21          I         MU E            IA7C
+  22          I         MU E            IBEGN
+  23          I         MU E            IF
+  24   41   1 I        A?U E            IFILE
+  25          I         MU E            IFIN
+  26          I         MU E            IHOP
+  27    3   4 I        CM  E            INCR
+  28          I         MU E            INULL
+  29    2   3 I    ( 1)C   E        6   INX(6)
+  30    2   5 I    ( 1)C   E        2   INX1(2)
+  31    3   1 I        CMU E            IT
+  32          I         MU E            IT1
+  33          I         ?U E            ITEST
+  34          I         MU E            J
+  35          I         MU E            JJ
+  36    3   2 I        CMU E            K
+  37    3   3 I        CMU E            L
+  38          I         MU E            LCOL
+  39   41   4 I        A U E            LCORE
+  40    2   6 I        CMU E            LINE
+  41         S     ( 4) ?U        108   MATWRT(IFILE,XNAME,XITEM,LCORE)
+  42         s     ( 5)  U              MTRXI
+     (I4V,R4A,R4V,I4E,I4V)
+  43          I         M? E            NAMEA
+  44          I         MU E            NCOL
+  45    2   4 I        C U E            NLPP
+  46          I         MU E            NROW
+  47    2   2 I        C U E            OTPE
+  48         s           U              PAGE
+  49         s           U              PAGE1
+  50         s     ( 1)  U              RDTRL
+     (I4L)
+  51          R        I U E            RE
+  52          R        I U E            SU
+  53    2   1 I        C U E            SYSBUF
+  54         s     ( 1)  U              TABPRT
+     (I4V)
+  55          R    ( 1)I U E       10   TYPE(10)
+  56          R        I U E            UCTU
+  57         s     ( 3)  U              UNPACK
+     (ALT,I4V,R4A)
+  58          R        I U E            XINUE
+  59          R        I U E            XIT
+  60   41   3 R        A?U E            XITEM
+  61   41   2 R    ( 1)A?U E            XNAME(2)
+**-- END OF SYMBOL TABLE

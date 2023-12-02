@@ -1,0 +1,23 @@
+**++ Symbol table for subprogram EMA1D in file mis/ema1d.f90
+     produced by SPAG     8.01RF-40 at 14:47:01 on  2 Dec 2023
+   0         X             K             mis/ema1d.f90,0000002,0000072
+   1    4   6 I    ( 1)A U E            CGV(1)
+   2    4   8 D    ( 1)A U E            CP(1)
+   3    4   5 I    ( 1)A U E            DICT(7)
+   4         S     ( 9) MU         22   EMA1D(J,NSCA,SCALAS,PIVOT,DICT,CGV,KGG,CP,F)
+   5    4   9 R        A U E            F
+   6          I         MU E            I
+   7          I         MU E            ICOL0
+   8          I         MU E            II
+   9          I         MU E            II0
+  10          I         MU E            IMAT
+  11    4   1 I        A U E            J
+  12          I         MU E            K
+  13    4   7 D    ( 1)AMU E            KGG(1)
+  14          I         MU E            L
+  15          I         MU E            M
+  16          I         MU E            NGRID
+  17    4   2 I        A U E            NSCA
+  18    4   4 I    ( 1)A U E            PIVOT(6)
+  19    4   3 I    ( 1)A U E            SCALAS(1)
+**-- END OF SYMBOL TABLE

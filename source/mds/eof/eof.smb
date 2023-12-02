@@ -1,0 +1,11 @@
+**++ Symbol table for subprogram EOF in file mds/eof.f90
+     produced by SPAG     8.01RF-40 at 14:46:34 on  2 Dec 2023
+   0         X             K             mds/eof.f90,0000002,0000011
+   1         s           U              DSEFWR
+   2         s           U              DSGEFL
+   3         s           U              DSSDCB
+   4         S     ( 1)  U          5   EOF(FILE)
+   5    4   1 I        A U E            FILE
+   6          ?         M  I            IRETRN
+   7          ?         M  I            NAME
+**-- END OF SYMBOL TABLE

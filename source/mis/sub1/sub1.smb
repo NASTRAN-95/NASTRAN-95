@@ -1,0 +1,15 @@
+**++ Symbol table for subprogram SUB1 in file mis/sub1.f90
+     produced by SPAG     8.01RF-40 at 14:46:49 on  2 Dec 2023
+   0         X             K             mis/sub1.f90,0000002,0000022
+   1         C     / 2/  U          8   /INVPWX/XX,NCOL
+   2    8   3 D        A U E            A
+   3          R         MU E            A1
+   4    8   4 D        A U E            B
+   5          R         MU E            B1
+   6          I         MU E            I
+   7    1   2 I        C U E            NCOL
+   8         S     ( 4) MU          5   SUB1(X,Y,A,B)
+   9    8   1 R    ( 1)A U E            X(1)
+  10    1   1 R        C   E            XX
+  11    8   2 R    ( 1)AMU E            Y(1)
+**-- END OF SYMBOL TABLE

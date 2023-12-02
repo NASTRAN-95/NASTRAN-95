@@ -1,0 +1,100 @@
+**++ Symbol table for subprogram HDCHK in file mis/hdchk.f90
+     produced by SPAG     8.01RF-40 at 14:46:49 on  2 Dec 2023
+   0         X             K             mis/hdchk.f90,0000002,0000213
+   1         C     /16/  U         64   /GO3/L0,L1,L00,L01,L2,L3,L4,L5,L6,L7,L8,L9,L10,L11,L12,L13
+   2         C     / 8/ MU         32   /HEDG/JS,M,JT,VX,VX1,VX2,VX3,NN
+   3          R         MU E            A
+   4          R         MU E            A1
+   5         I?    ( 1)  U I            ABS
+   6          R         MU E            AC
+   7          R         MU E            AL
+   8         IR    ( 2)  U I            AMAX1
+   9         IR    ( 2)  U I            AMIN1
+  10          R         MU E            B
+  11          R         MU E            B1
+  12          R         MU E            BC
+  13          R         MU E            BL
+  14          R         MU E            C
+  15          R         MU E            C1
+  16          R         MU E            CC
+  17   27   2 R    ( 1)A U E            CCC(1)
+  18          R         MU E            CL
+  19          R         MU E            D
+  20          R         MU E            EEX
+  21          R         MU E            EG
+  22          R         MU E            EGX
+  23          R         MU E            EGX1
+  24          R         MU E            EGY
+  25          R         MU E            EGY1
+  26          R         MU E            EXP
+  27         S     (16) MU        176   HDCHK(XXX,CCC,NNO,II,XI,YI,NGX,ZM,ZMI,RV,RVI,TGM,TGI,ZI,LZ,XCC)
+  28         II    ( 1)  U I            IABS
+  29   27   4 I        A U E            II
+  30          I         MU E            JC
+  31          I         MU E            JE
+  32          I         M  E            JM
+  33          I         MU E            JR
+  34    2   1 I        C U E            JS
+  35    2   3 I        C U E            JT
+  36          I         MU E            JU
+  37          I         MU E            JV
+  38    1   1 I        C   E            L0
+  39    1   3 I        C   E            L00
+  40    1   4 I        C   E            L01
+  41    1   2 I        C   E            L1
+  42    1  13 I        C   E            L10
+  43    1  14 I        C   E            L11
+  44    1  15 I        C U E            L12
+  45    1  16 I        C U E            L13
+  46    1   5 I        C U E            L2
+  47    1   6 I        C U E            L3
+  48    1   7 I        C U E            L4
+  49    1   8 I        C U E            L5
+  50    1   9 I        C U E            L6
+  51    1  10 I        C U E            L7
+  52    1  11 I        C U E            L8
+  53    1  12 I        C   E            L9
+  54          I         MU E            LE
+  55          I         MU E            LG
+  56   27  15 I        A U E            LZ
+  57    2   2 I        CMU E            M
+  58   27   7 I    ( 1)AM  E            NGX(1)
+  59          I         MU E            NK
+  60    2   8 I        C U E            NN
+  61   27   3 I    ( 1)AMU E            NNO(1)
+  62   27  10 R    ( 1)A U E            RV(1)
+  63   27  11 R    ( 1)A U E            RVI(1)
+  64          R         MU E            S
+  65          R         MU E            S1
+  66          R         MU E            T
+  67   27  13 R    ( 1)A U E            TGI(1)
+  68   27  12 R    ( 1)A U E            TGM(1)
+  69          R         MU E            TSX
+  70          R         MU E            TSZ
+  71          R         MU E            VT
+  72          R         MU E            VU
+  73    2   4 R        C U E            VX
+  74    2   5 R        C U E            VX1
+  75    2   6 R        C U E            VX2
+  76    2   7 R        C U E            VX3
+  77          R         MU E            X1
+  78          R         MU E            X2
+  79   27  16 R    ( 1)A U E            XCC(1)
+  80   27   5 R    ( 1)AM  E            XI(1)
+  81          R         MU E            XO
+  82          R         MU E            XP
+  83   27   1 R    ( 1)A U E            XXX(1)
+  84          R         MU E            Y1
+  85          R         MU E            Y2
+  86   27   6 R    ( 1)AM  E            YI(1)
+  87          R         MU E            YO
+  88          R         MU E            YP
+  89          R         MU E            Z1
+  90          R         MU E            Z2
+  91   27  14 R    ( 1)AM  E            ZI(1)
+  92   27   8 R    ( 1)A U E            ZM(1)
+  93   27   9 R    ( 1)A U E            ZMI(1)
+  94          R         MU E            ZP
+  95          R         MU E            ZX
+  96          R         MU E            ZX1
+**-- END OF SYMBOL TABLE

@@ -1,0 +1,34 @@
+**++ Symbol table for subprogram EMPCOR in file mis/empcor.f90
+     produced by SPAG     8.01RF-40 at 14:46:59 on  2 Dec 2023
+   0         X             K             mis/empcor.f90,0000002,0000051
+   1         C     / 5/ M          20   /PACKX/IT1,IT2,II,JJ,INCR
+   2    4   9 R    ( 1)A?? E            A(1)
+   3         s     ( 2)  U              CLOSE
+     (I4V,I4E)
+   4         S     (10) ?U         24   EMPCOR(MT1X,MT2X,PT,PC,FRSROW,MIDROW,LASROW,NX,A,Z)
+   5    4   5 I        A U E            FRSROW
+   6         s     ( 3)  U              GOPEN
+     (I4V,R4A,I4E)
+   7    1   3 I        CM  E            II
+   8    1   5 I        CM  E            INCR
+   9    1   1 I        CM  E            IT1
+  10    1   2 I        CM  E            IT2
+  11    1   4 I        CM  E            JJ
+  12    4   7 I        A U E            LASROW
+  13          I    ( 1)I?? E        7   MCB(7)
+  14    4   6 I        A U E            MIDROW
+  15          I         M? E            MT
+  16          I         MU E            MT1
+  17    4   1 I        A U E            MT1X
+  18          I         MU E            MT2
+  19    4   2 I        A U E            MT2X
+  20          I         MU E            N
+  21          I         MU E            NA
+  22    4   8 I        A U E            NX
+  23         s     ( 3)  U              PACK
+     (R4L,I4V,I4A)
+  24    4   4 I        A U E            PC
+  25    4   3 I        A U E            PT
+  26          I         MU E            ROW
+  27    4  10 R    ( 1)A?? E            Z(1)
+**-- END OF SYMBOL TABLE

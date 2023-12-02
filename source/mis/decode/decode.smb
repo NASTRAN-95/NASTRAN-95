@@ -1,0 +1,13 @@
+**++ Symbol table for subprogram DECODE in file mis/decode.f90
+     produced by SPAG     8.01RF-40 at 14:47:09 on  2 Dec 2023
+   0         X             K             mis/decode.f90,0000002,0000034
+   1         C     / 1/ ??        128   /TWO/TWO
+   2         fI    ( 2)  UXE            ANDF
+     (I4L,I4V)
+   3    4   1 I        A?? E            CODE
+   4         S     ( 3) MU          7   DECODE(CODE,LIST,N)
+   5          I         MU E            I
+   6    4   2 I    ( 1)AM  E            LIST(1)
+   7    4   3 I        AMU E            N
+   8    1   1 I    ( 1)C?? E       32   TWO(32)
+**-- END OF SYMBOL TABLE

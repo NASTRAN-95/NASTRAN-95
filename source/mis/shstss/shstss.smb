@@ -1,0 +1,65 @@
+**++ Symbol table for subprogram SHSTSS in file mis/shstss.f90
+     produced by SPAG     8.01RF-40 at 14:46:41 on  2 Dec 2023
+   0         X             K             mis/shstss.f90,0000002,0000177
+   1         C     /10/ ?U         40   /OUTREQ/STSREQ,STNREQ,FORREQ,STRCUR,GRIDS,VONMS,LAYER,GRIDSS,VONMSS,LAYERS
+   2         C     / 4/ M        2000   /SDR2X7/DUM71,STRES,FORSUL,STRIN
+   3         C     / 3/  U         12   /TMPDAT/TEMPER,TEMPP1,TEMPP2
+   4         I?    ( 1)  U I            ABS
+   5   39  11 L        A U E            BENDNG
+   6          R         MU E            CONST
+   7          L        I U E            COSMIC
+   8    2   1 R    ( 1)C   E      100   DUM71(100)
+   9   39   2 I        A U E            ELID
+  10   39   7 R    ( 2)A U E            EPSCSI(6,1)
+  11          R        I U E            EPSS
+  12         s     ( 2)  U              ERRTRC
+     (C*E,I4E)
+  13          R         MU E            FIBER
+  14    1   3 L        C   E            FORREQ
+  15    2   3 R    ( 1)C   E      200   FORSUL(200)
+  16   39   6 R    ( 2)A U E            G(6,6)
+  17   39  10 R    ( 2)A U E            G2ALFB(3,1)
+  18    1   5 L        C U E            GRIDS
+  19    1   8 L        C   E            GRIDSS
+  20          I         MU E            I
+  21   39  12 I    ( 1)A U E            IDR(1)
+  22   39   3 I    ( 1)A U E            IGRID(1)
+  23          I         MU E            INPLAN
+  24          I         MU E            INPTMP
+  25          I         MU E            IST
+  26          I         MU E            ISTRES
+  27          I         MU E            ITS
+  28          I         MU E            IZ
+  29          I         MU E            J
+  30    1   7 L        C   E            LAYER
+  31    1  10 L        C   E            LAYERS
+  32          I    ( 1) M  E        1   NSTRES(1)
+  33          I         MU E            NUMP
+  34          I         MU E            NUMP1
+  35   39   1 I        A U E            NUMPX
+  36          R    ( 2) MU E        9   S1MAT(3,3)
+  37          R    ( 2) MU E        9   S2MAT(3,3)
+  38         s     ( 3)  U              SHPSTS
+     (R4A,L4V,R4A)
+  39         S     (12)  U         68   SHSTSS(NUMPX,ELID,IGRID,THIKNS,Z12,G,EPSCSI,STEMP,TBAR,G2ALFB,BENDNG,IDR)
+  40          R    ( 1) MU E        3   SIGMA(3)
+  41          R    ( 1) ?U E        4   SIGMAP(4)
+  42   39   8 R    ( 1)A U E            STEMP(2)
+  43    1   2 L        C   E            STNREQ
+  44    1   4 L        C   E            STRCUR
+  45    2   2 R    ( 1)CM  E      100   STRES(100)
+  46    2   4 R    ( 1)C   E      100   STRIN(100)
+  47    1   1 L        C   E            STSREQ
+  48          R         MU E            T3OV12
+  49   39   9 R        A U E            TBAR
+  50    3   1 L        C U E            TEMPER
+  51    3   2 L        C U E            TEMPP1
+  52    3   3 L        C U E            TEMPP2
+  53          R         MU E            THICK
+  54   39   4 R    ( 1)A U E            THIKNS(1)
+  55          R         MU E            TPRIME
+  56          R         MU E            TSUBI
+  57    1   6 L        C?? E            VONMS
+  58    1   9 L        C   E            VONMSS
+  59   39   5 R    ( 2)A U E            Z12(2,1)
+**-- END OF SYMBOL TABLE

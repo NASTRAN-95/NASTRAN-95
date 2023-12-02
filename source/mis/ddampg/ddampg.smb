@@ -1,0 +1,64 @@
+**++ Symbol table for subprogram DDAMPG in file mis/ddampg.f90
+     produced by SPAG     8.01RF-40 at 14:46:43 on  2 Dec 2023
+   0         X             K             mis/ddampg.f90,0000002,0000128
+   1         C     / 2/ M           8   /BLANK/NMODES,NDIR
+   2         C     / 5/ M          20   /PACKX/IIN,IOUT,II,NN,INCR
+   3         C     / 1/  U        320   /SYSTEM/IBUF
+   4         C     / 4/ M          16   /UNPAKX/JOUT,III,NNN,JNCR
+   5         C     / 1/ MU          4   /ZZZZZZ/Z
+   6          I         MU E            BUF1
+   7          I         MU E            BUF2
+   8          I         MU E            BUF3
+   9         s     ( 2)  U              CLOSE
+     (I4V,I4E)
+  10         S                     79   DDAMPG
+  11          I         M? E            FILE
+  12         s     ( 2)  U              FWDREC
+     (ALT,I4V)
+  13         s     ( 3)  U              GOPEN
+     (I4V,R4L,I4E)
+  14    3   1 I    ( 1)C U E       80   IBUF(80)
+  15    2   3 I        CM  E            II
+  16    4   2 I        CM  E            III
+  17    2   1 I        CM  E            IIN
+  18          I         MU E            IJK
+  19    2   5 I        CM  E            INCR
+  20    2   2 I        CM  E            IOUT
+  21          I         MU E            ISUB
+  22          I         MU E            J
+  23    4   4 I        CM  E            JNCR
+  24    4   1 I        CM  E            JOUT
+  25          I         MU E            K
+  26         fI    ( 1)  U E            KORSZ
+     (R4A)
+  27          I         MU E            LCORE
+  28          I    ( 1) MU E        7   MCB(7)
+  29          I         MU E            MCB4
+  30          I         MU E            MCB5
+  31         s     ( 3)  U              MESAGE
+     (I4V,I4V,I4A)
+  32          I        I?U E            MP
+  33          I         M? E            N
+  34          I    ( 1)I?? E        2   NAM(2)
+  35          I         MU E            NCOLMP
+  36          I         MU E            NCOLPV
+  37    1   2 I        CM  E            NDIR
+  38    1   1 I        CM  E            NMODES
+  39    2   4 I        CM  E            NN
+  40    4   3 I        CM  E            NNN
+  41          I         MU E            NROWMP
+  42          I         MU E            NROWPV
+  43         s     ( 3)  U              PACK
+     (R4A,I4V,I4A)
+  44          I        I?U E            PG
+  45          I        I?U E            PVW
+  46         s     ( 1)  U              RDTRL
+     (I4A)
+  47         s     ( 1)  U              REWIND
+     (I4V)
+  48         s     ( 3)  U              UNPACK
+     (ALT,I4V,R4L)
+  49         s     ( 1)  U              WRTTRL
+     (I4A)
+  50    5   1 R    ( 1)CMU E        1   Z(1)
+**-- END OF SYMBOL TABLE

@@ -1,0 +1,123 @@
+**++ Symbol table for subprogram SBAR2 in file mis/sbar2.f90
+     produced by SPAG     8.01RF-40 at 14:46:42 on  2 Dec 2023
+   0         X             K             mis/sbar2.f90,0000002,0000245
+   1         C     / 9/  U        192   /SDR2X4/XXXXXX,ICSTM,NCSTM,IVEC,IVECN,LDTEMP,ELDEFM,DUM8,TLOADS
+   2         C     /50/ MU        836   /SDR2X7/JELID,JSILNO,SA,SB,ST,SDELTA,A,FJ,I1,I2,I12,C1,C2,D1,D2,F1,F2,G1,G2,TSUB0,SIGMAT,SIGMAC,L,THERM,ISELID,SIG1A,SIG2A,SIG3A,SIG4A,SIGAX,SIGAMX,SIGAMN,MSTEN,SIG1B,SIG2B,SIG3B,SIG4B,SIGBMX,SIGBMN,MSCOM,YYYYYY,IFELID,M1A,M2A,M1B,M2B,V1,V2,FX,T
+   3         C     /16/ MU        216   /SDR2X8/FA,FB,IDISP,IUA,IUB,P1,K1A,K2A,K1B,K2B,Q,W,CFA,CFB,CFRVEC,FRVEC
+   4         C     / 6/  U         28   /SDR2X9/NCHK,ISUB,ILD,FRTMEI,TWOTOP,FNCHK
+   5         C     / 4/ MU         48   /SYSTEM/IBFSZ,NOUT,IDM,LINE
+   6         C     / 1/ ??          4   /ZZZZZZ/ZZ
+   7    2   7 R        C U E            A
+   8         IR    ( 4)  U I            AMAX1
+   9         IR    ( 4)  U I            AMIN1
+  10    2  12 R        C U E            C1
+  11    2  13 R        C U E            C2
+  12    3  13 R    ( 1)C?U E        6   CFA(6)
+  13    3  14 R    ( 1)C?U E        6   CFB(6)
+  14    3  15 R    ( 1)CMU E       10   CFRVEC(10)
+  15    2  14 R        C U E            D1
+  16    2  15 R        C U E            D2
+  17    1   8 R    ( 1)C   E        8   DUM8(8)
+  18          R         MU E            EALF
+  19         fI    ( 1)  U E            EJECT
+     (I4E)
+  20    1   7 R        C U E            ELDEFM
+  21    2  16 R        C U E            F1
+  22    2  17 R        C U E            F2
+  23    3   1 R    ( 1)C?U E        6   FA(6)
+  24    3   2 R    ( 1)C?U E        6   FB(6)
+  25    2   8 R        C   E            FJ
+  26    4   6 R        C   E            FNCHK
+  27          R    ( 1)IMU E        2   FRLAST(2)
+  28    4   4 R    ( 1)C U E        2   FRTMEI(2)
+  29    3  16 R    ( 1)CM? E       10   FRVEC(10)
+  30    2  49 R        CMU E            FX
+  31    2  18 R        C U E            G1
+  32    2  19 R        C U E            G2
+  33         s     ( 9)  U              GMMATS
+     (R4A,I4E,I4E,I4E,R4L,I4E,I4E,I4E,R4L)
+  34          I         MU E            I
+  35    2   9 R        C U E            I1
+  36    2  11 R        C U E            I12
+  37    2  10 R        C U E            I2
+  38    5   1 I        C   E            IBFSZ
+  39    1   2 I        C   E            ICSTM
+  40    3   3 I        CMU E            IDISP
+  41    5   3 I    ( 1)C   E        9   IDM(9)
+  42          I         MU E            IEID
+  43    2  42 I        CM  E            IFELID
+  44    4   3 I        C U E            ILD
+  45    2  25 I        CM  E            ISELID
+  46          I    ( 1) ?? E        7   ISHED(7)
+  47    4   2 I        C U E            ISUB
+  48    3   4 I        CMU E            IUA
+  49    3   5 I        CMU E            IUB
+  50    1   4 I        C U E            IVEC
+  51    1   5 I        C   E            IVECN
+  52          I         M? E            J
+  53    2   1 I        C U E            JELID
+  54    2   2 I    ( 1)C U E        2   JSILNO(2)
+  55          I         MU E            K
+  56    3   7 R        CMU E            K1A
+  57    3   9 R        CMU E            K1B
+  58    3   8 R        CMU E            K2A
+  59    3  10 R        CMU E            K2B
+  60    2  23 R        C U E            L
+  61    1   6 I        C   E            LDTEMP
+  62    5   4 I        CMU E            LINE
+  63          I        IMU E            LLD
+  64          I        IMU E            LSUB
+  65    2  43 R        CMU E            M1A
+  66    2  45 R        CMU E            M1B
+  67    2  44 R        CMU E            M2A
+  68    2  46 R        CMU E            M2B
+  69    2  40 I        CM  E            MSCOM
+  70    2  33 I        CM  E            MSTEN
+  71    4   1 I        C U E            NCHK
+  72    1   3 I        C   E            NCSTM
+  73    5   2 I        C U E            NOUT
+  74    3   6 R        CMU E            P1
+  75         s           U              PAGE1
+  76    3  11 R        CMU E            Q
+  77    2   3 R    ( 1)C?? E       36   SA(36)
+  78    2   4 R    ( 1)C?? E       36   SB(36)
+  79         S     ( 1) MU        146   SBAR2(TI)
+  80         s     ( 2)  U              SD2RHD
+     (I4A,I4V)
+  81    2   6 R        C U E            SDELTA
+  82         s     ( 4)  U              SDRCHK
+     (R4L,R4L,I4E,I4V)
+  83    2  26 R        CMU E            SIG1A
+  84    2  34 R        CMU E            SIG1B
+  85    2  27 R        CMU E            SIG2A
+  86    2  35 R        CMU E            SIG2B
+  87    2  28 R        CMU E            SIG3A
+  88    2  36 R        CMU E            SIG3B
+  89    2  29 R        CMU E            SIG4A
+  90    2  37 R        CMU E            SIG4B
+  91    2  32 R        CMU E            SIGAMN
+  92    2  31 R        CMU E            SIGAMX
+  93    2  30 R        CMU E            SIGAX
+  94    2  39 R        CMU E            SIGBMN
+  95    2  38 R        CMU E            SIGBMX
+  96    2  22 R        C U E            SIGMAC
+  97    2  21 R        C U E            SIGMAT
+  98          R         M  E            SMCOM
+  99         s     (10)  U              SMMATS
+     (R4L,I4E,I4E,I4E,R4L,I4E,I4E,I4E,R4A,R4A)
+ 100          R         M  E            SMTEN
+ 101    2   5 R        C U E            ST
+ 102    2  50 R        CMU E            T
+ 104    2  24 R    ( 1)C?? E        6   THERM(6)
+ 105   79   1 R    ( 1)AMU E            TI(14)
+ 106    1   9 I        C U E            TLOADS
+ 107          R         MU E            TSAVE
+ 108    2  20 R        C U E            TSUB0
+ 109    4   5 R        C   E            TWOTOP
+ 110    2  47 R        CMU E            V1
+ 111    2  48 R        CMU E            V2
+ 112    3  12 R        CMU E            W
+ 113    1   1 R    ( 1)C   E       33   XXXXXX(33)
+ 114    2  41 R    ( 1)C   E       84   YYYYYY(84)
+ 115    6   1 R    ( 1)C?? E        1   ZZ(1)
+**-- END OF SYMBOL TABLE

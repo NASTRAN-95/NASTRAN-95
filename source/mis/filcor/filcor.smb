@@ -1,0 +1,35 @@
+**++ Symbol table for subprogram FILCOR in file mis/filcor.f90
+     produced by SPAG     8.01RF-40 at 14:46:54 on  2 Dec 2023
+   0         X             K             mis/filcor.f90,0000002,0000067
+   1         C     / 4/ M          16   /UNPAKX/IT1,II,JJ,INCR1
+   2    4   7 R    ( 1)AM? E            A(1)
+   3         s     ( 2)  U              CLOSE
+     (I4V,I4E)
+   4         FI    ( 9) MU E       38   FILCOR(MT1X,MT2X,PC,FRSROW,MIDROW,NX,A,NZA,Z)
+   5    4   4 I        A U E            FRSROW
+   6         s     ( 3)  U              GOPEN
+     (I4V,R4A,I4E)
+   7          I         MU E            I
+   8    1   2 I        CM  E            II
+   9    1   4 I        CM  E            INCR1
+  10    1   1 I        CM  E            IT1
+  11          I         MU E            J
+  12    1   3 I        CM  E            JJ
+  13          I         MU E            K
+  14          I         MU E            LASROW
+  15    4   5 I        A U E            MIDROW
+  16          I         M? E            MT
+  17          I         MU E            MT1
+  18    4   1 I        A U E            MT1X
+  19          I         MU E            MT2
+  20    4   2 I        A U E            MT2X
+  21          I         MU E            N
+  22          I         MU E            NA
+  23          I         MU E            NN
+  24    4   6 I        A U E            NX
+  25    4   8 I        A U E            NZA
+  26    4   3 I        A U E            PC
+  27         s     ( 3)  U              UNPACK
+     (ALT,I4V,R4L)
+  28    4   9 R    ( 1)A?? E            Z(1)
+**-- END OF SYMBOL TABLE

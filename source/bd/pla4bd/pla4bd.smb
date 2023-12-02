@@ -1,0 +1,39 @@
+**++ Symbol table for subprogram PLA4BD in file bd/pla4bd.f90
+     produced by SPAG     8.01RF-40 at 14:46:31 on  2 Dec 2023
+   0         X             K             bd/pla4bd.f90,0000002,0000031
+   1         C     /33/D          600   /PLA42C/NPVT,GAMI,GAMIP1,IPASS,ICSTM,NCSTM,IGPCT,NGPCT,IPOINT,NPOINT,I6X6K,N6X6K,CSTM,MPT,ECPTS,GPCT,DIT,KGGNL,ECPTO,INRW,OUTRW,EOR,NEOR,CLSRW,JMAX,FROWIC,LROWIC,NROWSC,NLINKS,NWORDS,IOVRLY,LINK,NOGO
+   2    1  24 I        D   E            CLSRW
+   3    1  13 I        D   E            CSTM
+   4    1  17 I        D   E            DIT
+   5    1  19 I        D   E            ECPTO
+   6    1  15 I        D   E            ECPTS
+   7    1  22 I        D   E            EOR
+   8    1  26 R        D   E            FROWIC
+   9    1   2 R        D   E            GAMI
+  10    1   3 R        D   E            GAMIP1
+  11    1  16 I        D   E            GPCT
+  12    1  11 I        D   E            I6X6K
+  13    1   5 I        D   E            ICSTM
+  14    1   7 I        D   E            IGPCT
+  15    1  20 I        D   E            INRW
+  16    1  31 I    ( 1)D   E       40   IOVRLY(40)
+  17    1   4 I        D   E            IPASS
+  18    1   9 I        D   E            IPOINT
+  19    1  25 I        D   E            JMAX
+  20    1  18 I        D   E            KGGNL
+  21    1  32 I    ( 1)C   E       40   LINK(40)
+  22    1  27 I        D   E            LROWIC
+  23    1  14 I        D   E            MPT
+  24    1  12 I        D   E            N6X6K
+  25    1   6 I        D   E            NCSTM
+  26    1  23 I        D   E            NEOR
+  27    1   8 I        D   E            NGPCT
+  28    1  29 I        D   E            NLINKS
+  29    1  33 I        D   E            NOGO
+  30    1  10 I        D   E            NPOINT
+  31    1   1 I        D   E            NPVT
+  32    1  28 I        D   E            NROWSC
+  33    1  30 I    ( 1)D   E       40   NWORDS(40)
+  34    1  21 I        D   E            OUTRW
+  35         B                          PLA4BD
+**-- END OF SYMBOL TABLE

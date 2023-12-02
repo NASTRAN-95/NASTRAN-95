@@ -1,0 +1,135 @@
+**++ Symbol table for subprogram MMA2 in file mis/mma2.f90
+     produced by SPAG     7.61RG-40 at 01:00:00 on 21 Mar 2022
+   0         X             K             mis/mma2.f90,0000003,0000189
+   1         C     /11/ MU        140   /MPYADX/FILEA,FILEB,FILEC,FILED,NZ,T,SIGNAB,SIGNC,PREC1,SCRTCH,TIME
+   2         C     / 6/ ??         24   /NAMES/RD,RDREW,WRT,WRTREW,CLSREW,CLS
+   3         C     / 5/ M          20   /PACKX/TYPEI,TYPEP,IPROW1,IPROWN,INCRP
+   4         C     / 1/           608   /SYSTEM/KSYSTM
+   5         C     / 3/  U         40   /TYPE/IPRC,NWORDS,IRC
+   6         C     / 4/ MU         16   /UNPAKX/TYPEU,IUROW1,IUROWN,INCRU
+   7         s     ( 2)  U              CLOSE
+     (I4A,I4V)
+   8    2   6 I        C   E            CLS
+   9    2   5 I        C?? E            CLSREW
+  10         s     ( 3)  U              CONMSG
+     (I4A,I4E,I4E)
+  11    1   1 I    ( 1)C?U E        7   FILEA(7)
+  12    1   2 I    ( 1)C?? E        7   FILEB(7)
+  13    1   3 I    ( 1)C?U E        7   FILEC(7)
+  14    1   4 I    ( 1)CM? E        7   FILED(7)
+  15         s     ( 3)  U              GOPEN
+     (I4A,R4L,I4V)
+  16          I         MU E            I
+  17          I         MU E            IAVAIL
+  18          I         MU E            IBUF1
+  19          I         MU E            IBUF2
+  20          I         MU E            IBUF3
+  21          I         MU E            IBUF4
+  22          ?         MU I            IBX
+  23          ?         MU I            IDX
+  24          ?         M  I            IDX2
+  25          ?         M  I            IDX4
+  26    3   5 I        CM  E            INCRP
+  27    6   4 I        CM  E            INCRU
+  28          I         MU E            INDXB
+  29          I         MU E            INDXD
+  30          ?         M  I            IPASS
+  31    5   1 I    ( 1)C   E        2   IPRC(2)
+  32    3   3 I        CM  E            IPROW1
+  33    3   4 I        CM  E            IPROWN
+  34    5   3 I    ( 1)C   E        4   IRC(4)
+  35          ?         M  I            IRFILE
+  36          I         MU E            ITEST
+  37    6   2 I        CMU E            IUROW1
+  38    6   3 I        CMU E            IUROWN
+  39          I        I U E            JBEGN
+  40          I        I U E            JEND
+  41          I         MU E            K
+  42          I        I U E            KONE
+  43          I          U E            KSYS58
+  44    4   1 I    ( 1)C   E      152   KSYSTM(152)
+  45          I        I U E            KZERO
+  46          ?         MU I            LASMEM
+  47          I         MU E            LEN
+  48          I         MU E            M
+  49         s     ( 3)  U              MESAGE
+     (I4E,?4E,I4A)
+  50         S     ( 5) M?        107   MMA2(ZI,ZR,ZD,ZC,ZDC)
+  51         s     ( 2)  U              MMA201
+     (I4A,R4A)
+  52         s     ( 2)  U              MMA202
+     (I4A,R8A)
+  53         s     ( 2)  U              MMA203
+     (I4A,X8A)
+  54         s     ( 3)  U              MMA204
+     (I4A,R8A,YGA)
+  55         s     ( 2)  U              MMA211
+     (I4A,R4A)
+  56         s     ( 2)  U              MMA212
+     (I4A,R8A)
+  57         s     ( 2)  U              MMA213
+     (I4A,X8A)
+  58         s     ( 3)  U              MMA214
+     (I4A,R8A,YGA)
+  59         I?    ( 2)  U I            MOD
+  60          I    ( 1)IM? E        3   MODULE(3)
+  61          I            E            NAC
+  62          I            E            NADENS
+  63          I            E            NAFORM
+  64          I            E            NANZWD
+  65          I          U E            NAR
+  66          ?          U I            NASTOR
+  67          I            E            NATYPE
+  68          I          U E            NBC
+  69          I            E            NBDENS
+  70          I            E            NBFORM
+  71          I            E            NBNZWD
+  72          I          U E            NBR
+  73          I            E            NBTYPE
+  74          I            E            NCC
+  75          I            E            NCDENS
+  76          I            E            NCFORM
+  77          I            E            NCNZWD
+  78          ?         MU I            NCOLPP
+  79          I          U E            NCR
+  80          I            E            NCTYPE
+  81          I            E            NDC
+  82          I            E            NDDENS
+  83          I            E            NDFORM
+  84          I            E            NDNZWD
+  85          I          U E            NDR
+  86          I          U E            NDTYPE
+  87          I            E            NOUT
+  88          I         MU E            NPASS
+  89          ?         MU I            NWDD
+  90          ?         MU I            NWDDNBR
+  91          ?         MU I            NWDDNDR
+  92    5   2 I    ( 1)C U E        4   NWORDS(4)
+  93    1   5 I        C U E            NZ
+  94    1   9 R        C   E            PREC1
+  95    2   1 I        C   E            RD
+  96    2   2 I        C?? E            RDREW
+  97         s     ( 1)  U              REWIND
+     (I4A)
+  98    1  10 I        C   E            SCRTCH
+  99          ?         M  I            SIGN
+ 100    1   7 I        C U E            SIGNAB
+ 101    1   8 I        C U E            SIGNC
+ 102         s     ( 2)  U              SKPREC
+     (I4A,I4E)
+ 103          I          U E            SYSBUF
+ 104    1   6 R        C   E            T
+ 105    1  11 R        C   E            TIME
+ 106    3   1 I        CM  E            TYPEI
+ 107    3   2 I        CM  E            TYPEP
+ 108    6   1 I        CM  E            TYPEU
+ 109         s     ( 3)  U              UNPACK
+     (ALT,I4A,R4L)
+ 110    2   3 I        C   E            WRT
+ 111    2   4 I        C?? E            WRTREW
+ 112   50   4 X    ( 1)A?? E            ZC(2)
+ 113   50   3 D    ( 1)A?? E            ZD(2)
+ 114   50   5 Y    ( 1)A?? E            ZDC(2)
+ 115   50   1 I    ( 1)AM? E            ZI(2)
+ 116   50   2 R    ( 1)AM? E            ZR(2)
+**-- END OF SYMBOL TABLE

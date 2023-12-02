@@ -1,0 +1,55 @@
+**++ Symbol table for subprogram FORWRT in file mds/forwrt.f90
+     produced by SPAG     8.01RF-40 at 14:46:33 on  2 Dec 2023
+   0         X             K             mds/forwrt.f90,0000002,0000225
+   1         C     / 2/  U          8   /SYSTEM/ISYSBF,IWR
+   2          C*1      I U E            A*1
+   3          C*1      I U E            BLANK*1
+   4          C*4  ( 1)  U E      200   CDATA(200)*4
+   5          C*1      I U E            COMMA*1
+   6          C*1      I U E            D*1
+   7          R*4  ( 1)  U E      200   DATA(200)*4
+   8          R*8  ( 1)  U E      100   DDATA(100)*8
+   9          C*1      I U E            E*1
+  10          C*1      I U E            F*1
+  11   13   1 C*1  ( 1)A?U E            FORM(1000)*1
+  12         s     ( 3)  U              FORNUM
+     (C1A,I4V,I4V)
+  13         S     ( 3) ?U        163   FORWRT(FORM,INDATA,NWDS)
+  14          C*1      I U E            G*1
+  15          C*1      I U E            H*1
+  16          C*1      I U E            I*1
+  17          I         M  E            I1
+  18          I         MU E            ICHAR
+  19          I         MU E            ICOL
+  20          I         MU E            ICSAVE
+  21          I         MU E            ICYCLE
+  22          I*4  ( 1) MU E      200   IDATA(200)*4
+  23          I         ?U E            IDEC
+  24          I         ?U E            IFIELD
+  25          I         MU E            ILEFT
+  26          I         MU E            ILOOP
+  27          I         MU E            IMULT
+  28   13   2 I*4  ( 1)A U E            INDATA(Nwds)*4
+  29    1   1 I        C   E            ISYSBF
+  30          I         MU E            ITYPE
+  31    1   2 I        C U E            IWR
+  32          I         MU E            KB
+  33          I         MU E            KK
+  34          I         MU E            LAST
+  35          I         MU E            LCHAR
+  36          I         MU E            LENGTH
+  37          C*132     MU E            LINE*132
+  38          C*1      I U E            LPAREN*1
+  39          I         MU E            NCNT
+  40          I         MU E            NEND
+  41          C*1  ( 1)I U E       10   NUMBER(10)*1
+  42   13   3 I        A U E         Z  NWDS
+  43          C*1      I U E            P*1
+  44          C*1      I U E            PERIOD*1
+  45         s           U              PEXIT
+  46          C*2       MU E            PFACT*2
+  47          C*1      I U E            RPAREN*1
+  48          C*1      I U E            SLASH*1
+  49          C*132     MU E            TFORM*132
+  50          C*1      I U E            X*1
+**-- END OF SYMBOL TABLE

@@ -1,0 +1,37 @@
+**++ Symbol table for subprogram IDPLOT in file mis/idplot.f90
+     produced by SPAG     8.01RF-40 at 14:47:02 on  2 Dec 2023
+   0         X             K             mis/idplot.f90,0000002,0000088
+   1         C     / 2/ MU        896   /OUTPUT/SKPOUT,ID
+   2         C     /10/ MU        120   /PLTDAT/SKPPLT,XYMIN,XYMAX,AXYMAX,EDGE,SKPA,CNTX,CNTY,SKPB,PLTYPE
+   3         IR    ( 2)  U I            AMAX1
+   4         s     ( 6)  U              AXIS
+     (I4E,I4E,I4E,I4E,I4E,I4E)
+     (R4L,R4V,R4L,R4V,   ,   )
+   5    2   4 R    ( 1)CMU E        2   AXYMAX(2)
+   6          I        I U E            BLANK
+   7    2   7 R        C U E            CNTX
+   8    2   8 R        C U E            CNTY
+   9    2   5 R    ( 1)CMU E       12   EDGE(12)
+  10         IR    ( 1)  U I            FLOAT
+  11          I         MU E            I
+  12         II    ( 1)  U I            IABS
+  13    1   2 I    ( 1)CMU E       32   ID(32)
+  14         S     ( 1) M          54   IDPLOT(IDX)
+  15   14   1 I        AM  E            IDX
+  16          I        I U E            LINSIZ
+  17          I         MU E            NLINES
+  18    2  10 I        C U E            PLTYPE
+  19         s     ( 6)  U              PRINT
+     (I4E,I4E,I4E,I4E,I4E,I4E)
+     (R4V,R4V,   ,I4A,   ,   )
+  20          R    ( 2) MU E        8   SAVE(2,4)
+  21    2   6 R    ( 1)C   E        3   SKPA(3)
+  22    2   9 R    ( 1)C   E        4   SKPB(4)
+  23    1   1 R    ( 2)C   E      192   SKPOUT(32,6)
+  24    2   1 R    ( 1)C   E        2   SKPPLT(2)
+  25          R         M? E            X
+  26    2   3 R    ( 1)CMU E        2   XYMAX(2)
+  27    2   2 R    ( 1)CMU E        2   XYMIN(2)
+  28          R         MU E            Y
+  29          R         MU E            YY
+**-- END OF SYMBOL TABLE

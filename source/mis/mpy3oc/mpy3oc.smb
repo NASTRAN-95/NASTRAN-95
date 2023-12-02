@@ -1,0 +1,166 @@
+**++ Symbol table for subprogram MPY3OC in file mis/mpy3oc.f90
+     produced by SPAG     7.61RG-40 at 01:00:00 on 21 Mar 2022
+   0         X             K             mis/mpy3oc.f90,0000002,0000365
+   1         C     /19/ MU        164   /MPY3CP/DUM1,N,NCB,M,NK,D,MAXA,ZPNTRS,LAEND,FIRST1,FIRST2,K,K2,KCOUNT,IFLAG,KA,LTBC,J,LTAC
+   2         C     /17/ MU        188   /MPY3TL/FILEA,FILEB,FILEE,FILEC,SCR1,SCR2,SCR,LKORE,CODE,PREC,LCORE,SCR3,BUF1,BUF2,BUF3,BUF4,E
+   3         C     /10/ M         136   /MPYADX/MFILEA,MFILEB,MFILEE,MFILEC,MCORE,MT,SIGNAB,SIGNC,MPREC,MSCR
+   4         C     / 5/ M          20   /PACKX/TYPIN,TYPOUT,ROW1,ROWM,INCR
+   5         C     / 2/  U          8   /SYSTEM/SYSBUF,NOUT
+   6         C     / 4/ M          16   /UNPAKX/UTYP,UROW1,UROWN,UINCR
+   7         C     / 5/  U         28   /ZNTPKX/A,DUM,IROW,EOL,EOR
+   8    7   1 R    ( 1)C   E        2   A(2)
+   9         s     ( 1)  U              BCKREC
+     (I4V)
+  10    2  13 I        C U E            BUF1
+  11    2  14 I        C U E            BUF2
+  12    2  15 I        C U E            BUF3
+  13    2  16 I        C U E            BUF4
+  14          I         MU E            BUF5
+  15         s     ( 2)  U              CLOSE
+     (I4A,I4E)
+     (I4V,   )
+  16    2   9 I        C U E            CODE
+  17    1   6 R        C   E            D
+  19    7   2 R    ( 1)C   E        2   DUM(2)
+  20    1   1 R    ( 1)C   E        2   DUM1(2)
+  21   92   3 D    ( 1)A   E            DZ(1)
+  22    2  17 L        C U E            E
+  23    7   4 I        C U E            EOL
+  24    7   5 I        C   E            EOR
+  25          I         M? E            FILE
+  26    2   1 I    ( 1)C?U E        7   FILEA(7)
+  27    2   2 R    ( 1)C   E        7   FILEB(7)
+  28    2   4 I    ( 1)C?U E        7   FILEC(7)
+  29    2   3 I    ( 1)C?U E        7   FILEE(7)
+  30    1  10 L        CM  E            FIRST1
+  31    1  11 L        CMU E            FIRST2
+  32          L         MU E            FIRST3
+  33         s     ( 2)  U              FWDREC
+     (ALT,I4A)
+     (   ,I4V)
+  34         s     ( 3)  U              GOPEN
+     (I4A,R4L,I4E)
+  35          I         MU E            I
+  36          I         M  E            IAKJ
+  37          I         M  E            IANTU
+  38          I         M  E            IBCID
+  39          I         M  E            IBCOLS
+  40          I         M  E            IBNTU
+  41          I         MU E            IC
+  42    1  15 I        C U E            IFLAG
+  43          I         MU E            IKTBP
+  44          I         M  E            ILAST
+  45    4   5 I        CM  E            INCR
+  46          I         M  E            INTBU
+  47          I         M  E            INTBU2
+  48         s     ( 5)  U              INTPK
+     (ALT,I4A,I4E,I4V,I4E)
+  49    7   3 I        C U E            IROW
+  50          I         M  E            ISAVP
+  51   92   2 I    ( 1)AMU E            IZ(1)
+  52    1  18 I        CMU E            J
+  53          I         MU E            J1
+  54          I         MU E            J2
+  55          I         MU E            JBCK
+  56          I         MU E            JFWD
+  57          I         MU E            JJ
+  58          I         MU E            JJ1
+  59    1  12 I        CMU E            K
+  60    1  13 I        C U E            K2
+  61    1  16 I        CMU E            KA
+  62          I         MU E            KAN
+  63          I         MU E            KBC
+  64          I         MU E            KBN
+  65          I         MU E            KC
+  66    1  14 I        C U E            KCOUNT
+  67          I         MU E            KF
+  68          I         MU E            KK
+  69          I         MU E            KL
+  70          I         MU E            KN
+  71          I         MU E            KN2
+  72          I         MU E            KT
+  73    1   9 I        C   E            LAEND
+  74    2  11 I        CMU E            LCORE
+  75    2   8 I        C   E            LKORE
+  76    1  19 I        C U E            LTAC
+  77    1  17 I        C U E            LTBC
+  78    1   4 I        C U E            M
+  79         s     ( 5)  U              MAKMCB
+     (I4A,I4L,I4V,I4E,I4V)
+  80    1   7 I        C U E            MAXA
+  81    3   5 I        C   E            MCORE
+  82         s     ( 3)  U              MESAGE
+     (I4V,I4V,I4A)
+  83    3   1 I    ( 1)CM  E        7   MFILEA(7)
+  84    3   2 I    ( 1)CM  E        7   MFILEB(7)
+  85    3   4 I    ( 1)CM  E        7   MFILEC(7)
+  86    3   3 I    ( 1)CM  E        7   MFILEE(7)
+  87          I         MU E            MM
+  88    3   9 I        CM  E            MPREC
+  89         s     ( 3)  U              MPY3A
+     (R4A,R4A,R4A)
+  90         s     ( 3)  U              MPY3B
+     (R4A,R4A,R4A)
+  91         s     ( 3)  U              MPY3C
+     (R4A,R4A,R4A)
+  92         S     ( 3) MU        239   MPY3OC(Z,IZ,DZ)
+  93         s     ( 3)  U              MPYAD
+     (R4A,R4A,R4A)
+  94    3  10 I        CM  E            MSCR
+  95    3   6 I        CM  E            MT
+  96    1   2 I        C?U E            N
+  97          I         M  E            NAKJ
+  98          I    ( 1)I?? E        2   NAME(2)
+  99          I    ( 1)I?? E        2   NAMS(2)
+ 100          I         MU E            NANTU
+ 101          I         MU E            NBCID
+ 102          I         MU E            NBCOLS
+ 103          I         MU E            NBNTU
+ 104          I         MU E            NC
+ 105    1   3 I        C U E            NCB
+ 106          I         M? E            NERR
+ 107    1   5 I        CMU E            NK
+ 108          I         MU E            NKTBP
+ 109          I         MU E            NLAST
+ 110          I         MU E            NNTBU
+ 111          I         MU E            NNTBU2
+ 112    5   2 I        C   E            NOUT
+ 113          I         MU E            NSAVP
+ 114         s     ( 4)  U              OPEN
+     (ALT,I4A,R4L,I4E)
+     (   ,I4V,   ,   )
+ 115         s     ( 3)  U              PACK
+     (R4L,I4A,I4A)
+ 116    2  10 I        C?U E            PREC
+ 117          I         M  E            PRECM
+ 118         s     ( 7)  U              READ
+     (ALT,ALT,I4V,I4V,I4E,I4E,I4V)
+ 119         s     ( 1)  U              REWIND
+     (I4V)
+ 120    4   3 I        CM  E            ROW1
+ 121    4   4 I        CM  E            ROWM
+ 122    2   7 R        C   E            SCR
+ 123    2   5 I        C?U E            SCR1
+ 124    2   6 I        C?U E            SCR2
+ 125    2  12 I    ( 1)CMU E        7   SCR3(7)
+ 126    3   7 I        CM  E            SIGNAB
+ 127    3   8 I        CM  E            SIGNC
+ 128    5   1 I        C U E            SYSBUF
+ 129    4   1 I        CM  E            TYPIN
+ 130    4   2 I        CM  E            TYPOUT
+ 131    6   4 I        CM  E            UINCR
+ 132         s     ( 3)  U              UNPACK
+     (ALT,I4A,R4L)
+ 133    6   2 I        CM  E            UROW1
+ 134    6   3 I        CM  E            UROWN
+ 135    6   1 I        CM  E            UTYP
+ 136         s     ( 4)  U              WRITE
+     (I4A,I4A,I4E,I4E)
+     (I4V,   ,   ,   )
+     (   ,I4E,   ,   )
+ 137         s     ( 1)  U              WRTTRL
+     (I4A)
+ 138   92   1 R    ( 1)AM? E            Z(1)
+ 139         s           U              ZNTPKI
+ 140    1   8 I    ( 1)C   E       22   ZPNTRS(22)
+**-- END OF SYMBOL TABLE

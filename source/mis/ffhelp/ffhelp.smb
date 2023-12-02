@@ -1,0 +1,24 @@
+**++ Symbol table for subprogram FFHELP in file mis/ffhelp.f90
+     produced by SPAG     8.01RF-40 at 14:46:53 on  2 Dec 2023
+   0         X             K             mis/ffhelp.f90,0000002,0000092
+   1         C     / 1/  U          4   /MACHIN/MACH
+   2         C     / 1/  U          1   /QMARKQ/QMARK
+   3         C     / 2/  U         16   /SYSTEM/DUMMY,IN
+   4         C     / 2/  U         12   /XECHOX/SKIP,IECHOS
+   5         C     / 1/  U          4   /XREADX/NOUT
+   6    3   1 R    ( 1)C   E        3   DUMMY(3)
+   7         S     ( 1)  U         33   FFHELP(J)
+   8          C*4      I U E            HELP*4
+   9    4   2 I        C U E            IECHOS
+  10    3   2 I        C U E            IN
+  11    7   1 I        A U E            J
+  12    1   1 I        C U E            MACH
+  13    5   1 I        C U E            NOUT
+  14    2   1 C*1      C U E            QMARK*1
+  15    4   1 R    ( 1)C   E        2   SKIP(2)
+  16          C*4      I U E            STOP*4
+  17         s     ( 2)  U              UPCASE
+     (C4V,I4E)
+  18          C*4       MU E            XX*4
+  19          C*4      I U E            YES*4
+**-- END OF SYMBOL TABLE

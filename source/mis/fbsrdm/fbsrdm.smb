@@ -1,0 +1,56 @@
+**++ Symbol table for subprogram FBSRDM in file mis/fbsrdm.f90
+     produced by SPAG     8.01RF-40 at 14:46:40 on  2 Dec 2023
+   0         X             K             mis/fbsrdm.f90,0000002,0000138
+   1         C     / 5/ ??         20   /NAMES/RD,RDREW,WRT,WRTREW,REW
+   2         C     / 1/           260   /SYSTEM/KSYSTM
+   3         C     / 1/  U          8   /ZZZZZZ/DXL
+   4   10   6 I    ( 1)A?? E            BUFF(2)
+   5         s     ( 2)  U              CLOSE
+     (I4A,I4V)
+   6   10   4 D    ( 1)AM  E            DCORE(1)
+   7         s     ( 4)  U              DSCPOS
+     (I4A,I4V,I4V,I4V)
+   8    3   1 D    ( 1)C U E        1   DXL(1)
+   9         s     ( 1)  U              ENDGET
+     (I4L)
+  10         S     ( 8) MU         78   FBSRDM(MCB,ICORE,RCORE,DCORE,MEMTOT,BUFF,LASIND,IPOS)
+  11         s     ( 2)  U              GETSTR
+     (ALT,I4L)
+  12         s     ( 3)  U              GOPEN
+     (I4A,I4A,I4V)
+  13          I         MU E            I
+  14          I    ( 1) MU E       20   IBLK(20)
+  15          I         ?U E            IBLOCK
+  16          I         ?U E            ICBP
+  17          I         ?U E            ICLR
+  18   10   2 I    ( 1)AM  E            ICORE(1)
+  19          I         MU E            II
+  20          I         MU E            INCR
+  21          I         MU E            INDEX
+  22   10   8 I    ( 1)AM  E            IPOS(7)
+  23          I         MU E            JCOL
+  24          I         MU E            JROW
+  25    2   1 I    ( 1)C   E       65   KSYSTM(65)
+  26   10   7 I        AM  E            LASIND
+  27   10   1 I    ( 1)A?U E            MCB(7)
+  28          I         MU E            MEM
+  29   10   5 I        A U E            MEMTOT
+  30          I         MU E            MINDEX
+  31          I         MU E            NCOL
+  32          I            E            NOUT
+  33          I         MU E            NTMS
+  34          I         MU E            NTMS2
+  35          I         MU E            NTWDS
+  36          I         MU E            NTYPE
+  37   10   3 R    ( 1)AM  E            RCORE(1)
+  38    1   1 I        C   E            RD
+  39    1   2 I        C?? E            RDREW
+  40    1   5 I        C?? E            REW
+  41         s     ( 1)  U              REWIND
+     (I4A)
+  42          R    ( 1)  U E        1   RXL(1)
+  43         s     ( 2)  U              SKPREC
+     (I4A,I4E)
+  44    1   3 I        C   E            WRT
+  45    1   4 I        C   E            WRTREW
+**-- END OF SYMBOL TABLE

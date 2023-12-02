@@ -1,0 +1,75 @@
+**++ Symbol table for subprogram AMPB in file mis/ampb.f90
+     produced by SPAG     8.01RF-40 at 14:46:58 on  2 Dec 2023
+   0         X             K             mis/ampb.f90,0000002,0000083
+   1         C     / 1/ ??          4   /AMPCOM/NCOLJ
+   2         C     /20/ ??         80   /BITPOS/UM,UO,UR,USG,USB,UL,UA,UF,US,UN,UG,UE,UP,UNE,UFE,UD,UPS,USA,UK,UPA
+   3         C     / 1/ ?U          4   /BLANK/NOUE
+   4         C     / 5/ M          20   /PATX/LC,NS0,NS1,NS2,IUSET
+   5         C     / 4/ ??        220   /SYSTEM/SYSBUF,NOUT,SKIP,IPREC
+   6         C     / 1/ ??          4   /ZZZZZZ/Z
+   7         S     (13) ?U         24   AMPB(PHIDH,GTKA,D1JK,D2JK,D1JE,D2JE,USETA,DJH1,DJH2,GKI,SCR1,SCR2,SCR3)
+   8         s     ( 3)  U              AMPB1
+     (I4V,I4E,I4V)
+   9         s     ( 9)  U              AMPB2
+     (I4V,I4V,I4E,I4E,I4E,I4V,I4V,I4E,I4E)
+  10         s     ( 5)  U              CALCV
+     (I4V,I4V,I4V,I4V,R4A)
+  11    7   5 I        A?? E            D1JE
+  12    7   3 I        A?? E            D1JK
+  13    7   6 I        A?? E            D2JE
+  14    7   4 I        A?? E            D2JK
+  15    7   8 I        A?U E            DJH1
+  16    7   9 I        A?U E            DJH2
+  17          I         M? E            DJI1
+  18          I         M? E            DJI2
+  19    7  10 I        A?? E            GKI
+  20    7   2 I        A?? E            GTKA
+  21    5   4 I        C?? E            IPREC
+  22    4   5 I        CM  E            IUSET
+  23         fI    ( 1)  U E            KORSZ
+     (R4A)
+  24    4   1 I        CM  E            LC
+  25          I    ( 1) MU E        7   MCB(7)
+  26         s     ( 9)  U              MERGED
+     (I4V,I4V,I4E,I4E,I4V,I4V,I4E,I4E,I4V)
+  27    1   1 I        C?? E            NCOLJ
+  28          I         MU E            NOH
+  29    3   1 I        C?U E            NOUE
+  30    5   2 I        C   E            NOUT
+  31    4   2 I        C   E            NS0
+  32    4   3 I        C   E            NS1
+  33    4   4 I        C   E            NS2
+  34          I         M? E            PHIA
+  35    7   1 I        A?U E            PHIDH
+  36         s     ( 1)  U              RDTRL
+     (I4A)
+  37    7  11 I        A?? E            SCR1
+  38    7  12 I        A?? E            SCR2
+  39    7  13 I        A?U E            SCR3
+  40    5   3 R    ( 1)C   E       52   SKIP(52)
+  41         s     ( 8)  U              SSG2B
+     (I4V,I4V,I4E,I4V,I4E,I4V,I4E,I4V)
+  42    5   1 R        C   E            SYSBUF
+  43    2   7 I        C?? E            UA
+  44    2  16 I        C?? E            UD
+  45    2  12 I        C?? E            UE
+  46    2   8 R        C   E            UF
+  47    2  15 R        C   E            UFE
+  48    2  11 R        C   E            UG
+  49    2  19 R        C   E            UK
+  50    2   6 R        C   E            UL
+  51    2   1 R        C   E            UM
+  52    2  10 R        C   E            UN
+  53    2  14 R        C   E            UNE
+  54    2   2 R        C   E            UO
+  55    2  13 R        C   E            UP
+  56    2  20 R        C   E            UPA
+  57    2  17 R        C   E            UPS
+  58    2   3 R        C   E            UR
+  59    2   9 R        C   E            US
+  60    2  18 R        C   E            USA
+  61    2   5 R        C   E            USB
+  62    7   7 I        A U E            USETA
+  63    2   4 R        C   E            USG
+  64    6   1 R    ( 1)C?? E        1   Z(1)
+**-- END OF SYMBOL TABLE

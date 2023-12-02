@@ -1,0 +1,41 @@
+**++ Symbol table for subprogram FNDNXL in file mis/fndnxl.f90
+     produced by SPAG     8.01RF-40 at 14:47:14 on  2 Dec 2023
+   0         X             K             mis/fndnxl.f90,0000002,0000052
+   1         C     /14/           140   /SOF/DIT,DITPBN,DITLBN,DITSIZ,DITNSB,DITBL,IODUM,MDI,MDIPBN,MDILBN,MDIBL,NXTDUM,DITUP,MDIUP
+   2         C     / 1/ ?U          4   /ZZZZZZ/BUF
+   3         fI    ( 2)  UXE            ANDF
+     (I4L,I4E)
+   4    2   1 I    ( 1)C?U E        1   BUF(1)
+   5         s     ( 1)  U              CHKOPN
+     (I4L)
+   6    1   1 I        C   E            DIT
+   7    1   6 I        C   E            DITBL
+   8    1   3 I        C   E            DITLBN
+   9    1   5 I        C   E            DITNSB
+  10    1   2 I        C   E            DITPBN
+  11    1   4 I        C   E            DITSIZ
+  12    1  13 L        C   E            DITUP
+  13         s     ( 2)  U              FDIT
+     (I4V,I4V)
+  14         s     ( 2)  U              FDSUB
+     (I4L,I4V)
+  15         s     ( 2)  U              FMDI
+     (I4V,I4V)
+  16         S     ( 2) MU         20   FNDNXL(NAME,NEWNM)
+  17          I        I U E            HL
+  18          I         MU E            I
+  19          I        I U E            IEMPTY
+  20          I         ?U E            IMDI
+  21    1   7 I    ( 1)C   E        8   IODUM(8)
+  22          I         ?U E            JDIT
+  23          I         ?U E            K
+  24    1   8 I        C   E            MDI
+  25    1  11 I        C   E            MDIBL
+  26    1  10 I        C   E            MDILBN
+  27    1   9 I        C   E            MDIPBN
+  28    1  14 L        C   E            MDIUP
+  29   16   1 I    ( 1)A?U E            NAME(2)
+  30   16   2 I    ( 1)AM  E            NEWNM(2)
+  31          I    ( 1)I?? E        2   NMSBR(2)
+  32    1  12 I    ( 1)C   E       15   NXTDUM(15)
+**-- END OF SYMBOL TABLE

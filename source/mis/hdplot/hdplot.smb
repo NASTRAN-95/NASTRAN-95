@@ -1,0 +1,106 @@
+**++ Symbol table for subprogram HDPLOT in file mis/hdplot.f90
+     produced by SPAG     8.01RF-40 at 14:46:58 on  2 Dec 2023
+   0         X             K             mis/hdplot.f90,0000002,0000124
+   1         C     /12/ ?U        108   /BLANK/NGP,NSIL,NSETS,SKP1,SKP2,ELSET,SKP22,MERR,IDUM,NSCR1,NSCR2,NSCR3
+   2         C     /29/ MU        116   /HDPTRS/XDUM,XCC,XASOLV,YASOLV,ZASOLV,X1SKT,Y1SKT,Z1SKT,ZCOEF1,ZCOEF,ICOUNT,IRCT,X21,Y21,Z21,IIA,XE,YE,XU,YU,XI,YI,ZI,DI,IBEG,IEND,ICT,ICCT,WORK
+   3         C     / 6/ ?U        176   /HDREC/NOFSUR,NS,ELID,LID,NPERS,P
+   4         C     / 8/ MU         32   /HDSC/SCF,PSI,PHI,THETA,MNE,DV,MNP,ICORE
+   5         C     / 1/  U          4   /PLOTHD/USED
+   6         C     / 2/            16   /PLTSCR/NNN,G
+   7         C     / 2/  U          8   /SYSTEM/SKPS,IOUT
+   8         C     / 1/             4   /ZZZZZZ/RZ
+   9         s     ( 2)  U              CLOSE
+     (I4V,I4E)
+  10          L        I U E            DEBUG
+  11    2  24 I        CMU E            DI
+  12    4   6 R        CMU E            DV
+  13    3   3 I        C U E            ELID
+  14    1   6 I        C   E            ELSET
+  15    6   2 I    ( 1)C   E        3   G(3)
+  16         s     ( 3)  U              GOPEN
+     (I4V,I4L,I4E)
+  17   18   1 I    ( 1)A?? E            GPLST(1)
+  18         S     ( 5) ?U         69   HDPLOT(GPLST,NMAX,MAXSF,IOPCOR,IB)
+  19         s     ( 5)  U              HDSKET
+     (R4A,R4A,R4A,I4V,I4V)
+  20          I         MU E            I
+  21   18   5 I        A U E            IB
+  22    2  25 I        CMU E            IBEG
+  23    2  28 I        CMU E            ICCT
+  24    4   8 I        CMU E            ICORE
+  25    2  11 I        CMU E            ICOUNT
+  26    2  27 I        CMU E            ICT
+  27    1   9 I    ( 1)C   E        3   IDUM(3)
+  28    2  26 I        CMU E            IEND
+  29    2  16 I        CMU E            IIA
+  30   18   4 I        A U E            IOPCOR
+  31    7   2 I        C U E            IOUT
+  32    2  12 I        CMU E            IRCT
+  33          I    ( 1)  U E      100   ISYS(100)
+  34          I         MU E            J
+  35    3   4 I        C U E            LID
+  36         s     ( 6)  U              LINE
+     (R4E,R4E,R4E,R4E,I4E,I4E)
+  37          I         MU E            LINTC
+  38          I         ?? E            M
+  39   18   3 I        A U E            MAXSF
+  40    1   8 I        C   E            MERR
+  41         s     ( 3)  U              MESAGE
+     (I4E,I4V,I4A)
+  42    4   5 I        CMU E            MNE
+  43    4   7 I        CMU E            MNP
+  44          I         MU E            N
+  45          I    ( 1)I?? E        2   NAME(2)
+  46          I         MU E            NC
+  47    1   1 I        C   E            NGP
+  48          I         MU E            NHOLES
+  49   18   2 I        A U E            NMAX
+  50    6   1 I        C   E            NNN
+  51    3   1 I        C?U E            NOFSUR
+  52    3   5 I        C U E            NPERS
+  53          I         MU E            NPS
+  54    3   2 I        C U E            NS
+  55    1  10 I        C   E            NSCR1
+  56    1  11 I        C?? E            NSCR2
+  57    1  12 I        C   E            NSCR3
+  58    1   3 I        C U E            NSETS
+  59    1   2 I        C   E            NSIL
+  60    3   6 R    ( 2)C U E       39   P(3,13)
+  61    4   3 R        CM  E            PHI
+  62    4   2 R        CM  E            PSI
+  63          I    ( 1)  U E       29   PTRS(29)
+  64         s     ( 7)  U              READ
+     (ALT,ALT,I4V,I4V,I4E,I4E,I4V)
+  65    8   1 I    ( 1)C   E        1   RZ(1)
+  66    4   1 R        CM  E            SCF
+  67    1   4 I    ( 1)C   E        7   SKP1(7)
+  68    1   5 I    ( 1)C   E        2   SKP2(2)
+  69    1   7 I    ( 1)C   E        7   SKP22(7)
+  70    7   1 I        C   E            SKPS
+  71    4   4 R        CM  E            THETA
+  72    5   1 I        C U E            USED
+  73    2  29 I        CM  E            WORK
+  74          R    ( 1) MU E       20   X(20)
+  75    2   6 I        CMU E            X1SKT
+  76    2  13 I        CMU E            X21
+  77    2   3 I        CMU E            XASOLV
+  78    2   2 I        CMU E            XCC
+  79    2   1 I        CMU E            XDUM
+  80    2  17 I        CMU E            XE
+  81    2  21 I        CMU E            XI
+  82    2  19 I        CMU E            XU
+  83          R    ( 1) MU E       20   Y(20)
+  84    2   7 I        CMU E            Y1SKT
+  85    2  14 I        CMU E            Y21
+  86    2   4 I        CMU E            YASOLV
+  87    2  18 I        CMU E            YE
+  88    2  22 I        CMU E            YI
+  89    2  20 I        CMU E            YU
+  90          R    ( 1) MU E       20   Z(20)
+  91    2   8 I        CMU E            Z1SKT
+  92    2  15 I        CMU E            Z21
+  93    2   5 I        CMU E            ZASOLV
+  94    2  10 I        CMU E            ZCOEF
+  95    2   9 I        CMU E            ZCOEF1
+  96    2  23 I        CMU E            ZI
+**-- END OF SYMBOL TABLE

@@ -1,0 +1,221 @@
+**++ Symbol table for subprogram ALGAR in file mis/algar.f90
+     produced by SPAG     8.01RF-40 at 14:47:22 on  2 Dec 2023
+   0         X             K             mis/algar.f90,0000002,0000424
+   1         C     / 9/  U         36   /CONTRL/NANAL,NAERO,NARBIT,LOQ1,LOQ2,LOQ3,LOQ4,LOQ5,LOQ6
+   2         C     140/ MU      33716   /UD300C/NSTNS,NSTRMS,NMAX,NFORCE,NBL,NCASE,NSPLIT,NREAD,NPUNCH,NPAGE,NSET1,NSET2,ISTAG,ICASE,IFAILO,IPASS,I,IVFAIL,IFFAIL,NMIX,NTRANS,NPLOT,ILOSS,LNCT,ITUB,IMID,IFAIL,ITER,LOG1,LOG2,LOG3,LOG4,LOG5,LOG6,IPRINT,NMANY,NSTPLT,NEQN,NSPEC,NWORK,NLOSS,NDATA,NTERP,
+                                                NMACH,NL1,NL2,NDIMEN,IS1,IS2,IS3,NEVAL,NDIFF,NDEL,NLITER,NM,NRAD,NCURVE,NWHICH,NOUT1,NOUT2,NOUT3,NBLADE,DM,WFRAC,R,XL,X,H,S,VM,VW,TBETA,DIFF,FDHUB,FDMID,FDTIP,TERAD,DATAC,DATA1,DATA2,DATA3,DATA4,DATA5,DATA6,DATA7,DATA8,DATA9,FLOW,SPEED,SPDFAC,BBLOCK,
+                                                BDIST,WBLOCK,WWBL,XSTN,RSTN,DELF,DELC,DELTA,TITLE,DRDM2,RIM1,XIM1,WORK,LOSS,TANEPS,XI,VV,DELW,LAMI,LAMIM1,LAMIP1,PHI,CR,GAMA,SPPG,CPPG,HKEEP,SKEEP,VWKEEP,DELH,DELT,VISK,SHAPE,SCLFAC,EJ,G,TOLNCE,XSCALE,PSCALE,PLOW,RLOW,XMMAX,RCONST,FM2,HMIN,C1,PI,CONTR,
+                                                CONMX
+   3         C     / 1/  U          4   /UD3PRT/IPRTC
+   4         I?    ( 1)  U I            ABS
+   5         s     ( 9)  U              ALG01
+     (R4A,R4A,I4E,R4A,R4A,R4V,I4E,I4E,I4E)
+     (   ,   ,   ,   ,R4V,R4A,   ,   ,   )
+   6         s           U              ALG02
+   7         s     (19)  U              ALG04
+     (R4L,R4L,R4L,R4L,R4L,R4L,R4L,R4L,R4V,R4V,R4V,R4V,R4V,R4V,R4V,I4V,I4V,I4V
+     ,I4V)
+   8         s           U              ALG05
+   9         s     (19)  U              ALG06
+     (R4L,R4L,R4L,R4L,R4L,R4L,R4L,R4L,R4L,R4A,R4V,R4V,R4L,R4L,R4V,R4V,R4V,I4V
+     ,R4V)
+  10         s           U              ALG07
+  11         s           U              ALG08
+  12         s           U              ALG09
+  13         s           U              ALG10
+  14         s           U              ALG11
+  15         s           U              ALG12
+  16         s     ( 5)  U              ALG25
+     (I4V,I4V,I4V,R4A,R4L)
+  17         s           U              ALG26
+  18         fR    ( 2)  U E            ALG3
+     (R4L,R4L)
+  19         fR    ( 2)  U E            ALG4
+     (R4V,R4L)
+  20         fR    ( 2)  U E            ALG5
+     (R4A,R4A)
+  21         fR    ( 2)  U E            ALG6
+     (R4L,R4L)
+  22         S                    372   ALGAR
+  23         I?    ( 1)  U I            ATAN
+  24         I?    ( 2)  U I            ATAN2
+  25    2  91 R    ( 1)C   E       30   BBLOCK(30)
+  26    2  92 R    ( 1)C   E       30   BDIST(30)
+  27    2 137 R        CMU E            C1
+  28    2 140 R        C?? E            CONMX
+  29    2 139 R        C?? E            CONTR
+  30         I?    ( 1)  U I            COS
+  31    2 117 R    ( 1)C   E       21   CPPG(21)
+  32    2 114 R    ( 1)C   E       21   CR(21)
+  33    2  79 R    ( 1)C?? E      100   DATA1(100)
+  34    2  80 R    ( 1)C?? E      100   DATA2(100)
+  35    2  81 R    ( 1)C?? E      100   DATA3(100)
+  36    2  82 R    ( 1)C   E      100   DATA4(100)
+  37    2  83 R    ( 1)C   E      100   DATA5(100)
+  38    2  84 R    ( 1)C   E      100   DATA6(100)
+  39    2  85 R    ( 1)C   E      100   DATA7(100)
+  40    2  86 R    ( 1)C   E      100   DATA8(100)
+  41    2  87 R    ( 1)C   E      100   DATA9(100)
+  42    2  78 R    ( 1)C?? E      100   DATAC(100)
+  43    2  98 R    ( 1)C   E      100   DELC(100)
+  44    2  97 R    ( 1)C?U E       30   DELF(30)
+  45    2 121 R    ( 1)C   E       30   DELH(30)
+  46    2 122 R    ( 1)C   E       30   DELT(30)
+  47    2  99 R    ( 1)C   E      100   DELTA(100)
+  48          R    ( 2) MU E     1770   DELTAR(59,30)
+  49    2 109 R    ( 1)C?U E       21   DELW(21)
+  50    2  73 R    ( 2)C   E       60   DIFF(15,4)
+  51    2  63 R    ( 3)C   E      110   DM(11,5,2)
+  52    2 101 R    ( 1)CMU E       30   DRDM2(30)
+  53    2 126 R        C?U E            EJ
+  54    2  74 R    ( 2)C   E       60   FDHUB(15,4)
+  55    2  75 R    ( 2)C   E       60   FDMID(15,4)
+  56    2  76 R    ( 2)C   E       60   FDTIP(15,4)
+  57         IR    ( 1)  U I            FLOAT
+  58    2  88 R    ( 1)C U E       10   FLOW(10)
+  59    2 135 R        C U E            FM2
+  60    2 127 R        C?U E            G
+  61    2 115 R    ( 1)CMU E       21   GAMA(21)
+  62    2  68 R    ( 2)CMU E      630   H(21,30)
+  63    2 118 R    ( 1)CM  E       21   HKEEP(21)
+  64    2 136 R        CMU E            HMIN
+  65    2  17 I        CMU E            I
+  66    2  14 I        CMU E            ICASE
+  67          I         MU E            IF
+  68    2  27 I        C   E            IFAIL
+  69          I         MU E            IFAILK
+  70    2  15 I        CMU E            IFAILO
+  71    2  19 I        CMU E            IFFAIL
+  72    2  23 I        CMU E            ILOSS
+  73    2  26 I        C U E            IMID
+  74    2  16 I        CMU E            IPASS
+  75    2  35 I        CM  E            IPRINT
+  76    3   1 I        C U E            IPRTC
+  77    2  48 I    ( 1)C U E       30   IS1(30)
+  78    2  49 I    ( 1)C   E       30   IS2(30)
+  79    2  50 I    ( 1)C   E       30   IS3(30)
+  80    2  13 I        C U E            ISTAG
+  81    2  28 I        CM  E            ITER
+  82    2  25 I        C U E            ITUB
+  83    2  18 I        CMU E            IVFAIL
+  84          I         MU E            J
+  85          I         MU E            K
+  86          I         MU E            KK
+  87          I         MU E            L1
+  88          I         MU E            L2
+  89          I         MU E            L3
+  90          I         MU E            L4
+  91          I         MU E            L5
+  92    2 110 R    ( 1)C   E       21   LAMI(21)
+  93    2 111 R    ( 1)C   E       21   LAMIM1(21)
+  94    2 112 R    ( 1)C   E       21   LAMIP1(21)
+  95    2  24 I        CMU E            LNCT
+  96    2  29 I        CM  E            LOG1
+  97    2  30 I        CMU E            LOG2
+  98    2  31 I        CMU E            LOG3
+  99    2  32 I        C   E            LOG4
+ 100    2  33 I        CM  E            LOG5
+ 101    2  34 I        CMU E            LOG6
+ 102    1   4 I        C U E            LOQ1
+ 103    1   5 I        C U E            LOQ2
+ 104    1   6 I        C U E            LOQ3
+ 105    1   7 I        C   E            LOQ4
+ 106    1   8 I        C U E            LOQ5
+ 107    1   9 I        C U E            LOQ6
+ 108    2 105 R    ( 1)C?? E       21   LOSS(21)
+ 109    1   2 I        C   E            NAERO
+ 110    1   1 I        C   E            NANAL
+ 111    1   3 I        C U E            NARBIT
+ 112    2   5 I        C U E            NBL
+ 113    2  62 I    ( 1)C   E       30   NBLADE(30)
+ 114    2   6 I        C U E            NCASE
+ 115    2  57 I    ( 1)C   E       30   NCURVE(30)
+ 116    2  42 I    ( 1)C U E       30   NDATA(30)
+ 117    2  53 I    ( 1)C   E       30   NDEL(30)
+ 118    2  52 I    ( 1)C   E        4   NDIFF(4)
+ 119    2  47 I    ( 1)C U E       30   NDIMEN(30)
+ 120    2  38 I        C U E            NEQN
+ 121    2  51 I    ( 1)C U E       30   NEVAL(30)
+ 122    2   4 I        C U E            NFORCE
+ 123    2  45 I    ( 1)C   E       30   NL1(30)
+ 124    2  46 I    ( 1)C   E       30   NL2(30)
+ 125    2  54 I    ( 1)C U E       30   NLITER(30)
+ 126    2  41 I    ( 1)C   E       30   NLOSS(30)
+ 127    2  55 I    ( 1)C   E        2   NM(2)
+ 128    2  44 I    ( 1)C   E       30   NMACH(30)
+ 129    2  36 I        C   E            NMANY
+ 130    2   3 I        C U E            NMAX
+ 131    2  20 I        C U E            NMIX
+ 132    2  59 I    ( 1)C U E       30   NOUT1(30)
+ 133    2  60 I    ( 1)C U E       30   NOUT2(30)
+ 134    2  61 I    ( 1)C   E       30   NOUT3(30)
+ 135    2  10 I        C U E            NPAGE
+ 136    2  22 I        C U E            NPLOT
+ 137    2   9 I        C U E            NPUNCH
+ 138    2  56 I    ( 1)C   E        2   NRAD(2)
+ 139    2   8 I        C U E            NREAD
+ 140    2  11 I        C   E            NSET1
+ 141    2  12 I        C   E            NSET2
+ 142    2  39 I    ( 1)C U E       30   NSPEC(30)
+ 143    2   7 I        C U E            NSPLIT
+ 144    2   1 I        C U E            NSTNS
+ 145    2  37 I        C U E            NSTPLT
+ 146    2   2 I        C?U E            NSTRMS
+ 147    2  43 I    ( 1)C U E       30   NTERP(30)
+ 148    2  21 I        C U E            NTRANS
+ 149    2  58 I    ( 1)C   E       30   NWHICH(30)
+ 150    2  40 I    ( 1)C U E       30   NWORK(30)
+ 151          R    ( 1) M? E       59   PASS(59)
+ 152    2 113 R    ( 1)C?U E       21   PHI(21)
+ 153    2 138 R        CMU E            PI
+ 154    2 131 R        C   E            PLOW
+ 155    2 130 R        C   E            PSCALE
+ 156          R         M? E            PSMID
+ 157    2  65 R    ( 2)C?U E      630   R(21,30)
+ 158    2 134 R        C U E            RCONST
+ 159    2 102 R    ( 1)CMU E       30   RIM1(30)
+ 160    2 132 R        C   E            RLOW
+ 161    2  96 R    ( 1)C?U E      150   RSTN(150)
+ 162    2  69 R    ( 2)CMU E      630   S(21,30)
+ 163    2 125 R        C?U E            SCLFAC
+ 164    2 124 R        C   E            SHAPE
+ 165    2 119 R    ( 1)CM  E       21   SKEEP(21)
+ 166    2  90 R    ( 1)C?U E       10   SPDFAC(10)
+ 167    2  89 R    ( 1)C?U E       30   SPEED(30)
+ 168    2 116 R    ( 1)C   E       21   SPPG(21)
+ 169         I?    ( 1)  U I            SQRT
+ 170         I?    ( 1)  U I            TAN
+ 171    2 106 R    ( 1)C   E       21   TANEPS(21)
+ 172    2  72 R    ( 2)CMU E      630   TBETA(21,30)
+ 173    2  77 R    ( 2)C   E       10   TERAD(5,2)
+ 174    2 100 R    ( 1)C   E       18   TITLE(18)
+ 175    2 128 R        C U E            TOLNCE
+ 176    2 123 R        C   E            VISK
+ 177    2  70 R    ( 2)CMU E      630   VM(21,30)
+ 178          R         M? E            VMIN
+ 179          R    ( 1) MU E       21   VMLOLD(21)
+ 180          R    ( 1) MU E       21   VMOLD(21)
+ 181    2 108 R    ( 1)CMU E       21   VV(21)
+ 182    2  71 R    ( 2)CMU E      630   VW(21,30)
+ 183    2 120 R    ( 1)CM  E       21   VWKEEP(21)
+ 184    2  93 R    ( 1)C U E       30   WBLOCK(30)
+ 185    2  64 R    ( 3)C   E      110   WFRAC(11,5,2)
+ 186    2 104 R    ( 1)C   E       21   WORK(21)
+ 187    2  94 R    ( 1)CM  E       30   WWBL(30)
+ 188    2  67 R    ( 2)C?U E      630   X(21,30)
+ 189          R         MU E            X1
+ 190          R         MU E            X2
+ 191          R         MU E            X3
+ 192    2 107 R    ( 1)CM? E       21   XI(21)
+ 193    2 103 R    ( 1)CM  E       30   XIM1(30)
+ 194    2  66 R    ( 2)CMU E      630   XL(21,30)
+ 195    2 133 R        C U E            XMMAX
+ 196          R         MU E            XN
+ 197    2 129 R        C   E            XSCALE
+ 198    2  95 R    ( 1)C?U E      150   XSTN(150)
+ 199          R         MU E            XX
+ 200          R    ( 1) MU E       21   XX1(21)
+ 201          R    ( 1) M? E       21   XX2(21)
+ 202          R    ( 1) MU E       21   XX3(21)
+ 203          R    ( 1) ?U E       21   XX4(21)
+**-- END OF SYMBOL TABLE

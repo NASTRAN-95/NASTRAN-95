@@ -1,0 +1,27 @@
+**++ Symbol table for subprogram DSBRC1 in file mds/dsbrc1.f90
+     produced by SPAG     8.01RF-40 at 14:46:32 on  2 Dec 2023
+   0         X             K             mds/dsbrc1.f90,0000002,0000057
+   1         S                     48   DSBRC1
+   2         s     ( 1)  U              DSMSG
+     (I4E)
+   3         s           U              DSRDPB
+   4         I?    ( 2)  U I            IAND
+   5         f?    ( 1)  U I            IBASE
+     (?*V)
+   6          I         MU E            ID
+   7          ?          U I            IDSC
+   8          ?          U I            IDSEB
+   9          ?          U I            IDSEF
+  10          ?          U I            IDSP
+  11          ?          U I            IDSRH
+  12          ?          U I            IDSRT
+  13          ?          U I            IDSSB
+  14          I         MU E            IFLAG
+  15          ?          U I            INDBAS
+  16          ?         MU I            INDCBP
+  17          ?         MU I            INDCLR
+  18          ?          U I            MASKH2
+  19          ?          U I            MASKQ1
+  20          ?          U I            MASKQ2
+  21          ?          U I            NBLOCK
+**-- END OF SYMBOL TABLE

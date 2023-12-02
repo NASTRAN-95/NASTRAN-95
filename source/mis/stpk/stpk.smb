@@ -1,0 +1,65 @@
+**++ Symbol table for subprogram STPK in file mis/stpk.f90
+     produced by SPAG     8.01RF-40 at 14:46:47 on  2 Dec 2023
+   0         X             K             mis/stpk.f90,0000002,0000144
+   1         C     /11/ MU        192   /STRIPC/NNS,BREF,CLAM,FM,NCIRC,NNCIRC,EKR,DUM,BB,BETA,EKM
+   2          R         MU E            A1
+   3          R         MU E            A2
+   4         IR    ( 1)  U I            ALOG
+   5         IR    ( 2)  U I            AMAX1
+   6    1   9 R    ( 1)C U E        4   BB(4)
+   7          R         MU E            BEOEK
+   8    1  10 R    ( 1)C U E        4   BETA(4)
+   9          R         ?U E            BJ0
+  10          R         ?U E            BJ1
+  11    1   2 R        C   E            BREF
+  12         s     ( 4)  U              BUG
+     (I4V,I4E,R4V,I4E)
+     (   ,   ,I4V,   )
+  13          R         ?U E            BY0
+  14          R         ?U E            BY1
+  15   49   9 R        AMU E            CI
+  16    1   3 R        C   E            CLAM
+  17          X         MU E            CMP0
+  18         IX    ( 2)  U I            CMPLX
+  19   49   8 R        AMU E            CR
+  20          R         MU E            DENOM
+  21    1   8 R        C   E            DUM
+  22          R         M  E            E1K
+  23   49   1 R        A?U E            EK
+  24    1  11 X    ( 2)CMU E       16   EKM(4,4)
+  25    1   7 R    ( 1)C   E        1   EKR(1)
+  26          R         MU E            FCR
+  27    1   4 R        C   E            FM
+  28          I         MU E            I
+  29   49  10 I        A   E            IM
+  30          I         MU E            J
+  31   49  11 I        A   E            J1
+  32   49   2 I        A?? E            N
+  33    1   5 I        C U E            NCIRC
+  34          I        I?? E            NHEK
+  35          I        I?? E            NHSIZE
+  36          I        I?? E            NHTI
+  37          I        I?? E            NHTR
+  38          I         MU E            NN
+  39    1   6 I        C U E            NNCIRC
+  40    1   1 I        C   E            NNS
+  41   49   4 I        A U E            NOPEN
+  42   49   5 I        A U E            NSTED
+  43   49   3 I        A U E            NSTOP
+  44          R    ( 1) MU E       37   P(37)
+  45   49   7 R    ( 1)A U E            PM(1)
+  46          X         MU E            R
+  47         s     ( 4)  U              STPBS0
+     (R4V,I4E,R4V,R4V)
+  48         s     ( 4)  U              STPBS1
+     (R4V,I4E,R4V,R4V)
+  49         S     (11) MU        115   STPK(EK,N,NSTOP,NOPEN,NSTED,TSR,PM,CR,CI,IM,J1)
+  50          X         MU E            T
+  51   49   6 R        A U E            TSR
+  52          R         MU E            TST
+  53          X         MU E            UNIT
+  54          X         MU E            V1
+  55          X         MU E            V2
+  56          X         MU E            W
+  57          X         MU E            W2
+**-- END OF SYMBOL TABLE

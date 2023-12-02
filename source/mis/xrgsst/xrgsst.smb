@@ -1,0 +1,66 @@
+**++ Symbol table for subprogram XRGSST in file mis/xrgsst.f90
+     produced by SPAG     7.61RG-40 at 01:00:00 on 21 Mar 2022
+   0         X             K             mis/xrgsst.f90,0000002,0000219
+   1         C     / 1/ M          32   /PHAS11/IPAS11
+   2         C     / 1/ M          56   /PHAS25/IPAS25
+   3         C     / 1/ M          56   /PHAS28/IPAS28
+   4         C     / 1/ M           8   /PHAS31/IPAS31
+   5         C     / 1/ M          24   /PHAS37/IPAS37
+   6         C     / 3/  U        400   /SYSTEM/ISYSBF,OPTAPE,DUM
+   7         C     / 1/  U         23   /XMSSG/UFM
+   8         C     /20/ MU        488   /XRGDXX/IRESTR,NSUBST,IPHASE,ICOL,NUMBER,ITYPE,ISTATE,IERROR,NUM,IND,NUMENT,RECORD,ICHAR,LIMIT,ICOUNT,IDMAP,ISCR,NAME,MEMBER,IGNORE
+   9          I        I U E            BEGIN
+  10          I        I U E            BLANK
+  11          I        I U E            DELETE
+  12    6   3 R    ( 1)C   E       98   DUM(98)
+  13          I        I U E            EIGHT
+  14          I        I U E            END
+  15          I        I U E            FIVE
+  16          I         MU E            I
+  17          I         MU E            ICFLAG
+  18    8  13 I    ( 1)C U E       80   ICHAR(80)
+  19    8   4 I        CMU E            ICOL
+  20    8  15 I        C   E            ICOUNT
+  21    8  16 I        C U E            IDMAP
+  22    8   8 I        CM  E            IERROR
+  23          I         MU E            IFLAG
+  24    8  20 I        C   E            IGNORE
+  25          I    ( 1) MU E        2   IMAP(2)
+  26    8  10 I        C   E            IND
+  27          I        IMU E            IND11
+  28          I        IMU E            IND25
+  29          I        IMU E            IND28
+  30          I        IMU E            IND31
+  31          I        IMU E            IND37
+  32          I        I U E            INSERT
+  33    1   1 I    ( 1)CM  E        8   IPAS11(8)
+  34    2   1 I    ( 1)CM  E       14   IPAS25(14)
+  35    3   1 I    ( 1)CM  E       14   IPAS28(14)
+  36    4   1 I    ( 1)CM  E        2   IPAS31(2)
+  37    5   1 I    ( 1)CM  E        6   IPAS37(6)
+  38    8   3 I        C U E            IPHASE
+  39    8   1 I        C   E            IRESTR
+  40    8  17 I        C   E            ISCR
+  41    8   7 I        C   E            ISTATE
+  42    6   1 I        C   E            ISYSBF
+  43    8   6 I        C   E            ITYPE
+  44          I         MU E            J
+  45          I         MU E            K
+  46          I    ( 1)IMU E        5   LFLAG(5)
+  47    8  14 I    ( 1)C   E        2   LIMIT(2)
+  48    8  19 I    ( 1)C   E        2   MEMBER(2)
+  49    8  18 I    ( 1)C   E        2   NAME(2)
+  50   62   1 I        A   E            NEWSOL
+  51          I         MU E            NMAP
+  52    8   2 I        C   E            NSUBST
+  53    8   9 I    ( 1)C   E        2   NUM(2)
+  54    8   5 I        C   E            NUMBER
+  55    8  11 I        C   E            NUMENT
+  56          I        I U E            ONE
+  57    6   2 I        C U E            OPTAPE
+  58    8  12 I    ( 1)C U E       20   RECORD(20)
+  59          I        I U E            SEVEN
+  60    7   1 C*23     C U E            UFM*23
+  61         s           U              XDCODE
+  62         S     ( 1)           103   XRGSST(NEWSOL)
+**-- END OF SYMBOL TABLE

@@ -1,0 +1,137 @@
+**++ Symbol table for subprogram STRAX1 in file mis/strax1.f90
+     produced by SPAG     7.61RG-40 at 01:00:00 on 21 Mar 2022
+   0         X             K             mis/strax1.f90,0000002,0000633
+   1         C     / 1/            20   /CONDAS/CONSTS
+   2         C     / 6/ M          24   /MATIN/MATIDC,MATFLG,ELTEMP,STRESS,SINTH,COSTH
+   3         C     / 9/ MU        100   /MATOUT/E,ANU,RHO,G,ALF,TZERO,GSUBE,MOSKP,SETMAT
+   4         C     / 1/  U        204   /MATPZ/PZOUT
+   5         C     /14/ MU       1400   /SDR2X5/ECPT,DUM5,IDEL,IGP,TZ,SEL,TS,AK,PHI,SELP1,AKPH2,AKUPH,SELP2,SELP3
+   6         C     / 3/ MU        864   /SDR2X6/GABABQ,D,WJ
+   7         C     / 2/ MU        312   /SYSTEM/KSYSTM,KSYS78
+   8          R         MU E            AA
+   9         I?    ( 1)  U I            ABS
+  10          R    ( 1) MU E      117   ACURL(117)
+  11          R    ( 1) ?? E       27   ACURP1(27)
+  12          R    ( 1) ?? E        9   ACURP2(9)
+  13         fR    ( 5)  U E            AIS
+     (I4E,I4V,I4V,R4A,R4A)
+  14          R         MU E            AJHO
+  15          R         MU E            AJJHO
+  16    5   8 R    ( 1)C?? E       81   AK(81)
+  17    5  11 R    ( 1)C?? E        9   AKPH2(9)
+  18    5  12 R    ( 1)C?? E       27   AKUPH(27)
+  19    3   5 R    ( 1)CMU E        3   ALF(3)
+  20         IR    ( 3)  U I            AMAX1
+  21         IR    ( 3)  U I            AMIN1
+  22    3   2 R    ( 1)C U E        3   ANU(3)
+  23          R         MU E            AREA
+  24          R         MU E            C1
+  25          R         MU E            C2
+  26          R         MU E            C2S2
+  27          R         MU E            C3
+  28          R         MU E            C4
+  29    1   1 R    ( 1)C   E        5   CONSTS(5)
+  30         I?    ( 1)  U I            COS
+  31          R         MU E            COSG
+  32    2   6 R        CM  E            COSTH
+  33          R         MU E            CS
+  34          R         MU E            CS2
+  35    6   2 R    ( 1)CMU E       81   D(81)
+  36          R    ( 1) ?? E       27   D1(27)
+  37          R    ( 1) ?? E        9   D2(9)
+  38          R          U E            DEGRAD
+  39          R         MU E            DEL
+  40          R    ( 1) MU E       12   DELINT(12)
+  41          R         MU E            DGAMA
+  42          R         MU E            DGAMR
+  43          R         MU E            DR
+  44    5   2 R    ( 1)C   E       66   DUM5(66)
+  45    3   1 R    ( 1)C U E        3   E(3)
+  46    5   1 R    ( 1)C U E       34   ECPT(34)
+  47          R    ( 1) MU E       63   EE(63)
+  48    2   3 R        CM  E            ELTEMP
+  49          R         MU E            ER
+  50          R         MU E            ET
+  51          R         MU E            EZ
+  52    3   4 R    ( 1)C U E        3   G(3)
+  53          R    ( 2) M? E        9   GABABP(3,3)
+  54    6   1 R    ( 2)CM? E       81   GABABQ(9,9)
+  55         s     ( 9)  U              GMMATS
+     (R4A,I4E,I4E,I4E,R4A,I4E,I4E,I4E,R4A)
+  56          R         MU E            GOR
+  57          R         MU E            GRZ
+  58    3   7 R        CM  E            GSUBE
+  59          R         MU E            GZO
+  60          I         MU E            I
+  61          I         MU E            I1
+  62          I         MU E            IB
+  63          I         MU E            IC
+  64          I    ( 1) M  E        3   ICS(3)
+  65    5   3 I        CM? E            IDEL
+  66          I    ( 1) MU E       35   IECPT(35)
+  67    5   4 I    ( 1)CM  E        3   IGP(3)
+  68          I         MU E            IKI
+  69          I         MU E            IP
+  70          I         MU E            IQ
+  71          I         MU E            J
+  72          I         MU E            KSAVE
+  73    7   2 I        CMU E            KSYS78
+  74    7   1 I    ( 1)C   E       77   KSYSTM(77)
+  75          L         MU E            LSYS78
+  76         s     ( 1)  U              MAT
+     (I4V)
+  77    2   2 I        CM  E            MATFLG
+  78          I         MU E            MATID
+  79    2   1 I        CM  E            MATIDC
+  80         s     ( 3)  U              MESAGE
+     (I4E,I4V,I4V)
+  81    3   8 I    ( 1)C   E        9   MOSKP(9)
+  82          I         M  E            NOGO
+  83    5   9 R    ( 1)CM  E       14   PHI(14)
+  84          R          U E            PI
+  85          L         MU E            PZMAT
+  86    4   1 R    ( 1)C U E       51   PZOUT(51)
+  87          R    ( 1) MU E        3   R(3)
+  88          R          U E            R1
+  89          R          U E            R2
+  90          R          U E            R3
+  91          R         MU E            RA
+  92          R         MU E            RH
+  93    3   3 R        CM  E            RHO
+  94          R         MU E            RSUM
+  95          R         MU E            S2
+  96          R         MU E            S3
+  97          R         MU E            S4
+  98          R         MU E            SC2
+  99    5   6 R    ( 1)C?? E       54   SEL(54)
+ 100    5  10 R    ( 1)C?? E       18   SELP1(18)
+ 101    5  13 R    ( 1)C?? E       27   SELP2(27)
+ 102    5  14 R    ( 1)C?? E        9   SELP3(9)
+ 103    3   9 R        C U E            SETMAT
+ 104         I?    ( 1)  U I            SIN
+ 105          R         MU E            SING
+ 106    2   5 R        CM  E            SINTH
+ 107         S                    454   STRAX1
+ 108    2   4 R        C   E            STRESS
+ 109          R         MU E            TEMPE
+ 110          R    ( 1) MU E       45   TEO(45)
+ 111    5   7 R    ( 1)CM  E        6   TS(6)
+ 112    5   5 R        CM  E            TZ
+ 113    3   6 R        CMU E            TZERO
+ 114          R         MU E            VOR
+ 115          R         MU E            VOZ
+ 116          R         MU E            VRO
+ 117          R         MU E            VRZ
+ 118          R         MU E            VZO
+ 119          R         MU E            VZR
+ 120    6   3 R    ( 2)CM? E       54   WJ(6,9)
+ 121          R    ( 2) M? E        9   WJP(3,3)
+ 122          R    ( 1) MU E        3   Z(3)
+ 123          R         MU E            Z1
+ 124          R         MU E            Z2
+ 125          R         MU E            Z3
+ 126          R         MU E            ZA
+ 127          R         MU E            ZDR
+ 128          R         MU E            ZMIN
+ 129          R         MU E            ZSUM
+**-- END OF SYMBOL TABLE

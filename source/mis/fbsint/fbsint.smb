@@ -1,0 +1,23 @@
+**++ Symbol table for subprogram FBSINT in file mis/fbsint.f90
+     produced by SPAG     8.01RF-40 at 14:46:54 on  2 Dec 2023
+   0         X             K             mis/fbsint.f90,0000002,0000032
+   1         C     / 1/ M          28   /FBSX/LFILE
+   2         C     / 1/ ?U         28   /INFBSX/FILEL
+   3         s     ( 4)  U              FBS1
+     (I4A,R4A,R4A,I4V)
+   4         s     ( 4)  U              FBS2
+     (I4A,R4A,R4A,I4V)
+   5         S     ( 2) MU         13   FBSINT(X,Y)
+   6    2   1 I    ( 1)C?U E        7   FILEL(7)
+   7          I         MU E            I
+   8          I    ( 1) M? E       15   IBLK(15)
+   9    1   1 I    ( 1)CM  E        7   LFILE(7)
+  10          I          U E            NROW
+  11          I         MU E            NROW2
+  12         s     ( 1)  U              REWIND
+     (I4A)
+  13         s     ( 2)  U              SKPREC
+     (I4A,I4E)
+  14    5   1 R    ( 1)A U E            X(1)
+  15    5   2 R    ( 1)AM? E            Y(1)
+**-- END OF SYMBOL TABLE
