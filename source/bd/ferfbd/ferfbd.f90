@@ -37,8 +37,8 @@ SUBROUTINE ferfbd(V1,V2,V3,Vb)
 !  modified to read matrix data from memory until that data is exhausted
 !  and then to read the remaining data from the file.
 !
-   EQUIVALENCE (Ksystm(02),Nout)
-   EQUIVALENCE (Dcore(1),Icore(1),Xl)
+   !>>>>EQUIVALENCE (Ksystm(02),Nout)
+   !>>>>EQUIVALENCE (Dcore(1),Icore(1),Xl)
 !
          nrow = mcblt(2)
          DO i = 1 , nrow

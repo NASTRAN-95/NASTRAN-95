@@ -1,7 +1,7 @@
 !*==/home/marcusmae/nasa/nastran/SPAGged/C_TA1ACM.f90  created by SPAG 7.61RG at 01:00 on 21 Mar 2022
 MODULE C_TA1ACM
+   IMPLICIT NONE
    INTEGER, DIMENSION(90) :: Ig
-   USE c_ta1acm
 !TA1ABD
 !
 !     /TA1ACM/ SPECIFIES THE OPEN CORE LABELED COMMONS /ZZEMXX/
