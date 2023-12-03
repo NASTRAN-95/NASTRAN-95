@@ -1,5 +1,31 @@
 !*==/home/marcusmae/nasa/nastran/SPAGged/C_GINOX.f90  created by SPAG 7.61RG at 01:00 on 21 Mar 2022
 MODULE C_GINOX
+!
+!     *****  PRINCIPAL BLOCK DATA PROGRAM FOR NASTRAN  *****
+!     (NOTE - MACHINE DEPENDENT CONSTANTS ARE INITIALIZED IN BTSTRP)
+!
+!     REVISED 7/91 BY G.CHAN/UNISYS
+!     MAKE SURE THERE IS NO VARIABLES OR ARRAYS NOT INITIALIZED. GAPS
+!     OR MISSING INITIALIZED DATA MAY CAUSE PROBLEMS IN SOME MACHINES.
+!
    INTEGER, DIMENSION(244) :: Cdc
    INTEGER, DIMENSION(392) :: Others
+!
+!     -------------------     /GINOX  /     ----------------------------
+!
+!     GINOX WORDS USED IN GINO
+!     VAX AND UNIX USE 636 WORDS (SEE GINO.MDS)
+!DC   CDC USES ONLY 244 WORDS (SEE CDC IO6600). CDC IS CORE THIRSTY AND
+!DC   THE 392 WORDS IN OTHERS HERE, AND ON THE DATA LINE BELOW, CAN BE
+!DC   COMMENTED OUT TO SAVE CORE SPACE FOR THE CDC MACHINE.
+!
+!            --------------------
+!                     TOTAL= 636
+!
+!
+!     -------------------     / GINOX  /     ---------------------------
+!
+   DATA cdc/244*0/
+   DATA others/392*0/
+
 END MODULE C_GINOX
