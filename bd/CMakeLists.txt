@@ -1,10 +1,10 @@
 cmake_minimum_required(VERSION 3.5)
 
-project(nastran_bd Fortran)
+project(nastran_bd Fortran CXX)
 
 set(CMAKE_Fortran_FLAGS "-Wall -ffree-line-length-none -w -fno-range-check -fno-automatic -fcray-pointer -std=legacy -fallow-invalid-boz")
 
-file(GLOB SRCS "src/*.f90")
+file(GLOB SRCS "src/*.f90" "src/*.cpp")
 add_library(${PROJECT_NAME} STATIC ${SRCS})
 set_property(TARGET ${PROJECT_NAME} PROPERTY POSITION_INDEPENDENT_CODE ON)
 
