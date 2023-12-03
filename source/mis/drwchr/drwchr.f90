@@ -71,7 +71,7 @@ SUBROUTINE drwchr(X,Y,Xyd,Chr,Nn,Opt)
          IF ( Xyd<0 ) i = n - j + 1
          k = Chr(i)
          IF ( Nn==0 .OR. k<lstchr ) THEN
-            IF ( k<=lstind ) THEN
+            IF ( k<=chrind ) THEN
                SPAG_Loop_2_1: DO
 !
 !     DRAW THE CHARACTER.
@@ -86,9 +86,9 @@ SUBROUTINE drwchr(X,Y,Xyd,Chr,Nn,Opt)
                            DO l = n1 , n2
                               DO i = 1 , 2
                                  xyc(i,1) = xyc(i,2)
-                                 xyc(i,2) = xy(i,2) + cscale*float(iabs(xychr(i,l)))
+                                 xyc(i,2) = xy(i,2) + cscale*float(iabs(chr(i,l)))
                               ENDDO
-                              IF ( l/=n1 .AND. xychr(1,l)>=0 .AND. xychr(2,l)>=0 ) CALL line(xyc(1,1),xyc(2,1),xyc(1,2),xyc(2,2),1, &
+                              IF ( l/=n1 .AND. chr(1,l)>=0 .AND. chr(2,l)>=0 ) CALL line(xyc(1,1),xyc(2,1),xyc(1,2),xyc(2,2),1, &
                                  & 0)
                            ENDDO
                            EXIT SPAG_Loop_2_1
