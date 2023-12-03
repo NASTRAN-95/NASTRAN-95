@@ -1,0 +1,43 @@
+!*==/home/marcusmae/nasa/nastran/SPAGged/C_XFIAT.f90  created by SPAG 7.61RG at 01:00 on 21 Mar 2022
+MODULE C_XFIAT
+!
+!     *****  PRINCIPAL BLOCK DATA PROGRAM FOR NASTRAN  *****
+!     (NOTE - MACHINE DEPENDENT CONSTANTS ARE INITIALIZED IN BTSTRP)
+!
+!     REVISED 7/91 BY G.CHAN/UNISYS
+!     MAKE SURE THERE IS NO VARIABLES OR ARRAYS NOT INITIALIZED. GAPS
+!     OR MISSING INITIALIZED DATA MAY CAUSE PROBLEMS IN SOME MACHINES.
+!
+   INTEGER, DIMENSION(1100) :: Fiat
+   INTEGER :: Lfiat, Mfiat, Nfiat
+!
+!     -------------------     / XFIAT  /     ---------------------------
+!
+!     XFIAT IS THE MODULE FILE ALLOCATION TABLE (FIAT).
+!     MFIAT  = NO. OF UNIQUE FILES IN FIAT.
+!     NFIAT  = TOTAL NO. OF ENTRIES IN FIAT.
+!     LFIAT  = NO. OF ENTRIES IN CURRENT FIAT.
+!     FIAT   = TABLE OF 8 OR 11 WORDS PER ENTRY OF GINO FILES
+!              (DEFAULT IS SET BY ICFIAT, THE 24TH WORD OF /SYSTEM/)
+!            . 1ST WORD DEFINES THE FILE + PURGE,EQVIV,SETUP,ETC INFO.
+!            . 2ND AND 3RD WORDS DEFINE THE DATA BLOCK NAME (IN BCD)
+!              WHICH IS ATTACHED TO THE FILE.
+!            . SEE ICFIAT (24TH WORD OF /SYSTEM/) FOR THE DESCRIPTION
+!              OF 4TH THRU 8TH (OR 11TH) WORDS.
+!            . SET FIAT(880) IF 11-WORD/ENTRY TABLE IS USED, AND
+!              SET FIAT(640) IF  8-WORD/ENTRY TABLE IS USED
+!
+!WKBR COMMON /XFIAT / MFIAT, NFIAT, LFIAT, FIAT(880)
+!
+!     USE 8*0 EACH INSTEAD OF 5*0 WHEN ICFIAT = 11
+!
+!WKBR DATA    MFIAT / 0 /, NFIAT / 80 /, LFIAT / 0 /, FIAT /
+!WKBR9                0, 4HSCRA, 4HTC15, 8*0 , 671*0 /
+   DATA mfiat/0/ , nfiat/100/ , lfiat/0/ , fiat/0 , 4HGEOM , 4H1    , 8*0 , 0 , 4HEPT  , 4H     , 8*0 , 0 , 4HMPT  , 4H     , 8*0 , &
+      & 0 , 4HEDT  , 4H     , 8*0 , 0 , 4HDIT  , 4H     , 8*0 , 0 , 4HCASE , 4HCC   , 3*7 , 2*0 , 3*7 , 0 , 4HDYNA , 4HMICS , 8*0 , &
+      & 0 , 4HPCDB , 4H     , 8*0 , 0 , 4HGEOM , 4H2    , 8*0 , 0 , 4HGEOM , 4H3    , 8*0 , 0 , 4HGEOM , 4H4    , 8*0 , 0 , 4HGEOM ,&
+       &4H5    , 8*0 , 0 , 4HFORC , 4HE    , 8*0 , 0 , 4HMATP , 4HOOL  , 8*0 , 0 , 4HAXIC , 4H     , 8*0 , 0 , 4HIFPF , 4HILE  ,    &
+      & 8*0 , 0 , 4HSCRA , 4HTCH1 , 8*0 , 0 , 4HXYCD , 4HB    , 8*0 , 0 , 4HSCRA , 4HTC15 , 8*0 , 671*0 , 220*0/
+!
+
+END MODULE C_XFIAT
