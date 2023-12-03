@@ -1,6 +1,6 @@
 !*==/home/marcusmae/nasa/nastran/SPAGged/C_OFPBD5.f90  created by SPAG 8.01RF at 14:46 on  2 Dec 2023
 MODULE C_OFPBD5
-   INTEGER, DIMENSION(100) :: E1, E21, E41, E61, E81
+   INTEGER, DIMENSION(500) :: E
    INTEGER, DIMENSION(64) :: Esingl
 !OFP5BD
 !*****
@@ -77,41 +77,39 @@ MODULE C_OFPBD5
 !
 !                    -STANDARD-                 -ALTERNATES-
 !                 ****************        ***********************
-   DATA e1/4H1P,E , 4H15.6 , 4H0P,F , 4H6.1  , 4H,9X  , 4H1P,E , 4H16.6 , 4H0P,F , 4H7.1  , 4H,9X  , 4H1P,E , 4H17.6 , 4H0P,F ,     &
+   DATA E/4H1P,E , 4H15.6 , 4H0P,F , 4H6.1  , 4H,9X  , 4H1P,E , 4H16.6 , 4H0P,F , 4H7.1  , 4H,9X  , 4H1P,E , 4H17.6 , 4H0P,F ,     &
        &4H8.1  , 4H,9X  , 4H1P,E , 4H18.6 , 4H0P,F , 4H9.1  , 4H,9X  , 4H1P,E , 4H19.6 , 4H0P,F , 4H10.1 , 4H,9X  , 4H1P,E ,        &
       & 4H20.6 , 4H0P,F , 4H11.1 , 4H,9X  , 4H1P,E , 4H21.6 , 4H0P,F , 4H12.1 , 4H,9X  , 4H1P,E , 4H30.6 , 4H0P,F , 4H21.1 ,        &
       & 4H,9X  , 4H1P,E , 4H26.6 , 4H0P,F , 4H17.1 , 4H,9X  , 4H1P,E , 4H24.6 , 4H0P,F , 4H15.1 , 4H,9X  , 4H0P,F , 4H11.4 ,        &
       & 4H0P,F , 4H8.1  , 4H,3X  , 4H0P,F , 4H14.4 , 4H0P,F , 4H11.1 , 4H,3X  , 4H1P,E , 4H28.6 , 4H0P,F , 4H19.1 , 4H,9X  ,        &
       & 4H1P,E , 4H37.6 , 4H0P,F , 4H28.1 , 4H,9X  , 4H1P,E , 4H22.6 , 4H0P,F , 4H17.1 , 4H,5X  , 4H1P,E , 4H14.6 , 4H0P,F ,        &
       & 4H5.1  , 4H,9X  , 4H0P,F , 4H15.4 , 4H0P,F , 4H12.1 , 4H,3X  , 4H0P,F , 4H9.4  , 4H0P,F , 4H6.1  , 4H,3X  , 4H0P,F ,        &
-      & 4H15.3 , 4H0P,F , 4H12.1 , 4H 3X  , 4H1P,E , 4H23.6 , 4H0P,F , 4H14.1 , 4H,9X /
-   DATA e21/4H1P,E , 4H35.6 , 4H0P,F , 4H26.1 , 4H,9X  , 4H1P,E , 4H25.6 , 4H0P,F , 4H16.1 , 4H,9X  , 4H1P,E , 4H50.6 , 4H0P,F ,    &
+      & 4H15.3 , 4H0P,F , 4H12.1 , 4H 3X  , 4H1P,E , 4H23.6 , 4H0P,F , 4H14.1 , 4H,9X  , &
+      & 4H1P,E , 4H35.6 , 4H0P,F , 4H26.1 , 4H,9X  , 4H1P,E , 4H25.6 , 4H0P,F , 4H16.1 , 4H,9X  , 4H1P,E , 4H50.6 , 4H0P,F ,    &
        &4H41.1 , 4H,9X  , 4H0P,F , 4H46.4 , 4H0P,F , 4H43.1 , 4H,3X  , 4H     , 4H     , 4H0P,F , 4H12.1 , 4H,3X  , 4H0P,F ,        &
       & 4H20.4 , 4H0P,F , 4H17.1 , 4H,3X  , 4H0P,F , 4H16.4 , 4H0P,F , 4H13.1 , 4H,3X  , 4H0P,F , 4H22.4 , 4H0P,F , 4H19.1 ,        &
       & 4H,3X  , 4H1P,E , 4H27.6 , 4H0P,F , 4H18.1 , 4H,9X  , 4H0P,F , 4H12.5 , 4H0P,F , 4H11.1 , 4H,3X  , 4H1P,E , 4H13.5 ,        &
       & 4H0P,F , 4H5.1  , 4H,8X  , 4H0P,F , 4H13.3 , 4H0P,F , 4H9.1  , 4H,4X  , 4H0P,F , 4H18.4 , 4H0P,F , 4H15.1 , 4H,3X  ,        &
       & 4H0P,F , 4H26.4 , 4H0P,F , 4H23.1 , 4H,3X  , 4H1P,E , 4H14.5 , 4H0P,F , 4H6.1  , 4H,8X  , 4H0P,F , 4H14.3 , 4H0P,F ,        &
       & 4H10.1 , 4H,4X  , 4H0P,F , 4H5.2  , 4H0P,F , 4H4.1  , 4H,1X  , 4H1P,E , 4H13.6 , 4H0P,F , 4H4.1  , 4H,9X  , 4H     ,        &
-      & 4H     , 4H     , 4H     , 4H     , 4H1P,E , 4H9.1  , 4HA1   , 4H,8X  , 4H    /
-   DATA e41/4H6X,A , 4H1,3X , 4HI7   , 4H,3X  , 4H     , 4HI15  , 4H     , 4H     , 4H     , 4H     , 4HI9,1 , 4HX    , 4H     ,    &
+      & 4H     , 4H     , 4H     , 4H     , 4H1P,E , 4H9.1  , 4HA1   , 4H,8X  , 4H     , &
+      & 4H6X,A , 4H1,3X , 4HI7   , 4H,3X  , 4H     , 4HI15  , 4H     , 4H     , 4H     , 4H     , 4HI9,1 , 4HX    , 4H     ,    &
        &4H     , 4H     , 4H1H0, , 4HI8   , 4H     , 4H     , 4H     , 4H1X,I , 4H13   , 4H     , 4H     , 4H     , 4H1X,I ,        &
       & 4H8    , 4H     , 4H     , 4H     , 4H1H0, , 4HI7   , 4H     , 4H     , 4H     , 4H6X,I , 4H8    , 4H     , 4H     ,        &
       & 4H     , 4H1X,I , 4H15   , 4H     , 4H     , 4H     , 4H1X,I , 4H12   , 4H     , 4H     , 4H     , 4HI10  , 4H     ,        &
       & 4H     , 4H     , 4H     , 4HI7,1 , 4HX    , 4H     , 4H     , 4H     , 4H3X,A , 4H4    , 4H     , 4H     , 4H     ,        &
       & 4H1H0, , 4HI13  , 4H     , 4H     , 4H     , 4H1X,I , 4H20   , 4H     , 4H     , 4H     , 4H5X,A , 4H1,3X , 4HI5   ,        &
       & 4H,4X  , 4H     , 4H1X,I , 4H22   , 4H     , 4H     , 4H     , 4HI12  , 4H     , 4H     , 4H     , 4H     , 4H1X,I ,        &
-      & 4H19   , 4H     , 4H     , 4H     , 4HI16  , 4H     , 4H     , 4H     , 4H    /
-   DATA e61/4HI8   , 4H     , 4HA4   , 4H,4X  , 4H     , 4HI9   , 4H     , 4HA4   , 4H,5X  , 4H     , 4HI11  , 4H     , 4HA4   ,    &
+      & 4H19   , 4H     , 4H     , 4H     , 4HI16  , 4H     , 4H     , 4H     , 4H     , &
+      & 4HI8   , 4H     , 4HA4   , 4H,4X  , 4H     , 4HI9   , 4H     , 4HA4   , 4H,5X  , 4H     , 4HI11  , 4H     , 4HA4   ,    &
        &4H,7X  , 4H     , 4HI20  , 4H     , 4HA4   , 4H,16X , 4H     , 4HI19  , 4H     , 4HA4   , 4H,15X , 4H     , 4H1X,I ,        &
       & 4H23   , 4H     , 4H     , 4H     , 4HI23  , 4H     , 4H     , 4H     , 4H     , 4HI28  , 4H     , 4H     , 4H     ,        &
       & 4H     , 4H/1H  , 4H,I18 , 4H     , 4H     , 4H     , 4H1H0, , 4HI15  , 4H     , 4H     , 4H     , 4H1H0, , 4HI14  ,        &
       & 4H     , 4H     , 4H     , 4H0P,F , 4H22.4 , 4HI9   , 4H,13X , 4H     , 4H0P,F , 4H16.4 , 4HI5   , 4H,11X , 4H     ,        &
       & 4H0P,F , 4H10.4 , 4H     , 4H     , 4H     , 4H1H0, , 4HI19  , 4H     , 4H     , 4H     , 4H1H0, , 4HI20  , 4H     ,        &
       & 4H     , 4H     , 4HI10, , 4H5X   , 4H     , 4H     , 4H     , 4H     , 4H     , 4H     , 4H     , 4H     , 4HI8,  ,        &
-      & 4H2X   , 4H3X,3 , 4HHCEN , 4H,A4  , 4HF8.3 , 4H     , 4H     , 4H     , 4H    /
-!AIX 7            , 4H  9E ,4H11.3        , 4H  9( ,4HF9.3 ,4H,2X)
-!AIX 9            , 4H/, E ,4H11.3        , 4H/0P, ,4HF7.1 ,4H,4X
-   DATA e81/4H1H0, , 4HI27  , 4H     , 4H     , 4H     , 4H1H0, , 4HI5   , 4H     , 4H     , 4H     , 4H1H0, , 4HI3   , 4H     ,    &
+      & 4H2X   , 4H3X,3 , 4HHCEN , 4H,A4  , 4HF8.3 , 4H     , 4H     , 4H     , 4H     , &
+      & 4H1H0, , 4HI27  , 4H     , 4H     , 4H     , 4H1H0, , 4HI5   , 4H     , 4H     , 4H     , 4H1H0, , 4HI3   , 4H     ,    &
        &4H     , 4H     , 4HI4   , 4H     , 4H     , 4H     , 4H     , 4H1P,E , 4H11.4 , 4H0P,F , 4H4.1  , 4H,7X  , 4HA4   ,        &
       & 4H     , 4H     , 4H     , 4H     , 4H1P9E , 4H11.3 , 4H0P9( , 4HF9.3 , 4H,2X) , 4H0P,F , 4H22.3 , 4H0P,F , 4H20.1 ,        &
       & 4H,2X  , 4H/1PE , 4H11.3 , 4H/0PF , 4H7.1  , 4H,4X  , 4H0P,F , 4H19.4 , 4HI6   , 4H,13X , 4H     , 4HF8.2 , 4H     ,        &
