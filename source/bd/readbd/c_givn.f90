@@ -7,4 +7,8 @@ MODULE C_GIVN
    REAL, DIMENSION(4) :: G6
    INTEGER :: Lgama, M1, M2, M3, M4, Max, Md, Mo, Mr1, Ncol, Oeigs, Order, Phia, Rstrt
    REAL, DIMENSION(35) :: X
+
+   DATA order , rstrt , ncol , max/ - 2 , 0 , 0 , 253/
+   DATA mo , md , mr1 , m1 , m2 , m3 , m4 , lgama , oeigs , phia/301 , 304 , 202 , 303 , 307 , 308 , 309 , 201 , 204 , 305/
+
 END MODULE C_GIVN
