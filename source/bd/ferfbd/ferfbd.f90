@@ -19,27 +19,26 @@ SUBROUTINE ferfbd(V1,V2,V3,Vb)
 !
 ! Local variable declarations rewritten by SPAG
 !
-   REAL(REAL64) , DIMENSION(1) :: dcore , xl
-   INTEGER :: i , iblock , icbp , iclr , icol , icrow , ii , ik , ilrow , j , ji , mem , nout , nrow , ntms , ntmsnx , ntmss
+   REAL(REAL64) , POINTER :: xl(:)
+   INTEGER :: i , iblock , icbp , iclr , icol , icrow , ii , ik , ilrow , j , ji , mem , nrow , ntms , ntmsnx , ntmss
    INTEGER , DIMENSION(20) :: iblk
    REAL(REAL64) :: v2j , v3j , xljj
+   INTEGER :: spag_nextblock_1
    EXTERNAL dscpos , dsspos , endget , endgtb , ferltd , getstb , getstr , rewind , skprec
 !
 ! End of declarations rewritten by SPAG
 !
-   INTEGER :: spag_nextblock_1
-   spag_nextblock_1 = 1
-   SPAG_DispatchLoop_1: DO
-      SELECT CASE (spag_nextblock_1)
-      CASE (1)
 !
 !  FERFBD is a modification of the old FRBK2 subroutine.  It has been
 !  modified to read matrix data from memory until that data is exhausted
 !  and then to read the remaining data from the file.
 !
-   !>>>>EQUIVALENCE (Ksystm(02),Nout)
-   !>>>>EQUIVALENCE (Dcore(1),Icore(1),Xl)
+   Xl => Dcore
 !
+   spag_nextblock_1 = 1
+   SPAG_DispatchLoop_1: DO
+      SELECT CASE (spag_nextblock_1)
+      CASE (1)
          nrow = mcblt(2)
          DO i = 1 , nrow
             V2(i) = V1(i)
