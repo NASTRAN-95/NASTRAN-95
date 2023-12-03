@@ -105,6 +105,11 @@ if __name__ == "__main__":
     for module_name in modules.keys():
         print(f'{module_name} has {len(modules[module_name].keys())} representations:')
         if (len(modules[module_name].keys()) == 1) and (representations == 1):
+            # If module has only one representation, it means that
+            # it is used by only one function, and could not have any conflicts
+            # with other functions that may define (represent) the same module
+            # differently. Or the module is used by multiple functions, but they
+            # all agree on the same representation.
             create_playground_for_module(modules[module_name].values())
         
             # Validate the source code readiness by compiling the playground
@@ -137,8 +142,10 @@ if __name__ == "__main__":
             system(f'git commit -m "Cleaning up COMMON block module {module_name}{extra_note}"')
 
         elif (len(modules[module_name].keys()) == 2) and (representations == 2):
-            # We will inspect the differences between the following two modules,
-            # with respect to the source files below
+            # If the module has more than 1 representation, then they all must
+            # be merged into one common representation manually. That is, for two
+            # representations, we will inspect the differences between them,
+            # with respect to the source files below.
             function_names = list(modules[module_name].values())
             module_file1 = f'{folder_path}/{function_names[0][0]}/c_{module_name}.f90'
             module_file2 = f'{folder_path}/{function_names[1][0]}/c_{module_name}.f90'
