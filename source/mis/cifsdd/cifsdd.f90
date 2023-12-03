@@ -2,11 +2,11 @@
  
 SUBROUTINE cifsdd
    IMPLICIT NONE
-   USE c_cifs1p
-   USE c_cifs2p
-   USE c_cifs3p
-   USE c_cifs4p
-   USE c_cifs5p
+   USE c_cifs1p, km => km1
+   USE c_cifs2p, km => km2
+   USE c_cifs3p, km => km3
+   USE c_cifs4p, km => km4
+   USE c_cifs5p, km => km5
 !
 ! Local variable declarations rewritten by SPAG
 !
