@@ -7,7 +7,6 @@
 #   from object, can we still get them from the assembly?)
 
 # TODO Final target:
-# 0) Record the source file names that are using the common block
 # 1) Emit one module that incorporates all representations in terms of sizes
 # 2) Use equivalence of types (sort of C unions) to express the differences in implementations
 #    as shown here: https://stackoverflow.com/a/14734291/4063520
@@ -60,6 +59,7 @@ def extract_common_blocks():
         parsed = json.load(file)
 
     extracted_commons = {}
+    extracted_sources = {}
     for source, blocks in parsed.items():
         for block in blocks:
             if not 'common' in block:
@@ -73,9 +73,14 @@ def extract_common_blocks():
                     extracted_commons[common] = []
                 if not (names in extracted_commons[common]):
                     extracted_commons[common].append(names)
+                if not (common in extracted_sources):
+                    extracted_sources[common] = []
+                extracted_sources[common].append(source)
 
     with open("commons.json", 'w') as json_file:
         json.dump(extracted_commons, json_file, indent=4)
+    with open("sources.json", 'w') as json_file:
+        json.dump(extracted_sources, json_file, indent=4)
 
     print(f'{len(extracted_commons)} common blocks successfully parsed:')
     stats = {}
