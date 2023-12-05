@@ -23,6 +23,7 @@ import re
 import sys
 import colorama
 from numpy.f2py.crackfortran import main as crackfortran
+from functools import reduce
 
 def run_crackfortran():
     path = '/home/marcusmae/nasa/branches/nastran_f90'
@@ -68,7 +69,7 @@ def extract_common_blocks():
             decls = block['vars']
             for common, names in commons.items():
                 for i, name in enumerate(names):
-                    names[i] = { name : decls[name] }
+                    names[i] = ( name, decls[name] )
                 if not common in extracted_commons:
                     extracted_commons[common] = []
                 if not (names in extracted_commons[common]):
@@ -92,6 +93,38 @@ def extract_common_blocks():
     for representations, count in stats.items():
         print(f'{count} common blocks have {representations} versions')
 
+def pad_common_blocks():
+    with open('commons.json') as file:
+        commons = json.load(file)
+
+    for common, names_variants in commons.items():
+        for names in names_variants:
+            total_size = 0
+            for name in names:
+                print(name)
+                name = name[1]
+                typ = name['typespec']
+                if typ == 'integer':
+                    size = 4
+                elif typ == 'real':
+                    size = 4
+                elif typ == 'complex':
+                    size = 8
+                elif typ == 'double precision':
+                    size = 8
+                elif typ == 'character':
+                    size = 1
+                elif typ == 'logical':
+                    size = 1
+                else:
+                    raise Exception(f'Unknown type {typ}')
+                
+                if 'dimension' in name:
+                    size *= int(reduce(lambda x, y: int(x) * int(y), name['dimension']))
+                
+                total_size += size
+            print(f'{common} size = {total_size}')
+
 if __name__ == "__main__":
     representations = 0
     if len(sys.argv) < 2:
@@ -102,6 +135,8 @@ if __name__ == "__main__":
         run_crackfortran()
     elif sys.argv[1] == '-commons':
         extract_common_blocks()
+    elif sys.argv[1] == '-pad':
+        pad_common_blocks()
     else:
         print(f'Unknown command line argument: {sys.argv[1]}')
         sys.exit(1)
