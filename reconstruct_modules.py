@@ -93,38 +93,84 @@ def extract_common_blocks():
     for representations, count in stats.items():
         print(f'{count} common blocks have {representations} versions')
 
-def pad_common_blocks():
+def sizeof(typ):
+    if typ == 'integer':
+        size = 4
+    elif typ == 'real':
+        size = 4
+    elif typ == 'complex':
+        size = 8
+    elif typ == 'double precision':
+        size = 8
+    elif typ == 'character':
+        size = 1
+    elif typ == 'logical':
+        size = 1
+    else:
+        raise Exception(f'Unknown type {typ}')
+    return size
+
+def align_common_blocks():
     with open('commons.json') as file:
         commons = json.load(file)
 
     for common, names_variants in commons.items():
-        for names in names_variants:
-            total_size = 0
-            for name in names:
-                print(name)
-                name = name[1]
-                typ = name['typespec']
-                if typ == 'integer':
-                    size = 4
-                elif typ == 'real':
-                    size = 4
-                elif typ == 'complex':
-                    size = 8
-                elif typ == 'double precision':
-                    size = 8
-                elif typ == 'character':
-                    size = 1
-                elif typ == 'logical':
-                    size = 1
-                else:
-                    raise Exception(f'Unknown type {typ}')
-                
-                if 'dimension' in name:
-                    size *= int(reduce(lambda x, y: int(x) * int(y), name['dimension']))
-                
-                total_size += size
-            print(f'{common} size = {total_size}')
+        # Build histogram of size prefix sums.
+        prefix_hist = {}
+        total_sizes = [0] * len(names_variants)
+        for i, names in enumerate(names_variants):
+            for j, (name, decl) in enumerate(names):
+                # Record the offset of the var.
+                names_variants[i][j] = (name, decl, total_sizes[i])
 
+                typ = decl['typespec']
+                size = sizeof(typ)
+                if 'dimension' in decl:
+                    size *= int(reduce(lambda x, y: int(x) * int(y), decl['dimension']))
+                total_sizes[i] += size
+                if not (total_sizes[i] in prefix_hist):
+                    prefix_hist[total_sizes[i]] = 0
+                prefix_hist[total_sizes[i]] += 1
+                
+        # Get histogram keys with values equal to the
+        # number of variants (the common alignments).
+        alignments = {}
+        alignments[0] = len(names_variants)
+        for k, v in prefix_hist.items():
+            if v == len(names_variants):
+                alignments[k] = v
+        alignments[max(total_sizes)] = len(names_variants)
+        alignments = sorted(alignments.keys())
+        
+        # Prepare new containers for common variables
+        # grouped by alignments.
+        new_names_variants = [None] * len(names_variants)
+        for i in range(len(names_variants)):
+            new_names_variants[i] = [list()] * len(alignments)
+        for i, names in enumerate(names_variants):
+            for j, (name, decl, offset) in enumerate(names):
+                decl['name'] = name
+                for j in range(len(alignments)):
+                    if offset < alignments[j]:
+                        group = j - 1
+                new_names_variants[i][group].append(decl)
+
+        commons[common] = new_names_variants
+
+    with open("commons_aligned.json", 'w') as json_file:
+        json.dump(commons, json_file, indent=4)
+
+    print(f'{len(commons)} common blocks successfully aligned')
+
+
+def emit_modules():
+    with open('modules.json') as file:
+        commons = json.load(file)
+
+    for module, names_variants in module.items():
+        print(f'MODULE {module}')
+        print(f'END MODULE {module}')
+            
 if __name__ == "__main__":
     representations = 0
     if len(sys.argv) < 2:
@@ -135,8 +181,10 @@ if __name__ == "__main__":
         run_crackfortran()
     elif sys.argv[1] == '-commons':
         extract_common_blocks()
-    elif sys.argv[1] == '-pad':
-        pad_common_blocks()
+    elif sys.argv[1] == '-align':
+        align_common_blocks()
+    elif sys.argv[1] == '-emit':
+        emit_modules()
     else:
         print(f'Unknown command line argument: {sys.argv[1]}')
         sys.exit(1)
