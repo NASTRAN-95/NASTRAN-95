@@ -67,21 +67,20 @@ def extract_common_blocks():
                 continue
             commons = block['common']
             decls = block['vars']
+            routine = block['name']
             for common, names in commons.items():
                 for i, name in enumerate(names):
-                    names[i] = ( name, decls[name] )
+                    names[i] = decls[name]
+                    names[i]['name'] = name
+                    names[i]['routine'] = routine
+                    names[i]['source'] = source
                 if not common in extracted_commons:
                     extracted_commons[common] = []
                 if not (names in extracted_commons[common]):
                     extracted_commons[common].append(names)
-                if not (common in extracted_sources):
-                    extracted_sources[common] = []
-                extracted_sources[common].append(source)
 
     with open("commons.json", 'w') as json_file:
         json.dump(extracted_commons, json_file, indent=4)
-    with open("sources.json", 'w') as json_file:
-        json.dump(extracted_sources, json_file, indent=4)
 
     print(f'{len(extracted_commons)} common blocks successfully parsed:')
     stats = {}
@@ -119,9 +118,9 @@ def align_common_blocks():
         prefix_hist = {}
         total_sizes = [0] * len(names_variants)
         for i, names in enumerate(names_variants):
-            for j, (name, decl) in enumerate(names):
+            for j, decl in enumerate(names):
                 # Record the offset of the var.
-                names_variants[i][j] = (name, decl, total_sizes[i])
+                names_variants[i][j] = (decl, total_sizes[i])
 
                 typ = decl['typespec']
                 size = sizeof(typ)
@@ -148,8 +147,7 @@ def align_common_blocks():
         for i in range(len(names_variants)):
             new_names_variants[i] = [list()] * len(alignments)
         for i, names in enumerate(names_variants):
-            for j, (name, decl, offset) in enumerate(names):
-                decl['name'] = name
+            for j, (decl, offset) in enumerate(names):
                 for j in range(len(alignments)):
                     if offset < alignments[j]:
                         group = j - 1
@@ -162,6 +160,14 @@ def align_common_blocks():
 
     print(f'{len(commons)} common blocks successfully aligned')
 
+def optimize_common_blocks():
+    with open('commons_aligned.json') as file:
+        commons = json.load(file)
+
+    # For each decl make a dict of all unique names.
+    # The most popular name should become a module name,
+    # others should be used as aliases.
+    pass
 
 def emit_modules():
     with open('modules.json') as file:
@@ -183,6 +189,8 @@ if __name__ == "__main__":
         extract_common_blocks()
     elif sys.argv[1] == '-align':
         align_common_blocks()
+    elif sys.argv[1] == '-optimize':
+        optimize_common_blocks()
     elif sys.argv[1] == '-emit':
         emit_modules()
     else:
