@@ -159,24 +159,9 @@ def align_common_blocks():
     with open('commons.json') as file:
         commons = json.load(file)
     
-    # Since JSON serializes all tuples as lists,
-    # we have to manually re-create the tuples from loaded lists.
-    keys = {}
-    for common, values in commons['keys'].items():
-        if not (common in keys):
-            keys[common] = {}
-        for index, list_key in values.items():
-            dict_key = [list()] * len(list_key)
-            for i, decl in enumerate(list_key):
-                for j, attr in enumerate(decl):
-                    if type(attr[1]) is list:
-                        attr[1] = tuple(attr[1])
-                    dict_key[i].append(tuple(attr))
-                dict_key[i] = tuple(dict_key[i])
-
-            # Note: the keys and values remain swapped, as it is
-            # much easier to handle them this way in the algo below.            
-            keys[common][index] = dict_key
+    # Note: the keys and values remain swapped, as it is
+    # much easier to handle them this way in the algo below.            
+    keys = commons['keys']
     del commons['keys']
 
     for common, common_keys in keys.items():
@@ -217,6 +202,8 @@ def align_common_blocks():
                     if offset < alignments[j]:
                         group = j - 1
                 new_common_keys[group].append(decl)
+                
+                # TODO keep the offsets with the groups
 
             commons[common][index] = new_common_keys
 
