@@ -3,8 +3,7 @@
 # * all possible alternating / overlapping symbols with their,
 #   sizes and offsets, gathered from all objects
 # * find the most popular layout accross all users
-# * determine the possible datatypes (we can't get data types
-#   from object, can we still get them from the assembly?)
+# * determine the possible datatypes
 
 # TODO Final target:
 # 1) Emit one module that incorporates all representations in terms of sizes
@@ -32,7 +31,7 @@ def run_crackfortran():
     mds = os.popen(f'find {path}/mds -name "*.f90"').read().splitlines()
     mis = os.popen(f'find {path}/mis -name "*.f90"').read().splitlines()
 
-    sources = bd + mds + mis
+    sources = mds # bd + mds + mis
 
     # Parse all *.f90 source files with crackfortran.
     parsed = {}
@@ -49,6 +48,9 @@ def run_crackfortran():
         #
         # '/home/marcusmae/nasa/branches/nastran_f90/mis/pload3.f90'
         # still fails
+        #
+        # Note that for now we employ a dirty fix instead: the parent_block
+        # assignment is commented out in the crackfortan itself
 
     with open("crackfortran.json", 'w') as json_file:
         json.dump(parsed, json_file, indent=4)
@@ -59,8 +61,19 @@ def extract_common_blocks():
     with open('crackfortran.json') as file:
         parsed = json.load(file)
 
-    extracted_commons = {}
-    extracted_sources = {}
+    # The code below creates the following data structure:
+    # * A set of possible representations of a COMMON block,
+    #   each representation is a tuple of variable declarations
+    #   (only few properties such as name, type and dimensions)
+    # * A set of routine name and source file name pairs,
+    #   where each unique COMMON block representation have been seen.
+    # * The COMMON representations are assigned with indexes to make
+    #   keys for a separate routine-source index. These indexes are purely
+    #   artificial, and are used to avoid having COMMON blocks representations
+    #   as keys themselves at a later step.
+    commons_seen_in_code = {}
+    commons_representations = {}
+    nkeys = 0
     for source, blocks in parsed.items():
         for block in blocks:
             if not 'common' in block:
@@ -70,27 +83,54 @@ def extract_common_blocks():
             routine = block['name']
             for common, names in commons.items():
                 for i, name in enumerate(names):
-                    names[i] = decls[name]
-                    names[i]['name'] = name
-                    names[i]['routine'] = routine
-                    names[i]['source'] = source
-                if not common in extracted_commons:
-                    extracted_commons[common] = []
-                if not (names in extracted_commons[common]):
-                    extracted_commons[common].append(names)
+                    # Keep only declaration properties we are interested in.
+                    decl = {
+                        'name' : name,
+                        'typespec' : decls[name]['typespec']
+                    }
+                    if 'dimension' in decls[name]:
+                        decl['dimension'] = tuple(decls[name]['dimension'])
 
-    with open("commons.json", 'w') as json_file:
-        json.dump(extracted_commons, json_file, indent=4)
+                    # Tupling for use as keys.
+                    names[i] = tuple(decl.items())
 
-    print(f'{len(extracted_commons)} common blocks successfully parsed:')
+                if not common in commons_seen_in_code:
+                    commons_seen_in_code[common] = {}
+
+                # Tupling for use as keys.
+                common_representation = tuple(names)
+
+                if not (common in commons_representations):
+                    commons_representations[common] = {}
+                if not (common_representation in commons_representations[common]):
+                    commons_representations[common][common_representation] = nkeys
+                    commons_seen_in_code[common][nkeys] = []
+                    nkeys += 1
+
+                # Refer a routine-source pair, where this COMMON representation
+                # have been seen.
+                commons_seen_in_code[common][commons_representations[common][common_representation]].append((routine, source))
+
+    print(f'{len(commons_seen_in_code)} common blocks successfully parsed:')
     stats = {}
-    for common, representations in extracted_commons.items():
+    for common, representations in commons_seen_in_code.items():
         if not (len(representations) in stats):
             stats[len(representations)] = 0
         stats[len(representations)] += 1
 
     for representations, count in stats.items():
         print(f'{count} common blocks have {representations} versions')
+
+    # Swap the keys and values before writing out,
+    # because in JSON tuple cannot be a dict key.
+    # Furthermore, we will need to modify the keys
+    # in the next steps.
+    for common, common_representations in commons_representations.items():
+        commons_representations[common] = dict((v,k) for k,v in common_representations.items())
+    commons_seen_in_code['keys'] = commons_representations
+
+    with open("commons.json", 'w') as json_file:
+        json.dump(commons_seen_in_code, json_file, indent=4)
 
 def sizeof(typ):
     if typ == 'integer':
@@ -109,19 +149,46 @@ def sizeof(typ):
         raise Exception(f'Unknown type {typ}')
     return size
 
+# Locate the most common alignments between the var offsets of
+# different representations of the same COMMON block.
+# This way we prepare a waybill of how one unified representation
+# of COMMON block module should be sequenced: as unions within the
+# aligned segments, and as plain vars -- for fully matched simple
+# type vars alignment (of the same type).
 def align_common_blocks():
     with open('commons.json') as file:
         commons = json.load(file)
+    
+    # Since JSON serializes all tuples as lists,
+    # we have to manually re-create the tuples from loaded lists.
+    keys = {}
+    for common, values in commons['keys'].items():
+        if not (common in keys):
+            keys[common] = {}
+        for index, list_key in values.items():
+            dict_key = [list()] * len(list_key)
+            for i, decl in enumerate(list_key):
+                for j, attr in enumerate(decl):
+                    if type(attr[1]) is list:
+                        attr[1] = tuple(attr[1])
+                    dict_key[i].append(tuple(attr))
+                dict_key[i] = tuple(dict_key[i])
 
-    for common, names_variants in commons.items():
+            # Note: the keys and values remain swapped, as it is
+            # much easier to handle them this way in the algo below.            
+            keys[common][index] = dict_key
+    del commons['keys']
+
+    for common, common_keys in keys.items():
         # Build histogram of size prefix sums.
         prefix_hist = {}
-        total_sizes = [0] * len(names_variants)
-        for i, names in enumerate(names_variants):
-            for j, decl in enumerate(names):
+        total_sizes = [0] * len(common_keys)
+        for i, (index, key) in enumerate(common_keys.items()):
+            for j, decl in enumerate(key):
                 # Record the offset of the var.
-                names_variants[i][j] = (decl, total_sizes[i])
+                keys[common][index][j] = (decl, total_sizes[i])
 
+                decl = dict(decl)
                 typ = decl['typespec']
                 size = sizeof(typ)
                 if 'dimension' in decl:
@@ -134,26 +201,24 @@ def align_common_blocks():
         # Get histogram keys with values equal to the
         # number of variants (the common alignments).
         alignments = {}
-        alignments[0] = len(names_variants)
+        alignments[0] = len(common_keys)
         for k, v in prefix_hist.items():
-            if v == len(names_variants):
+            if v == len(common_keys):
                 alignments[k] = v
-        alignments[max(total_sizes)] = len(names_variants)
+        alignments[max(total_sizes)] = len(common_keys)
         alignments = sorted(alignments.keys())
         
         # Prepare new containers for common variables
         # grouped by alignments.
-        new_names_variants = [None] * len(names_variants)
-        for i in range(len(names_variants)):
-            new_names_variants[i] = [list()] * len(alignments)
-        for i, names in enumerate(names_variants):
-            for j, (decl, offset) in enumerate(names):
+        for (index, key) in common_keys.items():
+            new_common_keys = [list()] * len(alignments)
+            for (decl, offset) in key:
                 for j in range(len(alignments)):
                     if offset < alignments[j]:
                         group = j - 1
-                new_names_variants[i][group].append(decl)
+                new_common_keys[group].append(decl)
 
-        commons[common] = new_names_variants
+            commons[common][index] = new_common_keys
 
     with open("commons_aligned.json", 'w') as json_file:
         json.dump(commons, json_file, indent=4)
@@ -164,10 +229,28 @@ def optimize_common_blocks():
     with open('commons_aligned.json') as file:
         commons = json.load(file)
 
+    # Transpose to have representations inside groups,
+    # instead of groups in representations.
+    transposed_commons = {}
+    for common, names_variants in commons.items():
+        ngroups = len(names_variants[0])
+        transposed_common = [list()] * ngroups
+        for i, groups in enumerate(names_variants):
+            for j, group in enumerate(groups):
+                transposed_common[j].append(group)
+
+        transposed_commons[common] = transposed_common
+
+    # TODO Print first common as an example.
+
+    sys.exit(1)
+
     # For each decl make a dict of all unique names.
     # The most popular name should become a module name,
     # others should be used as aliases.
-    pass
+    for common, groups in transposed_commons.items():
+        for group in groups:
+            pass
 
 def emit_modules():
     with open('modules.json') as file:
